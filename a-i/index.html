@@ -1,0 +1,641 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>方果 POD — AI驱动的POD生产与全球履约平台</title>
+<meta name="description" content="方果POD连接AI做图、商品铺货、柔性生产、扫码发货与全球物流，帮助POD工厂和跨境商家真正跑通一件代发。">
+<link rel="icon" href="assets/logo.png">
+<link rel="stylesheet" href="assets/design-system.css">
+</head>
+<body class="noise">
+
+<!-- ============== NAV ============== -->
+<nav class="nav">
+  <a href="index.html" class="nav__brand">
+    <svg class="mark" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+      <rect x="14" y="28" width="72" height="58" rx="10" fill="#E8556B"/>
+      <rect x="46" y="14" width="8" height="22" rx="2" fill="#2A3441"/>
+      <rect x="34" y="32" width="32" height="6" rx="1.5" fill="#2A3441"/>
+      <ellipse cx="62" cy="14" rx="9" ry="6" transform="rotate(-30 62 14)" fill="#6FBE3F"/>
+    </svg>
+    方果<small>POD</small>
+  </a>
+  <div class="nav__links">
+    <a href="index.html" class="active">首页</a>
+    <a href="ai.html">AI铺货</a>
+    <a href="factory.html">工厂方案</a>
+    <a href="merchant.html">商家方案</a>
+    <a href="industries.html">行业方案</a>
+    <a href="ecosystem.html">平台与物流</a>
+    <a href="cases.html">客户案例</a>
+    <a href="about.html">关于方果</a>
+  </div>
+  <div class="nav__cta">
+    <a href="#" class="nav__login">登录</a>
+    <a href="#contact" class="btn btn--coral btn--small">预约演示 <span class="arrow">→</span></a>
+  </div>
+</nav>
+
+<!-- ============== HERO ============== -->
+<section class="hero">
+  <div class="hero__grid"></div>
+  <div class="hero__inner">
+    <div>
+      <div class="eyebrow fade-up">FANGGUO POD ／ 一件代发的基础设施</div>
+      <h1 class="display hero__title fade-up d1">
+        <span class="small">AI驱动的POD生产与全球履约平台</span>
+        让<em>一件代发</em><br>真正落地。
+      </h1>
+      <p class="hero__sub fade-up d2">
+        方果POD连接 AI 做图、商品铺货、柔性生产、扫码发货与全球物流，
+        帮助 POD 工厂和跨境商家真正跑通一件代发。覆盖服装、家纺、手机壳、礼品、日用品等所有 POD 行业。
+      </p>
+      <div class="hero__cta fade-up d3">
+        <a href="#contact" class="btn btn--primary">预约演示 <span class="arrow">→</span></a>
+        <a href="#engines" class="btn btn--ghost">查看解决方案</a>
+      </div>
+      <div class="hero__stats fade-up d4">
+        <div class="hero__stat">
+          <div class="num">10,000<em>+</em></div>
+          <div class="lab">客户服务经验 / Clients</div>
+        </div>
+        <div class="hero__stat">
+          <div class="num">10<em>亿+</em></div>
+          <div class="lab">订单处理能力 / Orders</div>
+        </div>
+        <div class="hero__stat">
+          <div class="num">全球<em>·</em></div>
+          <div class="lab">主流跨境平台与物流 / Global</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Visual: Geometric apple composition -->
+    <div class="hero__visual fade-up d2">
+      <svg viewBox="0 0 600 600" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto;">
+        <defs>
+          <pattern id="dots" x="0" y="0" width="14" height="14" patternUnits="userSpaceOnUse">
+            <circle cx="2" cy="2" r="1" fill="#2A3441" opacity="0.18"/>
+          </pattern>
+        </defs>
+
+        <!-- Background dotted square -->
+        <rect x="40" y="60" width="520" height="500" fill="url(#dots)"/>
+
+        <!-- Decorative ring -->
+        <g style="transform-origin:300px 300px; animation: spinSlow 60s linear infinite;">
+          <circle cx="300" cy="300" r="240" fill="none" stroke="#2A3441" stroke-width="1" stroke-dasharray="2 8" opacity="0.35"/>
+        </g>
+
+        <!-- Mono labels -->
+        <text x="60" y="100" font-family="JetBrains Mono, monospace" font-size="11" fill="#6B7280" letter-spacing="2">FG/POD ─ 001</text>
+        <text x="540" y="100" font-family="JetBrains Mono, monospace" font-size="11" fill="#6B7280" letter-spacing="2" text-anchor="end">v.2026</text>
+        <text x="60" y="555" font-family="JetBrains Mono, monospace" font-size="11" fill="#6B7280" letter-spacing="2">A·I × P·O·D × O·E·M</text>
+        <text x="540" y="555" font-family="JetBrains Mono, monospace" font-size="11" fill="#6B7280" letter-spacing="2" text-anchor="end">FANG·GUO</text>
+
+        <!-- Big apple body (geometric) -->
+        <g style="animation: drift 8s ease-in-out infinite;">
+          <rect x="160" y="220" width="280" height="240" rx="38" fill="#E8556B"/>
+          <rect x="288" y="140" width="24" height="80" rx="6" fill="#2A3441"/>
+          <rect x="240" y="208" width="120" height="22" rx="6" fill="#2A3441"/>
+          <ellipse cx="358" cy="138" rx="38" ry="22" transform="rotate(-30 358 138)" fill="#6FBE3F"/>
+          <ellipse cx="358" cy="138" rx="32" ry="16" transform="rotate(-30 358 138)" fill="none" stroke="#4F9A24" stroke-width="1" opacity="0.5"/>
+        </g>
+
+        <!-- Small floating squares - represent POD products -->
+        <g opacity="0.85">
+          <rect x="80" y="140" width="44" height="44" rx="6" fill="none" stroke="#2A3441" stroke-width="1.5"/>
+          <text x="102" y="167" font-family="JetBrains Mono, monospace" font-size="9" fill="#2A3441" text-anchor="middle">T·SHIRT</text>
+        </g>
+        <g opacity="0.85">
+          <rect x="490" y="180" width="44" height="44" rx="6" fill="none" stroke="#2A3441" stroke-width="1.5"/>
+          <text x="512" y="207" font-family="JetBrains Mono, monospace" font-size="9" fill="#2A3441" text-anchor="middle">CASE</text>
+        </g>
+        <g opacity="0.85">
+          <rect x="100" y="430" width="44" height="44" rx="6" fill="none" stroke="#2A3441" stroke-width="1.5"/>
+          <text x="122" y="457" font-family="JetBrains Mono, monospace" font-size="9" fill="#2A3441" text-anchor="middle">MUG</text>
+        </g>
+        <g opacity="0.85">
+          <rect x="470" y="430" width="44" height="44" rx="6" fill="none" stroke="#2A3441" stroke-width="1.5"/>
+          <text x="492" y="457" font-family="JetBrains Mono, monospace" font-size="9" fill="#2A3441" text-anchor="middle">BAG</text>
+        </g>
+
+        <g stroke="#2A3441" stroke-width="0.8" opacity="0.3" stroke-dasharray="3 4">
+          <line x1="124" y1="162" x2="200" y2="240"/>
+          <line x1="490" y1="202" x2="420" y2="250"/>
+          <line x1="144" y1="452" x2="200" y2="430"/>
+          <line x1="470" y1="452" x2="420" y2="430"/>
+        </g>
+
+        <circle cx="300" cy="340" r="4" fill="#fff"/>
+        <circle cx="300" cy="340" r="4" fill="none" stroke="#fff" stroke-width="1.5">
+          <animate attributeName="r" from="4" to="20" dur="2s" repeatCount="indefinite"/>
+          <animate attributeName="opacity" from="1" to="0" dur="2s" repeatCount="indefinite"/>
+        </circle>
+      </svg>
+    </div>
+  </div>
+</section>
+
+<!-- ============== SCROLLING MARQUEE ============== -->
+<div class="marquee">
+  <div class="marquee__track">
+    <span class="marquee__item">满印服装</span>
+    <span class="marquee__item">手机壳</span>
+    <span class="marquee__item">家居家纺</span>
+    <span class="marquee__item">水杯日用品</span>
+    <span class="marquee__item">装饰画</span>
+    <span class="marquee__item">文创礼品</span>
+    <span class="marquee__item">3C定制</span>
+    <span class="marquee__item">铁皮画</span>
+    <span class="marquee__item">满印服装</span>
+    <span class="marquee__item">手机壳</span>
+    <span class="marquee__item">家居家纺</span>
+    <span class="marquee__item">水杯日用品</span>
+    <span class="marquee__item">装饰画</span>
+    <span class="marquee__item">文创礼品</span>
+    <span class="marquee__item">3C定制</span>
+    <span class="marquee__item">铁皮画</span>
+  </div>
+</div>
+
+<!-- ============== QUOTE / WHY POD NEEDS THIS ============== -->
+<section class="quote-section">
+  <div class="wrap">
+    <div class="eyebrow">02 ／ 我们解决的问题</div>
+    <div class="quote-grid">
+      <div>
+        <h2 class="quote-title">
+          方果 POD，<br>让一件代发<br><em>真正落地。</em>
+        </h2>
+      </div>
+      <div>
+        <ol class="quote-pts">
+          <li>一张图，要变成商品图、生产图、裁片图。</li>
+          <li>一个订单，要经过平台、商家、工厂、物流。</li>
+          <li>一家工厂，要同时处理多平台、多商家、多品类、多工艺。</li>
+        </ol>
+        <div class="quote-conclude">
+          所以，POD 需要的不只是 ERP，<br>
+          而是一套真正懂 POD 业务的<strong>生产与履约平台</strong>。
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============== FOUR ENGINES ============== -->
+<section class="section" id="engines">
+  <div class="wrap">
+    <div class="engines-head">
+      <h2>方果 POD<br><em>四大引擎</em></h2>
+      <p>
+        从 AI 内容生成、商品铺货，到柔性生产与全球履约。
+        方果把 POD 业务的四个核心环节，做成可衔接、可调度、可数据化的引擎。
+      </p>
+    </div>
+
+    <div class="engine">
+      <div class="engine__no">01</div>
+      <div class="engine__main">
+        <h3>AI 内容引擎</h3>
+        <div class="engine__tag">From a single image, to sellable products.</div>
+        <p class="engine__desc">
+          方果 POD 把 AI 能力嵌入业务流程，不只是生成一张好看的图——
+          而是直接生成<strong>能上架、能生产、能发货</strong>的完整素材。
+        </p>
+        <div class="engine__quote">
+          方果 POD 的 AI，不停留在"会画图"，而是直接进入<br>"能卖、能做、能发"的业务闭环。
+        </div>
+      </div>
+      <div class="engine__feat">
+        <span class="feat-chip">AI 生图</span>
+        <span class="feat-chip">AI 提取印花</span>
+        <span class="feat-chip">AI 扩图适配</span>
+        <span class="feat-chip">自动套图</span>
+        <span class="feat-chip">生产图生成</span>
+        <span class="feat-chip">图片裂变</span>
+        <span class="feat-chip">以图搜图</span>
+      </div>
+    </div>
+
+    <div class="engine">
+      <div class="engine__no">02</div>
+      <div class="engine__main">
+        <h3>商品铺货引擎</h3>
+        <div class="engine__tag">List fast, test fast, scale fast.</div>
+        <p class="engine__desc">
+          POD 商家的增长，核心在于<strong>选品快、做图快、上架快、测试快</strong>。
+          方果 POD 把图片、模板、商品、平台规则连接起来，实现大批量、低人工的商品铺货。
+        </p>
+        <div class="engine__quote">
+          让商家不再卡在做图和上架，<br>而是把更多时间用在测款、选品和增长。
+        </div>
+      </div>
+      <div class="engine__feat">
+        <span class="feat-chip">多平台刊登</span>
+        <span class="feat-chip">多店铺多模板套图</span>
+        <span class="feat-chip">商品图批量生成</span>
+        <span class="feat-chip">POD 商品编码</span>
+        <span class="feat-chip">SKU 自动组合</span>
+        <span class="feat-chip">标题与描述辅助生成</span>
+        <span class="feat-chip">Shopify</span>
+        <span class="feat-chip">TikTok Shop</span>
+        <span class="feat-chip">Amazon</span>
+        <span class="feat-chip">Temu</span>
+      </div>
+    </div>
+
+    <div class="engine">
+      <div class="engine__no">03</div>
+      <div class="engine__main">
+        <h3>柔性生产引擎</h3>
+        <div class="engine__tag">One piece. One print. One ship.</div>
+        <p class="engine__desc">
+          POD 工厂每天面对海量小单、定制图、不同品类、不同工艺。方果把订单、图片、工序、人员、设备、物料连接起来，帮助工厂实现<strong>按需生产、精准报工、实时追踪</strong>。
+        </p>
+        <div class="engine__quote">
+          方果把系统当生产设备来做，<br>让 POD 工厂既能接散单，也能做规模化交付。
+        </div>
+      </div>
+      <div class="engine__feat">
+        <span class="feat-chip">订单自动同步</span>
+        <span class="feat-chip">自动识别商品</span>
+        <span class="feat-chip">自动匹配图片</span>
+        <span class="feat-chip">自动排版拼版</span>
+        <span class="feat-chip">拉图打印</span>
+        <span class="feat-chip">扫码报工</span>
+        <span class="feat-chip">计件工资</span>
+        <span class="feat-chip">生产进度追踪</span>
+        <span class="feat-chip">一键补片</span>
+        <span class="feat-chip">退货管理</span>
+        <span class="feat-chip">库存采购 PDA</span>
+        <span class="feat-chip">MES / 吊挂对接</span>
+        <span class="feat-chip">工厂数据看板</span>
+      </div>
+    </div>
+
+    <div class="engine">
+      <div class="engine__no">04</div>
+      <div class="engine__main">
+        <h3>全球履约引擎</h3>
+        <div class="engine__tag">Connect platforms, factories, logistics.</div>
+        <p class="engine__desc">
+          跨境 POD 不是只把货做出来，还要按平台规则、物流规则、时效规则完成履约。方果打通订单、面单、分包、扫码、物流和发货回传，<strong>提升履约稳定性</strong>。
+        </p>
+        <div class="engine__quote">
+          连接平台、工厂、物流，<br>让 POD 订单稳定发往全球。
+        </div>
+      </div>
+      <div class="engine__feat">
+        <span class="feat-chip">多平台订单同步</span>
+        <span class="feat-chip">Y2 / JIT / 全托管</span>
+        <span class="feat-chip">扫码发货</span>
+        <span class="feat-chip">一物一码</span>
+        <span class="feat-chip">多件分包</span>
+        <span class="feat-chip">自动匹配物流渠道</span>
+        <span class="feat-chip">超时预警</span>
+        <span class="feat-chip">发货回传</span>
+        <span class="feat-chip">全球物流商对接</span>
+        <span class="feat-chip">工厂·商家·货代协同</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============== AUDIENCE ============== -->
+<section>
+  <div class="audience">
+    <div class="audience__col">
+      <div class="eyebrow">FOR FACTORY ／ 为 POD 工厂打造</div>
+      <h3>接全球订单，<br>做<em>智能工厂。</em></h3>
+      <p>
+        方果 POD 帮助工厂从传统加工升级为一件代发智能工厂，支持订单自动同步、图片自动处理、扫码报工、自动分拣、扫码发货和生产数据看板。
+      </p>
+      <div class="audience__suit">
+        <b>适合 ──</b> 满印服装工厂 ／ 手机壳工厂 ／ 家居家纺工厂 ／ 礼品定制工厂 ／ 日用品工厂
+      </div>
+      <a href="factory.html" class="btn btn--primary">查看工厂方案 <span class="arrow">→</span></a>
+    </div>
+
+    <div class="audience__col">
+      <div class="eyebrow">FOR MERCHANT ／ 为跨境商家打造</div>
+      <h3>更快做图，更快铺货，<br><em>更稳履约。</em></h3>
+      <p>
+        方果 POD 帮助商家用 AI 生成图片、批量套图、快速上架，并把订单自动交给 POD 工厂生产发货。
+      </p>
+      <div class="audience__suit">
+        <b>适合 ──</b> Shopify ／ TikTok Shop ／ Amazon ／ Temu ／ POD 铺货团队 ／ 设计师创业团队
+      </div>
+      <a href="merchant.html" class="btn btn--primary">查看商家方案 <span class="arrow">→</span></a>
+    </div>
+  </div>
+</section>
+
+<!-- ============== AI BLOCK ============== -->
+<section class="ai-section">
+  <div class="wrap">
+    <div class="ai-grid">
+      <div>
+        <div class="eyebrow">06 ／ AI × POD CLOSED LOOP</div>
+        <h2>AI 不止生成图片，<br><em>而是进入POD<br>业务闭环。</em></h2>
+        <p style="font-size:17px;line-height:1.75;color:rgba(255,255,255,0.85);max-width:520px;">
+          方果 AI 围绕 POD 真实流程设计：从商品图提取印花图，到扩图适配版型；从上架效果图，到生产裁片图；从爆款图片裂变，到多品类铺货。让 AI 真正服务销售、生产和履约。
+        </p>
+        <div style="margin-top:36px;">
+          <a href="ai.html" class="btn" style="background:white;color:var(--coral);">了解 AI 铺货 <span class="arrow">→</span></a>
+        </div>
+      </div>
+      <div>
+        <ul class="ai-flow">
+          <li>商品图 → 提取印花图</li>
+          <li>印花图 → 扩图适配版型</li>
+          <li>版型 → 上架效果图</li>
+          <li>效果图 → 生产裁片图</li>
+          <li>裁片图 → 工厂下发生产</li>
+          <li>爆款图案 → 批量裂变 → 多品类铺货</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============== INDUSTRIES ============== -->
+<section class="section">
+  <div class="wrap">
+    <div class="engines-head">
+      <h2>覆盖多个<br><em>POD 行业。</em></h2>
+      <p>从满印服装到亚克力周边，从手机壳到家居家纺，方果为不同 POD 品类提供端到端的方案。</p>
+    </div>
+    <div class="industries-grid">
+      <a href="industries.html" class="ind-card">
+        <div>
+          <div class="ind-card__num">01 ／ APPAREL</div>
+          <div class="ind-card__title">满印服装<em>3D All-over Print</em></div>
+        </div>
+        <div class="ind-card__arrow">↗</div>
+      </a>
+      <a href="industries.html" class="ind-card">
+        <div>
+          <div class="ind-card__num">02 ／ T-SHIRT</div>
+          <div class="ind-card__title">印花T恤<em>DTG / DTF</em></div>
+        </div>
+        <div class="ind-card__arrow">↗</div>
+      </a>
+      <a href="industries.html" class="ind-card">
+        <div>
+          <div class="ind-card__num">03 ／ 3C</div>
+          <div class="ind-card__title">手机壳与3C定制<em>Phone Case & 3C</em></div>
+        </div>
+        <div class="ind-card__arrow">↗</div>
+      </a>
+      <a href="industries.html" class="ind-card">
+        <div>
+          <div class="ind-card__num">04 ／ MUG</div>
+          <div class="ind-card__title">水杯定制<em>Mugs & Tumblers</em></div>
+        </div>
+        <div class="ind-card__arrow">↗</div>
+      </a>
+      <a href="industries.html" class="ind-card">
+        <div>
+          <div class="ind-card__num">05 ／ HOME</div>
+          <div class="ind-card__title">家居用品<em>Home & Living</em></div>
+        </div>
+        <div class="ind-card__arrow">↗</div>
+      </a>
+      <a href="industries.html" class="ind-card">
+        <div>
+          <div class="ind-card__num">06 ／ TIN SIGN</div>
+          <div class="ind-card__title">铁皮画<em>Vintage Tin Sign</em></div>
+        </div>
+        <div class="ind-card__arrow">↗</div>
+      </a>
+      <a href="industries.html" class="ind-card">
+        <div>
+          <div class="ind-card__num">07 ／ KITCHEN</div>
+          <div class="ind-card__title">厨房用品<em>Kitchen Goods</em></div>
+        </div>
+        <div class="ind-card__arrow">↗</div>
+      </a>
+      <a href="industries.html" class="ind-card">
+        <div>
+          <div class="ind-card__num">08 ／ BAG</div>
+          <div class="ind-card__title">白墨烫画箱包<em>Heat Transfer Bag</em></div>
+        </div>
+        <div class="ind-card__arrow">↗</div>
+      </a>
+      <a href="industries.html" class="ind-card">
+        <div>
+          <div class="ind-card__num">09 ／ DTG</div>
+          <div class="ind-card__title">数码印服装<em>Digital Print</em></div>
+        </div>
+        <div class="ind-card__arrow">↗</div>
+      </a>
+      <a href="industries.html" class="ind-card">
+        <div>
+          <div class="ind-card__num">10 ／ ACRYLIC</div>
+          <div class="ind-card__title">亚克力周边<em>Acrylic Charms</em></div>
+        </div>
+        <div class="ind-card__arrow">↗</div>
+      </a>
+      <a href="industries.html" class="ind-card">
+        <div>
+          <div class="ind-card__num">11 ／ UMBRELLA</div>
+          <div class="ind-card__title">雨伞定制<em>Custom Umbrella</em></div>
+        </div>
+        <div class="ind-card__arrow">↗</div>
+      </a>
+      <a href="industries.html" class="ind-card">
+        <div>
+          <div class="ind-card__num">12 ／ SHOES & HATS</div>
+          <div class="ind-card__title">鞋帽定制<em>Footwear & Cap</em></div>
+        </div>
+        <div class="ind-card__arrow">↗</div>
+      </a>
+      <a href="industries.html" class="ind-card">
+        <div>
+          <div class="ind-card__num">13 ／ FRAME</div>
+          <div class="ind-card__title">相框相册<em>Frame & Album</em></div>
+        </div>
+        <div class="ind-card__arrow">↗</div>
+      </a>
+      <a href="industries.html" class="ind-card">
+        <div>
+          <div class="ind-card__num">14 ／ GIFT</div>
+          <div class="ind-card__title">礼品饰品<em>Gifts & Accessories</em></div>
+        </div>
+        <div class="ind-card__arrow">↗</div>
+      </a>
+      <a href="industries.html" class="ind-card" style="background:var(--cream-deep);">
+        <div>
+          <div class="ind-card__num">+</div>
+          <div class="ind-card__title">更多柔性定制品类<em>View all →</em></div>
+        </div>
+        <div class="ind-card__arrow">↗</div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ============== ECOSYSTEM ============== -->
+<section class="section" style="background: var(--cream-deep);">
+  <div class="wrap">
+    <div class="engines-head">
+      <h2>连接全球平台<br>与<em>物流生态。</em></h2>
+      <p>
+        方果 POD 持续对接主流电商平台、物流商、货代和工厂生态，帮助客户降低平台对接、订单履约和全球发货成本。
+      </p>
+    </div>
+
+    <div class="eco-block">
+      <h4>跨境平台 ／ Cross-border Platforms</h4>
+      <div class="eco-tags">
+        <span class="eco-tag">Temu</span>
+        <span class="eco-tag">SHEIN</span>
+        <span class="eco-tag">TikTok Shop</span>
+        <span class="eco-tag">Amazon</span>
+        <span class="eco-tag">Shopify</span>
+        <span class="eco-tag">WooCommerce</span>
+        <span class="eco-tag">AliExpress</span>
+        <span class="eco-tag">Shopee</span>
+        <span class="eco-tag">Lazada</span>
+        <span class="eco-tag">Ozon</span>
+        <span class="eco-tag">Mercado Libre</span>
+      </div>
+    </div>
+
+    <div class="eco-block">
+      <h4>履约模式 ／ Fulfillment Models</h4>
+      <div class="eco-tags">
+        <span class="eco-tag">Y2</span>
+        <span class="eco-tag">JIT</span>
+        <span class="eco-tag">全托管</span>
+        <span class="eco-tag">半托管</span>
+        <span class="eco-tag">平台物流</span>
+        <span class="eco-tag">货代物流</span>
+        <span class="eco-tag">国内直发国外</span>
+        <span class="eco-tag">海外本土物流</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============== WHY US ============== -->
+<section class="section">
+  <div class="wrap">
+    <div class="engines-head">
+      <h2>为什么<br>选择<em>方果 POD？</em></h2>
+      <p>长期服务 POD、定制、印花、一件代发行业。我们不只懂软件，更懂 POD 的真实场景。</p>
+    </div>
+    <div class="why-grid">
+      <div class="why-card">
+        <div class="why-card__num">01</div>
+        <h4>懂 POD</h4>
+        <p>长期服务 POD、定制、印花、一件代发行业，理解一件一图、一件一发的复杂流程。</p>
+      </div>
+      <div class="why-card">
+        <div class="why-card__num">02</div>
+        <h4>懂工厂</h4>
+        <p>从生产、报工、分拣、打包、发货到计件工资，深入工厂真实场景。</p>
+      </div>
+      <div class="why-card">
+        <div class="why-card__num">03</div>
+        <h4>懂平台</h4>
+        <p>持续对接国内外主流电商平台，适配不同订单模式和履约规则。</p>
+      </div>
+      <div class="why-card">
+        <div class="why-card__num">04</div>
+        <h4>懂 AI</h4>
+        <p>把 AI 放进 POD 业务流程，而不是停留在单点生图工具。</p>
+      </div>
+      <div class="why-card">
+        <div class="why-card__num">05</div>
+        <h4>懂增长</h4>
+        <p>帮助商家和工厂从"接订单"升级为"获得订单、生产订单、履约订单"的完整能力。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============== FINAL CTA ============== -->
+<section class="final" id="contact">
+  <div class="wrap final__inner">
+    <div class="eyebrow" style="justify-content:center;color:rgba(255,255,255,0.6);">FANGGUO POD</div>
+    <h2>让 POD 的生意，<br><em>更简单。</em></h2>
+    <p>
+      无论你是 POD 工厂、跨境商家、平台伙伴，还是产业园区，
+      方果 POD 都可以帮你建立更高效的一件代发能力。
+    </p>
+    <div class="final__cta">
+      <a href="#" class="btn btn--primary">预约演示</a>
+      <a href="#" class="btn btn--ghost">联系顾问</a>
+      <a href="#" class="btn btn--ghost">申请生态合作</a>
+    </div>
+  </div>
+</section>
+
+<!-- ============== FOOTER ============== -->
+<footer class="footer">
+  <div class="footer__grid">
+    <div>
+      <div class="footer__brand">
+        <svg class="mark" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+          <rect x="14" y="28" width="72" height="58" rx="10" fill="#E8556B"/>
+          <rect x="46" y="14" width="8" height="22" rx="2" fill="#FAF7F2"/>
+          <rect x="34" y="32" width="32" height="6" rx="1.5" fill="#FAF7F2"/>
+          <ellipse cx="62" cy="14" rx="9" ry="6" transform="rotate(-30 62 14)" fill="#6FBE3F"/>
+        </svg>
+        方果 POD
+      </div>
+      <p style="font-size:13.5px;line-height:1.7;max-width:300px;color:rgba(250,247,242,0.55);">
+        方果POD隶属于深圳市渔童科技有限公司。<br>
+        AI驱动的POD生产与全球履约平台。
+      </p>
+    </div>
+    <div>
+      <h5>产品</h5>
+      <ul>
+        <li><a href="ai.html">AI 铺货</a></li>
+        <li><a href="factory.html">柔性生产</a></li>
+        <li><a href="ecosystem.html">全球履约</a></li>
+        <li><a href="merchant.html">商家工具</a></li>
+      </ul>
+    </div>
+    <div>
+      <h5>方案</h5>
+      <ul>
+        <li><a href="factory.html">工厂方案</a></li>
+        <li><a href="merchant.html">商家方案</a></li>
+        <li><a href="industries.html">行业方案</a></li>
+        <li><a href="ecosystem.html">平台与物流</a></li>
+      </ul>
+    </div>
+    <div>
+      <h5>资源</h5>
+      <ul>
+        <li><a href="cases.html">客户案例</a></li>
+        <li><a href="#">使用文档</a></li>
+        <li><a href="#">API 接口</a></li>
+        <li><a href="about.html">关于方果</a></li>
+      </ul>
+    </div>
+    <div>
+      <h5>联系</h5>
+      <ul>
+        <li><a href="#">预约演示</a></li>
+        <li><a href="#">联系销售</a></li>
+        <li><a href="#">生态合作</a></li>
+        <li><a href="#">加入我们</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer__bottom">
+    <span>© 2026 深圳市渔童科技有限公司 ／ FANGGUO POD</span>
+    <span>粤ICP备 XXXXXXXX 号 · MADE FOR POD</span>
+  </div>
+</footer>
+
+<script src="assets/main.js"></script>
+</body>
+</html>
