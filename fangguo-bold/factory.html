@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>工厂方案 — 方果 POD</title>
+<meta name="description" content="方果 POD 工厂方案:把人力 / 经验 / 手工排产升级为系统化 / 数据化 / AI 调度。柔性产线 / 扫码出货 / 多平台对接。">
+<link rel="icon" href="assets/logo.png">
+<link rel="stylesheet" href="assets/styles.css">
+</head>
+<body>
+
+<nav class="nav">
+  <div class="nav__inner">
+    <a href="index.html" class="nav__brand">
+      <svg class="mark" viewBox="0 0 100 100">
+        <rect x="14" y="28" width="72" height="58" rx="14" fill="#fff"/>
+        <rect x="46" y="14" width="8" height="22" rx="2" fill="#1a1a1a"/>
+        <rect x="34" y="32" width="32" height="6" rx="2" fill="#1a1a1a"/>
+        <ellipse cx="62" cy="14" rx="9" ry="6" transform="rotate(-30 62 14)" fill="#1a1a1a"/>
+      </svg>
+      方果<small>POD</small>
+    </a>
+    <div class="nav__links">
+      <a href="index.html">首页</a>
+      <a href="ai.html">AI 铺货</a>
+      <a href="factory.html" class="active">工厂方案</a>
+      <a href="merchant.html">商家方案</a>
+      <a href="industries.html">行业</a>
+      <a href="ecosystem.html">生态</a>
+      <a href="cases.html">案例</a>
+      <a href="about.html">关于</a>
+    </div>
+    <div class="nav__lang"><span class="on">中</span><span>EN</span></div>
+  </div>
+</nav>
+
+<section class="sub-hero">
+  <div class="sub-hero__inner">
+    <div class="reveal in">
+      <div class="slice-h-en" style="font-size:clamp(34px,4vw,50px)"><span>FAB</span><span>RYKA</span></div>
+      <h1 style="margin-top:16px">让<span class="accent">工厂</span>,<br>有能力<br>接 POD 单。</h1>
+      <p>POD 不是把货卖到海外这么简单。真正难的是工厂端——小单、多 SKU、混合工艺、扫码出货、平台规则。方果把这些复杂度,全部系统化。</p>
+      <div class="hero__cta" style="margin-top:24px">
+        <a href="#capability" class="btn btn--primary">能力清单<span class="dot"></span></a>
+        <a href="cases.html" class="btn btn--ghost">工厂案例</a>
+      </div>
+    </div>
+    <div class="sub-hero__visual reveal in">
+      <svg viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg">
+        <!-- factory floor lines -->
+        <g stroke="#1a1a1a" stroke-width="1" fill="none" opacity="0.3">
+          <line x1="20" y1="50" x2="380" y2="50"/>
+          <line x1="20" y1="100" x2="380" y2="100"/>
+          <line x1="20" y1="150" x2="380" y2="150"/>
+          <line x1="20" y1="200" x2="380" y2="200"/>
+          <line x1="20" y1="250" x2="380" y2="250"/>
+        </g>
+        <!-- machines -->
+        <g>
+          <rect x="40" y="80" width="80" height="50" fill="#1a1a1a"/>
+          <rect x="48" y="88" width="64" height="34" fill="#fafafa"/>
+          <text x="80" y="110" font-family="Inter" font-size="11" font-weight="900" fill="#1a1a1a" text-anchor="middle">PRINT</text>
+          <circle cx="50" cy="138" r="3" fill="#d83a3a"/>
+        </g>
+        <g>
+          <rect x="160" y="80" width="80" height="50" fill="#fff" stroke="#1a1a1a" stroke-width="2"/>
+          <text x="200" y="112" font-family="Inter" font-size="11" font-weight="900" fill="#1a1a1a" text-anchor="middle">CUT</text>
+          <circle cx="170" cy="138" r="3" fill="#d83a3a"/>
+        </g>
+        <g>
+          <rect x="280" y="80" width="80" height="50" fill="#d83a3a"/>
+          <text x="320" y="112" font-family="Inter" font-size="11" font-weight="900" fill="#fff" text-anchor="middle">SCAN</text>
+          <circle cx="290" cy="138" r="3" fill="#1a1a1a"/>
+        </g>
+        <!-- conveyor -->
+        <g>
+          <rect x="40" y="180" width="320" height="20" fill="none" stroke="#1a1a1a" stroke-width="1"/>
+          <rect x="50" y="184" width="20" height="12" fill="#1a1a1a"/>
+          <rect x="90" y="184" width="20" height="12" fill="#1a1a1a"/>
+          <rect x="130" y="184" width="20" height="12" fill="#1a1a1a"/>
+          <rect x="170" y="184" width="20" height="12" fill="#d83a3a"/>
+          <rect x="210" y="184" width="20" height="12" fill="#1a1a1a"/>
+          <rect x="250" y="184" width="20" height="12" fill="#1a1a1a"/>
+        </g>
+        <text x="200" y="240" font-family="Inter" font-size="10" font-weight="700" fill="#1a1a1a" text-anchor="middle" letter-spacing="3">FLEXIBLE PRODUCTION LINE</text>
+      </svg>
+    </div>
+  </div>
+</section>
+
+<!-- 三步走 -->
+<section class="section">
+  <div class="wrap">
+    <div class="section__grid">
+      <div class="reveal">
+        <div class="slice-h"><span class="l1">三</span><span class="l2">步</span><span class="l3">走</span></div>
+        <div class="slice-h-en" style="font-size:clamp(28px,3.4vw,42px);margin-top:12px"><span>3</span><span>STEP</span><span>PLAN</span></div>
+      </div>
+      <div class="reveal">
+        <div class="step-3">
+          <div class="step-cell">
+            <div class="step-cell__no">STEP 01</div>
+            <h4>柔性产线改造</h4>
+            <p>从单一品类大批量,升级为多品类小批量。生产排产 / 物料 / 工序节拍全部数字化。</p>
+            <div class="chips"><span class="chip">MES</span><span class="chip">数字化看板</span><span class="chip">柔性产线</span><span class="chip">混合工艺</span></div>
+          </div>
+          <div class="step-cell">
+            <div class="step-cell__no">STEP 02</div>
+            <h4>POD 系统接入</h4>
+            <p>方果 POD 系统对接工厂 ERP,支持平台 JIT / 自发 / 全托管模式,扫码出货全自动。</p>
+            <div class="chips"><span class="chip">JIT</span><span class="chip">扫码出货</span><span class="chip">面单自动化</span><span class="chip">多平台</span></div>
+          </div>
+          <div class="step-cell">
+            <div class="step-cell__no">STEP 03</div>
+            <h4>订单接入与放量</h4>
+            <p>方果统一调度订单流量,从试单到稳定接单,日产能持续放量,工厂只需专注产线。</p>
+            <div class="chips"><span class="chip">订单调度</span><span class="chip">产能优化</span><span class="chip">收益分润</span><span class="chip">数据看板</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 能力 -->
+<section class="section section--alt" id="capability">
+  <div class="wrap">
+    <div class="section__grid">
+      <div class="reveal">
+        <div class="slice-h"><span class="l1">能</span><span class="l2">力</span></div>
+        <div class="slice-h-en" style="font-size:clamp(30px,3.6vw,46px);margin-top:12px"><span>POW</span><span>ER</span></div>
+        <p style="margin-top:20px;font-size:13px;color:var(--black-soft);line-height:1.7;max-width:280px">12 项核心能力,覆盖工厂从接单到出货的全流程。</p>
+      </div>
+      <div class="reveal">
+        <div class="cards-3" style="gap:0;border-top:1px solid var(--gray-line);border-left:1px solid var(--gray-line)">
+          <div class="step-cell" style="margin:0">
+            <div class="step-cell__no">P-01</div>
+            <h4 style="font-size:16px">智能排产</h4>
+            <p style="font-size:12.5px;margin-bottom:0">订单按交期 / 工序 / 设备自动排产。</p>
+          </div>
+          <div class="step-cell" style="margin:0">
+            <div class="step-cell__no">P-02</div>
+            <h4 style="font-size:16px">混合工艺</h4>
+            <p style="font-size:12.5px;margin-bottom:0">DTG / DTF / 满印 / 烫画 / 转印 多工艺产线协同。</p>
+          </div>
+          <div class="step-cell" style="margin:0">
+            <div class="step-cell__no">P-03</div>
+            <h4 style="font-size:16px">扫码出货</h4>
+            <p style="font-size:12.5px;margin-bottom:0">每件商品独立条码,扫码即生成面单。</p>
+          </div>
+          <div class="step-cell" style="margin:0">
+            <div class="step-cell__no">P-04</div>
+            <h4 style="font-size:16px">面单自动化</h4>
+            <p style="font-size:12.5px;margin-bottom:0">SHEIN / TEMU / Amazon 各平台面单一键打。</p>
+          </div>
+          <div class="step-cell" style="margin:0">
+            <div class="step-cell__no">P-05</div>
+            <h4 style="font-size:16px">质检留痕</h4>
+            <p style="font-size:12.5px;margin-bottom:0">每件成品照片留痕,售后争议可追溯。</p>
+          </div>
+          <div class="step-cell" style="margin:0">
+            <div class="step-cell__no">P-06</div>
+            <h4 style="font-size:16px">物料库存</h4>
+            <p style="font-size:12.5px;margin-bottom:0">坯衣 / 杯子 / 配件等物料实时盘点预警。</p>
+          </div>
+          <div class="step-cell" style="margin:0">
+            <div class="step-cell__no">P-07</div>
+            <h4 style="font-size:16px">数据看板</h4>
+            <p style="font-size:12.5px;margin-bottom:0">日产能 / 良品率 / 工时一览。</p>
+          </div>
+          <div class="step-cell" style="margin:0">
+            <div class="step-cell__no">P-08</div>
+            <h4 style="font-size:16px">小单接单</h4>
+            <p style="font-size:12.5px;margin-bottom:0">起订量 1 件,小单也能稳定排产。</p>
+          </div>
+          <div class="step-cell" style="margin:0">
+            <div class="step-cell__no">P-09</div>
+            <h4 style="font-size:16px">多平台</h4>
+            <p style="font-size:12.5px;margin-bottom:0">SHEIN / TEMU / Amazon / TikTok / 独立站统一接入。</p>
+          </div>
+          <div class="step-cell" style="margin:0">
+            <div class="step-cell__no">P-10</div>
+            <h4 style="font-size:16px">物流对接</h4>
+            <p style="font-size:12.5px;margin-bottom:0">顺丰 / 燕文 / UPS / DHL 一键发货。</p>
+          </div>
+          <div class="step-cell" style="margin:0">
+            <div class="step-cell__no">P-11</div>
+            <h4 style="font-size:16px">异常预警</h4>
+            <p style="font-size:12.5px;margin-bottom:0">超期 / 缺料 / 设备异常自动告警。</p>
+          </div>
+          <div class="step-cell" style="margin:0">
+            <div class="step-cell__no">P-12</div>
+            <h4 style="font-size:16px">收益分润</h4>
+            <p style="font-size:12.5px;margin-bottom:0">订单结算清晰,日 / 周对账。</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 现在 vs 之后 -->
+<section class="section">
+  <div class="wrap">
+    <div class="section__grid">
+      <div class="reveal">
+        <div class="slice-h"><span class="l1">对</span><span class="l2">比</span></div>
+        <div class="slice-h-en" style="font-size:clamp(30px,3.6vw,46px);margin-top:12px"><span>VS</span></div>
+      </div>
+      <div class="reveal">
+        <div class="split-2">
+          <div class="split-col painpoints">
+            <h4>过去 ／ 传统模式</h4>
+            <ul>
+              <li>师傅靠经验排产,旺季混乱</li>
+              <li>多 SKU 小单不敢接,接了亏</li>
+              <li>每个平台对接都得重写一套</li>
+              <li>面单靠人工打,容易错件漏件</li>
+              <li>售后争议没图没据,扯不清</li>
+              <li>产能 / 良品率心里没数</li>
+            </ul>
+          </div>
+          <div class="split-col solutions">
+            <h4>方果 ／ POD 模式</h4>
+            <ul>
+              <li>系统自动按交期 / 设备智能排产</li>
+              <li>小单 1 件起,系统帮你聚合调度</li>
+              <li>15+ 平台标准化对接,一次接好</li>
+              <li>扫码自动出面单,几乎零差错</li>
+              <li>每件留照片留数据,清楚可查</li>
+              <li>实时数据看板,产能一目了然</li>
+            </ul>
+          </div>
+        </div>
+        <div class="summary-strip" style="margin-top:32px">
+          一句话总结:<em>把工厂师傅的经验,变成系统的能力。</em>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 联系 -->
+<section class="section section--dark" id="contact" style="border-bottom:none">
+  <div class="wrap">
+    <div class="section__grid">
+      <div class="reveal">
+        <div class="slice-h"><span class="l1">合</span><span class="l2">作</span></div>
+        <div class="slice-h-en" style="font-size:clamp(30px,3.6vw,46px);margin-top:12px"><span>JOIN</span></div>
+      </div>
+      <div class="reveal">
+        <h2 style="font-family:var(--font-zh);font-weight:900;font-size:clamp(28px,3.2vw,40px);line-height:1.2;letter-spacing:-0.02em;margin-bottom:18px">如果你是<span style="color:#d83a3a">产业带工厂</span>,<br>方果可以帮你<br>把 POD 单接起来。</h2>
+        <p style="font-size:14px;line-height:1.8;color:rgba(255,255,255,0.7);max-width:520px;margin-bottom:26px">不要求你懂跨境、不要求你懂代码、不要求你立刻投钱改产线——先聊一聊,看看是否匹配。</p>
+        <div style="display:flex;gap:14px;flex-wrap:wrap">
+          <a href="#" class="btn btn--primary" style="background:#fff;color:#1a1a1a;border-color:#fff">预约工厂调研<span class="dot"></span></a>
+          <a href="cases.html" class="btn btn--ghost" style="color:#fff;border-color:rgba(255,255,255,0.4)">看工厂案例</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="footer-bottom">
+  <div class="footer-bottom__inner">
+    © 2026 深圳市渔童科技有限公司 · FANGGUO POD · 粤ICP备 XXXXXXXX 号 · MADE FOR POD IN SHENZHEN
+  </div>
+</div>
+
+<script src="assets/main.js"></script>
+</body>
+</html>

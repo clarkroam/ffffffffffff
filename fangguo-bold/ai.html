@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI 铺货 — 方果 POD</title>
+<meta name="description" content="方果 POD AI 一键铺货:图案生成 / 套图 / SKU 矩阵 / 多语言 listing / 平台直发,全流程 AI 自动化。">
+<link rel="icon" href="assets/logo.png">
+<link rel="stylesheet" href="assets/styles.css">
+</head>
+<body>
+
+<nav class="nav">
+  <div class="nav__inner">
+    <a href="index.html" class="nav__brand">
+      <svg class="mark" viewBox="0 0 100 100">
+        <rect x="14" y="28" width="72" height="58" rx="14" fill="#fff"/>
+        <rect x="46" y="14" width="8" height="22" rx="2" fill="#1a1a1a"/>
+        <rect x="34" y="32" width="32" height="6" rx="2" fill="#1a1a1a"/>
+        <ellipse cx="62" cy="14" rx="9" ry="6" transform="rotate(-30 62 14)" fill="#1a1a1a"/>
+      </svg>
+      方果<small>POD</small>
+    </a>
+    <div class="nav__links">
+      <a href="index.html">首页</a>
+      <a href="ai.html" class="active">AI 铺货</a>
+      <a href="factory.html">工厂方案</a>
+      <a href="merchant.html">商家方案</a>
+      <a href="industries.html">行业</a>
+      <a href="ecosystem.html">生态</a>
+      <a href="cases.html">案例</a>
+      <a href="about.html">关于</a>
+    </div>
+    <div class="nav__lang"><span class="on">中</span><span>EN</span></div>
+  </div>
+</nav>
+
+<section class="sub-hero">
+  <div class="sub-hero__inner">
+    <div class="reveal in">
+      <div class="slice-h-en" style="font-size:clamp(34px, 4vw, 50px);">
+        <span>AI</span><span>SHOWCASE</span>
+      </div>
+      <h1 style="margin-top:16px">让 AI 把<br>"<span class="accent">铺货</span>"<br>这件事做掉。</h1>
+      <p>从一张图、一个想法,到全平台多语言上架完成——方果 AI 把 POD 商家最累的"铺货"环节自动化。</p>
+      <div class="hero__cta" style="margin-top:24px">
+        <a href="#flow" class="btn btn--primary">查看流程<span class="dot"></span></a>
+        <a href="merchant.html" class="btn btn--ghost">商家方案</a>
+      </div>
+    </div>
+    <div class="sub-hero__visual reveal in">
+      <svg viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg">
+        <!-- input panel -->
+        <rect x="20" y="60" width="100" height="130" rx="6" fill="#1a1a1a"/>
+        <rect x="28" y="68" width="84" height="84" rx="3" fill="#fafafa"/>
+        <text x="70" y="116" font-family="Inter" font-size="22" font-weight="900" fill="#1a1a1a" text-anchor="middle">IMG</text>
+        <rect x="28" y="158" width="50" height="6" fill="#fff"/>
+        <rect x="28" y="170" width="40" height="4" fill="#9a9a9a"/>
+        <!-- arrow -->
+        <path d="M 130 125 L 165 125 M 158 118 L 165 125 L 158 132" stroke="#d83a3a" stroke-width="2" fill="none"/>
+        <!-- ai brain -->
+        <rect x="170" y="80" width="90" height="90" rx="6" fill="#d83a3a"/>
+        <g stroke="#fff" stroke-width="1.5" fill="none">
+          <circle cx="215" cy="115" r="14"/>
+          <circle cx="215" cy="115" r="7"/>
+          <line x1="215" y1="93" x2="215" y2="100"/>
+          <line x1="215" y1="130" x2="215" y2="137"/>
+          <line x1="193" y1="115" x2="200" y2="115"/>
+          <line x1="230" y1="115" x2="237" y2="115"/>
+        </g>
+        <text x="215" y="160" font-family="Inter" font-size="11" font-weight="800" fill="#fff" text-anchor="middle">AI</text>
+        <!-- arrow -->
+        <path d="M 270 125 L 305 125 M 298 118 L 305 125 L 298 132" stroke="#d83a3a" stroke-width="2" fill="none"/>
+        <!-- output stack -->
+        <rect x="305" y="60" width="80" height="40" rx="3" fill="#fff" stroke="#1a1a1a" stroke-width="1.5"/>
+        <rect x="312" y="68" width="20" height="24" fill="#1a1a1a"/>
+        <rect x="338" y="70" width="40" height="4" fill="#1a1a1a"/>
+        <rect x="338" y="80" width="32" height="3" fill="#9a9a9a"/>
+        <rect x="338" y="88" width="20" height="8" fill="#d83a3a"/>
+        <rect x="305" y="110" width="80" height="40" rx="3" fill="#fff" stroke="#1a1a1a" stroke-width="1.5"/>
+        <rect x="312" y="118" width="20" height="24" fill="#1a1a1a"/>
+        <rect x="338" y="120" width="40" height="4" fill="#1a1a1a"/>
+        <rect x="338" y="130" width="32" height="3" fill="#9a9a9a"/>
+        <rect x="338" y="138" width="20" height="8" fill="#d83a3a"/>
+        <rect x="305" y="160" width="80" height="40" rx="3" fill="#fff" stroke="#1a1a1a" stroke-width="1.5"/>
+        <rect x="312" y="168" width="20" height="24" fill="#1a1a1a"/>
+        <rect x="338" y="170" width="40" height="4" fill="#1a1a1a"/>
+        <rect x="338" y="180" width="32" height="3" fill="#9a9a9a"/>
+        <rect x="338" y="188" width="20" height="8" fill="#d83a3a"/>
+      </svg>
+    </div>
+  </div>
+</section>
+
+<!-- 流程 -->
+<section class="section" id="flow">
+  <div class="wrap">
+    <div class="section__grid">
+      <div class="reveal">
+        <div class="slice-h"><span class="l1">流</span><span class="l2">程</span></div>
+        <div class="slice-h-en" style="font-size:clamp(30px,3.6vw,46px);margin-top:12px"><span>FLO</span><span>W</span></div>
+        <div class="pagedots"><span class="on">01</span><span>02</span><span>03</span></div>
+      </div>
+      <div class="reveal">
+        <div class="ai-flow-3">
+          <div class="ai-flow-cell">
+            <span class="badge">PHASE 01 ／ 创作</span>
+            <h3>AI 图案生成</h3>
+            <ol>
+              <li>关键词 / 文字描述生成图案</li>
+              <li>风格参考图导入,AI 抽风格</li>
+              <li>批量生成同主题不同变体</li>
+              <li>图案调色 / 去背景 / 抠图自动化</li>
+              <li>版权防侵权检测,提示风险</li>
+            </ol>
+          </div>
+          <div class="ai-flow-cell">
+            <span class="badge">PHASE 02 ／ 套图</span>
+            <h3>SKU 矩阵套图</h3>
+            <ol>
+              <li>选定品类(T 恤 / 马克杯 / 抱枕…)</li>
+              <li>AI 自动套到所有 SKU 实拍模板</li>
+              <li>颜色 / 尺寸 / 角度 全自动批量出</li>
+              <li>主图 / 详情 / 尺码图 一键打包</li>
+              <li>生成多平台合规图(白底 / 主图等)</li>
+            </ol>
+          </div>
+          <div class="ai-flow-cell">
+            <span class="badge">PHASE 03 ／ 上架</span>
+            <h3>多平台直发</h3>
+            <ol>
+              <li>AI 写多语言 listing(英 / 日 / 西 / 法…)</li>
+              <li>关键词优化 / 类目映射</li>
+              <li>SHEIN / TEMU / 亚马逊 / TikTok 直推</li>
+              <li>价格策略 / 库存策略自动同步</li>
+              <li>上架后表现监测,自动调优</li>
+            </ol>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 价值 -->
+<section class="section section--alt">
+  <div class="wrap">
+    <div class="section__grid">
+      <div class="reveal">
+        <div class="slice-h"><span class="l1">价</span><span class="l2">值</span></div>
+        <div class="slice-h-en" style="font-size:clamp(30px,3.6vw,46px);margin-top:12px"><span>VAL</span><span>UE</span></div>
+      </div>
+      <div class="reveal">
+        <ul class="ai-stack">
+          <li><span class="num">01</span><span class="txt">单 SKU 上架成本从 30 元降至 1 元以内</span><span class="meta">↓ 96%</span></li>
+          <li><span class="num">02</span><span class="txt">单店日均铺货量从 50 件 → 5000 件</span><span class="meta">↑ 100x</span></li>
+          <li><span class="num">03</span><span class="txt">从设计到上架时间 7 天 → 24 小时</span><span class="meta">↓ 86%</span></li>
+          <li><span class="num">04</span><span class="txt">多语言 listing 不再依赖人工翻译</span><span class="meta">15 种语言</span></li>
+          <li><span class="num">05</span><span class="txt">商家可以专注做"对的款",AI 做"多的款"</span><span class="meta">FOCUS</span></li>
+          <li><span class="num">06</span><span class="txt">和方果工厂直连,生成的图自动可生产</span><span class="meta">DIRECT</span></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 联系 / 试用 -->
+<section class="section section--dark" id="contact" style="border-bottom:none">
+  <div class="wrap">
+    <div class="section__grid">
+      <div class="reveal">
+        <div class="slice-h"><span class="l1">试</span><span class="l2">用</span></div>
+        <div class="slice-h-en" style="font-size:clamp(30px,3.6vw,46px);margin-top:12px"><span>TRY</span><span>IT</span></div>
+      </div>
+      <div class="reveal">
+        <h2 style="font-family:var(--font-zh);font-weight:900;font-size:clamp(28px,3.2vw,40px);line-height:1.2;letter-spacing:-0.02em;margin-bottom:18px">先用 AI 跑一批 SKU,<br><span style="color:#d83a3a">看看真实效果。</span></h2>
+        <p style="font-size:14px;line-height:1.8;color:rgba(255,255,255,0.7);max-width:520px;margin-bottom:26px">注册即可获取 100 张 AI 套图额度,跑一遍完整链路再决定是否合作。</p>
+        <div style="display:flex;gap:14px;flex-wrap:wrap">
+          <a href="#" class="btn btn--primary" style="background:#fff;color:#1a1a1a;border-color:#fff">免费试用<span class="dot"></span></a>
+          <a href="#" class="btn btn--ghost" style="color:#fff;border-color:rgba(255,255,255,0.4)">联系销售</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="footer-bottom">
+  <div class="footer-bottom__inner">
+    © 2026 深圳市渔童科技有限公司 · FANGGUO POD · 粤ICP备 XXXXXXXX 号 · MADE FOR POD IN SHENZHEN
+  </div>
+</div>
+
+<script src="assets/main.js"></script>
+</body>
+</html>
