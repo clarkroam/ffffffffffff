@@ -1,0 +1,733 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>方果 POD — AI驱动的POD生产与全球履约平台</title>
+<meta name="description" content="方果POD用AI做图、商品铺货、柔性生产、扫码发货与全球物流连成一条线,让POD工厂和跨境商家真正跑通一件代发。">
+<link rel="icon" href="assets/logo.png">
+<link rel="stylesheet" href="assets/styles.css">
+</head>
+<body>
+
+<!-- ============== NAV ============== -->
+<nav class="nav">
+  <a href="index.html" class="nav__brand">
+    <svg class="mark" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <linearGradient id="logoG" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0%" stop-color="#FF7494"/>
+          <stop offset="100%" stop-color="#FFD66B"/>
+        </linearGradient>
+      </defs>
+      <rect x="14" y="28" width="72" height="58" rx="14" fill="url(#logoG)"/>
+      <rect x="46" y="14" width="8" height="22" rx="2" fill="#FFFFFF"/>
+      <rect x="34" y="32" width="32" height="6" rx="2" fill="#FFFFFF"/>
+      <ellipse cx="62" cy="14" rx="9" ry="6" transform="rotate(-30 62 14)" fill="#78E6A0"/>
+    </svg>
+    方果<small>POD</small>
+  </a>
+  <div class="nav__links">
+    <a href="index.html" class="active">首页</a>
+    <a href="ai.html">AI铺货</a>
+    <a href="factory.html">工厂方案</a>
+    <a href="merchant.html">商家方案</a>
+    <a href="industries.html">行业方案</a>
+    <a href="ecosystem.html">平台与物流</a>
+    <a href="cases.html">客户案例</a>
+    <a href="about.html">关于方果</a>
+  </div>
+  <div class="nav__cta">
+    <a href="#" class="nav__login">登录</a>
+    <a href="#contact" class="btn btn--accent btn--small">预约演示 <span class="arrow">→</span></a>
+  </div>
+</nav>
+
+<!-- ============== HERO ============== -->
+<section class="hero">
+  <div class="hero__inner">
+    <div>
+      <span class="eyebrow"><span class="dot"></span>FANGGUO POD ／ AI 驱动 POD 平台</span>
+      <h1>把 POD 这门生意,<br>真正<em>跑得通。</em></h1>
+      <p class="lead">
+        方果 POD 把 AI 做图、商品铺货、柔性生产、扫码发货与全球物流连成一条线。
+        让 POD 工厂的产能跑得动,让跨境商家的一件代发真正落地。
+      </p>
+      <div class="hero__cta">
+        <a href="#contact" class="btn btn--primary">预约演示 <span class="arrow">→</span></a>
+        <a href="cases.html" class="btn btn--ghost">查看客户案例</a>
+      </div>
+      <div class="hero__stats">
+        <div class="hero__stat"><div class="num">14+</div><div class="lbl">POD 品类</div></div>
+        <div class="hero__stat"><div class="num">21</div><div class="lbl">合作工厂</div></div>
+        <div class="hero__stat"><div class="num">200+</div><div class="lbl">国家覆盖</div></div>
+      </div>
+    </div>
+
+    <!-- Floating product cards visual -->
+    <div class="hero__visual">
+      <div class="hero__ring"></div>
+
+      <!-- T-Shirt card -->
+      <div class="float-card fc-1">
+        <svg class="product-svg" viewBox="0 0 200 160" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <linearGradient id="tg1" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0%" stop-color="#FF7494"/><stop offset="100%" stop-color="#FFD66B"/>
+            </linearGradient>
+          </defs>
+          <path d="M40 30 L70 18 L80 30 Q100 38 120 30 L130 18 L160 30 L170 60 L150 70 L150 130 Q100 138 50 130 L50 70 L30 60 Z"
+                fill="url(#tg1)" stroke="rgba(255,255,255,0.4)" stroke-width="1.5"/>
+          <circle cx="100" cy="80" r="18" fill="rgba(255,255,255,0.45)"/>
+          <path d="M92 80 L98 86 L110 74" stroke="#fff" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        <div class="label">T-SHIRT · DTG</div>
+        <div class="price">$24.90</div>
+      </div>
+
+      <!-- Mug card -->
+      <div class="float-card fc-2">
+        <svg class="product-svg" viewBox="0 0 200 160" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <linearGradient id="mg1" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0%" stop-color="#78B4FF"/><stop offset="100%" stop-color="#C9A9FF"/>
+            </linearGradient>
+          </defs>
+          <rect x="50" y="40" width="80" height="90" rx="6" fill="url(#mg1)" stroke="rgba(255,255,255,0.4)" stroke-width="1.5"/>
+          <ellipse cx="50" cy="40" rx="40" ry="6" fill="rgba(255,255,255,0.45)"/>
+          <path d="M130 60 Q160 60 160 85 Q160 110 130 110" fill="none" stroke="rgba(255,255,255,0.5)" stroke-width="6" stroke-linecap="round"/>
+          <text x="90" y="92" font-family="Outfit" font-size="14" font-weight="700" fill="#fff" text-anchor="middle">POD</text>
+        </svg>
+        <div class="label">MUG · 11oz</div>
+        <div class="price">$12.50</div>
+      </div>
+
+      <!-- Phone case card -->
+      <div class="float-card fc-3">
+        <svg class="product-svg" viewBox="0 0 200 160" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <linearGradient id="pc1" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0%" stop-color="#F772C8"/><stop offset="100%" stop-color="#FF7494"/>
+            </linearGradient>
+          </defs>
+          <rect x="65" y="20" width="70" height="120" rx="14" fill="url(#pc1)" stroke="rgba(255,255,255,0.45)" stroke-width="1.5"/>
+          <rect x="73" y="32" width="28" height="22" rx="6" fill="rgba(0,0,0,0.18)"/>
+          <circle cx="79" cy="42" r="4" fill="rgba(0,0,0,0.40)"/>
+          <circle cx="92" cy="42" r="4" fill="rgba(0,0,0,0.40)"/>
+          <circle cx="120" cy="120" r="14" fill="rgba(255,255,255,0.35)"/>
+        </svg>
+        <div class="label">PHONE CASE</div>
+        <div class="price">$9.99</div>
+      </div>
+
+      <!-- Tote bag card -->
+      <div class="float-card fc-4">
+        <svg class="product-svg" viewBox="0 0 200 160" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <linearGradient id="bg1" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0%" stop-color="#78E6A0"/><stop offset="100%" stop-color="#78B4FF"/>
+            </linearGradient>
+          </defs>
+          <path d="M70 30 Q70 14 100 14 Q130 14 130 30" fill="none" stroke="rgba(255,255,255,0.55)" stroke-width="3"/>
+          <rect x="45" y="30" width="110" height="110" rx="6" fill="url(#bg1)" stroke="rgba(255,255,255,0.4)" stroke-width="1.5"/>
+          <circle cx="100" cy="85" r="20" fill="rgba(255,255,255,0.4)"/>
+          <text x="100" y="92" font-family="Outfit" font-size="16" font-weight="800" fill="#fff" text-anchor="middle">FG</text>
+        </svg>
+        <div class="label">TOTE · CANVAS</div>
+        <div class="price">$14.00</div>
+      </div>
+
+      <!-- Hoodie tag card -->
+      <div class="float-card fc-5">
+        <svg class="product-svg" viewBox="0 0 200 160" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <linearGradient id="hg1" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0%" stop-color="#FFD66B"/><stop offset="100%" stop-color="#FF7494"/>
+            </linearGradient>
+          </defs>
+          <path d="M60 50 L80 30 Q100 25 120 30 L140 50 L155 80 L140 90 L140 140 L60 140 L60 90 L45 80 Z"
+                fill="url(#hg1)" stroke="rgba(255,255,255,0.4)" stroke-width="1.5"/>
+          <path d="M85 30 Q100 50 115 30" fill="rgba(0,0,0,0.18)"/>
+          <line x1="100" y1="50" x2="100" y2="100" stroke="rgba(255,255,255,0.4)" stroke-width="2"/>
+        </svg>
+        <div class="label">HOODIE · AOP</div>
+        <div class="price">$42.00</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============== MARQUEE ============== -->
+<div class="marquee">
+  <div class="marquee__track">
+    <span class="marquee__item">满印服装</span>
+    <span class="marquee__item glow">手机壳 / 3C</span>
+    <span class="marquee__item">家居家纺</span>
+    <span class="marquee__item">水杯日用品</span>
+    <span class="marquee__item glow">装饰画</span>
+    <span class="marquee__item">文创礼品</span>
+    <span class="marquee__item">铁皮画</span>
+    <span class="marquee__item glow">印花 T 恤</span>
+    <span class="marquee__item">满印服装</span>
+    <span class="marquee__item glow">手机壳 / 3C</span>
+    <span class="marquee__item">家居家纺</span>
+    <span class="marquee__item">水杯日用品</span>
+    <span class="marquee__item glow">装饰画</span>
+    <span class="marquee__item">文创礼品</span>
+    <span class="marquee__item">铁皮画</span>
+    <span class="marquee__item glow">印花 T 恤</span>
+  </div>
+</div>
+
+<!-- ============== QUOTE / WHY POD NEEDS THIS ============== -->
+<section class="section">
+  <div class="wrap">
+    <div class="quote-block reveal">
+      <div class="quote-block__inner">
+        <div>
+          <span class="eyebrow"><span class="dot"></span>02 ／ 我们解决的问题</span>
+          <h2 style="margin-top:22px;">方果 POD,<br>让一件代发<br><em>真正落地。</em></h2>
+        </div>
+        <div>
+          <ol>
+            <li>一张图,要变成商品图、生产图、裁片图。</li>
+            <li>一个订单,要经过平台、商家、工厂、物流。</li>
+            <li>一家工厂,要同时处理多平台、多商家、多品类、多工艺。</li>
+          </ol>
+          <div class="quote-conclude">
+            所以,POD 需要的不只是 ERP,<br>而是一套真正懂 POD 业务的<em>生产与履约平台</em>。
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============== FOUR ENGINES ============== -->
+<section class="section">
+  <div class="wrap">
+    <div class="section__head--left reveal">
+      <div>
+        <span class="eyebrow"><span class="dot"></span>03 ／ 四大引擎</span>
+        <h2 style="margin-top:22px;">方果 POD<br><em>四大引擎。</em></h2>
+      </div>
+      <p>从 AI 内容生成、商品铺货,到柔性生产与全球履约。方果把 POD 业务的四个核心环节,做成可衔接、可调度、可数据化的引擎。</p>
+    </div>
+
+    <div class="engines reveal-stagger">
+      <div class="engine-card e1">
+        <div class="engine-card__no">01</div>
+        <div class="engine-card__icon">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="3" y="3" width="18" height="18" rx="2"/>
+            <circle cx="9" cy="9" r="2"/>
+            <path d="m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21"/>
+          </svg>
+        </div>
+        <h3>AI 内容引擎</h3>
+        <p class="desc">不只是生成一张好看的图——而是直接生成能上架、能生产、能发货的完整素材。</p>
+        <div class="chips">
+          <span class="chip">AI 生图</span>
+          <span class="chip">提取印花</span>
+          <span class="chip">扩图适配</span>
+          <span class="chip">自动套图</span>
+          <span class="chip">生产图</span>
+          <span class="chip">图片裂变</span>
+        </div>
+      </div>
+
+      <div class="engine-card e2">
+        <div class="engine-card__no">02</div>
+        <div class="engine-card__icon">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="8" cy="21" r="1"/><circle cx="19" cy="21" r="1"/>
+            <path d="M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12"/>
+          </svg>
+        </div>
+        <h3>商品铺货引擎</h3>
+        <p class="desc">一图多店铺、多品类、多平台一键发布,SKU 量级再大也能驾驭。</p>
+        <div class="chips">
+          <span class="chip">批量刊登</span>
+          <span class="chip">多平台</span>
+          <span class="chip">SKU 矩阵</span>
+          <span class="chip">规格管理</span>
+          <span class="chip">价格策略</span>
+        </div>
+      </div>
+
+      <div class="engine-card e3">
+        <div class="engine-card__no">03</div>
+        <div class="engine-card__icon">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/>
+          </svg>
+        </div>
+        <h3>柔性生产引擎</h3>
+        <p class="desc">从印花到缝制全流程数字化,机台、工位、进度可视化,小批量也能高效跑。</p>
+        <div class="chips">
+          <span class="chip">智能排产</span>
+          <span class="chip">扫码工序</span>
+          <span class="chip">设备 IoT</span>
+          <span class="chip">良率追踪</span>
+          <span class="chip">工艺库</span>
+        </div>
+      </div>
+
+      <div class="engine-card e4">
+        <div class="engine-card__no">04</div>
+        <div class="engine-card__icon">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="10"/>
+            <path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
+          </svg>
+        </div>
+        <h3>全球履约引擎</h3>
+        <p class="desc">扫码出货 + 自动面单 + 物流路径推荐,200+ 国家覆盖,黑盒变白盒。</p>
+        <div class="chips">
+          <span class="chip">扫码出货</span>
+          <span class="chip">面单匹配</span>
+          <span class="chip">渠道智选</span>
+          <span class="chip">海外仓</span>
+          <span class="chip">轨迹同步</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============== AUDIENCE SPLIT ============== -->
+<section class="section">
+  <div class="wrap">
+    <div class="section__head--left reveal">
+      <div>
+        <span class="eyebrow"><span class="dot"></span>04 ／ 谁在用方果</span>
+        <h2 style="margin-top:22px;">工厂与商家,<em>各得其所。</em></h2>
+      </div>
+      <p>POD 业务的两端——工厂端要解决产能调度、商家端要解决一件代发——方果用同一个平台同时服务。</p>
+    </div>
+
+    <div class="split-cards reveal-stagger">
+      <div class="audience-card factory">
+        <div class="label">FOR FACTORY ／ 工厂端</div>
+        <h3>把工厂,升级为<em>智能履约中心。</em></h3>
+        <p>不需要推翻现有产线。方果工厂方案可逐步落地,从单条产线开始试点,按节奏铺到全厂。</p>
+        <ul class="pts">
+          <li>生产数字化:订单 → 生产图 → 机台一键下发</li>
+          <li>履约自动化:扫码出货、面单匹配、合单分单</li>
+          <li>供应链平台化:对接平台 / 商家 / 物流的统一协议</li>
+        </ul>
+        <a href="factory.html" class="btn btn--primary">查看工厂方案 <span class="arrow">→</span></a>
+      </div>
+
+      <div class="audience-card merchant">
+        <div class="label">FOR MERCHANT ／ 商家端</div>
+        <h3>不囤货,也能做出<em>十万订单。</em></h3>
+        <p>从找款、套图、铺货到收单、发货、售后,商家专注于品牌和卖货,生产履约交给方果。</p>
+        <ul class="pts">
+          <li>AI 快速做图 + 套图,商品图分钟级生成</li>
+          <li>多平台铺货,一图变成几十个 SKU 商品矩阵</li>
+          <li>一件代发自动履约,出单后无需手工干预</li>
+        </ul>
+        <a href="merchant.html" class="btn btn--primary">查看商家方案 <span class="arrow">→</span></a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============== AI BLOCK ============== -->
+<section class="section">
+  <div class="wrap">
+    <div class="ai-block reveal">
+      <div class="ai-block__inner">
+        <div>
+          <span class="eyebrow"><span class="dot"></span>AI ／ 内容引擎</span>
+          <h2>用 AI 把一张图,<br>变成<em>一批商品。</em></h2>
+          <p>方果 POD 的 AI,不停留在"会画图",而是直接进入"能卖、能做、能发"的业务闭环。从一张创意图开始,自动生成商品图、模特图、生产裁片图、SKU 矩阵——直接进入工厂排产。</p>
+          <a href="ai.html" class="btn btn--accent">查看 AI 铺货 <span class="arrow">→</span></a>
+        </div>
+        <div class="ai-flow-stack">
+          <div class="ai-flow-step"><div class="num">1</div><div class="txt">上传商品图 / 输入主题</div><div class="meta">INPUT</div></div>
+          <div class="ai-flow-step"><div class="num">2</div><div class="txt">AI 提取印花 + 扩图适配</div><div class="meta">EXTRACT</div></div>
+          <div class="ai-flow-step"><div class="num">3</div><div class="txt">自动生成模特图 / 白底图</div><div class="meta">MOCKUP</div></div>
+          <div class="ai-flow-step"><div class="num">4</div><div class="txt">SKU 矩阵 + 多平台铺货</div><div class="meta">PUBLISH</div></div>
+          <div class="ai-flow-step"><div class="num">5</div><div class="txt">出单后生成生产裁片图</div><div class="meta">PRODUCE</div></div>
+          <div class="ai-flow-step"><div class="num">6</div><div class="txt">下发工厂 → 扫码出货</div><div class="meta">FULFILL</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============== INDUSTRIES ============== -->
+<section class="section">
+  <div class="wrap">
+    <div class="section__head--left reveal">
+      <div>
+        <span class="eyebrow"><span class="dot"></span>05 ／ 14 个 POD 品类</span>
+        <h2 style="margin-top:22px;">14 个品类,<em>14 套方案。</em></h2>
+      </div>
+      <p>不同品类的工艺、版型、生产链路、发货规则各不相同。方果把 POD 行业积累,做成 14 套可直接复用的行业方案。</p>
+    </div>
+
+    <div class="ind-grid reveal-stagger">
+      <a href="industries.html#allover" class="ind-card">
+        <div class="ind-card__visual">
+          <svg viewBox="0 0 100 100"><defs><linearGradient id="iv1" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#FF7494"/><stop offset="100%" stop-color="#FFD66B"/></linearGradient></defs>
+            <path d="M28 24 L40 16 L46 22 Q50 24 54 22 L60 16 L72 24 L78 36 L70 40 L70 80 Q50 84 30 80 L30 40 L22 36 Z" fill="url(#iv1)" stroke="rgba(255,255,255,0.4)" stroke-width="1"/>
+            <circle cx="50" cy="55" r="10" fill="rgba(255,255,255,0.5)"/>
+          </svg>
+        </div>
+        <div class="name">满印服装</div>
+        <div class="en">All-Over Print</div>
+        <div class="arrow-go">→</div>
+      </a>
+
+      <a href="industries.html#tinsign" class="ind-card">
+        <div class="ind-card__visual">
+          <svg viewBox="0 0 100 100"><defs><linearGradient id="iv2" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#78B4FF"/><stop offset="100%" stop-color="#C9A9FF"/></linearGradient></defs>
+            <rect x="20" y="22" width="60" height="56" rx="3" fill="url(#iv2)" stroke="rgba(255,255,255,0.4)"/>
+            <circle cx="26" cy="28" r="2" fill="rgba(255,255,255,0.7)"/><circle cx="74" cy="28" r="2" fill="rgba(255,255,255,0.7)"/>
+            <circle cx="26" cy="72" r="2" fill="rgba(255,255,255,0.7)"/><circle cx="74" cy="72" r="2" fill="rgba(255,255,255,0.7)"/>
+            <text x="50" y="58" font-family="Outfit" font-size="14" font-weight="800" fill="#fff" text-anchor="middle">POD</text>
+          </svg>
+        </div>
+        <div class="name">铁皮画</div>
+        <div class="en">Tin Sign</div>
+        <div class="arrow-go">→</div>
+      </a>
+
+      <a href="industries.html#mug" class="ind-card">
+        <div class="ind-card__visual">
+          <svg viewBox="0 0 100 100"><defs><linearGradient id="iv3" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#78E6A0"/><stop offset="100%" stop-color="#78B4FF"/></linearGradient></defs>
+            <rect x="28" y="28" width="40" height="50" rx="3" fill="url(#iv3)" stroke="rgba(255,255,255,0.4)"/>
+            <ellipse cx="28" cy="28" rx="20" ry="3" fill="rgba(255,255,255,0.5)"/>
+            <path d="M68 38 Q82 38 82 53 Q82 68 68 68" fill="none" stroke="rgba(255,255,255,0.6)" stroke-width="4" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <div class="name">杯子</div>
+        <div class="en">Mug · Cup</div>
+        <div class="arrow-go">→</div>
+      </a>
+
+      <a href="industries.html#tshirt" class="ind-card">
+        <div class="ind-card__visual">
+          <svg viewBox="0 0 100 100"><defs><linearGradient id="iv4" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#FFD66B"/><stop offset="100%" stop-color="#FF7494"/></linearGradient></defs>
+            <path d="M28 24 L40 16 L46 22 Q50 24 54 22 L60 16 L72 24 L78 36 L70 40 L70 80 Q50 84 30 80 L30 40 L22 36 Z" fill="url(#iv4)" stroke="rgba(255,255,255,0.4)" stroke-width="1"/>
+            <text x="50" y="58" font-family="Outfit" font-size="11" font-weight="800" fill="#fff" text-anchor="middle">TEE</text>
+          </svg>
+        </div>
+        <div class="name">印花 T 恤</div>
+        <div class="en">Printed Tee</div>
+        <div class="arrow-go">→</div>
+      </a>
+
+      <a href="industries.html#dtf-bag" class="ind-card">
+        <div class="ind-card__visual">
+          <svg viewBox="0 0 100 100"><defs><linearGradient id="iv5" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#F772C8"/><stop offset="100%" stop-color="#78B4FF"/></linearGradient></defs>
+            <path d="M35 24 Q35 14 50 14 Q65 14 65 24" fill="none" stroke="rgba(255,255,255,0.55)" stroke-width="2"/>
+            <rect x="22" y="24" width="56" height="56" rx="3" fill="url(#iv5)" stroke="rgba(255,255,255,0.4)"/>
+            <circle cx="50" cy="52" r="11" fill="rgba(255,255,255,0.5)"/>
+          </svg>
+        </div>
+        <div class="name">白墨烫画箱包</div>
+        <div class="en">DTF Bag</div>
+        <div class="arrow-go">→</div>
+      </a>
+
+      <a href="industries.html#dtg" class="ind-card">
+        <div class="ind-card__visual">
+          <svg viewBox="0 0 100 100"><defs><linearGradient id="iv6" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#C9A9FF"/><stop offset="100%" stop-color="#78E6A0"/></linearGradient></defs>
+            <path d="M28 24 L40 16 L46 22 Q50 24 54 22 L60 16 L72 24 L78 36 L70 40 L70 80 Q50 84 30 80 L30 40 L22 36 Z" fill="url(#iv6)" stroke="rgba(255,255,255,0.4)"/>
+            <rect x="40" y="44" width="20" height="20" rx="2" fill="rgba(255,255,255,0.5)"/>
+          </svg>
+        </div>
+        <div class="name">数码印服装</div>
+        <div class="en">DTG</div>
+        <div class="arrow-go">→</div>
+      </a>
+
+      <a href="industries.html#acrylic" class="ind-card">
+        <div class="ind-card__visual">
+          <svg viewBox="0 0 100 100"><defs><linearGradient id="iv7" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#FFD66B"/><stop offset="100%" stop-color="#F772C8"/></linearGradient></defs>
+            <polygon points="30,72 50,18 70,72" fill="url(#iv7)" stroke="rgba(255,255,255,0.4)"/>
+            <rect x="22" y="72" width="56" height="10" rx="2" fill="rgba(255,255,255,0.4)"/>
+          </svg>
+        </div>
+        <div class="name">亚克力</div>
+        <div class="en">Acrylic</div>
+        <div class="arrow-go">→</div>
+      </a>
+
+      <a href="industries.html#umbrella" class="ind-card">
+        <div class="ind-card__visual">
+          <svg viewBox="0 0 100 100"><defs><linearGradient id="iv8" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#78B4FF"/><stop offset="100%" stop-color="#C9A9FF"/></linearGradient></defs>
+            <path d="M20 50 Q50 14 80 50 Z" fill="url(#iv8)" stroke="rgba(255,255,255,0.4)"/>
+            <line x1="50" y1="30" x2="50" y2="50" stroke="rgba(255,255,255,0.5)" stroke-width="1"/>
+            <line x1="35" y1="40" x2="35" y2="50" stroke="rgba(255,255,255,0.5)" stroke-width="1"/>
+            <line x1="65" y1="40" x2="65" y2="50" stroke="rgba(255,255,255,0.5)" stroke-width="1"/>
+            <line x1="50" y1="50" x2="50" y2="84" stroke="rgba(255,255,255,0.55)" stroke-width="2"/>
+            <path d="M48 84 Q44 88 50 90" fill="none" stroke="rgba(255,255,255,0.55)" stroke-width="2"/>
+          </svg>
+        </div>
+        <div class="name">雨伞</div>
+        <div class="en">Umbrella</div>
+        <div class="arrow-go">→</div>
+      </a>
+
+      <a href="industries.html#shoe" class="ind-card">
+        <div class="ind-card__visual">
+          <svg viewBox="0 0 100 100"><defs><linearGradient id="iv9" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#FF7494"/><stop offset="100%" stop-color="#78B4FF"/></linearGradient></defs>
+            <path d="M14 60 Q14 50 30 50 L60 36 Q72 36 80 50 L86 64 Q86 72 80 72 L20 72 Q14 72 14 64 Z" fill="url(#iv9)" stroke="rgba(255,255,255,0.4)"/>
+            <line x1="40" y1="48" x2="42" y2="56" stroke="rgba(255,255,255,0.5)" stroke-width="1"/>
+            <line x1="48" y1="44" x2="50" y2="54" stroke="rgba(255,255,255,0.5)" stroke-width="1"/>
+            <line x1="56" y1="40" x2="58" y2="52" stroke="rgba(255,255,255,0.5)" stroke-width="1"/>
+          </svg>
+        </div>
+        <div class="name">鞋帽</div>
+        <div class="en">Shoe · Hat</div>
+        <div class="arrow-go">→</div>
+      </a>
+
+      <a href="industries.html#frame" class="ind-card">
+        <div class="ind-card__visual">
+          <svg viewBox="0 0 100 100"><defs><linearGradient id="iv10" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#78E6A0"/><stop offset="100%" stop-color="#FFD66B"/></linearGradient></defs>
+            <rect x="20" y="20" width="60" height="60" rx="3" fill="rgba(255,255,255,0.18)" stroke="rgba(255,255,255,0.5)" stroke-width="3"/>
+            <circle cx="38" cy="40" r="6" fill="url(#iv10)"/>
+            <path d="M28 70 L42 50 L56 60 L72 38 L72 70 Z" fill="url(#iv10)"/>
+          </svg>
+        </div>
+        <div class="name">相框相册</div>
+        <div class="en">Frame · Album</div>
+        <div class="arrow-go">→</div>
+      </a>
+
+      <a href="industries.html#phonecase" class="ind-card">
+        <div class="ind-card__visual">
+          <svg viewBox="0 0 100 100"><defs><linearGradient id="iv11" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#F772C8"/><stop offset="100%" stop-color="#FF7494"/></linearGradient></defs>
+            <rect x="35" y="14" width="30" height="72" rx="6" fill="url(#iv11)" stroke="rgba(255,255,255,0.45)"/>
+            <rect x="40" y="20" width="14" height="12" rx="3" fill="rgba(0,0,0,0.20)"/>
+            <circle cx="44" cy="26" r="2.5" fill="rgba(0,0,0,0.40)"/>
+            <circle cx="51" cy="26" r="2.5" fill="rgba(0,0,0,0.40)"/>
+          </svg>
+        </div>
+        <div class="name">手机壳 / 3C</div>
+        <div class="en">Phone Case</div>
+        <div class="arrow-go">→</div>
+      </a>
+
+      <a href="industries.html#kitchen" class="ind-card">
+        <div class="ind-card__visual">
+          <svg viewBox="0 0 100 100"><defs><linearGradient id="iv12" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#FFD66B"/><stop offset="100%" stop-color="#78E6A0"/></linearGradient></defs>
+            <path d="M30 20 L70 20 L74 36 L70 86 L30 86 L26 36 Z" fill="url(#iv12)" stroke="rgba(255,255,255,0.4)"/>
+            <line x1="42" y1="20" x2="42" y2="14" stroke="rgba(255,255,255,0.6)" stroke-width="2" stroke-linecap="round"/>
+            <line x1="58" y1="20" x2="58" y2="14" stroke="rgba(255,255,255,0.6)" stroke-width="2" stroke-linecap="round"/>
+            <circle cx="50" cy="56" r="10" fill="rgba(255,255,255,0.4)"/>
+          </svg>
+        </div>
+        <div class="name">厨房用品</div>
+        <div class="en">Kitchenware</div>
+        <div class="arrow-go">→</div>
+      </a>
+
+      <a href="industries.html#home" class="ind-card">
+        <div class="ind-card__visual">
+          <svg viewBox="0 0 100 100"><defs><linearGradient id="iv13" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#C9A9FF"/><stop offset="100%" stop-color="#FF7494"/></linearGradient></defs>
+            <rect x="20" y="34" width="60" height="50" rx="6" fill="url(#iv13)" stroke="rgba(255,255,255,0.4)"/>
+            <path d="M28 40 Q35 28 50 28 Q65 28 72 40" fill="none" stroke="rgba(255,255,255,0.45)" stroke-width="3" stroke-linecap="round"/>
+            <circle cx="40" cy="56" r="5" fill="rgba(255,255,255,0.5)"/>
+            <circle cx="60" cy="56" r="5" fill="rgba(255,255,255,0.5)"/>
+          </svg>
+        </div>
+        <div class="name">家居用品</div>
+        <div class="en">Home · Living</div>
+        <div class="arrow-go">→</div>
+      </a>
+
+      <a href="industries.html#gift" class="ind-card">
+        <div class="ind-card__visual">
+          <svg viewBox="0 0 100 100"><defs><linearGradient id="iv14" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#FF7494"/><stop offset="100%" stop-color="#FFD66B"/></linearGradient></defs>
+            <rect x="20" y="40" width="60" height="44" rx="3" fill="url(#iv14)" stroke="rgba(255,255,255,0.4)"/>
+            <rect x="44" y="40" width="12" height="44" fill="rgba(255,255,255,0.35)"/>
+            <path d="M30 40 Q30 24 44 30 Q50 33 56 30 Q70 24 70 40" fill="none" stroke="rgba(255,255,255,0.55)" stroke-width="3"/>
+            <ellipse cx="50" cy="32" rx="8" ry="4" fill="rgba(255,255,255,0.4)"/>
+          </svg>
+        </div>
+        <div class="name">礼品饰品</div>
+        <div class="en">Gift · Accessory</div>
+        <div class="arrow-go">→</div>
+      </a>
+
+      <a href="industries.html" class="ind-card" style="display:flex;align-items:center;justify-content:center;text-align:center;background:linear-gradient(135deg,rgba(255,214,107,0.18),rgba(255,116,148,0.18));">
+        <div>
+          <div class="name" style="font-size:18px;">查看全部</div>
+          <div class="en">See all 14 →</div>
+        </div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ============== ECOSYSTEM ============== -->
+<section class="section">
+  <div class="wrap">
+    <div class="section__head--left reveal">
+      <div>
+        <span class="eyebrow"><span class="dot"></span>06 ／ 平台与物流生态</span>
+        <h2 style="margin-top:22px;">一次接入,<em>全渠道跑通。</em></h2>
+      </div>
+      <p>方果 POD 把跨境平台、国内电商、物流渠道全部接成一张订单网——商家无需重复对接,工厂无需重复开发。</p>
+    </div>
+
+    <div class="reveal-stagger">
+      <div class="eco-card">
+        <h4>跨境平台 ／ Marketplace &amp; D2C</h4>
+        <div class="eco-tags">
+          <span class="eco-tag">Temu</span><span class="eco-tag">SHEIN</span><span class="eco-tag">TikTok Shop</span>
+          <span class="eco-tag">Amazon</span><span class="eco-tag">Shopify</span><span class="eco-tag">eBay</span>
+          <span class="eco-tag">Etsy</span><span class="eco-tag">AliExpress</span><span class="eco-tag">Shopee</span>
+          <span class="eco-tag">Lazada</span><span class="eco-tag">Walmart</span><span class="eco-tag">Mercado Libre</span>
+          <span class="eco-tag">Ozon</span>
+        </div>
+      </div>
+
+      <div class="eco-card">
+        <h4>国内平台 ／ Domestic</h4>
+        <div class="eco-tags">
+          <span class="eco-tag">抖音电商</span><span class="eco-tag">拼多多</span><span class="eco-tag">淘宝</span>
+          <span class="eco-tag">天猫</span><span class="eco-tag">微信小店</span><span class="eco-tag">视频号小店</span>
+          <span class="eco-tag">小红书</span><span class="eco-tag">京东</span>
+        </div>
+      </div>
+
+      <div class="eco-card">
+        <h4>物流生态 ／ Logistics</h4>
+        <div class="eco-tags">
+          <span class="eco-tag">EUB</span><span class="eco-tag">USPS</span><span class="eco-tag">UPS</span>
+          <span class="eco-tag">FedEx</span><span class="eco-tag">DHL</span><span class="eco-tag">Royal Mail</span>
+          <span class="eco-tag">海外仓·美国</span><span class="eco-tag">海外仓·英国</span><span class="eco-tag">海外仓·德国</span>
+          <span class="eco-tag">海外仓·墨西哥</span><span class="eco-tag">Y2 模式</span><span class="eco-tag">JIT 备货</span>
+          <span class="eco-tag">全托管</span><span class="eco-tag">FBA 头程</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============== WHY US ============== -->
+<section class="section">
+  <div class="wrap">
+    <div class="section__head--left reveal">
+      <div>
+        <span class="eyebrow"><span class="dot"></span>07 ／ 为什么选方果</span>
+        <h2 style="margin-top:22px;">不是一个 SaaS,<em>是一套基础设施。</em></h2>
+      </div>
+      <p>从 AI 内容到全球履约,方果不是单点工具,而是把 POD 业务最关键的五个环节做成一个真正能扩张的平台。</p>
+    </div>
+
+    <div class="why-grid reveal-stagger">
+      <div class="why-card">
+        <div class="num">01</div>
+        <h4>真正懂 POD</h4>
+        <p>团队来自跨境、柔性生产、AI 应用一线,懂工厂、懂商家、懂平台。</p>
+      </div>
+      <div class="why-card">
+        <div class="num">02</div>
+        <h4>跑得通的方案</h4>
+        <p>14 个 POD 品类,21 家工厂客户,每条链路都已真实落地、真实出货。</p>
+      </div>
+      <div class="why-card">
+        <div class="num">03</div>
+        <h4>AI 进入业务</h4>
+        <p>不只是会画图,而是直接生成"能上架、能生产、能发货"的素材。</p>
+      </div>
+      <div class="why-card">
+        <div class="num">04</div>
+        <h4>系统化能力</h4>
+        <p>把平台规则、物流策略、生产工艺标准化,商家专注卖货,工厂专注产线。</p>
+      </div>
+      <div class="why-card">
+        <div class="num">05</div>
+        <h4>持续迭代</h4>
+        <p>新平台、新物流、新工艺由方果同步对接,工厂商家不必重复造轮子。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============== FINAL CTA ============== -->
+<section class="final" id="contact">
+  <div class="final__inner reveal">
+    <span class="eyebrow"><span class="dot"></span>FANGGUO POD ／ 让 POD 真正落地</span>
+    <h2>把 POD 这门生意,<br><em>真正跑通。</em></h2>
+    <p>不论你是产业带的工厂老板,还是已经在跑独立站的跨境商家——我们准备好和你聊聊 POD 这件事。</p>
+    <div class="final__cta">
+      <a href="#" class="btn btn--primary">预约演示 <span class="arrow">→</span></a>
+      <a href="cases.html" class="btn btn--ghost">查看客户案例</a>
+    </div>
+  </div>
+</section>
+
+<!-- ============== FOOTER ============== -->
+<footer class="footer">
+  <div class="footer__inner">
+    <div class="footer__grid">
+      <div>
+        <div class="footer__brand">
+          <svg class="mark" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+            <defs><linearGradient id="logoG2" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#FF7494"/><stop offset="100%" stop-color="#FFD66B"/></linearGradient></defs>
+            <rect x="14" y="28" width="72" height="58" rx="14" fill="url(#logoG2)"/>
+            <rect x="46" y="14" width="8" height="22" rx="2" fill="#FFFFFF"/>
+            <rect x="34" y="32" width="32" height="6" rx="2" fill="#FFFFFF"/>
+            <ellipse cx="62" cy="14" rx="9" ry="6" transform="rotate(-30 62 14)" fill="#78E6A0"/>
+          </svg>
+          方果 POD
+        </div>
+        <p>方果POD隶属深圳市渔童科技有限公司。AI 驱动的 POD 生产与全球履约平台。</p>
+      </div>
+      <div>
+        <h5>产品</h5>
+        <ul>
+          <li><a href="ai.html">AI 铺货</a></li>
+          <li><a href="factory.html">柔性生产</a></li>
+          <li><a href="ecosystem.html">全球履约</a></li>
+          <li><a href="merchant.html">商家工具</a></li>
+        </ul>
+      </div>
+      <div>
+        <h5>方案</h5>
+        <ul>
+          <li><a href="factory.html">工厂方案</a></li>
+          <li><a href="merchant.html">商家方案</a></li>
+          <li><a href="industries.html">行业方案</a></li>
+          <li><a href="ecosystem.html">平台与物流</a></li>
+        </ul>
+      </div>
+      <div>
+        <h5>资源</h5>
+        <ul>
+          <li><a href="cases.html">客户案例</a></li>
+          <li><a href="#">使用文档</a></li>
+          <li><a href="#">API 接口</a></li>
+          <li><a href="about.html">关于方果</a></li>
+        </ul>
+      </div>
+      <div>
+        <h5>联系</h5>
+        <ul>
+          <li><a href="#">预约演示</a></li>
+          <li><a href="#">联系销售</a></li>
+          <li><a href="#">生态合作</a></li>
+          <li><a href="#">加入我们</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer__bottom">
+      <span>© 2026 深圳市渔童科技有限公司 ／ FANGGUO POD</span>
+      <span>粤ICP备 XXXXXXXX 号 · MADE FOR POD</span>
+    </div>
+  </div>
+</footer>
+
+<script src="assets/main.js"></script>
+</body>
+</html>

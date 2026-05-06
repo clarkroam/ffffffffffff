@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI 铺货 — 方果 POD</title>
+<meta name="description" content="方果 AI 铺货:从一张图到一批可销售的 POD 商品,图案生成、商品图制作、模板套图、批量刊登、生产图生成全链路 AI 化。">
+<link rel="icon" href="assets/logo.png">
+<link rel="stylesheet" href="assets/styles.css">
+</head>
+<body>
+
+<nav class="nav">
+  <a href="index.html" class="nav__brand">
+    <svg class="mark" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+      <defs><linearGradient id="logoG" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#FF7494"/><stop offset="100%" stop-color="#FFD66B"/></linearGradient></defs>
+      <rect x="14" y="28" width="72" height="58" rx="14" fill="url(#logoG)"/>
+      <rect x="46" y="14" width="8" height="22" rx="2" fill="#FFFFFF"/>
+      <rect x="34" y="32" width="32" height="6" rx="2" fill="#FFFFFF"/>
+      <ellipse cx="62" cy="14" rx="9" ry="6" transform="rotate(-30 62 14)" fill="#78E6A0"/>
+    </svg>
+    方果<small>POD</small>
+  </a>
+  <div class="nav__links">
+    <a href="index.html">首页</a>
+    <a href="ai.html" class="active">AI铺货</a>
+    <a href="factory.html">工厂方案</a>
+    <a href="merchant.html">商家方案</a>
+    <a href="industries.html">行业方案</a>
+    <a href="ecosystem.html">平台与物流</a>
+    <a href="cases.html">客户案例</a>
+    <a href="about.html">关于方果</a>
+  </div>
+  <div class="nav__cta">
+    <a href="#" class="nav__login">登录</a>
+    <a href="#contact" class="btn btn--accent btn--small">预约演示 <span class="arrow">→</span></a>
+  </div>
+</nav>
+
+<section class="sub-hero">
+  <div class="sub-hero__inner">
+    <div>
+      <span class="eyebrow"><span class="dot"></span>AI ／ 内容引擎</span>
+      <h1>用 AI 把一张图,<br>变成一批<em>可销售的<br>POD 商品。</em></h1>
+      <p>方果 AI 铺货帮商家和工厂完成图案生成、商品图制作、模板套图、标题生成、批量刊登和生产图生成。让 POD 商品从创意到销售更快落地——AI 不只是画图,而是直接进入业务闭环。</p>
+    </div>
+    <div class="sub-hero__visual">
+      <!-- AI generation visualization -->
+      <div class="float-card fc-1" style="position:absolute;top:0;left:0;width:200px;animation:floaty 6s ease-in-out infinite;">
+        <svg class="product-svg" viewBox="0 0 200 160">
+          <defs><linearGradient id="ai1" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#FF7494"/><stop offset="100%" stop-color="#FFD66B"/></linearGradient></defs>
+          <rect x="40" y="30" width="120" height="100" rx="10" fill="url(#ai1)" stroke="rgba(255,255,255,0.4)"/>
+          <circle cx="80" cy="70" r="12" fill="rgba(255,255,255,0.6)"/>
+          <circle cx="120" cy="60" r="8" fill="rgba(255,255,255,0.5)"/>
+          <path d="M50 110 L80 90 L110 100 L150 75" stroke="rgba(255,255,255,0.7)" stroke-width="2" fill="none"/>
+        </svg>
+        <div class="label">INPUT IMAGE</div>
+        <div class="price">.png · 2048</div>
+      </div>
+      <div class="float-card fc-2" style="position:absolute;top:60px;right:0;width:200px;animation:floaty 6s ease-in-out infinite -2s;">
+        <svg class="product-svg" viewBox="0 0 200 160">
+          <defs><linearGradient id="ai2" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#78B4FF"/><stop offset="100%" stop-color="#C9A9FF"/></linearGradient></defs>
+          <path d="M40 30 L70 18 L80 30 Q100 38 120 30 L130 18 L160 30 L170 60 L150 70 L150 130 Q100 138 50 130 L50 70 L30 60 Z" fill="url(#ai2)" stroke="rgba(255,255,255,0.4)"/>
+          <circle cx="100" cy="80" r="14" fill="rgba(255,255,255,0.4)"/>
+        </svg>
+        <div class="label">+ MOCKUP</div>
+        <div class="price">→ T-Shirt</div>
+      </div>
+      <div class="float-card fc-3" style="position:absolute;bottom:20px;left:30%;width:200px;animation:floaty 6s ease-in-out infinite -4s;">
+        <svg class="product-svg" viewBox="0 0 200 160">
+          <defs><linearGradient id="ai3" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#78E6A0"/><stop offset="100%" stop-color="#FFD66B"/></linearGradient></defs>
+          <rect x="60" y="30" width="80" height="100" rx="6" fill="url(#ai3)" stroke="rgba(255,255,255,0.4)"/>
+          <ellipse cx="60" cy="30" rx="40" ry="6" fill="rgba(255,255,255,0.5)"/>
+          <text x="100" y="88" font-family="Outfit" font-size="14" font-weight="800" fill="#fff" text-anchor="middle">AI</text>
+        </svg>
+        <div class="label">SKU MATRIX</div>
+        <div class="price">×30 GENERATED</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- THREE FLOWS -->
+<section class="section">
+  <div class="wrap">
+    <div class="section__head--left reveal">
+      <div>
+        <span class="eyebrow"><span class="dot"></span>02 ／ 三条核心流程</span>
+        <h2 style="margin-top:22px;">三条<em>核心流程。</em></h2>
+      </div>
+      <p>从单图到商品、从热点到出单、从爆款到矩阵——AI 在每一个环节都创造价值。</p>
+    </div>
+
+    <div class="ai-flow-grid reveal-stagger">
+      <div class="ai-flow-card">
+        <span class="badge">FLOW 01 ／ IMAGE TO PRODUCTION</span>
+        <h3>从商品图<br>到生产图</h3>
+        <ol>
+          <li>上传商品图</li>
+          <li>AI 提取印花图</li>
+          <li>扩图适配版型</li>
+          <li>合成上架效果图</li>
+          <li>生成生产裁片图</li>
+          <li>下发工厂生产</li>
+        </ol>
+      </div>
+      <div class="ai-flow-card">
+        <span class="badge">FLOW 02 ／ TREND TO PRODUCT</span>
+        <h3>从热点主题<br>到商品</h3>
+        <ol>
+          <li>输入热点主题</li>
+          <li>AI 生成图案</li>
+          <li>图片裂变多版本</li>
+          <li>自动套图</li>
+          <li>批量生成商品</li>
+          <li>多平台上架</li>
+          <li>出单后自动生产</li>
+        </ol>
+      </div>
+      <div class="ai-flow-card">
+        <span class="badge">FLOW 03 ／ HIT TO MATRIX</span>
+        <h3>从爆款图案<br>到商品矩阵</h3>
+        <ol>
+          <li>已出单图案</li>
+          <li>AI 分析风格</li>
+          <li>批量裂变新图</li>
+          <li>适配多个品类</li>
+          <li>多店铺铺货</li>
+          <li>持续测款</li>
+        </ol>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- THREE SELLING POINTS -->
+<section class="section">
+  <div class="wrap">
+    <div class="section__head--left reveal">
+      <div>
+        <span class="eyebrow"><span class="dot"></span>03 ／ 与众不同</span>
+        <h2 style="margin-top:22px;">不是 AI 工具,<em>是 AI 业务引擎。</em></h2>
+      </div>
+      <p>方果 AI 不停留在生成漂亮图片这一步,而是直接进入"能卖、能做、能发"的业务闭环。</p>
+    </div>
+
+    <div class="step-block reveal-stagger">
+      <div class="step-card">
+        <div class="step-no">01</div>
+        <h4>生成可销售商品</h4>
+        <p>AI 输出不是一张图,而是商品图 + 模特图 + 白底图 + 详情图——可以直接上架的全套素材。</p>
+        <div class="chips"><span class="chip">商品图</span><span class="chip">模特套图</span><span class="chip">白底图</span></div>
+      </div>
+      <div class="step-card">
+        <div class="step-no">02</div>
+        <h4>连接工厂能生产</h4>
+        <p>AI 生成的不只是上架图,还包括裁片图 / 拼版图 / 印花对位图——直接下发工厂排产。</p>
+        <div class="chips"><span class="chip">裁片图</span><span class="chip">拼版排料</span><span class="chip">对位标记</span></div>
+      </div>
+      <div class="step-card">
+        <div class="step-no">03</div>
+        <h4>放大供应链能力</h4>
+        <p>同样的工艺、同样的产线,AI 让一个工人管更多 SKU,一个店铺测更多款式,生意规模真正放大。</p>
+        <div class="chips"><span class="chip">SKU 矩阵</span><span class="chip">批量铺货</span><span class="chip">持续测款</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FINAL CTA -->
+<section class="final" id="contact">
+  <div class="final__inner reveal">
+    <span class="eyebrow"><span class="dot"></span>FANGGUO POD ／ AI</span>
+    <h2>让 AI 不只是<em>画图,</em><br>而是真正<em>下单出货。</em></h2>
+    <p>从一张创意图开始,方果 AI 帮你跑通从图案到出货的完整链路——不再只是画完就结束。</p>
+    <div class="final__cta">
+      <a href="#" class="btn btn--primary">体验 AI 铺货 <span class="arrow">→</span></a>
+      <a href="cases.html" class="btn btn--ghost">查看客户案例</a>
+    </div>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="footer__inner">
+    <div class="footer__grid">
+      <div>
+        <div class="footer__brand">
+          <svg class="mark" viewBox="0 0 100 100"><defs><linearGradient id="lg2" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#FF7494"/><stop offset="100%" stop-color="#FFD66B"/></linearGradient></defs><rect x="14" y="28" width="72" height="58" rx="14" fill="url(#lg2)"/><rect x="46" y="14" width="8" height="22" rx="2" fill="#fff"/><rect x="34" y="32" width="32" height="6" rx="2" fill="#fff"/><ellipse cx="62" cy="14" rx="9" ry="6" transform="rotate(-30 62 14)" fill="#78E6A0"/></svg>
+          方果 POD
+        </div>
+        <p>方果POD隶属深圳市渔童科技有限公司。AI 驱动的 POD 生产与全球履约平台。</p>
+      </div>
+      <div><h5>产品</h5><ul><li><a href="ai.html">AI 铺货</a></li><li><a href="factory.html">柔性生产</a></li><li><a href="ecosystem.html">全球履约</a></li><li><a href="merchant.html">商家工具</a></li></ul></div>
+      <div><h5>方案</h5><ul><li><a href="factory.html">工厂方案</a></li><li><a href="merchant.html">商家方案</a></li><li><a href="industries.html">行业方案</a></li><li><a href="ecosystem.html">平台与物流</a></li></ul></div>
+      <div><h5>资源</h5><ul><li><a href="cases.html">客户案例</a></li><li><a href="#">使用文档</a></li><li><a href="#">API 接口</a></li><li><a href="about.html">关于方果</a></li></ul></div>
+      <div><h5>联系</h5><ul><li><a href="#">预约演示</a></li><li><a href="#">联系销售</a></li><li><a href="#">生态合作</a></li><li><a href="#">加入我们</a></li></ul></div>
+    </div>
+    <div class="footer__bottom"><span>© 2026 深圳市渔童科技有限公司 ／ FANGGUO POD</span><span>粤ICP备 XXXXXXXX 号 · MADE FOR POD</span></div>
+  </div>
+</footer>
+
+<script src="assets/main.js"></script>
+</body>
+</html>
