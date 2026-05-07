@@ -1,0 +1,415 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>设计师工作台 · 方果设计师平台</title>
+<link rel="stylesheet" href="../assets/styles.css" />
+<style>
+  /* —— 工作台专属 —— */
+  .welcome {
+    border-radius: var(--r-xl);
+    padding: 26px 30px;
+    background:
+      radial-gradient(800px 220px at 100% 0%, rgba(255,90,31,.18), transparent 70%),
+      linear-gradient(180deg, #161A22 0%, #0E1116 100%);
+    color: var(--ink-on-dark);
+    display: grid; grid-template-columns: 1.3fr 1fr; gap: 26px; align-items: center;
+    overflow: hidden; position: relative;
+    margin-bottom: 22px;
+  }
+  .welcome .greet { font-size: 13px; color: rgba(255,255,255,.6); }
+  .welcome h1 { font-size: 26px; font-weight: 700; margin: 6px 0 8px; letter-spacing: -.2px; }
+  .welcome .pills { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 10px; }
+  .welcome .pills .p {
+    padding: 5px 11px; border-radius: var(--r-pill); font-size: 12px;
+    background: rgba(255,255,255,.08); border: 1px solid rgba(255,255,255,.14); color: #fff;
+  }
+  .welcome .level-card {
+    background: rgba(255,255,255,.06);
+    border: 1px solid rgba(255,255,255,.1);
+    border-radius: var(--r-lg); padding: 16px 18px;
+  }
+  .welcome .level-card .l-title {
+    display: flex; justify-content: space-between; align-items: center;
+    color: rgba(255,255,255,.7); font-size: 12px;
+  }
+  .welcome .level-card .l-num {
+    font-size: 28px; font-weight: 800; margin: 6px 0 4px; letter-spacing: -.5px;
+    background: linear-gradient(135deg,#FFD27A,#FF8A3D);
+    -webkit-background-clip: text; background-clip: text; color: transparent;
+  }
+  .welcome .level-card .bar { background: rgba(255,255,255,.12); }
+  .welcome .level-card .bar > i { background: linear-gradient(90deg,#FFD27A,#FF8A3D); }
+  .welcome .level-card .l-meta {
+    display: flex; justify-content: space-between; font-size: 11.5px;
+    color: rgba(255,255,255,.55); margin-top: 8px;
+  }
+
+  .alert-row { display: grid; grid-template-columns: 2fr 1fr; gap: 16px; margin-top: 22px; }
+  .panel-h { display:flex; align-items:center; justify-content:space-between; margin-bottom: 12px; }
+
+  .recommend .item {
+    display: grid; grid-template-columns: 60px 1fr auto; gap: 14px;
+    padding: 12px; border-radius: var(--r-md);
+    border: 1px solid var(--line); background: var(--bg-canvas);
+    align-items: center; margin-bottom: 10px;
+  }
+  .recommend .item .ico {
+    width: 56px; height: 56px; border-radius: 12px;
+    display: grid; place-items: center; font-size: 22px; color: #fff;
+  }
+
+  .work-grid {
+    display: grid; grid-template-columns: repeat(4, minmax(0,1fr)); gap: 14px;
+  }
+  .work-card { padding: 0; }
+  .work-card .body { padding: 10px 12px; }
+  .work-card .name { font-weight: 600; font-size: 13px; }
+  .work-card .meta { font-size: 11px; color: var(--ink-3); display:flex; gap:6px; align-items:center; margin-top: 2px;}
+
+  .activity li {
+    display: grid; grid-template-columns: 28px 1fr auto; gap: 10px;
+    padding: 10px 0; border-bottom: 1px dashed var(--line);
+    list-style: none;
+  }
+  .activity { padding: 0; margin: 0; }
+  .activity li:last-child { border-bottom: 0; }
+  .activity .dot {
+    width: 8px; height: 8px; border-radius: 50%;
+    background: var(--brand); margin: 7px 0 0 8px;
+  }
+  .activity .dot.ai { background: var(--ai); }
+  .activity .dot.s { background: var(--success); }
+  .activity .dot.w { background: var(--warning); }
+  .activity .when { color: var(--ink-4); font-size: 12px; }
+
+  .risk { background: var(--warning-soft); border: 1px solid #F6DD9C; border-radius: var(--r-md); padding: 14px; }
+  .risk .h { color: var(--warning); font-weight: 700; font-size: 13px; margin-bottom: 6px; }
+  .risk ul { margin: 0; padding-left: 16px; font-size: 12.5px; color: var(--ink-2); }
+</style>
+</head>
+<body>
+
+<header class="topbar">
+  <a class="logo" href="../index.html">
+    <span class="mark"></span>方果<span style="color:var(--ink-3);font-weight:500">·设计师平台</span>
+  </a>
+  <nav>
+    <a href="../index.html">总览</a>
+    <a class="active" href="designer-dashboard.html">设计师中心</a>
+    <a href="task-hall.html">任务大厅</a>
+    <a href="ai-studio.html">AI 创作</a>
+    <a href="templates.html">版型库</a>
+    <a href="commercialize.html">商品化</a>
+    <a href="earnings.html">收益结算</a>
+  </nav>
+  <div class="grow"></div>
+  <div class="switch">
+    <button class="on">设计师视角</button>
+    <button>运营视角</button>
+  </div>
+  <button class="iconbtn"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 8a6 6 0 1 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10 21a2 2 0 0 0 4 0"/></svg><span class="dot"></span></button>
+  <div class="avatar">L</div>
+</header>
+
+<div class="shell">
+
+  <!-- 侧边导航：设计师中心 -->
+  <aside class="sidebar">
+    <div class="group">
+      <div class="group-title">设计师中心</div>
+      <a class="menu active" href="designer-dashboard.html">🏠 工作台</a>
+      <a class="menu" href="designer-profile.html">👤 我的设计师主页</a>
+      <a class="menu" href="portfolio.html">🖼 作品集 <span class="count">128</span></a>
+      <a class="menu" href="task-hall.html">📋 任务大厅 <span class="count">426</span></a>
+      <a class="menu" href="#">🧾 我的报价</a>
+      <a class="menu" href="#">🏷 风格 / 类目标签</a>
+      <a class="menu" href="#">🏆 设计师等级</a>
+      <a class="menu" href="#">📑 版权 / 授权记录</a>
+    </div>
+    <div class="group">
+      <div class="group-title">创作工具</div>
+      <a class="menu" href="ai-studio.html">✨ AI 创作工作台</a>
+      <a class="menu" href="templates.html">📐 模板 / 版型库</a>
+      <a class="menu" href="commercialize.html">🛒 商品化中心</a>
+    </div>
+    <div class="group">
+      <div class="group-title">收益</div>
+      <a class="menu" href="earnings.html">💰 收益看板</a>
+      <a class="menu" href="#">🧮 流水 / 对账</a>
+      <a class="menu" href="#">🧾 发票管理</a>
+    </div>
+  </aside>
+
+  <main class="main">
+
+    <!-- Welcome -->
+    <section class="welcome">
+      <div>
+        <div class="greet">早上好，</div>
+        <h1>李小果，这是你 5 月以来的第 <span style="color:#FF8A3D">37</span> 天创作</h1>
+        <div class="pills">
+          <span class="p">🏷 风格：复古插画 · 极简几何 · 国潮</span>
+          <span class="p">📦 类目：女装满印 · T 恤 · 家居服</span>
+          <span class="p">🌐 接单地区：跨境 ·  Shopee / TikTok Shop</span>
+        </div>
+        <div style="margin-top:18px; display:flex; gap:10px;">
+          <a class="btn brand" href="task-hall.html">浏览推荐任务</a>
+          <a class="btn" href="ai-studio.html">打开 AI 工作台</a>
+          <a class="btn ghost" style="color:#fff;border-color:rgba(255,255,255,.2)" href="portfolio.html">+ 上传新作品</a>
+        </div>
+      </div>
+
+      <div class="level-card">
+        <div class="l-title">
+          <span><span class="level l4" style="vertical-align:middle">L4 · 资深设计师</span></span>
+          <span>本期成长值</span>
+        </div>
+        <div class="l-num">8,420 <span style="font-size:14px;color:rgba(255,255,255,.55);font-weight:500;">/ 10,000</span></div>
+        <div class="bar"><i style="width:84%"></i></div>
+        <div class="l-meta">
+          <span>距 L5 · 金牌设计师 还差 1,580</span>
+          <span>分佣比例 38%</span>
+        </div>
+        <hr style="border:0;border-top:1px solid rgba(255,255,255,.08); margin:14px 0">
+        <div class="row" style="justify-content:space-between;font-size:12px;color:rgba(255,255,255,.7)">
+          <span>本月任务完成 <strong style="color:#fff">62</strong></span>
+          <span>本月通过率 <strong style="color:#fff">94%</strong></span>
+          <span>违规次数 <strong style="color:#fff">0</strong></span>
+        </div>
+      </div>
+    </section>
+
+    <!-- KPI -->
+    <div class="kpi-grid">
+      <div class="card kpi">
+        <div class="label">💰 本月收益（已结算）</div>
+        <div class="num tabular">¥ 18,420</div>
+        <div class="delta">↑ 14.3% vs 上月</div>
+        <svg class="spark" viewBox="0 0 100 32" preserveAspectRatio="none"><polyline fill="none" stroke="#FF5A1F" stroke-width="2" points="0,22 10,18 20,20 30,12 40,16 50,8 60,10 70,6 80,12 90,4 100,8"/></svg>
+      </div>
+      <div class="card kpi">
+        <div class="label">📋 进行中任务</div>
+        <div class="num tabular">7 <span style="font-size:13px;color:var(--ink-3);font-weight:500">/ 上限 12</span></div>
+        <div class="delta">3 今日截止</div>
+        <div style="display:flex;gap:4px;margin-top:10px">
+          <span class="tag warning">套图 ×2</span>
+          <span class="tag">详情图 ×3</span>
+          <span class="tag">效果图 ×2</span>
+        </div>
+      </div>
+      <div class="card kpi">
+        <div class="label">🖼 作品集浏览</div>
+        <div class="num tabular">2,840</div>
+        <div class="delta">↑ 8.6% 新增 18 关注</div>
+        <svg class="spark" viewBox="0 0 100 32" preserveAspectRatio="none"><polyline fill="none" stroke="#6E3CFF" stroke-width="2" points="0,18 12,16 24,22 36,18 48,12 60,14 72,8 84,10 96,4"/></svg>
+      </div>
+      <div class="card kpi">
+        <div class="label">🏆 通过率 / 评分</div>
+        <div class="num tabular">94% · <span style="color:var(--gold)">★ 4.86</span></div>
+        <div class="delta">近 30 天 · 0 违规</div>
+        <div class="bar success" style="margin-top:10px"><i style="width:94%"></i></div>
+      </div>
+    </div>
+
+    <!-- 推荐任务 + 风控 -->
+    <div class="alert-row">
+      <div class="card recommend">
+        <div class="panel-h">
+          <div class="h2">为你推荐 · 高匹配任务</div>
+          <a class="more muted" href="task-hall.html">前往任务大厅 →</a>
+        </div>
+
+        <div class="item">
+          <div class="ico gradient-1">🌸</div>
+          <div>
+            <div class="row" style="gap:6px"><strong>女装满印套图 · 复古插画系列</strong><span class="tag brand">套图任务</span><span class="tag warning">急</span></div>
+            <div class="muted mt-8" style="font-size:12.5px">需基于 12 张印花套用 4 个版型，输出主图 + 详情图。匹配度 <strong style="color:var(--brand-dark)">96%</strong>（风格 / 类目 / 等级）</div>
+          </div>
+          <div class="right">
+            <div class="price"><span class="ccy">¥</span>1,200</div>
+            <div class="muted-2" style="font-size:11px">≈ 100 / 张</div>
+            <a class="btn brand sm mt-8" href="#">立即接单</a>
+          </div>
+        </div>
+
+        <div class="item">
+          <div class="ico gradient-2">🍃</div>
+          <div>
+            <div class="row" style="gap:6px"><strong>家居服 · 极简几何 拉图任务</strong><span class="tag info">拉图任务</span></div>
+            <div class="muted mt-8" style="font-size:12.5px">从 8 套版型中拉伸印花，生成各 SKU 上架图，自动套用方果母版。匹配度 91%</div>
+          </div>
+          <div class="right">
+            <div class="price"><span class="ccy">¥</span>460</div>
+            <div class="muted-2" style="font-size:11px">≈ 23 / 张 ·  20 张</div>
+            <a class="btn brand sm mt-8" href="#">立即接单</a>
+          </div>
+        </div>
+
+        <div class="item">
+          <div class="ico gradient-7">🪞</div>
+          <div>
+            <div class="row" style="gap:6px"><strong>商品图去背 + 效果图增强</strong><span class="tag">去背景</span><span class="tag">效果图</span></div>
+            <div class="muted mt-8" style="font-size:12.5px">36 张拍摄主图，AI 自动去背后人工二次精修，要求毛发边缘清晰。</div>
+          </div>
+          <div class="right">
+            <div class="price"><span class="ccy">¥</span>252</div>
+            <div class="muted-2" style="font-size:11px">7 / 张</div>
+            <a class="btn brand sm mt-8" href="#">立即接单</a>
+          </div>
+        </div>
+
+        <div class="item">
+          <div class="ico gradient-10">⚡</div>
+          <div>
+            <div class="row" style="gap:6px"><strong>热点主题 · 五月母亲节系列</strong><span class="tag ai">AI 协作</span></div>
+            <div class="muted mt-8" style="font-size:12.5px">基于热点关键词批量生成印花，要求 30 张过审入库，AI 已生成 200+ 候选。</div>
+          </div>
+          <div class="right">
+            <div class="price"><span class="ccy">¥</span>900</div>
+            <div class="muted-2" style="font-size:11px">30 / 张 ·  30 张</div>
+            <a class="btn brand sm mt-8" href="#">立即接单</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="col" style="gap:16px">
+        <div class="card brand" style="padding:20px;">
+          <div class="row" style="justify-content:space-between;color:#fff">
+            <strong>爆品奖励 · 4 月</strong>
+            <span class="tag" style="background:rgba(255,255,255,.18);color:#fff">已发放</span>
+          </div>
+          <div class="price xl" style="color:#fff;margin-top:8px;">¥ 4,200</div>
+          <div style="font-size:12px;color:rgba(255,255,255,.85);margin-top:4px">作品《复古田园 · No.07》月销售 8,640 件</div>
+          <div class="bar" style="background:rgba(255,255,255,.25);margin-top:14px"><i style="background:#fff;width:72%"></i></div>
+          <div class="row" style="justify-content:space-between;color:rgba(255,255,255,.85);font-size:12px;margin-top:8px">
+            <span>距下一档奖励</span><span><strong style="color:#fff">¥ 8,000</strong> / ¥ 10,000</span>
+          </div>
+        </div>
+
+        <div class="risk">
+          <div class="h">⚠ 风控提示 · 1 项关注</div>
+          <ul>
+            <li>作品《城市印象 · 第 12 期》存在与公网素材的相似度 73%，建议补充原始稿源 / 替换。</li>
+            <li>建议查看《方果设计师内容合规手册 v2》</li>
+          </ul>
+          <div style="margin-top:8px"><a class="btn sm" href="#">前往处理</a> <a class="btn sm ghost" href="#">查看手册</a></div>
+        </div>
+
+        <div class="card">
+          <div class="panel-h">
+            <div class="h2">最近活动</div>
+            <a class="more muted" href="#">全部 →</a>
+          </div>
+          <ul class="activity">
+            <li><span class="dot s"></span><span>作品 <strong>《复古插画 · 13》</strong> 已通过审核并入库</span><span class="when">10 分钟前</span></li>
+            <li><span class="dot"></span><span>任务 <strong>女装套图 · 第 4 批</strong> 已派给你，1 小时内确认</span><span class="when">22 分钟前</span></li>
+            <li><span class="dot ai"></span><span>AI 工作台 完成 <strong>批量生成 80 张</strong>，等待筛选</span><span class="when">1 小时前</span></li>
+            <li><span class="dot w"></span><span>商品包 <strong>「夏日满印 v2」</strong> 上架 Shopee 待审</span><span class="when">3 小时前</span></li>
+            <li><span class="dot s"></span><span>本月 <strong>¥ 6,820</strong> 收益已结算到账</span><span class="when">昨天</span></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- 我的进行中作品 -->
+    <div class="section-h">
+      <div>
+        <div class="h2">我的作品（进行中）</div>
+        <div class="muted" style="font-size:13px">7 项任务相关稿件 · 3 项今日截止</div>
+      </div>
+      <div class="row">
+        <div class="filterbar">
+          <span class="filter-pill active">全部</span>
+          <span class="filter-pill">套图</span>
+          <span class="filter-pill">详情图</span>
+          <span class="filter-pill">效果图</span>
+          <span class="filter-pill">AI 生成</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="work-grid">
+      <div class="card work-card padless">
+        <div class="thumb gradient-1">
+          <span class="tag warning pin">今日截止</span>
+          <span class="meta">套图任务 · 14/20 张</span>
+        </div>
+        <div class="body">
+          <div class="name">复古田园 · 第 8 期套图</div>
+          <div class="meta"><span class="status warning">进行中</span> · ¥ 1,200</div>
+        </div>
+      </div>
+      <div class="card work-card padless">
+        <div class="thumb gradient-2">
+          <span class="tag pin">详情图</span>
+          <span class="meta">家居服 · 8/12 张</span>
+        </div>
+        <div class="body">
+          <div class="name">极简几何 家居服系列</div>
+          <div class="meta"><span class="status info">进行中</span> · ¥ 480</div>
+        </div>
+      </div>
+      <div class="card work-card padless">
+        <div class="thumb gradient-7">
+          <span class="tag pin">效果图</span>
+          <span class="meta">主图 + 模特上身</span>
+        </div>
+        <div class="body">
+          <div class="name">瑜伽运动套图 No.04</div>
+          <div class="meta"><span class="status">待审核</span> · ¥ 320</div>
+        </div>
+      </div>
+      <div class="card work-card padless">
+        <div class="thumb gradient-3">
+          <span class="tag ai pin">AI 生成</span>
+          <span class="meta">候选 80 / 已选 0</span>
+        </div>
+        <div class="body">
+          <div class="name">母亲节 热点印花</div>
+          <div class="meta"><span class="status ai">待筛选</span> · ¥ 900</div>
+        </div>
+      </div>
+      <div class="card work-card padless">
+        <div class="thumb gradient-4">
+          <span class="tag pin">套图</span>
+          <span class="meta">儿童装 · 16/20 张</span>
+        </div>
+        <div class="body">
+          <div class="name">儿童卡通 第 2 季</div>
+          <div class="meta"><span class="status warning">明日截止</span> · ¥ 800</div>
+        </div>
+      </div>
+      <div class="card work-card padless">
+        <div class="thumb gradient-5">
+          <span class="tag pin">去背景</span>
+          <span class="meta">36 张</span>
+        </div>
+        <div class="body">
+          <div class="name">商品图精修批次 #B-204</div>
+          <div class="meta"><span class="status">进行中</span> · ¥ 252</div>
+        </div>
+      </div>
+      <div class="card work-card padless">
+        <div class="thumb gradient-6">
+          <span class="tag pin">上架图</span>
+          <span class="meta">Shopee · TikTok</span>
+        </div>
+        <div class="body">
+          <div class="name">连衣裙满印 上架图</div>
+          <div class="meta"><span class="status">进行中</span> · ¥ 360</div>
+        </div>
+      </div>
+      <div class="card work-card padless" style="display:grid;place-items:center;min-height:240px;border-style:dashed;background:transparent">
+        <div class="center">
+          <div style="font-size:30px;color:var(--ink-4)">＋</div>
+          <div class="muted">上传新作品 / 接新任务</div>
+        </div>
+      </div>
+    </div>
+
+  </main>
+</div>
+</body>
+</html>

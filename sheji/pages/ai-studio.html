@@ -1,0 +1,482 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>AI 创作工作台 · AI 内容中心</title>
+<link rel="stylesheet" href="../assets/styles.css" />
+<style>
+  .mode-tabs {
+    display: grid; grid-template-columns: repeat(7, 1fr); gap: 8px;
+    margin-bottom: 22px;
+  }
+  .mode {
+    border: 1px solid var(--line); background: var(--bg-canvas);
+    border-radius: var(--r-lg); padding: 14px 12px;
+    display: flex; align-items: center; gap: 10px;
+    position: relative; cursor: pointer;
+  }
+  .mode .ic {
+    width: 36px; height: 36px; border-radius: 10px; flex-shrink: 0;
+    display: grid; place-items: center; color: #fff; font-size: 16px;
+  }
+  .mode .name { font-weight: 600; font-size: 13px; }
+  .mode .sub { font-size: 11px; color: var(--ink-4); margin-top: 2px; }
+  .mode.on {
+    background: var(--bg-ink); color: var(--ink-on-dark); border-color: var(--bg-ink);
+  }
+  .mode.on .sub { color: rgba(255,255,255,.6); }
+  .mode.beta::after {
+    content: "Beta"; position: absolute; top: -7px; right: -6px;
+    background: var(--ai); color: #fff; font-size: 10px; padding: 2px 6px; border-radius: 6px;
+  }
+
+  .studio { display: grid; grid-template-columns: 320px 1fr 300px; gap: 16px; }
+  @media (max-width: 1280px){ .studio { grid-template-columns: 1fr; } }
+
+  .controls .ctrl-group { padding: 14px 0; border-bottom: 1px solid var(--line); }
+  .controls .ctrl-group:last-child { border-bottom: 0; }
+  .controls h4 { font-size: 12px; color: var(--ink-3); margin: 0 0 8px; font-weight: 600; letter-spacing: .5px; text-transform: uppercase; }
+  .controls textarea, .controls input, .controls select {
+    width: 100%; border: 1px solid var(--line); background: var(--bg-canvas);
+    border-radius: var(--r-sm); padding: 10px 12px; font-size: 13px; resize: vertical;
+  }
+  .controls textarea { min-height: 90px; }
+  .chip-group .filter-pill { font-size: 12px; padding: 4px 10px; }
+  .slider-row { display: flex; justify-content: space-between; font-size: 12px; color: var(--ink-3); }
+  .slider {
+    appearance: none; width: 100%; height: 4px; background: var(--bg-soft); border-radius: 4px; outline: none;
+  }
+  .slider::-webkit-slider-thumb { appearance: none; width: 14px; height: 14px; border-radius: 50%; background: var(--ai); }
+
+  .uploader {
+    border: 1px dashed var(--line-strong); border-radius: var(--r-md);
+    background: var(--bg-soft); padding: 14px; text-align: center;
+    color: var(--ink-3); font-size: 12px;
+  }
+  .uploader strong { display: block; color: var(--ink-1); margin-bottom: 4px; }
+
+  .results-head {
+    display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px;
+  }
+  .results-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; }
+  .gen-tile {
+    position: relative; aspect-ratio: 1/1; border-radius: var(--r-md);
+    overflow: hidden; cursor: pointer;
+    box-shadow: 0 2px 6px rgba(0,0,0,.04);
+  }
+  .gen-tile .badges {
+    position: absolute; top: 8px; left: 8px; display: flex; gap: 6px; flex-wrap: wrap;
+  }
+  .gen-tile .actions {
+    position: absolute; bottom: 0; left: 0; right: 0;
+    padding: 10px 12px; background: linear-gradient(0deg, rgba(0,0,0,.7), transparent);
+    color: #fff; font-size: 11px;
+    display: flex; gap: 6px; align-items: center; justify-content: space-between;
+    opacity: 0; transition: opacity .15s ease;
+  }
+  .gen-tile:hover .actions { opacity: 1; }
+  .gen-tile .actions .ic-btn {
+    width: 26px; height: 26px; border-radius: 6px;
+    background: rgba(255,255,255,.18); display: grid; place-items: center;
+  }
+  .gen-tile.selected { outline: 3px solid var(--ai); outline-offset: 2px; }
+
+  /* Right rail */
+  .right-rail .card + .card { margin-top: 14px; }
+  .copyright-list .item {
+    display: grid; grid-template-columns: 36px 1fr; gap: 8px;
+    padding: 8px 0; border-bottom: 1px dashed var(--line);
+    font-size: 12px;
+  }
+  .copyright-list .item:last-child { border: 0; }
+  .copyright-list .item .img { aspect-ratio: 1/1; border-radius: 6px; }
+
+  /* History */
+  .history { background: var(--bg-canvas); border: 1px solid var(--line); border-radius: var(--r-lg); padding: 14px; }
+  .history table.table { border: 0; border-radius: 0; }
+  .history table.table th, .history table.table td { background: transparent; }
+
+  .ai-prompt-suggest {
+    display: flex; gap: 6px; flex-wrap: wrap; margin-top: 6px;
+  }
+  .ai-prompt-suggest a {
+    font-size: 12px; padding: 4px 10px; background: var(--ai-soft); color: var(--ai);
+    border-radius: var(--r-pill);
+  }
+
+  .glow-btn {
+    background: linear-gradient(135deg, var(--ai), #B690FF);
+    color: #fff; border: 0; padding: 12px 18px; border-radius: var(--r-md);
+    font-weight: 600; font-size: 14px;
+    box-shadow: 0 8px 28px rgba(110,60,255,.3);
+    width: 100%; display: flex; align-items: center; justify-content: center; gap: 8px;
+  }
+
+  .legend { display: flex; gap: 14px; align-items: center; font-size: 12px; color: var(--ink-3); }
+  .legend .l { display: inline-flex; align-items: center; gap: 4px; }
+</style>
+</head>
+<body>
+
+<header class="topbar">
+  <a class="logo" href="../index.html"><span class="mark"></span>方果<span style="color:var(--ink-3);font-weight:500">·设计师平台</span></a>
+  <nav>
+    <a href="../index.html">总览</a>
+    <a href="designer-dashboard.html">设计师中心</a>
+    <a href="task-hall.html">任务大厅</a>
+    <a class="active" href="ai-studio.html">AI 创作</a>
+    <a href="templates.html">版型库</a>
+    <a href="commercialize.html">商品化</a>
+    <a href="earnings.html">收益结算</a>
+  </nav>
+  <div class="grow"></div>
+  <div class="switch"><button class="on">设计师视角</button><button>运营视角</button></div>
+  <button class="iconbtn"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 8a6 6 0 1 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10 21a2 2 0 0 0 4 0"/></svg><span class="dot"></span></button>
+  <div class="avatar">L</div>
+</header>
+
+<main class="main wide">
+  <div class="pagehead">
+    <div>
+      <div class="crumbs">AI 内容中心 · <span>创作工作台</span></div>
+      <div class="h1">AI 创作工作台</div>
+      <div class="desc">7 种模式覆盖 POD 内容生产全场景：从灵感生成到批量裂变、再到风格融合与热点主题。所有结果自动跑版权风险检测，可一键入库 / 商品化。</div>
+    </div>
+    <div class="row">
+      <span class="tag ai">本月已用 18,420 / 50,000 算力</span>
+      <a class="btn" href="#">生成记录</a>
+      <a class="btn primary" href="#">人工精选入库</a>
+    </div>
+  </div>
+
+  <!-- 模式 Tab -->
+  <div class="mode-tabs">
+    <div class="mode on">
+      <div class="ic" style="background:linear-gradient(135deg,#6E3CFF,#B690FF)">📝</div>
+      <div><div class="name">文生图</div><div class="sub" style="color:rgba(255,255,255,.6)">关键词 / 主题</div></div>
+    </div>
+    <div class="mode">
+      <div class="ic" style="background:linear-gradient(135deg,#FF8A3D,#FF5A1F)">🖼</div>
+      <div><div class="name">图生图</div><div class="sub">参考图重绘</div></div>
+    </div>
+    <div class="mode">
+      <div class="ic" style="background:linear-gradient(135deg,#84FAB0,#3CB371)">🪡</div>
+      <div><div class="name">印花提取</div><div class="sub">商品图 → 印花</div></div>
+    </div>
+    <div class="mode">
+      <div class="ic" style="background:linear-gradient(135deg,#FBC2EB,#A18CD1)">💥</div>
+      <div><div class="name">图片裂变</div><div class="sub">一稿生 N 稿</div></div>
+    </div>
+    <div class="mode">
+      <div class="ic" style="background:linear-gradient(135deg,#A1C4FD,#1F6FEB)">🧩</div>
+      <div><div class="name">元素提取</div><div class="sub">解构印花元素</div></div>
+    </div>
+    <div class="mode">
+      <div class="ic" style="background:linear-gradient(135deg,#FF9A9E,#FAD0C4)">🎨</div>
+      <div><div class="name">风格融合</div><div class="sub">A 风格 × B 内容</div></div>
+    </div>
+    <div class="mode beta">
+      <div class="ic" style="background:linear-gradient(135deg,#0E1116,#5C6573)">🔥</div>
+      <div><div class="name">热点主题</div><div class="sub">节日 / 平台热搜</div></div>
+    </div>
+  </div>
+
+  <div class="studio">
+
+    <!-- 左：控制面板 -->
+    <aside class="card padless controls" style="padding:14px 16px">
+      <div class="ctrl-group" style="padding-top:0">
+        <h4>提示词 · Prompt</h4>
+        <textarea>复古田园风格 满印印花 大花朵+蕾丝边 暖黄+奶油白 手绘油画质感 适合女装连衣裙 满印贴版 高分辨率</textarea>
+        <div class="ai-prompt-suggest">
+          <a>+ 暖色调</a><a>+ 高分辨率</a><a>+ 满印重复点</a><a>+ 蓬松感</a><a>+ vintage</a>
+        </div>
+      </div>
+
+      <div class="ctrl-group">
+        <h4>负向提示词</h4>
+        <textarea rows="2" placeholder="不希望出现的元素，如：低分辨率 / 文字 / 水印">low quality, watermark, text, cropped, signature</textarea>
+      </div>
+
+      <div class="ctrl-group chip-group">
+        <h4>风格</h4>
+        <div class="row wrap" style="gap:6px">
+          <span class="filter-pill active">复古插画</span>
+          <span class="filter-pill">极简几何</span>
+          <span class="filter-pill">水彩</span>
+          <span class="filter-pill">国潮</span>
+          <span class="filter-pill">街头潮流</span>
+          <span class="filter-pill">3D 渲染</span>
+        </div>
+      </div>
+
+      <div class="ctrl-group chip-group">
+        <h4>类目适配</h4>
+        <div class="row wrap" style="gap:6px">
+          <span class="filter-pill active">女装满印</span>
+          <span class="filter-pill">T 恤</span>
+          <span class="filter-pill">家居服</span>
+          <span class="filter-pill">手机壳</span>
+        </div>
+      </div>
+
+      <div class="ctrl-group">
+        <h4>参数</h4>
+        <div class="slider-row"><span>风格强度</span><span>0.85</span></div>
+        <input class="slider" type="range" value="85" />
+        <div class="slider-row mt-12"><span>分辨率</span><span>3000 × 3000</span></div>
+        <select><option>3000 × 3000（满印推荐）</option><option>2048 × 2048</option><option>1500 × 1500</option></select>
+        <div class="slider-row mt-12"><span>批量数量</span><span>16 张</span></div>
+        <input class="slider" type="range" value="60" />
+      </div>
+
+      <div class="ctrl-group">
+        <h4>版型适配</h4>
+        <select><option>女装满印 - 长袖连衣裙 v3</option><option>女装满印 - 短袖 T 恤 v2</option><option>不绑定版型</option></select>
+        <div class="muted mt-8" style="font-size:11.5px">勾选后，AI 输出会自动按版型重复点进行预演。</div>
+        <label class="row mt-8" style="font-size:12px;color:var(--ink-2);gap:6px"><input type="checkbox" checked /> 启用版权风险检查</label>
+        <label class="row" style="font-size:12px;color:var(--ink-2);gap:6px"><input type="checkbox" /> 自动入库高分作品（≥ 4.5 分）</label>
+      </div>
+
+      <div class="ctrl-group" style="border:0">
+        <button class="glow-btn">✨ 生成 16 张 · 预计 18 算力</button>
+        <div class="row" style="justify-content:space-between;margin-top:8px;font-size:12px;color:var(--ink-3)">
+          <span>预计耗时 ~ 24 秒</span>
+          <a>失败重试设置</a>
+        </div>
+      </div>
+    </aside>
+
+    <!-- 中：生成结果 -->
+    <section>
+      <div class="results-head">
+        <div class="row" style="gap:10px">
+          <div class="h2">生成结果 · 第 12 批 · 复古田园 满印</div>
+          <span class="tag ai">已生成 16 / 16</span>
+        </div>
+        <div class="row" style="gap:6px">
+          <div class="legend">
+            <span class="l"><span class="status success"></span>过审</span>
+            <span class="l"><span class="status warning"></span>风险</span>
+            <span class="l"><span class="status"></span>未筛</span>
+          </div>
+          <button class="btn sm">全选</button>
+          <button class="btn brand sm">入库选中（4）</button>
+        </div>
+      </div>
+
+      <div class="results-grid">
+        <!-- 16 个生成图块 -->
+        <div class="gen-tile gradient-1 selected">
+          <div class="badges">
+            <span class="tag success">★ 4.8</span>
+            <span class="tag" style="background:rgba(0,0,0,.7);color:#fff">#01</span>
+          </div>
+          <div class="actions">
+            <span>3000 × 3000</span>
+            <div class="row" style="gap:4px">
+              <span class="ic-btn">⬇</span><span class="ic-btn">★</span><span class="ic-btn">↗</span>
+            </div>
+          </div>
+        </div>
+        <div class="gen-tile gradient-9">
+          <div class="badges"><span class="tag success">★ 4.6</span><span class="tag" style="background:rgba(0,0,0,.7);color:#fff">#02</span></div>
+        </div>
+        <div class="gen-tile gradient-4 selected">
+          <div class="badges"><span class="tag success">★ 4.7</span><span class="tag" style="background:rgba(0,0,0,.7);color:#fff">#03</span></div>
+        </div>
+        <div class="gen-tile gradient-2">
+          <div class="badges"><span class="tag warning">⚠ 73%</span><span class="tag" style="background:rgba(0,0,0,.7);color:#fff">#04</span></div>
+        </div>
+        <div class="gen-tile gradient-6">
+          <div class="badges"><span class="tag">★ 4.2</span><span class="tag" style="background:rgba(0,0,0,.7);color:#fff">#05</span></div>
+        </div>
+        <div class="gen-tile gradient-11">
+          <div class="badges"><span class="tag">★ 4.0</span><span class="tag" style="background:rgba(0,0,0,.7);color:#fff">#06</span></div>
+        </div>
+        <div class="gen-tile gradient-12 selected">
+          <div class="badges"><span class="tag success">★ 4.9</span><span class="tag" style="background:rgba(0,0,0,.7);color:#fff">#07</span></div>
+        </div>
+        <div class="gen-tile gradient-3">
+          <div class="badges"><span class="tag">★ 3.9</span><span class="tag" style="background:rgba(0,0,0,.7);color:#fff">#08</span></div>
+        </div>
+        <div class="gen-tile gradient-7">
+          <div class="badges"><span class="tag warning">⚠ 68%</span><span class="tag" style="background:rgba(0,0,0,.7);color:#fff">#09</span></div>
+        </div>
+        <div class="gen-tile gradient-8" style="color:#fff">
+          <div class="badges"><span class="tag">★ 3.6</span><span class="tag" style="background:rgba(0,0,0,.7);color:#fff">#10</span></div>
+        </div>
+        <div class="gen-tile gradient-5">
+          <div class="badges"><span class="tag">★ 4.1</span><span class="tag" style="background:rgba(0,0,0,.7);color:#fff">#11</span></div>
+        </div>
+        <div class="gen-tile gradient-10" style="color:#fff">
+          <div class="badges"><span class="tag success">★ 4.6</span><span class="tag" style="background:rgba(0,0,0,.7);color:#fff">#12</span></div>
+        </div>
+        <div class="gen-tile gradient-1 selected">
+          <div class="badges"><span class="tag success">★ 4.7</span><span class="tag" style="background:rgba(0,0,0,.7);color:#fff">#13</span></div>
+        </div>
+        <div class="gen-tile gradient-2">
+          <div class="badges"><span class="tag">★ 4.0</span><span class="tag" style="background:rgba(0,0,0,.7);color:#fff">#14</span></div>
+        </div>
+        <div class="gen-tile gradient-9">
+          <div class="badges"><span class="tag warning">⚠ 81%</span><span class="tag" style="background:rgba(0,0,0,.7);color:#fff">#15</span></div>
+        </div>
+        <div class="gen-tile gradient-4">
+          <div class="badges"><span class="tag">★ 4.3</span><span class="tag" style="background:rgba(0,0,0,.7);color:#fff">#16</span></div>
+        </div>
+      </div>
+
+      <!-- 历史 -->
+      <div class="section-h">
+        <div>
+          <div class="h2">生成记录</div>
+          <div class="muted" style="font-size:13px">最近 5 批 · 失败可一键重试</div>
+        </div>
+        <a class="more muted" href="#">查看全部 →</a>
+      </div>
+
+      <div class="history">
+        <table class="table" style="border:0">
+          <thead>
+            <tr><th>批次</th><th>模式</th><th>提示词</th><th>张数</th><th>过审</th><th>风险</th><th>耗时</th><th>状态</th><th></th></tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>#B-2026-0507-12</strong></td>
+              <td><span class="tag ai">文生图</span></td>
+              <td><span class="clip" style="max-width:240px">复古田园 满印 大花朵 蕾丝边 …</span></td>
+              <td class="num">16</td>
+              <td class="num">12</td>
+              <td class="num"><span class="tag warning">3</span></td>
+              <td class="num">0:24</td>
+              <td><span class="status success">已完成</span></td>
+              <td><a class="btn sm">查看</a></td>
+            </tr>
+            <tr>
+              <td><strong>#B-2026-0507-11</strong></td>
+              <td><span class="tag" style="background:#FFE7DC;color:var(--brand-dark)">图生图</span></td>
+              <td>基于 上传图.png · 风格强度 0.6</td>
+              <td class="num">8</td>
+              <td class="num">7</td>
+              <td class="num">0</td>
+              <td class="num">0:14</td>
+              <td><span class="status success">已完成</span></td>
+              <td><a class="btn sm">查看</a></td>
+            </tr>
+            <tr>
+              <td><strong>#B-2026-0507-10</strong></td>
+              <td><span class="tag" style="background:#DDF2E5;color:var(--success)">印花提取</span></td>
+              <td>商品图 → 印花稿（连衣裙 12 件）</td>
+              <td class="num">12</td>
+              <td class="num">11</td>
+              <td class="num">0</td>
+              <td class="num">0:18</td>
+              <td><span class="status success">已完成</span></td>
+              <td><a class="btn sm">查看</a></td>
+            </tr>
+            <tr>
+              <td><strong>#B-2026-0507-09</strong></td>
+              <td><span class="tag" style="background:#EDE5FF;color:var(--ai)">图片裂变</span></td>
+              <td>原图 #07 一裂 N=20</td>
+              <td class="num">20</td>
+              <td class="num">14</td>
+              <td class="num"><span class="tag warning">2</span></td>
+              <td class="num">0:32</td>
+              <td><span class="status warning">部分失败</span></td>
+              <td><a class="btn sm">重试 6 张</a></td>
+            </tr>
+            <tr>
+              <td><strong>#B-2026-0507-08</strong></td>
+              <td><span class="tag gold">热点主题</span></td>
+              <td>母亲节 · 温馨家居 · 浅色调</td>
+              <td class="num">30</td>
+              <td class="num">26</td>
+              <td class="num">0</td>
+              <td class="num">0:48</td>
+              <td><span class="status success">已完成</span></td>
+              <td><a class="btn sm">查看</a></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- 右：选中详情 + 版权风险 + 入库 -->
+    <aside class="right-rail">
+      <div class="card">
+        <div class="row" style="justify-content:space-between"><div class="h2">已选中 4 张</div><span class="tag ai">批次 #12</span></div>
+
+        <div class="g4 mt-12">
+          <div class="thumb gradient-1"></div>
+          <div class="thumb gradient-4"></div>
+          <div class="thumb gradient-12"></div>
+          <div class="thumb gradient-1"></div>
+        </div>
+
+        <div class="row" style="justify-content:space-between;margin-top:12px;font-size:12px">
+          <span class="muted">平均评分</span><span><strong style="color:var(--gold)">★ 4.78</strong></span>
+        </div>
+        <div class="row" style="justify-content:space-between;font-size:12px">
+          <span class="muted">版权风险</span><span class="tag success">通过</span>
+        </div>
+        <div class="row" style="justify-content:space-between;font-size:12px">
+          <span class="muted">建议类目</span><span>女装满印 · 连衣裙</span>
+        </div>
+
+        <button class="btn brand lg" style="width:100%;margin-top:12px">入库精选 (4)</button>
+        <div class="row" style="gap:6px;margin-top:8px">
+          <a class="btn sm" href="commercialize.html" style="flex:1">→ 一键商品化</a>
+          <a class="btn sm" href="templates.html" style="flex:1">→ 套版型预览</a>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="row" style="justify-content:space-between"><div class="h2">版权风险检查</div><span class="tag warning">3 张需关注</span></div>
+        <div class="muted mt-8" style="font-size:12.5px">公网素材相似度 ≥ 65% 会被标记，请人工二次复核或调整。</div>
+
+        <div class="copyright-list mt-12">
+          <div class="item">
+            <div class="img gradient-2"></div>
+            <div>
+              <div class="row" style="justify-content:space-between"><strong>#04</strong><span class="tag warning">73%</span></div>
+              <div class="muted-2" style="font-size:11px">疑似匹配：Flickr 公开图 · 2019</div>
+              <div class="row" style="gap:4px;margin-top:4px"><a class="btn sm">忽略</a><a class="btn sm danger">弃用</a></div>
+            </div>
+          </div>
+          <div class="item">
+            <div class="img gradient-7"></div>
+            <div>
+              <div class="row" style="justify-content:space-between"><strong>#09</strong><span class="tag warning">68%</span></div>
+              <div class="muted-2" style="font-size:11px">疑似匹配：站酷 · 已授权同源</div>
+              <div class="row" style="gap:4px;margin-top:4px"><a class="btn sm">忽略</a><a class="btn sm danger">弃用</a></div>
+            </div>
+          </div>
+          <div class="item">
+            <div class="img gradient-9"></div>
+            <div>
+              <div class="row" style="justify-content:space-between"><strong>#15</strong><span class="tag danger">81%</span></div>
+              <div class="muted-2" style="font-size:11px">高风险：可能侵权某授权 IP</div>
+              <div class="row" style="gap:4px;margin-top:4px"><a class="btn sm">人工复核</a><a class="btn sm danger">弃用</a></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card" style="background:var(--bg-ink);color:var(--ink-on-dark);border:0">
+        <div class="row" style="justify-content:space-between">
+          <strong>本月算力</strong>
+          <span class="tag ai">充足</span>
+        </div>
+        <div class="num tabular" style="font-size:24px;font-weight:700;margin:6px 0">18,420 / 50,000</div>
+        <div class="bar" style="background:rgba(255,255,255,.12)"><i style="background:var(--ai);width:36%"></i></div>
+        <div class="row" style="justify-content:space-between;font-size:12px;color:rgba(255,255,255,.6);margin-top:8px">
+          <span>本批次预扣 18</span><a style="color:#fff">查看明细 →</a>
+        </div>
+      </div>
+    </aside>
+
+  </div>
+</main>
+</body>
+</html>

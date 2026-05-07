@@ -1,0 +1,403 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>运营总览 · 方果设计师平台</title>
+<link rel="stylesheet" href="../assets/styles.css" />
+<style>
+  /* Admin sidebar style alt — slightly more dense */
+  .a-sidebar a.menu .icon { font-size: 14px; }
+
+  .ops-hero {
+    background: linear-gradient(135deg, #181C26 0%, #0E1116 100%);
+    color: #fff;
+    border-radius: var(--r-xl);
+    padding: 24px 28px;
+    margin-bottom: 22px;
+    display: grid; grid-template-columns: 1fr 1fr 1fr 1fr; gap: 24px;
+  }
+  .ops-hero .seg { padding-left: 16px; border-left: 1px solid rgba(255,255,255,.1); }
+  .ops-hero .seg:first-child { padding-left: 0; border: 0; }
+  .ops-hero .lbl { font-size: 12px; color: rgba(255,255,255,.6); }
+  .ops-hero .num { font-size: 24px; font-weight: 700; margin-top: 4px; }
+  .ops-hero .delta { font-size: 12px; color: #6CDD8F; margin-top: 2px; }
+  .ops-hero .delta.neg { color: #FF8A8A; }
+
+  .funnel { display: flex; flex-direction: column; gap: 6px; padding: 6px 0; }
+  .funnel .row-f {
+    display: grid; grid-template-columns: 1fr 70px 60px; gap: 10px; align-items: center;
+    font-size: 13px;
+  }
+  .funnel .bar-f {
+    height: 22px; border-radius: 6px; background: var(--brand);
+    display: flex; align-items: center; padding-left: 8px; color: #fff; font-size: 11px; font-weight: 600;
+  }
+  .funnel .bar-f.l1 { width: 100%; background: #FF8A3D; }
+  .funnel .bar-f.l2 { width: 84%; background: #FF5A1F; }
+  .funnel .bar-f.l3 { width: 76%; background: #6E3CFF; }
+  .funnel .bar-f.l4 { width: 62%; background: #1F6FEB; }
+  .funnel .bar-f.l5 { width: 48%; background: #1A8F4A; }
+  .funnel .bar-f.l6 { width: 36%; background: #B8860B; }
+
+  .designer-row {
+    display: grid; grid-template-columns: 32px 1fr 130px 70px 70px; gap: 10px; align-items: center;
+    padding: 10px 0; border-bottom: 1px dashed var(--line);
+  }
+  .designer-row:last-child { border: 0; }
+  .designer-row .a {
+    width: 30px; height: 30px; border-radius: 50%;
+    color: #fff; display: grid; place-items: center; font-weight: 700; font-size: 12px;
+  }
+  .designer-row .stat-bar { display: flex; gap: 2px; align-items: flex-end; height: 18px; }
+  .designer-row .stat-bar i { background: var(--brand); width: 4px; border-radius: 1px; }
+
+  .alert-card {
+    background: var(--bg-canvas); border: 1px solid var(--line);
+    border-radius: var(--r-lg); padding: 14px;
+  }
+  .alert-card .item {
+    display: grid; grid-template-columns: 28px 1fr auto; gap: 8px; align-items: center;
+    padding: 8px 0; border-bottom: 1px dashed var(--line);
+    font-size: 13px;
+  }
+  .alert-card .item:last-child { border: 0; }
+  .alert-card .item .ic {
+    width: 26px; height: 26px; border-radius: 8px;
+    display: grid; place-items: center; color: #fff; font-size: 13px;
+  }
+
+  .heat {
+    display: grid; grid-template-columns: repeat(24, 1fr); gap: 2px;
+    margin-top: 8px;
+  }
+  .heat .c { aspect-ratio: 1/1; border-radius: 2px; background: #F4F2EE; }
+  .heat .c.h1 { background: #FFE4D6; } .heat .c.h2 { background: #FFB76B; }
+  .heat .c.h3 { background: #FF8A3D; } .heat .c.h4 { background: #FF5A1F; }
+  .heat .c.h5 { background: #C53030; }
+
+  .gauge { width: 60px; height: 30px; }
+
+  .health-row {
+    display: grid; grid-template-columns: 1fr 1fr 1fr 1fr; gap: 12px;
+  }
+  .health-row .h-c {
+    border: 1px solid var(--line); border-radius: var(--r-md); padding: 12px;
+  }
+  .health-row .h-c .v { font-weight: 700; font-size: 18px; }
+  .health-row .h-c .lbl { font-size: 11px; color: var(--ink-3); }
+</style>
+</head>
+<body>
+
+<header class="topbar">
+  <a class="logo" href="../index.html"><span class="mark"></span>方果<span style="color:var(--ink-3);font-weight:500">·设计师平台</span></a>
+  <nav>
+    <a href="../index.html">总览</a>
+    <a href="admin-dashboard.html" class="active">运营后台</a>
+    <a href="admin-task-dispatch.html">派发与质检</a>
+    <a href="admin-review.html">作品审核</a>
+    <a href="templates.html">版型管理</a>
+    <a href="earnings.html#admin">结算管理</a>
+  </nav>
+  <div class="grow"></div>
+  <div class="switch"><button>设计师视角</button><button class="on">运营视角</button></div>
+  <button class="iconbtn"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 8a6 6 0 1 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10 21a2 2 0 0 0 4 0"/></svg><span class="dot"></span></button>
+  <div class="avatar" style="background:linear-gradient(135deg,#7C3AED,#3B0764)">O</div>
+</header>
+
+<div class="shell">
+
+  <aside class="sidebar a-sidebar">
+    <div class="group">
+      <div class="group-title">运营 · 总览</div>
+      <a class="menu active" href="admin-dashboard.html">📊 平台总览</a>
+      <a class="menu" href="#">📈 经营分析</a>
+      <a class="menu" href="#">🌍 平台健康度</a>
+    </div>
+    <div class="group">
+      <div class="group-title">设计师与内容</div>
+      <a class="menu" href="#">👥 设计师管理 <span class="count">1,238</span></a>
+      <a class="menu" href="admin-review.html">🔍 作品 / AI 审核 <span class="count">184</span></a>
+      <a class="menu" href="#">⚠ 风控 / 违规 <span class="count">12</span></a>
+      <a class="menu" href="#">🏆 等级与积分</a>
+    </div>
+    <div class="group">
+      <div class="group-title">任务与生产</div>
+      <a class="menu" href="admin-task-dispatch.html">📋 任务派发 <span class="count">78</span></a>
+      <a class="menu" href="#">✅ 质检 / 返工 <span class="count">42</span></a>
+      <a class="menu" href="#">⏱ 工时 / 绩效</a>
+      <a class="menu" href="#">💵 计件价配置</a>
+    </div>
+    <div class="group">
+      <div class="group-title">资产与下游</div>
+      <a class="menu" href="templates.html">📐 模板 / 版型管理</a>
+      <a class="menu" href="#">🛒 商品包池</a>
+      <a class="menu" href="#">🔗 ERP / 蓝马 对接</a>
+    </div>
+    <div class="group">
+      <div class="group-title">结算</div>
+      <a class="menu" href="earnings.html#admin">💰 结算总览</a>
+      <a class="menu" href="#">📑 对账批次</a>
+      <a class="menu" href="#">🧾 发票池</a>
+    </div>
+  </aside>
+
+  <main class="main">
+
+    <div class="pagehead">
+      <div>
+        <div class="crumbs">运营后台 · <span>平台总览</span></div>
+        <div class="h1">平台总览 <span class="muted" style="font-size:14px;font-weight:500">· 2026 年 5 月 7 日 · 周四</span></div>
+        <div class="desc">所有关键指标实时刷新。点击任意卡片可下钻到对应模块。</div>
+      </div>
+      <div class="row">
+        <select style="border:1px solid var(--line);border-radius:6px;padding:6px 10px;font-size:13px;background:#fff">
+          <option>今日</option><option>本周</option><option>本月</option><option>近 30 天</option>
+        </select>
+        <a class="btn" href="#">导出周报</a>
+        <a class="btn primary" href="#">＋ 创建批量任务</a>
+      </div>
+    </div>
+
+    <!-- 顶部 Hero KPI -->
+    <section class="ops-hero">
+      <div class="seg">
+        <div class="lbl">📥 待处理 · 全队列</div>
+        <div class="num">316</div>
+        <div class="delta neg">↑ 12 较昨日</div>
+        <div class="row" style="gap:6px;margin-top:8px">
+          <span class="tag" style="background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.14);color:#fff">审核 184</span>
+          <span class="tag" style="background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.14);color:#fff">派单 78</span>
+          <span class="tag" style="background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.14);color:#fff">质检 42</span>
+          <span class="tag" style="background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.14);color:#fff">风控 12</span>
+        </div>
+      </div>
+      <div class="seg">
+        <div class="lbl">👥 活跃设计师 / 美工</div>
+        <div class="num">428 / 1,238</div>
+        <div class="delta">↑ 6.4% 周环比</div>
+        <div class="row" style="gap:6px;margin-top:8px">
+          <span class="tag" style="background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.14);color:#fff">L4 + 168</span>
+          <span class="tag" style="background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.14);color:#fff">本月新签 36</span>
+        </div>
+      </div>
+      <div class="seg">
+        <div class="lbl">🖼 内容入库（本月）</div>
+        <div class="num">12,840</div>
+        <div class="delta">↑ 23.2% MoM</div>
+        <div class="row" style="gap:6px;margin-top:8px">
+          <span class="tag" style="background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.14);color:#fff">设计师 4,180</span>
+          <span class="tag" style="background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.14);color:#fff">AI 8,660</span>
+        </div>
+      </div>
+      <div class="seg">
+        <div class="lbl">💰 待结算（平台总）</div>
+        <div class="num">¥ 312,400</div>
+        <div class="delta">本周三结算 ¥ 86,200</div>
+        <div class="row" style="gap:6px;margin-top:8px">
+          <span class="tag" style="background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.14);color:#fff">2,164 笔流水</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- 待办 + 风控 -->
+    <div class="g3 mb-16">
+      <a class="card" href="admin-review.html" style="display:block;border-left:3px solid var(--brand)">
+        <div class="row" style="justify-content:space-between"><strong>待审核作品</strong><span class="tag warning">超时 12</span></div>
+        <div class="num tabular" style="font-size:30px;font-weight:700;margin:8px 0">184</div>
+        <div class="muted" style="font-size:12px">设计师上传 86 / AI 入库 98</div>
+        <div class="row mt-12" style="gap:6px">
+          <span class="tag">服装满印 72</span>
+          <span class="tag">手机壳 38</span>
+          <span class="tag">家纺 28</span>
+          <span class="tag">其他 46</span>
+        </div>
+      </a>
+
+      <a class="card" href="admin-task-dispatch.html" style="display:block;border-left:3px solid var(--ai)">
+        <div class="row" style="justify-content:space-between"><strong>待派发任务</strong><span class="tag info">急 8</span></div>
+        <div class="num tabular" style="font-size:30px;font-weight:700;margin:8px 0">78</div>
+        <div class="muted" style="font-size:12px">商家发起 24 / 平台批量 54</div>
+        <div class="row mt-12" style="gap:6px">
+          <span class="tag">套图 22</span>
+          <span class="tag">详情图 18</span>
+          <span class="tag">效果图 14</span>
+          <span class="tag">去背 24</span>
+        </div>
+      </a>
+
+      <a class="card" href="#" style="display:block;border-left:3px solid var(--danger)">
+        <div class="row" style="justify-content:space-between"><strong>风控告警</strong><span class="tag danger">高危 3</span></div>
+        <div class="num tabular" style="font-size:30px;font-weight:700;margin:8px 0">12</div>
+        <div class="muted" style="font-size:12px">需 24h 内处理</div>
+        <div class="row mt-12" style="gap:6px">
+          <span class="tag danger">疑似抄袭 6</span>
+          <span class="tag warning">重复上传 3</span>
+          <span class="tag">违规标注 3</span>
+        </div>
+      </a>
+    </div>
+
+    <!-- 主区两栏 -->
+    <div class="g2">
+
+      <!-- 左：内容生产漏斗 + 美工任务热度 -->
+      <div class="col" style="gap:16px">
+
+        <div class="card">
+          <div class="title-row">
+            <div class="h2">内容生产漏斗 · 本月</div>
+            <a class="more muted" href="#">查看明细 →</a>
+          </div>
+          <div class="funnel">
+            <div class="row-f"><span>① 设计师创作 / AI 生成</span><div class="bar-f l1">28,420</div><span class="muted right tabular">100%</span></div>
+            <div class="row-f"><span>② 入库（人工 / 自动精选）</span><div class="bar-f l2">23,872</div><span class="muted right tabular">84%</span></div>
+            <div class="row-f"><span>③ 通过版权与质检</span><div class="bar-f l3">21,599</div><span class="muted right tabular">76%</span></div>
+            <div class="row-f"><span>④ 套版型 / 效果图完成</span><div class="bar-f l4">17,620</div><span class="muted right tabular">62%</span></div>
+            <div class="row-f"><span>⑤ 商品化（含 SKU）</span><div class="bar-f l5">13,640</div><span class="muted right tabular">48%</span></div>
+            <div class="row-f"><span>⑥ 多平台已上架 / 蓝马</span><div class="bar-f l6">10,230</div><span class="muted right tabular">36%</span></div>
+          </div>
+          <div class="muted mt-12" style="font-size:12px">第 ④→⑤ 转化率仅 77%，主因「价格建议」步骤缺失，建议开启 AI 价格自动填充。</div>
+        </div>
+
+        <div class="card">
+          <div class="title-row">
+            <div class="h2">美工任务热度 · 7×24h</div>
+            <span class="muted" style="font-size:12px">每个格代表一小时，颜色越深 = 待处理任务越多</span>
+          </div>
+          <div class="muted" style="font-size:11px;margin-top:6px">周一</div>
+          <div class="heat">
+            <span class="c"></span><span class="c"></span><span class="c"></span><span class="c"></span><span class="c"></span><span class="c"></span><span class="c h1"></span><span class="c h2"></span><span class="c h3"></span><span class="c h4"></span><span class="c h3"></span><span class="c h3"></span><span class="c h3"></span><span class="c h3"></span><span class="c h2"></span><span class="c h2"></span><span class="c h3"></span><span class="c h4"></span><span class="c h4"></span><span class="c h3"></span><span class="c h2"></span><span class="c h1"></span><span class="c"></span><span class="c"></span>
+          </div>
+          <div class="muted" style="font-size:11px;margin-top:6px">周二</div>
+          <div class="heat">
+            <span class="c"></span><span class="c"></span><span class="c"></span><span class="c"></span><span class="c"></span><span class="c h1"></span><span class="c h2"></span><span class="c h3"></span><span class="c h4"></span><span class="c h5"></span><span class="c h4"></span><span class="c h3"></span><span class="c h3"></span><span class="c h2"></span><span class="c h2"></span><span class="c h3"></span><span class="c h4"></span><span class="c h5"></span><span class="c h5"></span><span class="c h4"></span><span class="c h3"></span><span class="c h2"></span><span class="c h1"></span><span class="c"></span>
+          </div>
+          <div class="muted" style="font-size:11px;margin-top:6px">周三</div>
+          <div class="heat">
+            <span class="c"></span><span class="c"></span><span class="c"></span><span class="c"></span><span class="c h1"></span><span class="c h1"></span><span class="c h2"></span><span class="c h3"></span><span class="c h4"></span><span class="c h4"></span><span class="c h3"></span><span class="c h3"></span><span class="c h2"></span><span class="c h2"></span><span class="c h3"></span><span class="c h4"></span><span class="c h5"></span><span class="c h5"></span><span class="c h4"></span><span class="c h3"></span><span class="c h2"></span><span class="c h1"></span><span class="c"></span><span class="c"></span>
+          </div>
+          <div class="muted" style="font-size:11px;margin-top:6px">周四（今天）</div>
+          <div class="heat">
+            <span class="c"></span><span class="c"></span><span class="c"></span><span class="c"></span><span class="c h1"></span><span class="c h2"></span><span class="c h3"></span><span class="c h4"></span><span class="c h5"></span><span class="c h5"></span><span class="c h4"></span><span class="c h4"></span><span class="c h3"></span><span class="c h4"></span><span class="c h5"></span><span class="c h4"></span><span class="c"></span><span class="c"></span><span class="c"></span><span class="c"></span><span class="c"></span><span class="c"></span><span class="c"></span><span class="c"></span>
+          </div>
+
+          <div class="muted mt-12" style="font-size:12px">📌 高峰窗口：09:00–11:00 与 14:00–17:00。建议高峰期自动启用外协美工池。</div>
+        </div>
+
+      </div>
+
+      <!-- 右：TOP 设计师 + 风控告警 + 系统健康 -->
+      <div class="col" style="gap:16px">
+
+        <div class="card">
+          <div class="title-row"><div class="h2">本月 TOP 设计师 / 美工</div><a class="more muted" href="#">全部排行 →</a></div>
+          <div class="designer-row">
+            <span class="a" style="background:linear-gradient(135deg,#FFD27A,#B8860B)">L</span>
+            <div>
+              <strong>李小果</strong> <span class="level l4" style="vertical-align:middle">L4</span>
+              <div class="muted" style="font-size:11px">复古插画 · 女装满印 · 入驻 18m</div>
+            </div>
+            <div class="stat-bar">
+              <i style="height:8px"></i><i style="height:12px"></i><i style="height:10px"></i><i style="height:14px"></i><i style="height:11px"></i><i style="height:16px"></i><i style="height:18px;background:var(--brand-dark)"></i>
+            </div>
+            <div class="right tabular"><strong>¥ 18,420</strong></div>
+            <div class="right tabular muted">62 任务</div>
+          </div>
+          <div class="designer-row">
+            <span class="a" style="background:linear-gradient(135deg,#A18CD1,#3B0764)">陈</span>
+            <div>
+              <strong>陈梓恒</strong> <span class="level l3" style="vertical-align:middle">L3</span>
+              <div class="muted" style="font-size:11px">极简几何 · 家居服 · 入驻 8m</div>
+            </div>
+            <div class="stat-bar">
+              <i style="height:6px"></i><i style="height:10px"></i><i style="height:8px"></i><i style="height:12px"></i><i style="height:14px"></i><i style="height:13px"></i><i style="height:15px"></i>
+            </div>
+            <div class="right tabular"><strong>¥ 12,860</strong></div>
+            <div class="right tabular muted">48 任务</div>
+          </div>
+          <div class="designer-row">
+            <span class="a" style="background:linear-gradient(135deg,#84FAB0,#3CB371)">王</span>
+            <div>
+              <strong>王翊</strong> <span class="level l4" style="vertical-align:middle">L4</span>
+              <div class="muted" style="font-size:11px">国潮 · T 恤 · 入驻 22m</div>
+            </div>
+            <div class="stat-bar">
+              <i style="height:10px"></i><i style="height:12px"></i><i style="height:14px"></i><i style="height:9px"></i><i style="height:15px"></i><i style="height:11px"></i><i style="height:14px"></i>
+            </div>
+            <div class="right tabular"><strong>¥ 11,420</strong></div>
+            <div class="right tabular muted">42 任务</div>
+          </div>
+          <div class="designer-row">
+            <span class="a" style="background:linear-gradient(135deg,#A1C4FD,#1F6FEB)">赵</span>
+            <div>
+              <strong>赵衫</strong> <span class="level l2" style="vertical-align:middle">L2</span>
+              <div class="muted" style="font-size:11px">去背 / 上架图 美工 · 入驻 4m</div>
+            </div>
+            <div class="stat-bar">
+              <i style="height:5px"></i><i style="height:8px"></i><i style="height:9px"></i><i style="height:10px"></i><i style="height:11px"></i><i style="height:12px"></i><i style="height:13px"></i>
+            </div>
+            <div class="right tabular"><strong>¥ 8,640</strong></div>
+            <div class="right tabular muted">186 张</div>
+          </div>
+          <div class="designer-row">
+            <span class="a" style="background:linear-gradient(135deg,#FF9A9E,#FF5A1F)">林</span>
+            <div>
+              <strong>林夕</strong> <span class="level l5" style="vertical-align:middle">L5</span>
+              <div class="muted" style="font-size:11px">水彩 · 童装 · 入驻 30m</div>
+            </div>
+            <div class="stat-bar">
+              <i style="height:14px"></i><i style="height:12px"></i><i style="height:11px"></i><i style="height:13px"></i><i style="height:9px"></i><i style="height:8px"></i><i style="height:10px"></i>
+            </div>
+            <div class="right tabular"><strong>¥ 7,820</strong></div>
+            <div class="right tabular muted">28 任务</div>
+          </div>
+        </div>
+
+        <div class="alert-card">
+          <div class="title-row"><div class="h2">风控告警 · 待处理 12</div><a class="more muted" href="#">全部 →</a></div>
+          <div class="item">
+            <div class="ic" style="background:var(--danger)">!</div>
+            <div><strong>疑似抄袭 · 设计师 王某</strong><div class="muted" style="font-size:11.5px">作品 #W-13284 与 Behance 公开作品相似度 91%</div></div>
+            <a class="btn sm danger">立即处理</a>
+          </div>
+          <div class="item">
+            <div class="ic" style="background:var(--danger)">!</div>
+            <div><strong>多次返工 · 美工 张某</strong><div class="muted" style="font-size:11.5px">本周 3 个任务返工率超 30%</div></div>
+            <a class="btn sm">查看</a>
+          </div>
+          <div class="item">
+            <div class="ic" style="background:var(--warning)">⚠</div>
+            <div><strong>AI 内容批次 #B-0507-09 风险</strong><div class="muted" style="font-size:11.5px">8 张相似度 ≥ 70%，建议人工复核</div></div>
+            <a class="btn sm">复核</a>
+          </div>
+          <div class="item">
+            <div class="ic" style="background:var(--warning)">⚠</div>
+            <div><strong>蓝马货盘 · 商品包退回</strong><div class="muted" style="font-size:11.5px">分销商反馈尺码不符 · 影响 4 SKU</div></div>
+            <a class="btn sm">处理</a>
+          </div>
+          <div class="item">
+            <div class="ic" style="background:var(--info)">i</div>
+            <div><strong>违规标注修订需求</strong><div class="muted" style="font-size:11.5px">儿童装合规标签更新（5/10 生效）</div></div>
+            <a class="btn sm">查看</a>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="title-row"><div class="h2">系统健康度</div><span class="status success">全部正常</span></div>
+          <div class="health-row">
+            <div class="h-c"><div class="lbl">AI 算力余量</div><div class="v">62%</div><div class="bar success mt-8"><i style="width:62%"></i></div></div>
+            <div class="h-c"><div class="lbl">ERP 同步队列</div><div class="v">428</div><div class="muted" style="font-size:11px">峰值 1,200 / 阈值</div></div>
+            <div class="h-c"><div class="lbl">蓝马货盘 API</div><div class="v">99.97%</div><div class="muted" style="font-size:11px">本月 SLA</div></div>
+            <div class="h-c"><div class="lbl">质检任务延迟</div><div class="v">14s</div><div class="muted" style="font-size:11px">P95</div></div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+  </main>
+</div>
+</body>
+</html>

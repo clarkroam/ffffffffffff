@@ -1,0 +1,564 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>收益结算 · 交易与结算中心</title>
+<link rel="stylesheet" href="../assets/styles.css" />
+<style>
+  /* Hero card */
+  .earn-hero {
+    background:
+      radial-gradient(900px 280px at 100% 0%, rgba(255,90,31,.18), transparent 60%),
+      radial-gradient(700px 220px at 0% 100%, rgba(110,60,255,.12), transparent 70%),
+      linear-gradient(180deg,#161A22 0%, #0E1116 100%);
+    color: #fff;
+    border-radius: var(--r-xl);
+    padding: 30px 30px 22px;
+    margin-bottom: 22px;
+    display: grid; grid-template-columns: 1.4fr 1fr 1fr; gap: 28px;
+  }
+  .earn-hero .num-l {
+    font-size: 38px; font-weight: 800; letter-spacing: -1px;
+    background: linear-gradient(135deg,#FFD27A,#FF8A3D);
+    -webkit-background-clip: text; background-clip: text; color: transparent;
+  }
+  .earn-hero .lbl { font-size: 12px; color: rgba(255,255,255,.6); }
+  .earn-hero .pills { display: flex; gap: 6px; margin-top: 10px; flex-wrap: wrap; }
+  .earn-hero .pills .p {
+    background: rgba(255,255,255,.06); border: 1px solid rgba(255,255,255,.14);
+    color: #fff; padding: 4px 10px; border-radius: var(--r-pill); font-size: 12px;
+  }
+  .earn-hero .num-m {
+    font-size: 22px; font-weight: 700; margin-top: 6px;
+  }
+  .earn-hero .delta { color: #6CDD8F; font-size: 12px; }
+  .earn-hero hr { border:0; border-top: 1px solid rgba(255,255,255,.08); margin: 14px 0; }
+
+  /* Layout */
+  .earn-grid { display: grid; grid-template-columns: 1.4fr 1fr; gap: 18px; }
+  @media (max-width: 1280px){ .earn-grid { grid-template-columns: 1fr; } }
+
+  /* 收益构成 - donut + legend */
+  .donut-wrap { display: grid; grid-template-columns: 200px 1fr; gap: 24px; align-items: center; }
+  .donut { width: 200px; height: 200px; }
+  .legend-list { font-size: 13px; }
+  .legend-list .row-l {
+    display: grid; grid-template-columns: 12px 1fr auto auto; gap: 10px; align-items: center;
+    padding: 8px 0; border-bottom: 1px dashed var(--line);
+  }
+  .legend-list .row-l:last-child { border: 0; }
+  .legend-list .dot { width: 10px; height: 10px; border-radius: 50%; }
+  .legend-list .pct { color: var(--ink-3); font-size: 12px; min-width: 40px; text-align: right; }
+
+  /* Chart bars trend */
+  .trend-grid { display: grid; grid-template-columns: 1fr; gap: 8px; padding: 10px 0; }
+  .trend-grid svg { width: 100%; height: 220px; }
+
+  /* 结算排程 */
+  .schedule { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; }
+  .schedule .d {
+    border: 1px solid var(--line); border-radius: var(--r-md);
+    padding: 12px; background: var(--bg-canvas);
+  }
+  .schedule .d .when { font-size: 11px; color: var(--ink-3); }
+  .schedule .d .amt { font-weight: 700; font-size: 18px; margin-top: 4px; }
+  .schedule .d.next { background: var(--brand-soft-2); border-color: var(--brand-soft); }
+
+  /* 流水表格 */
+  .filter-toolbar { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; margin-bottom: 10px; }
+
+  .table .row-cat {
+    display: inline-flex; align-items: center; gap: 6px; font-weight: 500;
+  }
+  .table .row-cat .ic {
+    width: 22px; height: 22px; border-radius: 6px; display: grid; place-items: center; color: #fff; font-size: 11px; font-weight: 700;
+  }
+
+  .level-progress {
+    background: var(--bg-canvas); border: 1px solid var(--line);
+    border-radius: var(--r-lg); padding: 16px;
+  }
+  .level-progress .row-l { display: flex; justify-content: space-between; }
+  .level-progress .commission {
+    display: grid; grid-template-columns: repeat(5, 1fr); gap: 8px; margin-top: 12px;
+  }
+  .level-progress .lv-cell {
+    text-align: center; padding: 10px 6px; border-radius: var(--r-md);
+    background: var(--bg-soft); position: relative;
+  }
+  .level-progress .lv-cell.cur { background: var(--brand-soft); border: 1px solid var(--brand); }
+  .level-progress .lv-cell .lv { font-weight: 700; font-size: 13px; }
+  .level-progress .lv-cell .cm { font-size: 11px; color: var(--ink-3); margin-top: 2px; }
+  .level-progress .lv-cell.cur .cm { color: var(--brand-dark); font-weight: 600; }
+
+  /* 发票/对账 */
+  .invoice-row { display: flex; justify-content: space-between; padding: 10px 0; border-bottom: 1px dashed var(--line); font-size: 13px; }
+  .invoice-row:last-child { border: 0; }
+</style>
+</head>
+<body>
+
+<header class="topbar">
+  <a class="logo" href="../index.html"><span class="mark"></span>方果<span style="color:var(--ink-3);font-weight:500">·设计师平台</span></a>
+  <nav>
+    <a href="../index.html">总览</a>
+    <a href="designer-dashboard.html">设计师中心</a>
+    <a href="task-hall.html">任务大厅</a>
+    <a href="ai-studio.html">AI 创作</a>
+    <a href="templates.html">版型库</a>
+    <a href="commercialize.html">商品化</a>
+    <a class="active" href="earnings.html">收益结算</a>
+  </nav>
+  <div class="grow"></div>
+  <div class="switch"><button class="on">设计师视角</button><button>运营视角</button></div>
+  <button class="iconbtn"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 8a6 6 0 1 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10 21a2 2 0 0 0 4 0"/></svg><span class="dot"></span></button>
+  <div class="avatar">L</div>
+</header>
+
+<main class="main wide">
+
+  <div class="pagehead">
+    <div>
+      <div class="crumbs">交易与结算中心 · <span>我的收益</span></div>
+      <div class="h1">我的收益看板</div>
+      <div class="desc">支持 8 种收益模式：任务佣金 / 设计买断 / 图案授权 / 模板售卖 / 商品包售卖 / 订单分成 / 爆品奖励 / 等级分佣，所有流水自动对账，T+7 提现。</div>
+    </div>
+    <div class="row">
+      <select style="border:1px solid var(--line);border-radius:6px;padding:6px 10px;font-size:13px;background:#fff">
+        <option>2026 年 5 月</option><option>2026 年 4 月</option><option>2026 Q1</option><option>近 12 个月</option>
+      </select>
+      <a class="btn" href="#">导出对账单</a>
+      <a class="btn primary" href="#">提现 ¥ 18,420</a>
+    </div>
+  </div>
+
+  <!-- Hero -->
+  <section class="earn-hero">
+    <div>
+      <div class="lbl">本月已结算 · 5 月 1 日 - 5 月 7 日</div>
+      <div class="num-l">¥ 18,420.50</div>
+      <div class="delta">↑ 14.3% vs 上月同期 · 排名 设计师 TOP 6%</div>
+      <div class="pills">
+        <span class="p"><span class="level l4" style="background:linear-gradient(135deg,#FF5A1F,#A8260D)">L4 资深</span></span>
+        <span class="p">基础分佣 38%</span>
+        <span class="p">本月加成 +2%</span>
+        <span class="p">爆品奖励池 ¥ 4,200</span>
+      </div>
+    </div>
+    <div>
+      <div class="lbl">待结算（含未到账）</div>
+      <div class="num-m">¥ 6,820</div>
+      <div class="delta" style="color:rgba(255,255,255,.6)">12 笔订单 / 3 个商品包</div>
+      <hr>
+      <div class="lbl">本月预计总收益</div>
+      <div class="num-m" style="color:#FFB76B">¥ 25,240</div>
+    </div>
+    <div>
+      <div class="lbl">累计总收益（入驻以来）</div>
+      <div class="num-m">¥ 184,620</div>
+      <div class="delta" style="color:rgba(255,255,255,.6)">2024.11 入驻 · 18 个月</div>
+      <hr>
+      <div class="lbl">本月发票状态</div>
+      <div class="row" style="margin-top:6px">
+        <span class="p" style="background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.14);padding:4px 10px;border-radius:var(--r-pill);font-size:12px">已开票 ¥ 12,800</span>
+        <span class="p" style="background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.14);padding:4px 10px;border-radius:var(--r-pill);font-size:12px;margin-left:6px">待开票 ¥ 5,620</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- 主区两栏：左 收益构成+趋势  右 等级分佣+结算排程 -->
+  <div class="earn-grid">
+
+    <!-- 左 -->
+    <div>
+
+      <div class="card mb-16">
+        <div class="title-row">
+          <div class="h2">收益构成 · 5 月</div>
+          <div class="row" style="gap:6px">
+            <span class="filter-pill active">本月</span>
+            <span class="filter-pill">近 30 天</span>
+            <span class="filter-pill">近 90 天</span>
+          </div>
+        </div>
+
+        <div class="donut-wrap">
+          <!-- Donut SVG -->
+          <svg class="donut" viewBox="0 0 36 36">
+            <circle cx="18" cy="18" r="15.91" fill="none" stroke="var(--bg-soft)" stroke-width="3.6"></circle>
+            <!-- 8 segments. Strokes computed manually to approximate proportions -->
+            <!-- 任务佣金 38% -->
+            <circle cx="18" cy="18" r="15.91" fill="none" stroke="#FF5A1F" stroke-width="3.6" stroke-dasharray="38 62" stroke-dashoffset="25"></circle>
+            <!-- 商品包售卖 22% -->
+            <circle cx="18" cy="18" r="15.91" fill="none" stroke="#6E3CFF" stroke-width="3.6" stroke-dasharray="22 78" stroke-dashoffset="-13"></circle>
+            <!-- 订单分成 14% -->
+            <circle cx="18" cy="18" r="15.91" fill="none" stroke="#1A8F4A" stroke-width="3.6" stroke-dasharray="14 86" stroke-dashoffset="-35"></circle>
+            <!-- 爆品奖励 12% -->
+            <circle cx="18" cy="18" r="15.91" fill="none" stroke="#B8860B" stroke-width="3.6" stroke-dasharray="12 88" stroke-dashoffset="-49"></circle>
+            <!-- 图案授权 7% -->
+            <circle cx="18" cy="18" r="15.91" fill="none" stroke="#1F6FEB" stroke-width="3.6" stroke-dasharray="7 93" stroke-dashoffset="-61"></circle>
+            <!-- 设计买断 4% -->
+            <circle cx="18" cy="18" r="15.91" fill="none" stroke="#FF8A3D" stroke-width="3.6" stroke-dasharray="4 96" stroke-dashoffset="-68"></circle>
+            <!-- 模板售卖 2% -->
+            <circle cx="18" cy="18" r="15.91" fill="none" stroke="#A18CD1" stroke-width="3.6" stroke-dasharray="2 98" stroke-dashoffset="-72"></circle>
+            <!-- 等级分佣 1% -->
+            <circle cx="18" cy="18" r="15.91" fill="none" stroke="#94A0B0" stroke-width="3.6" stroke-dasharray="1 99" stroke-dashoffset="-74"></circle>
+            <text x="18" y="17" text-anchor="middle" font-size="3.4" font-weight="700" fill="var(--ink-1)">¥ 18,420</text>
+            <text x="18" y="22" text-anchor="middle" font-size="2.4" fill="var(--ink-3)">本月收益</text>
+          </svg>
+
+          <div class="legend-list">
+            <div class="row-l">
+              <span class="dot" style="background:#FF5A1F"></span>
+              <span><strong>任务佣金</strong> · 套图 / 详情图 / 效果图等</span>
+              <span class="pct">¥ 7,000</span>
+              <span class="pct">38%</span>
+            </div>
+            <div class="row-l">
+              <span class="dot" style="background:#6E3CFF"></span>
+              <span><strong>商品包售卖</strong> · 蓝马货盘分销</span>
+              <span class="pct">¥ 4,052</span>
+              <span class="pct">22%</span>
+            </div>
+            <div class="row-l">
+              <span class="dot" style="background:#1A8F4A"></span>
+              <span><strong>订单分成</strong> · 实际成交后按 SKU</span>
+              <span class="pct">¥ 2,580</span>
+              <span class="pct">14%</span>
+            </div>
+            <div class="row-l">
+              <span class="dot" style="background:#B8860B"></span>
+              <span><strong>爆品奖励</strong> · 月销 ≥ 5000 件</span>
+              <span class="pct">¥ 2,210</span>
+              <span class="pct">12%</span>
+            </div>
+            <div class="row-l">
+              <span class="dot" style="background:#1F6FEB"></span>
+              <span><strong>图案授权</strong> · 单图次授权</span>
+              <span class="pct">¥ 1,289</span>
+              <span class="pct">7%</span>
+            </div>
+            <div class="row-l">
+              <span class="dot" style="background:#FF8A3D"></span>
+              <span><strong>设计买断</strong> · 一次性买断款</span>
+              <span class="pct">¥ 736</span>
+              <span class="pct">4%</span>
+            </div>
+            <div class="row-l">
+              <span class="dot" style="background:#A18CD1"></span>
+              <span><strong>模板售卖</strong> · 自创模板被使用</span>
+              <span class="pct">¥ 368</span>
+              <span class="pct">2%</span>
+            </div>
+            <div class="row-l">
+              <span class="dot" style="background:#94A0B0"></span>
+              <span><strong>等级分佣</strong> · 平台服务费返佣</span>
+              <span class="pct">¥ 185</span>
+              <span class="pct">1%</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 趋势 -->
+      <div class="card mb-16">
+        <div class="title-row">
+          <div class="h2">12 个月收益趋势</div>
+          <div class="legend">
+            <span class="l"><span class="status brand"></span> 任务佣金</span>
+            <span class="l"><span class="status ai"></span> 商品包 / 分成</span>
+            <span class="l"><span class="status warning"></span> 爆品奖励</span>
+          </div>
+        </div>
+        <div class="trend-grid">
+          <svg viewBox="0 0 600 220" preserveAspectRatio="none">
+            <!-- Grid lines -->
+            <g stroke="var(--line)" stroke-width="1">
+              <line x1="0" y1="40"  x2="600" y2="40"/>
+              <line x1="0" y1="90"  x2="600" y2="90"/>
+              <line x1="0" y1="140" x2="600" y2="140"/>
+              <line x1="0" y1="190" x2="600" y2="190"/>
+            </g>
+            <!-- Stack bars: 12 months -->
+            <g>
+              <!-- Per month: x ranges every 50px starting 14 -->
+              <!-- bar widths -->
+              <!-- Reusable function: month i -->
+              <!-- Month 1 -->
+              <g transform="translate(14,0)">
+                <rect x="0" y="158" width="32" height="32" fill="#FF5A1F" rx="4"/>
+                <rect x="0" y="138" width="32" height="20" fill="#6E3CFF"/>
+                <rect x="0" y="124" width="32" height="14" fill="#B8860B" rx="4 4 0 0"/>
+              </g>
+              <g transform="translate(64,0)">
+                <rect x="0" y="148" width="32" height="42" fill="#FF5A1F" rx="4"/>
+                <rect x="0" y="128" width="32" height="20" fill="#6E3CFF"/>
+                <rect x="0" y="116" width="32" height="12" fill="#B8860B" rx="4 4 0 0"/>
+              </g>
+              <g transform="translate(114,0)">
+                <rect x="0" y="135" width="32" height="55" fill="#FF5A1F" rx="4"/>
+                <rect x="0" y="105" width="32" height="30" fill="#6E3CFF"/>
+                <rect x="0" y="92"  width="32" height="13" fill="#B8860B" rx="4 4 0 0"/>
+              </g>
+              <g transform="translate(164,0)">
+                <rect x="0" y="125" width="32" height="65" fill="#FF5A1F" rx="4"/>
+                <rect x="0" y="100" width="32" height="25" fill="#6E3CFF"/>
+                <rect x="0" y="86"  width="32" height="14" fill="#B8860B" rx="4 4 0 0"/>
+              </g>
+              <g transform="translate(214,0)">
+                <rect x="0" y="118" width="32" height="72" fill="#FF5A1F" rx="4"/>
+                <rect x="0" y="92"  width="32" height="26" fill="#6E3CFF"/>
+                <rect x="0" y="78"  width="32" height="14" fill="#B8860B" rx="4 4 0 0"/>
+              </g>
+              <g transform="translate(264,0)">
+                <rect x="0" y="110" width="32" height="80" fill="#FF5A1F" rx="4"/>
+                <rect x="0" y="80"  width="32" height="30" fill="#6E3CFF"/>
+                <rect x="0" y="62"  width="32" height="18" fill="#B8860B" rx="4 4 0 0"/>
+              </g>
+              <g transform="translate(314,0)">
+                <rect x="0" y="105" width="32" height="85" fill="#FF5A1F" rx="4"/>
+                <rect x="0" y="75"  width="32" height="30" fill="#6E3CFF"/>
+                <rect x="0" y="55"  width="32" height="20" fill="#B8860B" rx="4 4 0 0"/>
+              </g>
+              <g transform="translate(364,0)">
+                <rect x="0" y="118" width="32" height="72" fill="#FF5A1F" rx="4"/>
+                <rect x="0" y="86"  width="32" height="32" fill="#6E3CFF"/>
+                <rect x="0" y="68"  width="32" height="18" fill="#B8860B" rx="4 4 0 0"/>
+              </g>
+              <g transform="translate(414,0)">
+                <rect x="0" y="100" width="32" height="90" fill="#FF5A1F" rx="4"/>
+                <rect x="0" y="65"  width="32" height="35" fill="#6E3CFF"/>
+                <rect x="0" y="46"  width="32" height="19" fill="#B8860B" rx="4 4 0 0"/>
+              </g>
+              <g transform="translate(464,0)">
+                <rect x="0" y="92"  width="32" height="98" fill="#FF5A1F" rx="4"/>
+                <rect x="0" y="56"  width="32" height="36" fill="#6E3CFF"/>
+                <rect x="0" y="36"  width="32" height="20" fill="#B8860B" rx="4 4 0 0"/>
+              </g>
+              <g transform="translate(514,0)">
+                <rect x="0" y="80" width="32" height="110" fill="#FF5A1F" rx="4"/>
+                <rect x="0" y="44" width="32" height="36" fill="#6E3CFF"/>
+                <rect x="0" y="22" width="32" height="22" fill="#B8860B" rx="4 4 0 0"/>
+              </g>
+              <g transform="translate(564,0)">
+                <rect x="0" y="92" width="32" height="98" fill="#FF5A1F" rx="4" opacity=".55"/>
+                <rect x="0" y="56" width="32" height="36" fill="#6E3CFF" opacity=".55"/>
+                <rect x="0" y="38" width="32" height="18" fill="#B8860B" opacity=".55" rx="4 4 0 0"/>
+              </g>
+            </g>
+            <!-- Month labels -->
+            <g fill="var(--ink-4)" font-size="10">
+              <text x="30"  y="208" text-anchor="middle">6月</text>
+              <text x="80"  y="208" text-anchor="middle">7月</text>
+              <text x="130" y="208" text-anchor="middle">8月</text>
+              <text x="180" y="208" text-anchor="middle">9月</text>
+              <text x="230" y="208" text-anchor="middle">10月</text>
+              <text x="280" y="208" text-anchor="middle">11月</text>
+              <text x="330" y="208" text-anchor="middle">12月</text>
+              <text x="380" y="208" text-anchor="middle">1月</text>
+              <text x="430" y="208" text-anchor="middle">2月</text>
+              <text x="480" y="208" text-anchor="middle">3月</text>
+              <text x="530" y="208" text-anchor="middle">4月</text>
+              <text x="580" y="208" text-anchor="middle" fill="var(--brand)" font-weight="700">5月*</text>
+            </g>
+          </svg>
+          <div class="muted" style="font-size:11.5px">* 5 月为本月预测，基于上月同周期推算</div>
+        </div>
+      </div>
+
+      <!-- 流水明细 -->
+      <div class="card padless">
+        <div style="padding:16px 18px 6px">
+          <div class="title-row">
+            <div class="h2">流水明细</div>
+            <a class="more muted" href="#">查看全部 1,284 条 →</a>
+          </div>
+          <div class="filter-toolbar">
+            <span class="filter-pill active">全部</span>
+            <span class="filter-pill">任务佣金</span>
+            <span class="filter-pill">商品包</span>
+            <span class="filter-pill">订单分成</span>
+            <span class="filter-pill">爆品奖励</span>
+            <span class="filter-pill">授权</span>
+            <span class="filter-pill">买断</span>
+            <span class="filter-pill">模板</span>
+            <span class="filter-pill">扣减 / 罚款</span>
+          </div>
+        </div>
+
+        <table class="table" style="border:0">
+          <thead>
+            <tr><th>日期</th><th>类型</th><th>来源</th><th>明细</th><th class="num">金额</th><th>状态</th></tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>05-07 14:02</td>
+              <td><div class="row-cat"><div class="ic" style="background:#B8860B">奖</div>爆品奖励</div></td>
+              <td>《复古田园 No.07》</td>
+              <td>4 月销售 8,640 件</td>
+              <td class="num"><strong style="color:var(--success)">+ ¥ 4,200.00</strong></td>
+              <td><span class="status success">已结算</span></td>
+            </tr>
+            <tr>
+              <td>05-07 11:30</td>
+              <td><div class="row-cat"><div class="ic" style="background:#FF5A1F">佣</div>任务佣金</div></td>
+              <td>套图任务 #T-21084</td>
+              <td>女装满印套图 20 张</td>
+              <td class="num"><strong>+ ¥ 1,200.00</strong></td>
+              <td><span class="status success">已结算</span></td>
+            </tr>
+            <tr>
+              <td>05-06 22:18</td>
+              <td><div class="row-cat"><div class="ic" style="background:#1A8F4A">分</div>订单分成</div></td>
+              <td>商品包 PKG-2026-0421-08</td>
+              <td>本周 SKU 销售 142 件</td>
+              <td class="num"><strong>+ ¥ 568.00</strong></td>
+              <td><span class="status success">已结算</span></td>
+            </tr>
+            <tr>
+              <td>05-06 18:00</td>
+              <td><div class="row-cat"><div class="ic" style="background:#6E3CFF">包</div>商品包售卖</div></td>
+              <td>蓝马货盘 · 母亲节专题</td>
+              <td>5 套打包销售给分销商</td>
+              <td class="num"><strong>+ ¥ 1,800.00</strong></td>
+              <td><span class="status warning">待结算 T+7</span></td>
+            </tr>
+            <tr>
+              <td>05-06 12:42</td>
+              <td><div class="row-cat"><div class="ic" style="background:#1F6FEB">权</div>图案授权</div></td>
+              <td>授权方：杭州某服装电商</td>
+              <td>《极简几何 v3》 单图次授权</td>
+              <td class="num"><strong>+ ¥ 380.00</strong></td>
+              <td><span class="status success">已结算</span></td>
+            </tr>
+            <tr>
+              <td>05-05 09:14</td>
+              <td><div class="row-cat"><div class="ic" style="background:#FF8A3D">买</div>设计买断</div></td>
+              <td>方果运营</td>
+              <td>《田园碎花》买断 + 入官方版库</td>
+              <td class="num"><strong>+ ¥ 736.00</strong></td>
+              <td><span class="status success">已结算</span></td>
+            </tr>
+            <tr>
+              <td>05-04 14:24</td>
+              <td><div class="row-cat"><div class="ic" style="background:#A18CD1">模</div>模板售卖</div></td>
+              <td>设计师陈梓恒使用</td>
+              <td>你的自创版型 FG-DR-Custom-12</td>
+              <td class="num"><strong>+ ¥ 88.00</strong></td>
+              <td><span class="status success">已结算</span></td>
+            </tr>
+            <tr>
+              <td>05-04 10:02</td>
+              <td><div class="row-cat"><div class="ic" style="background:#94A0B0">分佣</div>等级分佣</div></td>
+              <td>平台服务费返佣</td>
+              <td>L4 等级 +2% 加成</td>
+              <td class="num"><strong>+ ¥ 185.00</strong></td>
+              <td><span class="status success">已结算</span></td>
+            </tr>
+            <tr>
+              <td>05-03 17:30</td>
+              <td><div class="row-cat"><div class="ic" style="background:var(--danger)">罚</div>违规扣减</div></td>
+              <td>质检返工</td>
+              <td>任务 #T-21042 二次返工 5%</td>
+              <td class="num"><strong style="color:var(--danger)">- ¥ 60.00</strong></td>
+              <td><span class="status">已扣减</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+    </div>
+
+    <!-- 右 -->
+    <div class="col" style="gap:16px">
+
+      <!-- 等级 + 分佣 -->
+      <div class="level-progress">
+        <div class="row-l">
+          <div>
+            <div class="h2">设计师等级 · 分佣</div>
+            <div class="muted" style="font-size:12px">本月 +2% 等级加成已生效</div>
+          </div>
+          <span class="level l4">L4 · 资深</span>
+        </div>
+
+        <div class="bar mt-16"><i style="background:var(--brand);width:84%"></i></div>
+        <div class="row" style="justify-content:space-between;font-size:12px;color:var(--ink-3);margin-top:6px">
+          <span>当前 8,420 成长值</span>
+          <span>距 L5 · 金牌 还差 1,580</span>
+        </div>
+
+        <div class="commission">
+          <div class="lv-cell"><div class="lv">L1</div><div class="cm">22%</div></div>
+          <div class="lv-cell"><div class="lv">L2</div><div class="cm">28%</div></div>
+          <div class="lv-cell"><div class="lv">L3</div><div class="cm">32%</div></div>
+          <div class="lv-cell cur"><div class="lv">L4</div><div class="cm">38% + 2%</div></div>
+          <div class="lv-cell"><div class="lv">L5</div><div class="cm">45%</div></div>
+        </div>
+
+        <hr class="divider" />
+        <div class="muted" style="font-size:12px">等级越高享受：</div>
+        <div class="row wrap mt-8" style="gap:6px">
+          <span class="tag">分佣比例 +</span>
+          <span class="tag">优先派单</span>
+          <span class="tag">爆品奖池倍率</span>
+          <span class="tag">独家任务</span>
+          <span class="tag">私域曝光</span>
+        </div>
+      </div>
+
+      <!-- 结算排程 -->
+      <div class="card">
+        <div class="h2">结算排程</div>
+        <div class="muted" style="font-size:12px">每周三结算上一周流水，T+7 入账。</div>
+        <div class="schedule mt-12">
+          <div class="d next">
+            <div class="when">下次结算 · 5/14（周三）</div>
+            <div class="amt">¥ 6,820</div>
+            <div class="muted" style="font-size:11px">含 12 笔订单分成</div>
+          </div>
+          <div class="d">
+            <div class="when">5/21</div>
+            <div class="amt">¥ 4,200</div>
+            <div class="muted" style="font-size:11px">爆品奖励发放日</div>
+          </div>
+          <div class="d">
+            <div class="when">5/28</div>
+            <div class="amt">¥ 3,600</div>
+            <div class="muted" style="font-size:11px">月度版型分成</div>
+          </div>
+          <div class="d">
+            <div class="when">6/04</div>
+            <div class="amt">¥ 2,400</div>
+            <div class="muted" style="font-size:11px">5 月授权汇总</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 发票 / 对账 -->
+      <div class="card">
+        <div class="title-row"><div class="h2">发票 / 对账</div><a class="more muted" href="#">管理 →</a></div>
+        <div class="invoice-row"><span>5 月对账单 · 进行中</span><span class="muted">5/8 起可下载</span></div>
+        <div class="invoice-row"><span>4 月对账单</span><span class="status success">已确认 ¥ 16,120</span></div>
+        <div class="invoice-row"><span>4 月发票（普通增值税）</span><span class="status success">已开具 ¥ 12,800</span></div>
+        <div class="invoice-row"><span>4 月发票剩余</span><span class="status warning">待开 ¥ 3,320</span></div>
+        <div class="invoice-row"><span>主体 / 收款账户</span><span>李小果 · 招行 6411</span></div>
+        <a class="btn" style="width:100%;margin-top:6px">+ 申请开具发票</a>
+      </div>
+
+      <!-- 运营视角 (admin 也能在这页用) -->
+      <div class="card" id="admin" style="background:var(--bg-ink);color:var(--ink-on-dark);border:0">
+        <div class="row" style="justify-content:space-between"><strong>运营视角 · 平台结算</strong><span class="tag" style="background:rgba(255,255,255,.1);color:#fff">运营可见</span></div>
+        <div class="muted mt-8" style="font-size:12px;color:rgba(255,255,255,.7)">本月平台累计待结算 <strong style="color:#fff">¥ 312,400</strong>，1,284 名设计师 · 2,164 笔流水。</div>
+        <div class="row mt-12" style="gap:8px">
+          <a class="btn brand sm">前往结算后台 →</a>
+          <a class="btn sm" style="background:transparent;color:#fff;border-color:rgba(255,255,255,.2)">导出 ERP 凭证</a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</main>
+</body>
+</html>

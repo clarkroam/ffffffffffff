@@ -1,0 +1,325 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>方果设计师平台 · POD 内容生产中台</title>
+<link rel="stylesheet" href="assets/styles.css" />
+<style>
+  .hero {
+    background:
+      radial-gradient(1200px 360px at 80% -10%, rgba(255,90,31,.18), transparent 60%),
+      radial-gradient(900px 280px at 0% -20%, rgba(110,60,255,.14), transparent 70%),
+      var(--bg-canvas);
+    border: 1px solid var(--line);
+    border-radius: var(--r-xl);
+    padding: 44px 44px 32px;
+    position: relative; overflow: hidden;
+    margin-bottom: 28px;
+  }
+  .hero h1 { font-size: 34px; line-height: 1.15; letter-spacing: -.5px; margin: 14px 0 10px; max-width: 720px; }
+  .hero .sub { color: var(--ink-3); max-width: 660px; font-size: 15px; }
+  .hero .cta { display: flex; gap: 10px; margin-top: 22px; }
+  .hero-stats { display: grid; grid-template-columns: repeat(4,1fr); gap: 22px; margin-top: 30px; max-width: 760px; }
+  .hero-stats .s .num { font-size: 24px; font-weight: 700; }
+  .hero-stats .s .lbl { font-size: 12px; color: var(--ink-3); margin-top: 2px; }
+  .hero .corners {
+    position: absolute; top: 24px; right: 30px; display: flex; gap: 10px;
+  }
+  .gallery { position: absolute; right: -40px; top: -40px; opacity: .85; pointer-events: none; }
+  .gallery .frame {
+    width: 110px; height: 140px; border-radius: 14px;
+    box-shadow: 0 18px 36px rgba(0,0,0,.10);
+    transform: rotate(8deg);
+    border: 6px solid #fff;
+  }
+  .gallery .frame.f2 { transform: rotate(-6deg) translate(-90px, 60px); }
+  .gallery .frame.f3 { transform: rotate(14deg) translate(-180px, 0); }
+
+  .quick-row {
+    display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 26px;
+  }
+  .quick-chip {
+    padding: 7px 14px; border-radius: var(--r-pill);
+    background: var(--bg-canvas); border: 1px solid var(--line);
+    font-size: 13px; color: var(--ink-2);
+    display: inline-flex; align-items: center; gap: 6px;
+  }
+  .quick-chip .em { color: var(--brand); }
+
+  .six-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
+  @media (max-width: 1200px){ .six-grid { grid-template-columns: repeat(2,1fr); } }
+
+  .ribbon {
+    background: linear-gradient(90deg, #0E1116 0%, #2A2F3A 100%);
+    color: var(--ink-on-dark);
+    border-radius: var(--r-lg);
+    padding: 22px 28px;
+    display: grid; grid-template-columns: 1.1fr .9fr .8fr; gap: 22px;
+    margin: 28px 0;
+  }
+  .ribbon .col-h { color: rgba(255,255,255,.55); font-size: 11px; letter-spacing: 1px; text-transform: uppercase; }
+  .ribbon .col-v { font-size: 22px; font-weight: 700; margin-top: 4px; }
+  .ribbon .pills { margin-top: 10px; display: flex; gap: 6px; flex-wrap: wrap; }
+  .ribbon .pills .p {
+    background: rgba(255,255,255,.08); border: 1px solid rgba(255,255,255,.16);
+    color: #fff; padding: 4px 10px; border-radius: var(--r-pill); font-size: 12px;
+  }
+  .ribbon .miniflow {
+    display: flex; align-items: center; gap: 8px; margin-top: 12px; flex-wrap: wrap;
+  }
+  .ribbon .miniflow .step {
+    background: rgba(255,255,255,.06); border-radius: 8px; padding: 6px 10px; font-size: 12px;
+  }
+  .ribbon .miniflow .arrow { color: rgba(255,255,255,.4); }
+
+  .roles {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 18px; margin-bottom: 28px;
+  }
+  .role-card {
+    border: 1px solid var(--line); border-radius: var(--r-xl);
+    background: var(--bg-canvas); padding: 26px; display: flex; gap: 20px;
+  }
+  .role-card .avatar-l {
+    width: 56px; height: 56px; border-radius: 16px;
+    display: grid; place-items: center; font-weight: 800; color: #fff; font-size: 22px;
+    flex-shrink: 0;
+  }
+  .role-card.designer .avatar-l { background: linear-gradient(135deg,#FF8A3D,#FF5A1F); }
+  .role-card.ops .avatar-l { background: linear-gradient(135deg,#7C3AED,#3B0764); }
+  .role-card .links { display: flex; gap: 8px; margin-top: 10px; flex-wrap: wrap; }
+  .role-card .links a {
+    font-size: 12.5px; padding: 5px 10px; border-radius: var(--r-pill);
+    background: var(--bg-soft); color: var(--ink-2);
+  }
+  .role-card .links a:hover { background: var(--ink-1); color: #fff; }
+</style>
+</head>
+<body>
+
+<!-- 顶栏 -->
+<header class="topbar">
+  <a class="logo" href="index.html">
+    <span class="mark"></span>
+    方果<span style="color:var(--ink-3);font-weight:500">·设计师平台</span>
+  </a>
+  <nav>
+    <a class="active" href="index.html">总览</a>
+    <a href="pages/designer-dashboard.html">设计师中心</a>
+    <a href="pages/task-hall.html">任务大厅</a>
+    <a href="pages/ai-studio.html">AI 创作</a>
+    <a href="pages/templates.html">版型库</a>
+    <a href="pages/commercialize.html">商品化</a>
+    <a href="pages/earnings.html">收益结算</a>
+  </nav>
+  <div class="grow"></div>
+  <div class="switch">
+    <button class="on">设计师视角</button>
+    <button>运营视角</button>
+  </div>
+  <button class="iconbtn" title="通知">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 8a6 6 0 1 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10 21a2 2 0 0 0 4 0"/></svg>
+    <span class="dot"></span>
+  </button>
+  <div class="avatar">L</div>
+</header>
+
+<main class="main wide">
+
+  <!-- Hero -->
+  <section class="hero">
+    <div class="corners">
+      <span class="tag brand"><span class="dot"></span>v0.1 内测</span>
+      <span class="tag outline">已接入 方果ERP · 蓝马货盘</span>
+    </div>
+    <div class="row" style="gap:8px">
+      <span class="tag" style="background:#0E1116;color:#fff">POD 内容生产中台</span>
+      <span class="tag outline">设计师 · 美工 · AI · 模板 · 商品化 · 结算</span>
+    </div>
+    <h1>把<strong style="color:var(--brand)">每一张印花</strong>，最短路径变成可上架的商品</h1>
+    <p class="sub">方果设计师平台围绕 POD 全链路构建：设计师与美工高效协作、AI 大量产能、上千套独家版型沉淀、印花一键商品化、多收益模式自动结算。</p>
+    <div class="cta">
+      <a class="btn brand lg" href="pages/designer-dashboard.html">进入设计师中心 →</a>
+      <a class="btn lg" href="pages/admin-dashboard.html">进入运营后台</a>
+      <a class="btn ghost lg" href="#six">浏览六大中心</a>
+    </div>
+    <div class="hero-stats">
+      <div class="s"><div class="num tabular">1,238</div><div class="lbl">入驻设计师</div></div>
+      <div class="s"><div class="num tabular">1,067 套</div><div class="lbl">独家服装版型</div></div>
+      <div class="s"><div class="num tabular">86,420</div><div class="lbl">累计入库印花</div></div>
+      <div class="s"><div class="num tabular">¥ 4.32M</div><div class="lbl">本月已结算</div></div>
+    </div>
+  </section>
+
+  <!-- 快速入口 -->
+  <div class="quick-row">
+    <a class="quick-chip" href="pages/task-hall.html"><span class="em">●</span> 今日新增 <strong>426</strong> 条美工任务</a>
+    <a class="quick-chip" href="pages/ai-studio.html"><span class="em">●</span> AI 生成峰值算力 <strong>充足</strong></a>
+    <a class="quick-chip" href="pages/templates.html"><span class="em">●</span> 新增 <strong>32</strong> 套女装满印版</a>
+    <a class="quick-chip" href="pages/admin-review.html"><span class="em">●</span> 待审核作品 <strong>184</strong></a>
+    <a class="quick-chip" href="pages/admin-task-dispatch.html"><span class="em">●</span> 待派发 <strong>78</strong></a>
+    <a class="quick-chip" href="pages/earnings.html"><span class="em">●</span> 5 月待对账 <strong>¥ 312,400</strong></a>
+  </div>
+
+  <!-- 六大中心 -->
+  <div class="section-h" id="six">
+    <div>
+      <div class="h2">六大内容中心</div>
+      <div class="muted" style="font-size:13px">从内容生产到商品化变现的完整闭环</div>
+    </div>
+    <a class="more" href="#">查看产品白皮书 ↗</a>
+  </div>
+
+  <div class="six-grid">
+    <a class="entry v-1" href="pages/designer-dashboard.html">
+      <span class="num">01</span>
+      <span class="tag brand"><span class="dot"></span>设计师中心</span>
+      <div class="h2">入驻 / 接单 / 成长</div>
+      <div class="desc">设计师主页、作品集、任务大厅、报价、风格 & 类目标签、等级、版权授权与风控。</div>
+      <div class="arts">
+        <span class="art">设计师主页</span><span class="art">作品集</span><span class="art">接单报价</span>
+        <span class="art">设计师等级</span><span class="art">违规风控</span>
+      </div>
+      <div class="more">进入中心 →</div>
+    </a>
+
+    <a class="entry" href="pages/task-hall.html">
+      <span class="num">02</span>
+      <span class="tag" style="background:#FFE7DC;color:#A8260D"><span class="dot"></span>美工任务中心</span>
+      <div class="h2">标准化作图 · 工业化产能</div>
+      <div class="desc">套图 / 拉图 / 裁片 / 去背 / 效果图 / 详情图 / 上架图，批量派发、质检、返工、计件结算。</div>
+      <div class="arts">
+        <span class="art">批量派发</span><span class="art">任务质检</span><span class="art">返工管理</span>
+        <span class="art">计件计价</span><span class="art">绩效结算</span>
+      </div>
+      <div class="more">进入中心 →</div>
+    </a>
+
+    <a class="entry v-2" href="pages/ai-studio.html">
+      <span class="num">03</span>
+      <span class="tag ai"><span class="dot"></span>AI 内容中心</span>
+      <div class="h2">大产能 + 高质感</div>
+      <div class="desc">文生图 / 图生图 / 印花提取 / 图片裂变 / 风格融合 / 热点主题 / 批量生成 / 版权风险提示。</div>
+      <div class="arts">
+        <span class="art">文生图</span><span class="art">图生图</span><span class="art">印花提取</span>
+        <span class="art">图片裂变</span><span class="art">人工精选入库</span>
+      </div>
+      <div class="more">进入工作台 →</div>
+    </a>
+
+    <a class="entry" href="pages/templates.html">
+      <span class="num">04</span>
+      <span class="tag gold"><span class="dot"></span>模板 / 版型中心</span>
+      <div class="h2">方果独家核心资产</div>
+      <div class="desc">服装满印版型库 + 手机壳 / 杯 / 亚克力 / 铁皮画 / 家纺 / 鞋帽 / 雨伞 / 相框 模板，含质量评分与适配规则。</div>
+      <div class="arts">
+        <span class="art">1067 套女装版</span><span class="art">质量评分</span><span class="art">适配规则</span>
+        <span class="art">多店铺多模板套图</span>
+      </div>
+      <div class="more">浏览版型库 →</div>
+    </a>
+
+    <a class="entry" href="pages/commercialize.html">
+      <span class="num">05</span>
+      <span class="tag info"><span class="dot"></span>商品化中心</span>
+      <div class="h2">印花 → 商品 → 多平台上架</div>
+      <div class="desc">印花转商品图、效果图 / 生产图自动出图、标题 / SKU / 类目 / 价格建议、一键多平台刊登 + 推送方果ERP。</div>
+      <div class="arts">
+        <span class="art">多平台刊登</span><span class="art">标题/SKU生成</span><span class="art">推送 方果ERP</span>
+        <span class="art">加入蓝马货盘</span>
+      </div>
+      <div class="more">查看工作流 →</div>
+    </a>
+
+    <a class="entry" href="pages/earnings.html">
+      <span class="num">06</span>
+      <span class="tag success"><span class="dot"></span>交易 / 结算中心</span>
+      <div class="h2">多收益模式 · 自动对账</div>
+      <div class="desc">任务佣金 / 设计买断 / 图案授权 / 模板售卖 / 商品包售卖 / 订单分成 / 爆品奖励 / 等级分佣。</div>
+      <div class="arts">
+        <span class="art">收益看板</span><span class="art">流水明细</span><span class="art">爆品奖励</span>
+        <span class="art">发票 / 对账</span>
+      </div>
+      <div class="more">查看收益 →</div>
+    </a>
+  </div>
+
+  <!-- 价值链一图 -->
+  <div class="ribbon">
+    <div>
+      <div class="col-h">VALUE CHAIN · POD 全链路</div>
+      <div class="col-v">从一个 idea，到一张印花，再到一个商品 SKU</div>
+      <div class="miniflow">
+        <span class="step">① 灵感 / 热点</span><span class="arrow">→</span>
+        <span class="step">② AI 生图 / 设计师创作</span><span class="arrow">→</span>
+        <span class="step">③ 美工套版 / 出效果图</span><span class="arrow">→</span>
+        <span class="step">④ 商品化 + 上架</span><span class="arrow">→</span>
+        <span class="step">⑤ 销售 + 结算</span>
+      </div>
+    </div>
+    <div>
+      <div class="col-h">CORE ASSET · 独家资产</div>
+      <div class="col-v">1067 套服装满印版型</div>
+      <div class="pills">
+        <span class="p">连衣裙</span><span class="p">T 恤 / 卫衣</span><span class="p">家居服</span>
+        <span class="p">瑜伽 / 运动</span><span class="p">儿童装</span><span class="p">外套 / 风衣</span>
+      </div>
+    </div>
+    <div>
+      <div class="col-h">DOWNSTREAM · 下游对接</div>
+      <div class="col-v">方果 ERP · 蓝马货盘</div>
+      <div class="pills">
+        <span class="p">Shopee</span><span class="p">TikTok Shop</span><span class="p">Amazon</span>
+        <span class="p">Temu</span><span class="p">独立站</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- 双视角 -->
+  <div class="section-h">
+    <div>
+      <div class="h2">两端 · 双视角</div>
+      <div class="muted" style="font-size:13px">设计师 / 美工创作端 + 平台运营管控端，共用一套数据中台</div>
+    </div>
+  </div>
+
+  <div class="roles">
+    <div class="role-card designer">
+      <div class="avatar-l">D</div>
+      <div>
+        <div class="row" style="gap:8px"><span class="h2">设计师 / 美工 端</span><span class="level l4">L4 · 资深设计师</span></div>
+        <div class="muted mt-8" style="max-width:520px">入驻信息、风格 & 类目标签、作品集、任务接单与报价、AI 工作台、版型库、商品化工作流、收益看板。</div>
+        <div class="links">
+          <a href="pages/designer-dashboard.html">工作台</a>
+          <a href="pages/designer-profile.html">设计师主页</a>
+          <a href="pages/task-hall.html">任务大厅</a>
+          <a href="pages/ai-studio.html">AI 工作台</a>
+          <a href="pages/templates.html">版型库</a>
+          <a href="pages/commercialize.html">商品化</a>
+          <a href="pages/earnings.html">我的收益</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="role-card ops">
+      <div class="avatar-l">O</div>
+      <div>
+        <div class="row" style="gap:8px"><span class="h2">平台运营 端</span><span class="tag" style="background:#EDE5FF;color:#6E3CFF">仅运营可见</span></div>
+        <div class="muted mt-8" style="max-width:520px">总览看板、批量任务派发、质检 / 返工、作品 & AI 内容审核、版权风控、设计师等级与分佣、对账结算。</div>
+        <div class="links">
+          <a href="pages/admin-dashboard.html">运营总览</a>
+          <a href="pages/admin-task-dispatch.html">任务派发与质检</a>
+          <a href="pages/admin-review.html">作品 / AI 审核</a>
+          <a href="pages/templates.html#admin">模板管理</a>
+          <a href="pages/earnings.html#admin">结算 / 对账</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <footer class="muted center" style="margin: 40px 0 0; font-size:12px">
+    方果设计师平台 · 原型 v0.1 · © 方果科技
+  </footer>
+</main>
+</body>
+</html>

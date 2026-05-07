@@ -1,0 +1,560 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>任务大厅 · 美工任务中心</title>
+<link rel="stylesheet" href="../assets/styles.css" />
+<style>
+  /* 任务类型 hero */
+  .typebar { display: grid; grid-template-columns: repeat(7,1fr); gap: 10px; margin-bottom: 22px; }
+  .typecard {
+    border: 1px solid var(--line); background: var(--bg-canvas);
+    border-radius: var(--r-lg); padding: 14px;
+    display: flex; flex-direction: column; gap: 6px; position: relative;
+    overflow: hidden;
+  }
+  .typecard.active {
+    border-color: var(--ink-1); box-shadow: 0 4px 18px rgba(0,0,0,.06);
+  }
+  .typecard .ic {
+    width: 32px; height: 32px; border-radius: 9px;
+    display: grid; place-items: center; color: #fff; font-weight: 700;
+  }
+  .typecard .num { font-size: 18px; font-weight: 700; }
+  .typecard .lbl { font-size: 12px; color: var(--ink-3); }
+  .typecard .price { font-size: 11px; color: var(--ink-4); }
+  .typecard .bg { position: absolute; right: -12px; top: -12px; opacity: .07; font-size: 80px; font-weight: 800;}
+
+  .hall { display: grid; grid-template-columns: 240px 1fr 320px; gap: 18px; }
+  @media (max-width: 1280px){ .hall { grid-template-columns: 1fr; } .hall .filters, .hall .drawer-r { display: none; } }
+
+  .filters .group { padding: 14px 14px 10px; border-bottom: 1px solid var(--line); }
+  .filters .group:last-child { border-bottom: 0; }
+  .filters h4 { font-size: 12px; color: var(--ink-3); margin: 0 0 8px; font-weight: 600; letter-spacing: .5px; text-transform: uppercase; }
+  .filters .check { display: flex; justify-content: space-between; padding: 5px 0; font-size: 13px; color: var(--ink-2); }
+  .filters .check .c { color: var(--ink-4); font-size: 11px; }
+
+  .tasks { display: flex; flex-direction: column; gap: 12px; }
+  .task {
+    background: var(--bg-canvas); border: 1px solid var(--line);
+    border-radius: var(--r-lg); padding: 16px;
+    display: grid; grid-template-columns: 92px 1fr auto; gap: 16px;
+  }
+  .task .preview {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 4px;
+    aspect-ratio: 1/1;
+  }
+  .task .preview .p {
+    border-radius: 6px; aspect-ratio: 1/1;
+    display: grid; place-items: center; font-size: 14px; color: rgba(255,255,255,.85);
+  }
+  .task h3 { margin: 0 0 6px; font-size: 15px; }
+  .task .meta-row { display: flex; gap: 6px; flex-wrap: wrap; margin: 6px 0; }
+  .task .pricing { text-align: right; min-width: 130px; }
+  .task .pricing .pp { color: var(--ink-3); font-size: 12px; margin-top: 2px; }
+  .task .acts { margin-top: 10px; display: flex; gap: 6px; justify-content: flex-end; }
+  .task .desc { color: var(--ink-3); font-size: 13px; margin-bottom: 8px; }
+  .task .req {
+    background: var(--bg-soft); border-radius: var(--r-sm);
+    padding: 8px 10px; font-size: 12px; color: var(--ink-2);
+    display: flex; flex-wrap: wrap; gap: 12px;
+  }
+  .task .req span strong { color: var(--ink-1); margin-left: 4px; }
+  .task .progress {
+    display: flex; gap: 8px; margin-top: 8px; align-items: center;
+  }
+  .task .progress .bar { flex: 1; }
+  .task .deadline { color: var(--warning); font-weight: 600; }
+  .task.priority { border-left: 3px solid var(--brand); }
+
+  .toolbar {
+    display: flex; gap: 10px; align-items: center;
+    background: var(--bg-canvas); border: 1px solid var(--line);
+    border-radius: var(--r-md); padding: 10px;
+    margin-bottom: 14px;
+  }
+  .toolbar .seg { display: inline-flex; padding: 3px; border: 1px solid var(--line); border-radius: var(--r-pill); background: var(--bg-canvas); }
+  .toolbar .seg button {
+    border: 0; background: transparent; padding: 5px 10px;
+    border-radius: var(--r-pill); color: var(--ink-3); font-size: 12.5px;
+  }
+  .toolbar .seg button.on { background: var(--ink-1); color: #fff; }
+
+  /* 批量派发可视化 */
+  .dispatch-card .swimlane {
+    display: grid; grid-template-columns: 1fr 1fr 1fr 1fr; gap: 8px; margin-top: 12px;
+  }
+  .dispatch-card .lane {
+    background: var(--bg-soft); border-radius: var(--r-md); padding: 8px;
+    min-height: 110px;
+  }
+  .dispatch-card .lane h5 { font-size: 11px; color: var(--ink-3); margin: 0 0 6px; }
+  .dispatch-card .ticket {
+    background: #fff; border: 1px solid var(--line); border-radius: 6px;
+    padding: 6px 8px; font-size: 11px; margin-bottom: 5px;
+  }
+  .dispatch-card .ticket strong { font-size: 12px; }
+
+  .quote-form { display: flex; flex-direction: column; gap: 10px; }
+  .quote-form input, .quote-form textarea, .quote-form select {
+    border: 1px solid var(--line); border-radius: var(--r-sm); padding: 8px 10px;
+    width: 100%; background: var(--bg-canvas);
+  }
+  .quote-form .row2 { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+
+  /* 类型颜色 */
+  .ic-1 { background: linear-gradient(135deg,#FF8A3D,#FF5A1F); }
+  .ic-2 { background: linear-gradient(135deg,#FBC2EB,#A18CD1); }
+  .ic-3 { background: linear-gradient(135deg,#84FAB0,#3CB371); }
+  .ic-4 { background: linear-gradient(135deg,#0E1116,#5C6573); }
+  .ic-5 { background: linear-gradient(135deg,#FFEFBA,#C9A100); }
+  .ic-6 { background: linear-gradient(135deg,#A1C4FD,#1F6FEB); }
+  .ic-7 { background: linear-gradient(135deg,#FFC1DA,#FF5A1F); }
+</style>
+</head>
+<body>
+
+<header class="topbar">
+  <a class="logo" href="../index.html"><span class="mark"></span>方果<span style="color:var(--ink-3);font-weight:500">·设计师平台</span></a>
+  <nav>
+    <a href="../index.html">总览</a>
+    <a href="designer-dashboard.html">设计师中心</a>
+    <a class="active" href="task-hall.html">任务大厅</a>
+    <a href="ai-studio.html">AI 创作</a>
+    <a href="templates.html">版型库</a>
+    <a href="commercialize.html">商品化</a>
+    <a href="earnings.html">收益结算</a>
+  </nav>
+  <div class="grow"></div>
+  <div class="switch"><button class="on">设计师视角</button><button>运营视角</button></div>
+  <button class="iconbtn"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 8a6 6 0 1 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10 21a2 2 0 0 0 4 0"/></svg><span class="dot"></span></button>
+  <div class="avatar">L</div>
+</header>
+
+<main class="main wide">
+
+  <div class="pagehead">
+    <div>
+      <div class="crumbs">美工任务中心 · <span>任务大厅</span></div>
+      <div class="h1">任务大厅</div>
+      <div class="desc">承接套图 / 拉图 / 裁片 / 去背 / 效果图 / 详情图 / 上架图等标准化与半标准化作图任务，支持批量派发、计件计价、自动质检与返工。</div>
+    </div>
+    <div class="row">
+      <a class="btn" href="#">我的报价单</a>
+      <a class="btn primary" href="#">+ 发布任务（运营）</a>
+    </div>
+  </div>
+
+  <!-- 任务类型聚合 -->
+  <div class="typebar">
+    <div class="typecard active">
+      <span class="bg">01</span>
+      <div class="ic ic-1">套</div>
+      <div class="num tabular">142</div>
+      <div class="lbl">套图任务</div>
+      <div class="price">¥ 60-120 / 张</div>
+    </div>
+    <div class="typecard">
+      <span class="bg">02</span>
+      <div class="ic ic-2">拉</div>
+      <div class="num tabular">86</div>
+      <div class="lbl">拉图任务</div>
+      <div class="price">¥ 18-30 / 张</div>
+    </div>
+    <div class="typecard">
+      <span class="bg">03</span>
+      <div class="ic ic-3">裁</div>
+      <div class="num tabular">54</div>
+      <div class="lbl">裁片图</div>
+      <div class="price">¥ 12-20 / 张</div>
+    </div>
+    <div class="typecard">
+      <span class="bg">04</span>
+      <div class="ic ic-4">背</div>
+      <div class="num tabular">68</div>
+      <div class="lbl">去背景</div>
+      <div class="price">¥ 6-10 / 张</div>
+    </div>
+    <div class="typecard">
+      <span class="bg">05</span>
+      <div class="ic ic-5">效</div>
+      <div class="num tabular">28</div>
+      <div class="lbl">效果图</div>
+      <div class="price">¥ 50-90 / 张</div>
+    </div>
+    <div class="typecard">
+      <span class="bg">06</span>
+      <div class="ic ic-6">详</div>
+      <div class="num tabular">31</div>
+      <div class="lbl">详情图</div>
+      <div class="price">¥ 80-180 / 张</div>
+    </div>
+    <div class="typecard">
+      <span class="bg">07</span>
+      <div class="ic ic-7">架</div>
+      <div class="num tabular">17</div>
+      <div class="lbl">上架图</div>
+      <div class="price">¥ 24-40 / 张</div>
+    </div>
+  </div>
+
+  <div class="hall">
+
+    <!-- 左：筛选 -->
+    <aside class="card padless filters">
+      <div class="group">
+        <h4>视角</h4>
+        <a class="filter-pill active" style="display:block;text-align:center;margin-bottom:6px">📥 我可接的</a>
+        <a class="filter-pill" style="display:block;text-align:center;margin-bottom:6px">⭐ 我已收藏</a>
+        <a class="filter-pill" style="display:block;text-align:center">📦 全平台公开池</a>
+      </div>
+      <div class="group">
+        <h4>类目</h4>
+        <div class="check"><label><input type="checkbox" checked /> 女装满印</label><span class="c">126</span></div>
+        <div class="check"><label><input type="checkbox" checked /> 男装 T 恤</label><span class="c">62</span></div>
+        <div class="check"><label><input type="checkbox" /> 童装</label><span class="c">38</span></div>
+        <div class="check"><label><input type="checkbox" /> 家居服</label><span class="c">44</span></div>
+        <div class="check"><label><input type="checkbox" /> 手机壳</label><span class="c">22</span></div>
+        <div class="check"><label><input type="checkbox" /> 杯 / 亚克力</label><span class="c">18</span></div>
+      </div>
+      <div class="group">
+        <h4>风格</h4>
+        <div class="row wrap" style="gap:6px">
+          <span class="filter-pill">复古插画</span>
+          <span class="filter-pill active">极简几何</span>
+          <span class="filter-pill">国潮</span>
+          <span class="filter-pill">卡通</span>
+          <span class="filter-pill">写实摄影</span>
+          <span class="filter-pill">水彩</span>
+          <span class="filter-pill">街头潮流</span>
+        </div>
+      </div>
+      <div class="group">
+        <h4>计件价（¥/张）</h4>
+        <div class="row" style="gap:6px"><input style="border:1px solid var(--line);border-radius:6px;padding:6px;width:80px" placeholder="最低"> – <input style="border:1px solid var(--line);border-radius:6px;padding:6px;width:80px" placeholder="最高"></div>
+      </div>
+      <div class="group">
+        <h4>截止</h4>
+        <div class="check"><label><input type="checkbox" /> 今日</label><span class="c">26</span></div>
+        <div class="check"><label><input type="checkbox" checked /> 三天内</label><span class="c">94</span></div>
+        <div class="check"><label><input type="checkbox" /> 一周内</label><span class="c">208</span></div>
+      </div>
+      <div class="group">
+        <h4>派单方</h4>
+        <div class="check"><label><input type="checkbox" checked /> 方果运营</label><span class="c">312</span></div>
+        <div class="check"><label><input type="checkbox" /> 平台商家</label><span class="c">86</span></div>
+        <div class="check"><label><input type="checkbox" /> 设计师转包</label><span class="c">28</span></div>
+      </div>
+    </aside>
+
+    <!-- 中：任务列表 -->
+    <section>
+      <div class="toolbar">
+        <div class="searchbar" style="flex:1; height:36px">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>
+          <input placeholder="搜索任务名 / 商品 / 派单方..." />
+        </div>
+        <div class="seg">
+          <button class="on">列表</button>
+          <button>看板</button>
+          <button>地图</button>
+        </div>
+        <select style="border:1px solid var(--line);border-radius:6px;padding:6px 10px;font-size:12.5px;background:#fff">
+          <option>排序：匹配度</option><option>价格</option><option>截止时间</option><option>新发布</option>
+        </select>
+      </div>
+
+      <div class="tasks">
+
+        <!-- Task 1 -->
+        <article class="task priority">
+          <div class="preview">
+            <div class="p gradient-1">🌸</div><div class="p gradient-4">🌿</div>
+            <div class="p gradient-9">💐</div><div class="p gradient-2">🌸</div>
+          </div>
+          <div>
+            <div class="row" style="gap:6px">
+              <h3>女装满印套图 · 复古田园系列 第 4 批</h3>
+              <span class="tag brand">套图任务</span>
+              <span class="tag warning">急 · 24h</span>
+              <span class="tag outline">匹配度 96%</span>
+            </div>
+            <div class="desc">基于 12 张复古田园印花素材，套用 4 套女装满印版型（连衣裙 ×2 / T 恤 / 卫衣），每个版型出主图 + 1 张细节图，符合 Shopee 主图规范。</div>
+            <div class="req">
+              <span>📦 数量：<strong>20 张</strong></span>
+              <span>📐 规格：<strong>1080×1080 / 1500×1500</strong></span>
+              <span>📂 输出：<strong>JPG + PSD</strong></span>
+              <span>👤 派单方：<strong>方果运营 · 王翊</strong></span>
+              <span>⏰ 截止：<strong class="deadline">5/8 18:00</strong></span>
+            </div>
+            <div class="meta-row">
+              <span class="tag">复古插画</span><span class="tag">田园风</span><span class="tag">女装满印</span>
+              <span class="tag info">支持 AI 协作</span>
+            </div>
+            <div class="progress">
+              <span class="muted-2" style="font-size:12px">已被 <strong>3</strong> 位设计师收藏 · 接单进度</span>
+              <div class="bar"><i style="width:0%;background:var(--brand)"></i></div>
+              <span class="muted-2" style="font-size:12px">0/1 已接</span>
+            </div>
+          </div>
+          <div class="pricing">
+            <div class="price lg"><span class="ccy">¥</span>1,200</div>
+            <div class="pp">¥ 60 / 张 · 计件</div>
+            <div class="acts">
+              <button class="btn sm">报价</button>
+              <button class="btn brand sm">立即接单</button>
+            </div>
+          </div>
+        </article>
+
+        <!-- Task 2 -->
+        <article class="task">
+          <div class="preview">
+            <div class="p gradient-2">🍃</div><div class="p gradient-3">🍃</div>
+            <div class="p gradient-7">🍃</div><div class="p gradient-12">🍃</div>
+          </div>
+          <div>
+            <div class="row" style="gap:6px">
+              <h3>家居服 · 极简几何 拉图任务（批量 20 张）</h3>
+              <span class="tag info">拉图任务</span>
+              <span class="tag outline">匹配度 91%</span>
+            </div>
+            <div class="desc">从 8 套版型库中拉伸印花，自动套用方果母版尺码线，保证印花重复点接缝顺滑，输出各 SKU 上架图。</div>
+            <div class="req">
+              <span>📦 数量：<strong>20 张</strong></span>
+              <span>📐 规格：<strong>3000×3000</strong></span>
+              <span>👤 派单方：<strong>方果运营 · 自动派发</strong></span>
+              <span>⏰ 截止：<strong>5/9 22:00</strong></span>
+            </div>
+            <div class="meta-row">
+              <span class="tag">家居服</span><span class="tag">极简几何</span><span class="tag">大批量</span>
+            </div>
+          </div>
+          <div class="pricing">
+            <div class="price lg"><span class="ccy">¥</span>460</div>
+            <div class="pp">¥ 23 / 张 · 计件</div>
+            <div class="acts">
+              <button class="btn sm">报价</button>
+              <button class="btn brand sm">立即接单</button>
+            </div>
+          </div>
+        </article>
+
+        <!-- Task 3 -->
+        <article class="task">
+          <div class="preview">
+            <div class="p gradient-8" style="color:#fff">✂️</div><div class="p gradient-8" style="color:#fff">✂️</div>
+            <div class="p gradient-8" style="color:#fff">✂️</div><div class="p gradient-8" style="color:#fff">✂️</div>
+          </div>
+          <div>
+            <div class="row" style="gap:6px">
+              <h3>连衣裙 满印裁片图制作 · 60 SKU</h3>
+              <span class="tag" style="background:#DDF2E5;color:var(--success)">裁片图</span>
+            </div>
+            <div class="desc">按 8 个版型生成各 SKU 完整裁片版，包含前片 / 后片 / 袖片 / 领片 / 腰带，符合工厂打版要求。</div>
+            <div class="req">
+              <span>📦 数量：<strong>60 SKU × 5 片</strong></span>
+              <span>📐 输出：<strong>带刀模 PDF + AI</strong></span>
+              <span>👤 派单方：<strong>方果工厂 ERP</strong></span>
+              <span>⏰ 截止：<strong>5/10 12:00</strong></span>
+            </div>
+            <div class="meta-row">
+              <span class="tag">裁片图</span><span class="tag">满印</span><span class="tag warning">需打版经验</span>
+            </div>
+          </div>
+          <div class="pricing">
+            <div class="price lg"><span class="ccy">¥</span>900</div>
+            <div class="pp">¥ 15 / SKU · 60 件</div>
+            <div class="acts">
+              <button class="btn sm">报价</button>
+              <button class="btn brand sm">立即接单</button>
+            </div>
+          </div>
+        </article>
+
+        <!-- Task 4 -->
+        <article class="task">
+          <div class="preview">
+            <div class="p gradient-5">🔍</div><div class="p gradient-5">🔍</div>
+            <div class="p gradient-5">🔍</div><div class="p gradient-5">🔍</div>
+          </div>
+          <div>
+            <div class="row" style="gap:6px">
+              <h3>商品图去背 + 二次精修 36 张</h3>
+              <span class="tag">去背景</span>
+              <span class="tag warning">毛发边缘</span>
+            </div>
+            <div class="desc">36 张拍摄主图（含模特、毛绒、半透明），AI 自动去背后人工二次精修，要求羽化平滑、毛发边缘清晰。</div>
+            <div class="req">
+              <span>📦 数量：<strong>36 张</strong></span>
+              <span>👤 派单方：<strong>蓝马货盘 · 选品组</strong></span>
+              <span>⏰ 截止：<strong>5/8 23:00</strong></span>
+              <span>🔁 返工容忍度：<strong>≤ 5%</strong></span>
+            </div>
+            <div class="meta-row">
+              <span class="tag">去背</span><span class="tag">精修</span><span class="tag info">质检严格</span>
+            </div>
+          </div>
+          <div class="pricing">
+            <div class="price lg"><span class="ccy">¥</span>252</div>
+            <div class="pp">¥ 7 / 张 · 计件</div>
+            <div class="acts">
+              <button class="btn sm">报价</button>
+              <button class="btn brand sm">立即接单</button>
+            </div>
+          </div>
+        </article>
+
+        <!-- Task 5 -->
+        <article class="task">
+          <div class="preview">
+            <div class="p gradient-10">📷</div><div class="p gradient-10">📷</div>
+            <div class="p gradient-10">📷</div><div class="p gradient-10">📷</div>
+          </div>
+          <div>
+            <div class="row" style="gap:6px">
+              <h3>母亲节系列 · 模特上身效果图（AI 协作）</h3>
+              <span class="tag gold">效果图</span>
+              <span class="tag ai">AI 协作</span>
+            </div>
+            <div class="desc">基于已通过的 30 张印花，生成 60 张模特上身效果图（成衣 + 户外场景），AI 出底图后人工调色与构图微调。</div>
+            <div class="req">
+              <span>📦 数量：<strong>60 张</strong></span>
+              <span>📐 规格：<strong>1500×1500</strong></span>
+              <span>👤 派单方：<strong>方果内容运营</strong></span>
+              <span>⏰ 截止：<strong>5/11 18:00</strong></span>
+            </div>
+            <div class="meta-row">
+              <span class="tag">效果图</span><span class="tag">模特上身</span><span class="tag">母亲节</span>
+              <span class="tag info">支持版型自动套用</span>
+            </div>
+          </div>
+          <div class="pricing">
+            <div class="price lg"><span class="ccy">¥</span>4,200</div>
+            <div class="pp">¥ 70 / 张 · 60 张</div>
+            <div class="acts">
+              <button class="btn sm">报价</button>
+              <button class="btn brand sm">立即接单</button>
+            </div>
+          </div>
+        </article>
+
+        <!-- Task 6 -->
+        <article class="task">
+          <div class="preview">
+            <div class="p gradient-6">📋</div><div class="p gradient-6">📋</div>
+            <div class="p gradient-6">📋</div><div class="p gradient-6">📋</div>
+          </div>
+          <div>
+            <div class="row" style="gap:6px">
+              <h3>儿童装 详情页设计 · 4 商品 / 各 8 屏</h3>
+              <span class="tag" style="background:#DDE9FF;color:var(--info)">详情图</span>
+            </div>
+            <div class="desc">儿童卡通系列详情页设计，含产品卖点、面料、印花特写、安全标注、洗涤说明、模特展示，多平台适配。</div>
+            <div class="req">
+              <span>📦 数量：<strong>4 件商品 × 8 屏</strong></span>
+              <span>📐 规格：<strong>790×宽不限</strong></span>
+              <span>👤 派单方：<strong>方果运营 · 张衍</strong></span>
+              <span>⏰ 截止：<strong>5/12 18:00</strong></span>
+            </div>
+            <div class="meta-row">
+              <span class="tag">详情图</span><span class="tag">儿童装</span><span class="tag warning">合规标注</span>
+            </div>
+          </div>
+          <div class="pricing">
+            <div class="price lg"><span class="ccy">¥</span>4,800</div>
+            <div class="pp">¥ 1,200 / 商品</div>
+            <div class="acts">
+              <button class="btn sm">报价</button>
+              <button class="btn brand sm">立即接单</button>
+            </div>
+          </div>
+        </article>
+
+      </div>
+
+      <!-- 分页 -->
+      <div class="row" style="justify-content:center;margin-top:18px;gap:6px">
+        <button class="btn sm">‹</button>
+        <button class="btn sm primary">1</button>
+        <button class="btn sm">2</button>
+        <button class="btn sm">3</button>
+        <button class="btn sm">…</button>
+        <button class="btn sm">42</button>
+        <button class="btn sm">›</button>
+      </div>
+    </section>
+
+    <!-- 右：报价抽屉 + 批量派发可视化 -->
+    <aside class="drawer-r col" style="display:flex;flex-direction:column;gap:14px">
+
+      <div class="drawer">
+        <div class="row" style="justify-content:space-between"><div class="h2">报价 / 接单</div><span class="tag brand">优先邀请</span></div>
+        <div class="muted mt-8" style="font-size:12.5px">系统识别你为该任务高匹配设计师，可走简易接单或自定义报价。</div>
+
+        <div class="card" style="margin-top:12px;padding:12px;background:var(--bg-soft);border:0">
+          <div class="row" style="justify-content:space-between"><strong>女装满印套图 · 第 4 批</strong><span class="tag brand">套图</span></div>
+          <div class="muted mt-8" style="font-size:12px">官方计件价 ¥ 60 / 张 · 共 20 张</div>
+        </div>
+
+        <form class="quote-form mt-12">
+          <label class="muted" style="font-size:12px">接单方式</label>
+          <div class="seg" style="display:flex;border:1px solid var(--line);border-radius:8px;overflow:hidden">
+            <button type="button" class="btn sm primary" style="flex:1;border-radius:0">按计件价直接接单</button>
+            <button type="button" class="btn sm" style="flex:1;border-radius:0;border-left:1px solid var(--line)">自定义报价</button>
+          </div>
+
+          <label class="muted" style="font-size:12px">建议交付时间</label>
+          <div class="row2">
+            <input value="2026-05-08" />
+            <input value="18:00" />
+          </div>
+
+          <label class="muted" style="font-size:12px">备注 / 沟通需求</label>
+          <textarea rows="2" placeholder="例如：可同时承接 8 张，余下需协作"></textarea>
+
+          <div class="row" style="justify-content:space-between;margin-top:4px">
+            <span class="muted" style="font-size:12px">预计本次结算</span>
+            <span class="price"><span class="ccy">¥</span>1,200</span>
+          </div>
+          <button type="button" class="btn brand lg" style="width:100%">提交并接单</button>
+          <button type="button" class="btn ghost" style="width:100%">仅收藏 / 稍后再决定</button>
+        </form>
+      </div>
+
+      <!-- 批量派发可视化（运营视角的小窗预览） -->
+      <div class="drawer dispatch-card">
+        <div class="row" style="justify-content:space-between"><div class="h2">运营视角 · 批量派发</div><span class="tag" style="background:#EDE5FF;color:var(--ai)">运营可见</span></div>
+        <div class="muted mt-8" style="font-size:12px">将 80 张「母亲节」效果图任务一次性切分为 4 个工人队列，按等级 + 产能自动派发。</div>
+        <div class="swimlane">
+          <div class="lane">
+            <h5>李小果 L4</h5>
+            <div class="ticket"><strong>套图 ×6</strong><div class="muted-2">¥ 360</div></div>
+            <div class="ticket"><strong>效果图 ×8</strong><div class="muted-2">¥ 560</div></div>
+          </div>
+          <div class="lane">
+            <h5>陈梓恒 L3</h5>
+            <div class="ticket"><strong>效果图 ×8</strong><div class="muted-2">¥ 480</div></div>
+          </div>
+          <div class="lane">
+            <h5>赵衫 L2</h5>
+            <div class="ticket"><strong>去背 ×20</strong><div class="muted-2">¥ 140</div></div>
+            <div class="ticket"><strong>上架图 ×6</strong><div class="muted-2">¥ 168</div></div>
+          </div>
+          <div class="lane">
+            <h5>外协美工 池</h5>
+            <div class="ticket"><strong>详情图 ×3</strong><div class="muted-2">¥ 540</div></div>
+          </div>
+        </div>
+        <div class="row" style="justify-content:space-between;margin-top:10px;font-size:12px;color:var(--ink-3)">
+          <span>预计今日完成 <strong style="color:var(--ink-1)">62%</strong></span>
+          <a href="admin-task-dispatch.html">前往派发后台 →</a>
+        </div>
+      </div>
+
+    </aside>
+  </div>
+</main>
+</body>
+</html>
