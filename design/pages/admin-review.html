@@ -1,0 +1,635 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>作品 / AI 审核 · 运营后台</title>
+<link rel="stylesheet" href="../assets/styles.css" />
+<style>
+  /* 队列卡片 */
+  .queue-row {
+    display: grid; grid-template-columns: repeat(5, 1fr); gap: 12px;
+    margin-bottom: 18px;
+  }
+  .queue-c {
+    background: var(--bg-canvas); border: 1px solid var(--line);
+    border-radius: var(--r-lg); padding: 14px 16px;
+    cursor: pointer;
+  }
+  .queue-c.on { border-color: var(--ink-1); background: var(--bg-ink); color: #fff; }
+  .queue-c.on .lbl { color: rgba(255,255,255,.6); }
+  .queue-c .lbl { font-size: 12px; color: var(--ink-3); }
+  .queue-c .num { font-weight: 700; font-size: 26px; margin-top: 2px; letter-spacing: -.3px; }
+  .queue-c .delta { font-size: 11px; margin-top: 2px; color: var(--success); }
+  .queue-c.on .delta { color: #6CDD8F; }
+  .queue-c.danger { border-color: var(--danger-soft); background: linear-gradient(135deg, var(--danger-soft) 0%, #fff 60%); }
+  .queue-c.danger .num { color: var(--danger); }
+
+  /* 主区 */
+  .review { display: grid; grid-template-columns: 200px 1fr 380px; gap: 18px; }
+  @media (max-width: 1280px){ .review { grid-template-columns: 1fr; } .review aside.right { display: none; } }
+
+  .filt-side .grp { padding: 10px 14px; border-bottom: 1px solid var(--line); }
+  .filt-side h4 { font-size: 11px; color: var(--ink-3); margin: 0 0 6px; letter-spacing: .5px; text-transform: uppercase; }
+  .filt-side a {
+    display: flex; justify-content: space-between; padding: 5px 0;
+    font-size: 13px; color: var(--ink-2);
+  }
+  .filt-side a.on { color: var(--brand-dark); font-weight: 600; }
+  .filt-side a .c { color: var(--ink-4); font-size: 11px; }
+
+  /* Grid */
+  .rev-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
+  .rev-card {
+    background: var(--bg-canvas); border: 1px solid var(--line);
+    border-radius: var(--r-lg); overflow: hidden; padding: 0;
+    cursor: pointer; transition: transform .15s ease;
+  }
+  .rev-card:hover { transform: translateY(-2px); }
+  .rev-card.selected { border-color: var(--brand); box-shadow: 0 4px 18px rgba(255,90,31,.18); }
+  .rev-card .pic {
+    aspect-ratio: 1/1; position: relative;
+  }
+  .rev-card .pic .badges {
+    position: absolute; top: 6px; left: 6px; display: flex; gap: 4px;
+  }
+  .rev-card .pic .check {
+    position: absolute; top: 6px; right: 6px;
+    width: 18px; height: 18px; border-radius: 4px; background: rgba(255,255,255,.85);
+    border: 1px solid var(--line); color: var(--ink-4); font-size: 11px;
+    display: grid; place-items: center;
+  }
+  .rev-card .pic .source {
+    position: absolute; bottom: 6px; left: 6px;
+    background: rgba(0,0,0,.7); color: #fff; font-size: 10px; padding: 2px 6px; border-radius: 4px;
+  }
+  .rev-card .body { padding: 8px 10px 10px; }
+  .rev-card .by { font-size: 11px; color: var(--ink-3); }
+  .rev-card .nm { font-size: 12.5px; font-weight: 600; }
+  .rev-card .meta-row { display: flex; gap: 4px; flex-wrap: wrap; margin-top: 4px; }
+
+  /* 选中详情 panel */
+  .detail-panel {
+    position: sticky; top: 84px;
+    background: var(--bg-canvas); border: 1px solid var(--line);
+    border-radius: var(--r-lg); padding: 0; overflow: hidden;
+    max-height: calc(100vh - 100px); display: flex; flex-direction: column;
+  }
+  .detail-panel .head {
+    padding: 12px 16px; border-bottom: 1px solid var(--line);
+    display: flex; align-items: center; justify-content: space-between;
+  }
+  .detail-panel .body { padding: 14px 16px; overflow-y: auto; flex: 1; }
+  .detail-panel .actions {
+    padding: 12px 16px; border-top: 1px solid var(--line); background: var(--bg-soft);
+    display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 6px;
+  }
+  .detail-panel .actions .btn { width: 100%; justify-content: center; }
+
+  /* Compare two images */
+  .compare {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 8px;
+  }
+  .compare .c {
+    position: relative; aspect-ratio: 1/1; border-radius: var(--r-md); overflow: hidden;
+  }
+  .compare .c .lbl {
+    position: absolute; top: 6px; left: 6px;
+    background: rgba(0,0,0,.7); color: #fff;
+    font-size: 11px; padding: 2px 8px; border-radius: 4px;
+  }
+  .compare .c.match::after {
+    content: ""; position: absolute; inset: 0;
+    background: linear-gradient(135deg, rgba(255,90,31,.25) 0%, transparent 60%);
+  }
+
+  .meta-list .row-m {
+    display: flex; justify-content: space-between; padding: 6px 0;
+    border-bottom: 1px dashed var(--line); font-size: 12.5px;
+  }
+  .meta-list .row-m:last-child { border: 0; }
+  .meta-list .row-m .v { font-weight: 600; color: var(--ink-1); }
+
+  .risk-bar {
+    height: 8px; border-radius: var(--r-pill); background: var(--bg-soft); overflow: hidden;
+    position: relative;
+  }
+  .risk-bar > i {
+    position: absolute; left: 0; top: 0; bottom: 0;
+    background: linear-gradient(90deg, #1A8F4A, #B8860B 50%, #C53030);
+  }
+  .risk-bar .p {
+    position: absolute; top: -4px; width: 2px; height: 16px; background: var(--ink-1);
+  }
+
+  .hist-row {
+    display: grid; grid-template-columns: 14px 1fr auto; gap: 10px; align-items: flex-start;
+    padding: 8px 0; border-bottom: 1px dashed var(--line);
+    font-size: 12px;
+  }
+  .hist-row:last-child { border: 0; }
+  .hist-row .dot { width: 10px; height: 10px; border-radius: 50%; background: var(--brand); margin-top: 4px; }
+  .hist-row .dot.s { background: var(--success); }
+  .hist-row .dot.d { background: var(--danger); }
+  .hist-row .when { color: var(--ink-4); font-size: 11px; }
+
+  .rule-card {
+    background: var(--bg-canvas); border: 1px solid var(--line);
+    border-radius: var(--r-lg); padding: 14px 16px;
+    margin-bottom: 14px;
+  }
+  .rule-row {
+    display: flex; justify-content: space-between; padding: 6px 0;
+    border-bottom: 1px dashed var(--line); font-size: 13px;
+  }
+  .rule-row:last-child { border: 0; }
+</style>
+</head>
+<body>
+
+<header class="topbar">
+  <a class="logo" href="../index.html"><span class="mark"></span>方果<span style="color:var(--ink-3);font-weight:500">·设计师平台</span></a>
+  <nav>
+    <a href="../index.html">总览</a>
+    <a href="admin-dashboard.html">运营后台</a>
+    <a href="admin-task-dispatch.html">派发与质检</a>
+    <a href="admin-review.html" class="active">作品审核</a>
+    <a href="templates.html">版型管理</a>
+    <a href="earnings.html#admin">结算管理</a>
+  </nav>
+  <div class="grow"></div>
+  <div class="switch"><button>设计师视角</button><button class="on">运营视角</button></div>
+  <button class="iconbtn"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 8a6 6 0 1 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10 21a2 2 0 0 0 4 0"/></svg><span class="dot"></span></button>
+  <div class="avatar" style="background:linear-gradient(135deg,#7C3AED,#3B0764)">O</div>
+</header>
+
+<div class="shell">
+
+  <aside class="sidebar a-sidebar">
+    <div class="group">
+      <div class="group-title">运营 · 总览</div>
+      <a class="menu" href="admin-dashboard.html">📊 平台总览</a>
+    </div>
+    <div class="group">
+      <div class="group-title">设计师与内容</div>
+      <a class="menu" href="#">👥 设计师管理</a>
+      <a class="menu active" href="admin-review.html">🔍 作品 / AI 审核 <span class="count">184</span></a>
+      <a class="menu" href="#">⚠ 风控 / 违规 <span class="count">12</span></a>
+      <a class="menu" href="#">🏆 等级与积分</a>
+    </div>
+    <div class="group">
+      <div class="group-title">任务与生产</div>
+      <a class="menu" href="admin-task-dispatch.html">📋 任务派发 <span class="count">78</span></a>
+      <a class="menu" href="#">✅ 质检 / 返工 <span class="count">42</span></a>
+    </div>
+    <div class="group">
+      <div class="group-title">资产与下游</div>
+      <a class="menu" href="templates.html">📐 模板 / 版型管理</a>
+      <a class="menu" href="#">🛒 商品包池</a>
+    </div>
+    <div class="group">
+      <div class="group-title">结算</div>
+      <a class="menu" href="earnings.html#admin">💰 结算总览</a>
+    </div>
+  </aside>
+
+  <main class="main">
+
+    <div class="pagehead">
+      <div>
+        <div class="crumbs">运营后台 · <span>作品 / AI 审核</span></div>
+        <div class="h1">作品 / AI 内容审核中心</div>
+        <div class="desc">设计师上传作品 / AI 批量入库 / 商品图等所有内容统一队列。AI 自动跑「质量评分 + 版权风险 + 类目匹配」，人工复核仅 1 步。</div>
+      </div>
+      <div class="row">
+        <a class="btn" href="#">规则集（v3.2）</a>
+        <a class="btn" href="#">📊 审核效率报表</a>
+        <a class="btn primary" href="#">+ 新增审核规则</a>
+      </div>
+    </div>
+
+    <!-- Queue stats -->
+    <div class="queue-row">
+      <div class="queue-c on">
+        <div class="lbl">📥 待审核 · 总</div>
+        <div class="num tabular">184</div>
+        <div class="delta">↑ 18 较昨日</div>
+      </div>
+      <div class="queue-c">
+        <div class="lbl">👤 设计师上传</div>
+        <div class="num tabular">86</div>
+        <div class="delta">本月通过率 92%</div>
+      </div>
+      <div class="queue-c">
+        <div class="lbl">✨ AI 入库申请</div>
+        <div class="num tabular">98</div>
+        <div class="delta">AI 批次 #12 / #13</div>
+      </div>
+      <div class="queue-c danger">
+        <div class="lbl">⚠ 高风险（需人工）</div>
+        <div class="num tabular">12</div>
+        <div class="delta" style="color:var(--danger)">3 项 24h 超时</div>
+      </div>
+      <div class="queue-c">
+        <div class="lbl">⏱ 本月平均时延</div>
+        <div class="num tabular">4.2 h</div>
+        <div class="delta">↓ 14% MoM</div>
+      </div>
+    </div>
+
+    <!-- Toolbar -->
+    <div class="row mb-16" style="justify-content:space-between">
+      <div class="row">
+        <div class="searchbar" style="width:280px;height:36px">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>
+          <input placeholder="搜索作品 / 编号 / 设计师..." />
+        </div>
+        <select style="border:1px solid var(--line);border-radius:6px;padding:6px 10px;font-size:12.5px;background:#fff">
+          <option>排序：风险高→低</option>
+          <option>提交时间</option>
+          <option>设计师等级</option>
+          <option>评分</option>
+        </select>
+      </div>
+      <div class="row" style="gap:6px">
+        <button class="btn sm">全选当页</button>
+        <button class="btn brand sm">批量通过 (4)</button>
+        <button class="btn danger sm">批量驳回</button>
+      </div>
+    </div>
+
+    <div class="review">
+
+      <!-- 左：筛选 -->
+      <aside class="card padless filt-side">
+        <div class="grp">
+          <h4>类型</h4>
+          <a class="on">全部 <span class="c">184</span></a>
+          <a>设计师作品 <span class="c">86</span></a>
+          <a>AI 入库批次 <span class="c">98</span></a>
+          <a>商品包 / 套图 <span class="c">42</span></a>
+        </div>
+        <div class="grp">
+          <h4>类目</h4>
+          <a>女装满印 <span class="c">72</span></a>
+          <a>手机壳 <span class="c">38</span></a>
+          <a>家纺 <span class="c">28</span></a>
+          <a>童装 <span class="c">22</span></a>
+          <a>杯 / 亚克力 <span class="c">14</span></a>
+          <a>其他 <span class="c">10</span></a>
+        </div>
+        <div class="grp">
+          <h4>风险等级</h4>
+          <a><span class="row" style="gap:6px"><span class="status danger"></span>高 ≥ 80%</span><span class="c">12</span></a>
+          <a><span class="row" style="gap:6px"><span class="status warning"></span>中 65–80%</span><span class="c">28</span></a>
+          <a><span class="row" style="gap:6px"><span class="status success"></span>低 ≤ 65%</span><span class="c">144</span></a>
+        </div>
+        <div class="grp">
+          <h4>设计师等级</h4>
+          <a>L5 金牌 <span class="c">12</span></a>
+          <a>L4 资深 <span class="c">42</span></a>
+          <a>L3 熟练 <span class="c">68</span></a>
+          <a>L2 / L1 <span class="c">62</span></a>
+        </div>
+        <div class="grp">
+          <h4>提交时间</h4>
+          <a>今日 <span class="c">42</span></a>
+          <a>近 3 天 <span class="c">128</span></a>
+          <a>超时（&gt; 24h）<span class="c">12</span></a>
+        </div>
+      </aside>
+
+      <!-- 中：网格 -->
+      <section>
+        <div class="rev-grid">
+
+          <!-- Card 1 - selected, high risk -->
+          <div class="rev-card selected">
+            <div class="pic gradient-9">
+              <span class="badges">
+                <span class="tag danger">⚠ 81%</span>
+                <span class="tag" style="background:rgba(0,0,0,.7);color:#fff">设计师</span>
+              </span>
+              <span class="check" style="background:var(--brand);color:#fff;border-color:var(--brand)">✓</span>
+              <span class="source">作品 #W-13284</span>
+            </div>
+            <div class="body">
+              <div class="nm">复古玫瑰花 · 法式</div>
+              <div class="by">王某 · L3 · 提交 14:42</div>
+              <div class="meta-row">
+                <span class="tag warning">高风险</span>
+                <span class="tag">★ 4.2</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Card 2 -->
+          <div class="rev-card selected">
+            <div class="pic gradient-1">
+              <span class="badges">
+                <span class="tag success">✓ 4.92</span>
+                <span class="tag" style="background:rgba(0,0,0,.7);color:#fff">AI</span>
+              </span>
+              <span class="check" style="background:var(--brand);color:#fff;border-color:var(--brand)">✓</span>
+              <span class="source">AI 批次 #12 · 01</span>
+            </div>
+            <div class="body">
+              <div class="nm">复古田园 · 满印 #01</div>
+              <div class="by">李小果 · L4 · 提交 14:30</div>
+              <div class="meta-row">
+                <span class="tag success">低风险 12%</span>
+                <span class="tag">3000²</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="rev-card">
+            <div class="pic gradient-4">
+              <span class="badges">
+                <span class="tag success">✓ 4.85</span>
+                <span class="tag" style="background:rgba(0,0,0,.7);color:#fff">AI</span>
+              </span>
+              <span class="check">✓</span>
+              <span class="source">AI 批次 #12 · 03</span>
+            </div>
+            <div class="body">
+              <div class="nm">复古田园 · 满印 #03</div>
+              <div class="by">李小果 · L4</div>
+              <div class="meta-row">
+                <span class="tag success">低风险</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="rev-card">
+            <div class="pic gradient-2">
+              <span class="badges">
+                <span class="tag warning">⚠ 73%</span>
+                <span class="tag" style="background:rgba(0,0,0,.7);color:#fff">AI</span>
+              </span>
+              <span class="check">✓</span>
+              <span class="source">AI 批次 #12 · 04</span>
+            </div>
+            <div class="body">
+              <div class="nm">蕾丝边 · 满印 #04</div>
+              <div class="by">李小果 · L4</div>
+              <div class="meta-row">
+                <span class="tag warning">中风险</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="rev-card selected">
+            <div class="pic gradient-12">
+              <span class="badges">
+                <span class="tag success">✓ 4.78</span>
+                <span class="tag" style="background:rgba(0,0,0,.7);color:#fff">设计师</span>
+              </span>
+              <span class="check" style="background:var(--brand);color:#fff;border-color:var(--brand)">✓</span>
+              <span class="source">作品 #W-13288</span>
+            </div>
+            <div class="body">
+              <div class="nm">极简几何 · v3 (T 恤)</div>
+              <div class="by">陈梓恒 · L3 · 提交 13:50</div>
+              <div class="meta-row">
+                <span class="tag success">低风险</span>
+                <span class="tag">★ 4.78</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="rev-card">
+            <div class="pic gradient-7">
+              <span class="badges">
+                <span class="tag warning">⚠ 68%</span>
+                <span class="tag" style="background:rgba(0,0,0,.7);color:#fff">AI</span>
+              </span>
+              <span class="check">✓</span>
+              <span class="source">AI 批次 #12 · 09</span>
+            </div>
+            <div class="body">
+              <div class="nm">花卉 · 满印 #09</div>
+              <div class="by">李小果 · L4</div>
+              <div class="meta-row">
+                <span class="tag warning">中风险</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="rev-card">
+            <div class="pic gradient-3">
+              <span class="badges">
+                <span class="tag success">✓ 4.62</span>
+                <span class="tag" style="background:rgba(0,0,0,.7);color:#fff">设计师</span>
+              </span>
+              <span class="check">✓</span>
+              <span class="source">作品 #W-13290</span>
+            </div>
+            <div class="body">
+              <div class="nm">儿童卡通 · 第 2 季 #07</div>
+              <div class="by">林夕 · L5 · 提交 13:24</div>
+              <div class="meta-row">
+                <span class="tag success">低风险</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="rev-card selected">
+            <div class="pic gradient-10" style="color:#fff">
+              <span class="badges">
+                <span class="tag danger">⚠ 91%</span>
+                <span class="tag" style="background:rgba(255,255,255,.18);color:#fff">设计师</span>
+              </span>
+              <span class="check" style="background:var(--brand);color:#fff;border-color:var(--brand)">✓</span>
+              <span class="source" style="background:rgba(255,255,255,.18)">作品 #W-13294</span>
+            </div>
+            <div class="body">
+              <div class="nm">街头潮流 · 卡通熊</div>
+              <div class="by">王某 · L3 · 提交 12:08</div>
+              <div class="meta-row">
+                <span class="tag danger">疑似抄袭</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- 行 3 -->
+          <div class="rev-card">
+            <div class="pic gradient-5">
+              <span class="badges">
+                <span class="tag success">✓ 4.7</span>
+                <span class="tag" style="background:rgba(0,0,0,.7);color:#fff">AI</span>
+              </span>
+              <span class="check">✓</span>
+              <span class="source">AI 批次 #13 · 02</span>
+            </div>
+            <div class="body">
+              <div class="nm">水彩晕染 · 母亲节 #02</div>
+              <div class="by">林夕 · L5</div>
+              <div class="meta-row">
+                <span class="tag success">低风险</span>
+              </div>
+            </div>
+          </div>
+          <div class="rev-card">
+            <div class="pic gradient-6">
+              <span class="badges">
+                <span class="tag">★ 4.0</span>
+                <span class="tag" style="background:rgba(0,0,0,.7);color:#fff">AI</span>
+              </span>
+              <span class="check">✓</span>
+              <span class="source">AI 批次 #13 · 06</span>
+            </div>
+            <div class="body">
+              <div class="nm">浅色花束 · #06</div>
+              <div class="by">林夕 · L5</div>
+              <div class="meta-row">
+                <span class="tag">普通</span>
+              </div>
+            </div>
+          </div>
+          <div class="rev-card">
+            <div class="pic gradient-11">
+              <span class="badges">
+                <span class="tag success">✓ 4.5</span>
+                <span class="tag" style="background:rgba(0,0,0,.7);color:#fff">设计师</span>
+              </span>
+              <span class="check">✓</span>
+              <span class="source">作品 #W-13301</span>
+            </div>
+            <div class="body">
+              <div class="nm">温馨家居 · 浅色</div>
+              <div class="by">王翊 · L4</div>
+              <div class="meta-row">
+                <span class="tag success">低风险</span>
+              </div>
+            </div>
+          </div>
+          <div class="rev-card">
+            <div class="pic gradient-8" style="color:#fff">
+              <span class="badges">
+                <span class="tag warning">⚠ 64%</span>
+                <span class="tag" style="background:rgba(255,255,255,.18);color:#fff">设计师</span>
+              </span>
+              <span class="check">✓</span>
+              <span class="source" style="background:rgba(255,255,255,.18)">作品 #W-13310</span>
+            </div>
+            <div class="body">
+              <div class="nm">暗黑机能 · 印花</div>
+              <div class="by">赵某 · L2</div>
+              <div class="meta-row">
+                <span class="tag warning">中风险</span>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Pagination -->
+        <div class="row" style="justify-content:center;margin-top:18px;gap:6px">
+          <button class="btn sm">‹</button>
+          <button class="btn sm primary">1</button>
+          <button class="btn sm">2</button>
+          <button class="btn sm">3</button>
+          <button class="btn sm">…</button>
+          <button class="btn sm">15</button>
+          <button class="btn sm">›</button>
+        </div>
+      </section>
+
+      <!-- 右：详细审核 -->
+      <aside class="right">
+
+        <div class="rule-card">
+          <div class="title-row"><div class="h2">规则集 v3.2</div><a class="more muted" href="#">编辑 →</a></div>
+          <div class="rule-row"><span>版权相似度阈值</span><span><strong>≥ 65%</strong> 标记 / <strong>≥ 80%</strong> 拦截</span></div>
+          <div class="rule-row"><span>低质拦截</span><span>评分 ≤ 3.5 直接驳回</span></div>
+          <div class="rule-row"><span>L5 设计师 直审</span><span class="status success">开启</span></div>
+          <div class="rule-row"><span>AI 高分自动入库</span><span class="status success">≥ 4.7 + 风险 ≤ 30%</span></div>
+          <div class="rule-row"><span>儿童类目 强制人工</span><span class="status success">开启</span></div>
+        </div>
+
+        <div class="detail-panel">
+          <div class="head">
+            <div>
+              <div class="row" style="gap:8px"><strong>作品 #W-13294</strong><span class="tag danger">⚠ 高风险 91%</span></div>
+              <div class="muted" style="font-size:11.5px">街头潮流 · 卡通熊 · 王某 (L3)</div>
+            </div>
+            <div class="row" style="gap:6px">
+              <button class="btn sm icon">‹</button>
+              <button class="btn sm icon">›</button>
+            </div>
+          </div>
+
+          <div class="body">
+            <!-- 双图对比 -->
+            <div class="muted" style="font-size:11px;letter-spacing:.5px;text-transform:uppercase;margin-bottom:6px">疑似匹配（系统命中）</div>
+            <div class="compare">
+              <div class="c gradient-10 match">
+                <span class="lbl">📥 提交稿</span>
+              </div>
+              <div class="c gradient-2 match">
+                <span class="lbl">🌐 公网比对</span>
+              </div>
+            </div>
+            <div class="muted mt-8" style="font-size:11.5px">疑似匹配源：Behance · 设计师 J. Kim · 2024-08 · 已标注 「禁止商用」</div>
+
+            <hr class="divider" />
+
+            <!-- Risk 评分条 -->
+            <div class="muted" style="font-size:11px;letter-spacing:.5px;text-transform:uppercase;margin-bottom:8px">风险扫描</div>
+            <div class="row" style="justify-content:space-between;font-size:12px;margin-bottom:4px">
+              <span>版权相似度</span><strong style="color:var(--danger)">91%</strong>
+            </div>
+            <div class="risk-bar"><i style="width:91%"></i><div class="p" style="left:91%"></div></div>
+            <div class="row" style="justify-content:space-between;font-size:11px;color:var(--ink-3);margin-top:4px">
+              <span>0%</span><span>65% 标记线</span><span>100%</span>
+            </div>
+
+            <hr class="divider" />
+
+            <!-- Meta -->
+            <div class="muted" style="font-size:11px;letter-spacing:.5px;text-transform:uppercase;margin-bottom:8px">作品信息</div>
+            <div class="meta-list">
+              <div class="row-m"><span>提交时间</span><span class="v">5/7 12:08</span></div>
+              <div class="row-m"><span>类目 / 风格</span><span class="v">男装 T 恤 · 街头潮流</span></div>
+              <div class="row-m"><span>规格</span><span class="v">3000 × 3000 · PNG</span></div>
+              <div class="row-m"><span>设计师</span><span class="v">王某 · L3 · 通过率 84%</span></div>
+              <div class="row-m"><span>AI 评分</span><span class="v">★ 4.2 · 美观偏低</span></div>
+              <div class="row-m"><span>类目匹配</span><span class="v">命中 92%</span></div>
+            </div>
+
+            <hr class="divider" />
+
+            <!-- 历史 -->
+            <div class="muted" style="font-size:11px;letter-spacing:.5px;text-transform:uppercase;margin-bottom:8px">设计师历史</div>
+            <div class="hist-row">
+              <span class="dot d"></span>
+              <div><strong>本月第 2 次高风险</strong><div class="muted" style="font-size:11px">#W-13230 · 相似度 78%（已驳回）</div></div>
+              <span class="when">5/3</span>
+            </div>
+            <div class="hist-row">
+              <span class="dot s"></span>
+              <div><strong>近 30 天通过 14 件</strong><div class="muted" style="font-size:11px">通过率 84% · 平均评分 4.2</div></div>
+              <span class="when">本月</span>
+            </div>
+            <div class="hist-row">
+              <span class="dot"></span>
+              <div><strong>已签署「内容合规承诺书」</strong></div>
+              <span class="when">入驻时</span>
+            </div>
+          </div>
+
+          <div class="actions">
+            <button class="btn">需要修改</button>
+            <button class="btn danger">🛑 驳回 + 风控记一次</button>
+            <button class="btn brand">通过</button>
+          </div>
+        </div>
+
+      </aside>
+    </div>
+
+  </main>
+</div>
+</body>
+</html>

@@ -1,0 +1,490 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>商品化中心 · 印花转商品工作流</title>
+<link rel="stylesheet" href="../assets/styles.css" />
+<style>
+  /* 顶部步骤条 - 加大版本 */
+  .flow-steps {
+    display: grid; grid-template-columns: repeat(5, 1fr); gap: 8px;
+    margin-bottom: 22px;
+  }
+  .fstep {
+    background: var(--bg-canvas); border: 1px solid var(--line);
+    border-radius: var(--r-lg); padding: 14px 16px;
+    position: relative; display: flex; gap: 12px; align-items: flex-start;
+  }
+  .fstep .idx {
+    width: 30px; height: 30px; border-radius: 50%;
+    background: var(--bg-soft); color: var(--ink-3); font-weight: 700;
+    display: grid; place-items: center; flex-shrink: 0;
+  }
+  .fstep.done { background: var(--success-soft); border-color: #B5E0C7; }
+  .fstep.done .idx { background: var(--success); color: #fff; }
+  .fstep.active { background: var(--bg-ink); color: #fff; border-color: var(--bg-ink); }
+  .fstep.active .idx { background: var(--brand); color: #fff; }
+  .fstep .name { font-weight: 600; }
+  .fstep .sub { font-size: 12px; color: var(--ink-3); margin-top: 2px; }
+  .fstep.active .sub { color: rgba(255,255,255,.7); }
+  .fstep:not(:last-child)::after {
+    content: "→"; position: absolute; right: -14px; top: 50%;
+    transform: translateY(-50%); color: var(--ink-4); font-size: 16px; z-index: 1;
+  }
+
+  .work {
+    display: grid; grid-template-columns: 1fr 320px; gap: 18px;
+  }
+  @media (max-width: 1280px){ .work { grid-template-columns: 1fr; } }
+
+  /* Section blocks */
+  .block {
+    background: var(--bg-canvas); border: 1px solid var(--line);
+    border-radius: var(--r-lg); padding: 18px;
+    margin-bottom: 14px;
+  }
+  .block .head {
+    display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px;
+  }
+  .block.collapsed { padding: 12px 18px; }
+  .block.collapsed .body { display: none; }
+  .block .badge {
+    font-size: 11px; color: var(--ink-3); padding: 2px 8px; border-radius: var(--r-pill);
+    background: var(--bg-soft);
+  }
+  .block.done .head .h2::before {
+    content: "✓"; display: inline-grid; place-items: center;
+    width: 20px; height: 20px; background: var(--success); color: #fff;
+    border-radius: 50%; font-size: 12px; margin-right: 8px;
+  }
+
+  /* Step 1: print selection */
+  .print-pick {
+    display: grid; grid-template-columns: repeat(6, 1fr); gap: 8px;
+  }
+  .print-pick .pp {
+    aspect-ratio: 1/1; border-radius: var(--r-md); position: relative; cursor: pointer;
+  }
+  .print-pick .pp.on { outline: 3px solid var(--brand); outline-offset: 2px; }
+  .print-pick .pp .check {
+    position: absolute; top: 6px; right: 6px;
+    width: 18px; height: 18px; border-radius: 50%; background: #fff; border: 1px solid var(--line);
+    color: var(--ink-4); display: grid; place-items: center; font-size: 11px;
+  }
+  .print-pick .pp.on .check { background: var(--brand); border-color: var(--brand); color: #fff; }
+
+  /* Step 2 - templates */
+  .tpl-row { display: grid; grid-template-columns: repeat(5, 1fr); gap: 10px; }
+  .tpl-row .t {
+    border: 1px solid var(--line); border-radius: var(--r-md);
+    background: var(--bg-canvas); padding: 8px; text-align: center; cursor: pointer;
+  }
+  .tpl-row .t.on { border-color: var(--brand); background: var(--brand-soft-2); }
+  .tpl-row .t .pic { aspect-ratio: 4/5; border-radius: var(--r-sm); margin-bottom: 6px; position: relative; overflow: hidden; }
+  .tpl-row .t .pic .svg-fill { position: absolute; inset: 0; display: grid; place-items: center; }
+  .tpl-row .t .nm { font-size: 12px; font-weight: 500; }
+  .tpl-row .t .meta { font-size: 11px; color: var(--ink-4); }
+
+  /* Step 3 - effects/production */
+  .preview-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; }
+  .preview-grid .pv {
+    aspect-ratio: 1/1; border-radius: var(--r-md); position: relative; overflow: hidden;
+    background: var(--bg-soft);
+  }
+  .preview-grid .pv .label {
+    position: absolute; bottom: 0; left: 0; right: 0;
+    background: linear-gradient(0deg, rgba(0,0,0,.7), transparent);
+    color: #fff; padding: 8px 10px; font-size: 11px;
+  }
+  .preview-grid .pv .corner {
+    position: absolute; top: 6px; left: 6px;
+  }
+
+  /* Step 4 - product info */
+  .info-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+  .field { margin-bottom: 12px; }
+  .field label {
+    display: block; font-size: 12px; color: var(--ink-3); margin-bottom: 4px; font-weight: 500;
+  }
+  .field input, .field textarea, .field select {
+    width: 100%; border: 1px solid var(--line); background: var(--bg-canvas);
+    border-radius: var(--r-sm); padding: 9px 12px; font-size: 13px;
+  }
+  .field .ai-helper {
+    margin-top: 4px; font-size: 11.5px; color: var(--ai); display: inline-flex; gap: 4px; align-items: center;
+  }
+  .sku-table { width: 100%; border-collapse: collapse; font-size: 12px; }
+  .sku-table th, .sku-table td { padding: 8px; border-bottom: 1px solid var(--line); text-align: left; }
+  .sku-table th { color: var(--ink-3); background: var(--bg-soft); font-weight: 600; }
+  .price-suggest { display: flex; gap: 8px; align-items: center; }
+  .price-suggest .seg {
+    border: 1px solid var(--line); border-radius: var(--r-md); display: inline-flex; padding: 3px;
+  }
+  .price-suggest .seg button {
+    background: transparent; border: 0; padding: 5px 10px; border-radius: var(--r-sm);
+    font-size: 12px; color: var(--ink-3);
+  }
+  .price-suggest .seg button.on { background: var(--ink-1); color: #fff; }
+
+  /* Step 5 - publish */
+  .pf-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+  .pf-card {
+    border: 1px solid var(--line); border-radius: var(--r-md);
+    padding: 12px; background: var(--bg-canvas);
+    display: flex; gap: 10px; align-items: center;
+  }
+  .pf-card .pf-logo {
+    width: 36px; height: 36px; border-radius: 8px;
+    display: grid; place-items: center; color: #fff; font-weight: 800; font-size: 12px;
+  }
+  .pf-card .info { flex: 1; }
+  .pf-card .info .nm { font-weight: 600; font-size: 13px; }
+  .pf-card .info .sb { font-size: 11.5px; color: var(--ink-3); }
+  .toggle {
+    position: relative; width: 36px; height: 22px; background: var(--bg-soft);
+    border-radius: var(--r-pill); cursor: pointer;
+  }
+  .toggle::after {
+    content: ""; position: absolute; top: 3px; left: 3px;
+    width: 16px; height: 16px; background: #fff; border-radius: 50%;
+    box-shadow: 0 1px 2px rgba(0,0,0,.2); transition: left .15s ease;
+  }
+  .toggle.on { background: var(--brand); }
+  .toggle.on::after { left: 17px; }
+
+  /* Right rail */
+  .summary-card {
+    position: sticky; top: 84px;
+    padding: 0; overflow: hidden;
+  }
+  .summary-card .preview-hero {
+    aspect-ratio: 4/5; position: relative;
+  }
+  .summary-card .body { padding: 14px; }
+  .summary-card .row-i { display: flex; justify-content: space-between; padding: 8px 0; border-bottom: 1px dashed var(--line); font-size: 12px; }
+  .summary-card .row-i:last-of-type { border: 0; }
+
+  .progress-mini { display: flex; gap: 4px; }
+  .progress-mini .seg { flex: 1; height: 4px; border-radius: 2px; background: var(--bg-soft); }
+  .progress-mini .seg.done { background: var(--success); }
+  .progress-mini .seg.active { background: var(--brand); }
+</style>
+</head>
+<body>
+
+<header class="topbar">
+  <a class="logo" href="../index.html"><span class="mark"></span>方果<span style="color:var(--ink-3);font-weight:500">·设计师平台</span></a>
+  <nav>
+    <a href="../index.html">总览</a>
+    <a href="designer-dashboard.html">设计师中心</a>
+    <a href="task-hall.html">任务大厅</a>
+    <a href="ai-studio.html">AI 创作</a>
+    <a href="templates.html">版型库</a>
+    <a class="active" href="commercialize.html">商品化</a>
+    <a href="earnings.html">收益结算</a>
+  </nav>
+  <div class="grow"></div>
+  <div class="switch"><button class="on">设计师视角</button><button>运营视角</button></div>
+  <button class="iconbtn"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 8a6 6 0 1 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10 21a2 2 0 0 0 4 0"/></svg><span class="dot"></span></button>
+  <div class="avatar">L</div>
+</header>
+
+<main class="main wide">
+  <div class="pagehead">
+    <div>
+      <div class="crumbs">商品化中心 · <span>印花转商品工作流</span></div>
+      <div class="h1">印花 → 商品 · 5 步走完商品化全流程</div>
+      <div class="desc">从一张印花到可上架的商品 SKU 包：选印花 → 套版型 → 出效果 / 生产图 → 商品资料 → 多平台刊登 + 推送方果ERP / 加入蓝马货盘。</div>
+    </div>
+    <div class="row">
+      <a class="btn" href="#">查看历史商品包</a>
+      <a class="btn primary" href="#">+ 开启新批次</a>
+    </div>
+  </div>
+
+  <!-- 步骤条 -->
+  <div class="flow-steps">
+    <div class="fstep done">
+      <div class="idx">1</div>
+      <div><div class="name">选印花</div><div class="sub">已选 4 张</div></div>
+    </div>
+    <div class="fstep done">
+      <div class="idx">2</div>
+      <div><div class="name">套版型</div><div class="sub">3 套 / 12 SKU</div></div>
+    </div>
+    <div class="fstep active">
+      <div class="idx">3</div>
+      <div><div class="name">出图</div><div class="sub" style="color:rgba(255,255,255,.7)">效果图 + 生产图</div></div>
+    </div>
+    <div class="fstep">
+      <div class="idx">4</div>
+      <div><div class="name">商品资料</div><div class="sub">标题 / SKU / 价格</div></div>
+    </div>
+    <div class="fstep">
+      <div class="idx">5</div>
+      <div><div class="name">多平台刊登</div><div class="sub">推送 方果ERP</div></div>
+    </div>
+  </div>
+
+  <div class="work">
+
+    <!-- 主区 -->
+    <div>
+
+      <!-- Step 1 - DONE -->
+      <div class="block done collapsed">
+        <div class="head">
+          <div class="h2">① 选择印花</div>
+          <div class="row" style="gap:8px">
+            <span class="badge">已选 4 张 · 复古田园系列</span>
+            <button class="btn sm">展开 / 修改</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Step 2 - DONE -->
+      <div class="block done collapsed">
+        <div class="head">
+          <div class="h2">② 套用版型</div>
+          <div class="row" style="gap:8px">
+            <span class="badge">3 套版型 · 长袖连衣裙 / A 字裙 / 短袖 T 恤</span>
+            <button class="btn sm">展开 / 修改</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Step 3 - ACTIVE -->
+      <div class="block">
+        <div class="head">
+          <div>
+            <div class="h2">③ 出图：效果图 + 生产图</div>
+            <div class="muted" style="font-size:12.5px">系统已自动生成全套主图、模特上身图、平铺图、生产排版图。可单图替换或重生成。</div>
+          </div>
+          <div class="row">
+            <a class="btn sm">⟳ 重新生成全部</a>
+            <a class="btn sm">+ 添加自定义角度</a>
+          </div>
+        </div>
+
+        <div class="row" style="gap:8px;margin-bottom:10px">
+          <span class="filter-pill active">主图（4）</span>
+          <span class="filter-pill">模特上身（4）</span>
+          <span class="filter-pill">平铺细节（4）</span>
+          <span class="filter-pill">生产排版图（12）</span>
+          <span class="filter-pill">质检预览</span>
+        </div>
+
+        <div class="preview-grid">
+          <div class="pv gradient-1">
+            <span class="tag corner" style="background:rgba(0,0,0,.7);color:#fff">主图 · 长袖裙 · #1</span>
+            <div class="label">FG-DR-0142 + 印花 #07</div>
+          </div>
+          <div class="pv gradient-9">
+            <span class="tag corner" style="background:rgba(0,0,0,.7);color:#fff">主图 · 长袖裙 · #2</span>
+            <div class="label">FG-DR-0142 + 印花 #03</div>
+          </div>
+          <div class="pv gradient-12">
+            <span class="tag corner" style="background:rgba(0,0,0,.7);color:#fff">主图 · A 字 · #1</span>
+            <div class="label">FG-DR-0306 + 印花 #07</div>
+          </div>
+          <div class="pv gradient-4">
+            <span class="tag corner" style="background:rgba(0,0,0,.7);color:#fff">主图 · A 字 · #2</span>
+            <div class="label">FG-DR-0306 + 印花 #03</div>
+          </div>
+        </div>
+
+        <div class="note mt-12">
+          <span>🟢</span>
+          <span>共生成 24 张图，自动质检通过 23 张。<strong>主图 · A 字 · #2</strong> 印花重复点位有 1 处不连续，已自动修补，建议人工复核。</span>
+          <a class="btn sm" style="margin-left:auto">查看质检详情</a>
+        </div>
+
+        <div class="row" style="justify-content:flex-end;gap:8px;margin-top:14px">
+          <a class="btn">保存草稿</a>
+          <a class="btn brand">下一步：商品资料 →</a>
+        </div>
+      </div>
+
+      <!-- Step 4 - 预览 -->
+      <div class="block">
+        <div class="head">
+          <div>
+            <div class="h2">④ 商品资料 <span class="tag ai">AI 自动生成</span></div>
+            <div class="muted" style="font-size:12.5px">标题 / SKU / 类目 / 价格自动生成，可逐项调整。</div>
+          </div>
+          <div class="row">
+            <a class="btn sm">⟳ 重新生成 AI 文案</a>
+          </div>
+        </div>
+
+        <div class="info-grid">
+          <div>
+            <div class="field">
+              <label>商品标题（多语言）</label>
+              <textarea rows="2">复古田园风 满印 长袖连衣裙 蕾丝边 法式优雅 度假裙 大码 女装 春夏新款</textarea>
+              <span class="ai-helper">✨ AI 已生成 EN / JA / TH / VI 4 个语言版本，可在「平台刊登」单独覆盖</span>
+            </div>
+            <div class="field">
+              <label>类目匹配（自动）</label>
+              <input value="女装 > 连衣裙 > 长袖连衣裙 / Women's Dresses · Long Sleeve" />
+              <span class="ai-helper">✨ Shopee / TikTok / Amazon 已分别匹配类目，命中率 96%</span>
+            </div>
+            <div class="field">
+              <label>价格建议</label>
+              <div class="price-suggest">
+                <div class="seg">
+                  <button>成本 + 30%</button>
+                  <button class="on">竞品中位</button>
+                  <button>高客单</button>
+                </div>
+                <span class="muted" style="font-size:12px">建议零售价</span>
+                <span class="price lg"><span class="ccy">¥</span>198</span>
+                <span class="muted" style="font-size:12px">≈ $27.5</span>
+              </div>
+              <span class="ai-helper">✨ 基于近 30 天 Shopee 同品价格区间（¥160 – ¥240）</span>
+            </div>
+          </div>
+          <div>
+            <div class="field">
+              <label>SKU 矩阵 <span class="muted" style="font-weight:400">12 SKU = 4 印花 × 3 版型</span></label>
+              <div style="border:1px solid var(--line); border-radius:8px; overflow:hidden">
+                <table class="sku-table">
+                  <thead><tr><th>编号</th><th>印花</th><th>版型</th><th>尺码</th><th>成本</th><th>建议售价</th></tr></thead>
+                  <tbody>
+                    <tr><td>SKU-001</td><td>#07</td><td>FG-DR-0142</td><td>S-XXL</td><td>¥58</td><td>¥198</td></tr>
+                    <tr><td>SKU-002</td><td>#03</td><td>FG-DR-0142</td><td>S-XXL</td><td>¥58</td><td>¥198</td></tr>
+                    <tr><td>SKU-003</td><td>#07</td><td>FG-DR-0306</td><td>S-XL</td><td>¥48</td><td>¥168</td></tr>
+                    <tr><td>SKU-004</td><td>#03</td><td>FG-DR-0306</td><td>S-XL</td><td>¥48</td><td>¥168</td></tr>
+                    <tr class="muted"><td colspan="6" style="text-align:center;padding:6px">… 共 12 个 SKU</td></tr>
+                  </tbody>
+                </table>
+              </div>
+              <span class="ai-helper">✨ SKU 编码已按方果 ERP 命名规则生成</span>
+            </div>
+            <div class="field">
+              <label>关键卖点（标签）</label>
+              <div class="row wrap" style="gap:6px;padding:6px 0">
+                <span class="tag brand">#满印工艺</span>
+                <span class="tag brand">#蕾丝拼接</span>
+                <span class="tag brand">#弹力面料</span>
+                <span class="tag brand">#大码友好</span>
+                <span class="tag brand">#度假必备</span>
+                <span class="tag outline">+ 添加</span>
+              </div>
+              <span class="ai-helper">✨ 5 个由 AI 提取，高频词来自类目 TOP 50 评论</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Step 5 - 多平台刊登 -->
+      <div class="block">
+        <div class="head">
+          <div>
+            <div class="h2">⑤ 多平台刊登 + 下游对接</div>
+            <div class="muted" style="font-size:12.5px">勾选目标平台 / 系统，方果会自动转换字段、压图、生成质检报告。</div>
+          </div>
+          <a class="btn sm">查看刊登规则</a>
+        </div>
+
+        <div class="muted" style="font-size:12px;margin-bottom:8px">📦 多平台刊登</div>
+        <div class="pf-row">
+          <div class="pf-card">
+            <div class="pf-logo" style="background:#EE4D2D">SP</div>
+            <div class="info"><div class="nm">Shopee · MY / TH / VN</div><div class="sb">字段命中 96% · 主图已合规</div></div>
+            <div class="toggle on"></div>
+          </div>
+          <div class="pf-card">
+            <div class="pf-logo" style="background:#000">TT</div>
+            <div class="info"><div class="nm">TikTok Shop · 跨境</div><div class="sb">视频生成已就绪 · 30s</div></div>
+            <div class="toggle on"></div>
+          </div>
+          <div class="pf-card">
+            <div class="pf-logo" style="background:#FF9900">AZ</div>
+            <div class="info"><div class="nm">Amazon · US / EU</div><div class="sb">需补 A+ 内容</div></div>
+            <div class="toggle"></div>
+          </div>
+          <div class="pf-card">
+            <div class="pf-logo" style="background:#FB7299">TM</div>
+            <div class="info"><div class="nm">Temu · 全托</div><div class="sb">价格区间合规</div></div>
+            <div class="toggle on"></div>
+          </div>
+          <div class="pf-card">
+            <div class="pf-logo" style="background:#1F6FEB">独</div>
+            <div class="info"><div class="nm">独立站 · Shopify</div><div class="sb">自动同步 SKU 库存</div></div>
+            <div class="toggle"></div>
+          </div>
+          <div class="pf-card" style="border-style:dashed; justify-content:center">
+            <div class="muted" style="font-size:12px">+ 添加更多店铺</div>
+          </div>
+        </div>
+
+        <div class="muted" style="font-size:12px;margin:14px 0 8px">🔗 下游系统对接</div>
+        <div class="pf-row">
+          <div class="pf-card" style="background:linear-gradient(135deg,#FFE4D6,#FFF1E8); border-color:#FFD0B0">
+            <div class="pf-logo" style="background:linear-gradient(135deg,#FF8A3D,#FF5A1F)">FG</div>
+            <div class="info"><div class="nm">推送 方果 ERP</div><div class="sb">生产排版图 + BOM 已就绪</div></div>
+            <div class="toggle on"></div>
+          </div>
+          <div class="pf-card" style="background:#EDE5FF;border-color:#D5C2FF">
+            <div class="pf-logo" style="background:linear-gradient(135deg,#7C3AED,#3B0764)">蓝马</div>
+            <div class="info"><div class="nm">加入蓝马货盘</div><div class="sb">分销给 320 + 卖家</div></div>
+            <div class="toggle on"></div>
+          </div>
+          <div class="pf-card">
+            <div class="pf-logo" style="background:#0E1116">仓</div>
+            <div class="info"><div class="nm">同步至 WMS 海外仓</div><div class="sb">需采购 100 件起</div></div>
+            <div class="toggle"></div>
+          </div>
+        </div>
+
+        <div class="row" style="justify-content:flex-end;gap:8px;margin-top:18px">
+          <a class="btn">保存草稿</a>
+          <a class="btn">仅推送 ERP</a>
+          <a class="btn brand lg">🚀 一键刊登 4 个平台 + 推送方果ERP</a>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- 右：商品包预览 -->
+    <aside class="card summary-card">
+      <div class="preview-hero gradient-1">
+        <div style="position:absolute;top:10px;left:10px"><span class="tag" style="background:rgba(0,0,0,.7);color:#fff">商品包预览</span></div>
+        <div style="position:absolute;top:10px;right:10px"><span class="tag brand">FG-PKG-2026-0507-12</span></div>
+      </div>
+      <div class="body">
+        <div class="h2">复古田园 · 满印女装包</div>
+        <div class="muted mt-8" style="font-size:12px">12 SKU · 3 版型 · 4 印花 · 4 平台</div>
+
+        <div class="progress-mini mt-12">
+          <div class="seg done"></div><div class="seg done"></div><div class="seg active"></div>
+          <div class="seg"></div><div class="seg"></div>
+        </div>
+        <div class="muted mt-8" style="font-size:12px">第 3 步进行中 · 已完成 2/5</div>
+
+        <hr class="divider" />
+
+        <div class="row-i"><span class="muted">商品包大小</span><strong>12 SKU</strong></div>
+        <div class="row-i"><span class="muted">建议总销售额</span><strong class="price"><span class="ccy">¥</span>2,256</strong></div>
+        <div class="row-i"><span class="muted">分佣（你的等级）</span><strong style="color:var(--brand)">38% / SKU</strong></div>
+        <div class="row-i"><span class="muted">蓝马货盘佣金</span><strong>5%</strong></div>
+        <div class="row-i"><span class="muted">本批次预估收益</span><strong class="price lg" style="color:var(--brand)"><span class="ccy">¥</span>342</strong></div>
+
+        <hr class="divider" />
+
+        <div class="muted" style="font-size:11.5px;margin-bottom:8px">🛡 自动质检</div>
+        <div class="row-i" style="border:0;padding:4px 0"><span>主图尺寸合规</span><span class="status success">通过</span></div>
+        <div class="row-i" style="border:0;padding:4px 0"><span>印花重复点</span><span class="status warning">1 项关注</span></div>
+        <div class="row-i" style="border:0;padding:4px 0"><span>版权风险</span><span class="status success">通过</span></div>
+        <div class="row-i" style="border:0;padding:4px 0"><span>多语言文案</span><span class="status success">已生成 4 语</span></div>
+        <div class="row-i" style="border:0;padding:4px 0"><span>SKU 命名</span><span class="status success">符合 ERP 规则</span></div>
+
+        <button class="btn brand lg" style="width:100%;margin-top:14px">完成全部步骤 →</button>
+      </div>
+    </aside>
+  </div>
+</main>
+</body>
+</html>
