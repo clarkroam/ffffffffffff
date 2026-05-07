@@ -1,0 +1,968 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>方果 × 亿托 竞品战略分析 | Competitive Intelligence Brief</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;0,9..144,800;1,9..144,400&family=JetBrains+Mono:wght@300;400;500;600&family=Noto+Serif+SC:wght@300;400;500;600;700;900&family=Noto+Sans+SC:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#0a0a0a;
+    --paper:#f4f1ea;
+    --paper-dark:#e8e2d4;
+    --rule:#1a1a1a;
+    --accent:#b8411b;        /* 朱砂红 - 方果 */
+    --accent2:#1e3a5f;       /* 靛蓝 - 亿托 */
+    --neutral:#6b6b6b;
+    --weak:#a39e92;
+    --win:#2d5f3f;
+    --loss:#8b2e2e;
+    --warn:#b8860b;
+    --serif:'Fraunces','Noto Serif SC',Georgia,serif;
+    --sans:'Noto Sans SC','Helvetica Neue',Arial,sans-serif;
+    --mono:'JetBrains Mono',monospace;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{background:var(--paper);color:var(--ink);font-family:var(--sans);font-weight:400;line-height:1.5;-webkit-font-smoothing:antialiased}
+  body{padding:0;min-height:100vh;background-image:radial-gradient(circle at 1px 1px,rgba(0,0,0,0.04) 1px,transparent 0);background-size:24px 24px}
+
+  .wrap{max-width:1320px;margin:0 auto;padding:48px 56px 120px}
+
+  /* 顶部刊头 */
+  .masthead{border-top:3px solid var(--ink);border-bottom:1px solid var(--ink);padding:18px 0 16px;margin-bottom:32px;display:flex;justify-content:space-between;align-items:baseline}
+  .masthead .brand{font-family:var(--serif);font-weight:800;font-size:13px;letter-spacing:.28em;text-transform:uppercase}
+  .masthead .meta{font-family:var(--mono);font-size:11px;letter-spacing:.08em;color:var(--neutral);text-transform:uppercase}
+
+  /* 标题区 */
+  .hero{display:grid;grid-template-columns:1fr 1fr;gap:48px;padding:24px 0 56px;border-bottom:1px solid var(--rule);margin-bottom:48px;align-items:end}
+  .hero .left .eyebrow{font-family:var(--mono);font-size:11px;letter-spacing:.3em;color:var(--accent);text-transform:uppercase;margin-bottom:20px}
+  .hero h1{font-family:var(--serif);font-weight:300;font-size:74px;line-height:.98;letter-spacing:-.03em;margin-bottom:16px}
+  .hero h1 em{font-style:italic;font-weight:500;color:var(--accent)}
+  .hero h1 .vs{font-family:var(--mono);font-size:42px;font-weight:300;color:var(--neutral);font-style:normal;margin:0 4px;vertical-align:6px}
+  .hero h1 b{font-weight:700;color:var(--accent2)}
+  .hero .subtitle{font-family:var(--serif);font-size:18px;font-style:italic;font-weight:400;color:var(--neutral);max-width:480px;line-height:1.4;margin-top:8px}
+  .hero .right{font-size:13px;line-height:1.7;color:#2a2a2a;border-left:1px solid var(--rule);padding-left:32px}
+  .hero .right .label{font-family:var(--mono);font-size:10px;letter-spacing:.2em;color:var(--neutral);text-transform:uppercase;margin-bottom:6px}
+  .hero .right p{margin-bottom:12px}
+  .hero .right strong{font-weight:600}
+
+  /* 执行摘要 */
+  .exec{background:var(--ink);color:var(--paper);padding:40px 44px;margin:0 -20px 56px;border-radius:2px;position:relative;overflow:hidden}
+  .exec::before{content:'';position:absolute;top:0;right:0;width:220px;height:220px;background:radial-gradient(circle at top right,rgba(184,65,27,.18),transparent 70%);pointer-events:none}
+  .exec .tag{font-family:var(--mono);font-size:10px;letter-spacing:.3em;color:var(--accent);text-transform:uppercase;margin-bottom:18px;display:flex;align-items:center;gap:12px}
+  .exec .tag::before,.exec .tag::after{content:'';flex:0 0 24px;height:1px;background:var(--accent)}
+  .exec h2{font-family:var(--serif);font-weight:400;font-size:32px;line-height:1.2;letter-spacing:-.01em;margin-bottom:24px;max-width:920px}
+  .exec h2 em{font-style:italic;color:#e8a586}
+  .exec .summary-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:32px;margin-top:36px;padding-top:28px;border-top:1px solid rgba(244,241,234,.18)}
+  .exec .summary-grid .item .num{font-family:var(--serif);font-size:52px;font-weight:300;line-height:1;letter-spacing:-.02em;color:var(--paper);display:block;margin-bottom:8px}
+  .exec .summary-grid .item .num small{font-size:18px;font-weight:400;color:var(--weak);margin-left:4px}
+  .exec .summary-grid .item .lbl{font-family:var(--mono);font-size:10px;letter-spacing:.18em;color:var(--weak);text-transform:uppercase;margin-bottom:6px;display:block}
+  .exec .summary-grid .item .desc{font-size:12px;line-height:1.5;color:#c9c2b5}
+
+  /* 区块标题 */
+  .section{margin-bottom:72px}
+  .sh{display:grid;grid-template-columns:80px 1fr;gap:32px;align-items:baseline;margin-bottom:32px;padding-bottom:12px;border-bottom:1px solid var(--rule)}
+  .sh .n{font-family:var(--serif);font-size:48px;font-weight:300;color:var(--accent);line-height:1}
+  .sh .t{font-family:var(--serif);font-size:30px;font-weight:500;letter-spacing:-.01em;line-height:1.15}
+  .sh .t small{display:block;font-family:var(--mono);font-size:11px;font-weight:400;color:var(--neutral);letter-spacing:.2em;text-transform:uppercase;margin-top:8px}
+
+  /* KPI 行 */
+  .kpi-row{display:grid;grid-template-columns:repeat(5,1fr);gap:0;border:1px solid var(--rule);background:#fff}
+  .kpi-row .k{padding:26px 22px;border-right:1px solid var(--rule);position:relative}
+  .kpi-row .k:last-child{border-right:none}
+  .kpi-row .k .v{font-family:var(--serif);font-size:42px;font-weight:500;line-height:1;letter-spacing:-.02em;margin-bottom:6px;color:var(--ink)}
+  .kpi-row .k .v small{font-size:15px;font-weight:400;color:var(--neutral);margin-left:2px}
+  .kpi-row .k .l{font-family:var(--mono);font-size:10px;letter-spacing:.16em;color:var(--neutral);text-transform:uppercase;margin-bottom:4px}
+  .kpi-row .k .d{font-size:11px;color:var(--neutral);line-height:1.5}
+  .kpi-row .k.hl .v{color:var(--accent)}
+
+  /* 二列 */
+  .two{display:grid;grid-template-columns:1fr 1fr;gap:32px}
+  .three{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+
+  /* 卡片基础 */
+  .card{background:#fff;border:1px solid var(--rule);padding:28px 28px 24px}
+  .card h3{font-family:var(--serif);font-size:20px;font-weight:600;margin-bottom:4px;letter-spacing:-.01em}
+  .card .ch{font-family:var(--mono);font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--neutral);margin-bottom:16px;padding-bottom:12px;border-bottom:1px dashed var(--rule)}
+
+  /* 对比表 */
+  .face-off{background:#fff;border:1px solid var(--rule)}
+  .face-off .row{display:grid;grid-template-columns:1fr 180px 1fr;border-bottom:1px solid var(--rule)}
+  .face-off .row:last-child{border-bottom:none}
+  .face-off .row.head{background:#f8f5ee}
+  .face-off .row.head > div{padding:14px 18px;font-family:var(--mono);font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--neutral)}
+  .face-off .row.head .mid{text-align:center;font-weight:600;color:var(--ink)}
+  .face-off .row.head .l{color:var(--accent);font-weight:600}
+  .face-off .row.head .r{color:var(--accent2);font-weight:600;text-align:right}
+  .face-off .row > div{padding:18px 20px;font-size:13px;line-height:1.55}
+  .face-off .row .l{border-right:1px solid var(--rule);text-align:right}
+  .face-off .row .mid{border-right:1px solid var(--rule);text-align:center;font-family:var(--serif);font-weight:500;font-size:13px;color:var(--ink);background:#faf7f0;display:flex;align-items:center;justify-content:center;font-style:italic;letter-spacing:.02em}
+  .face-off .row .l strong,.face-off .row .r strong{display:block;font-family:var(--serif);font-weight:600;color:var(--ink);margin-bottom:3px;font-size:14px}
+  .face-off .row .note{color:var(--neutral);font-size:11px;display:block;margin-top:4px}
+  .face-off .winner{position:relative}
+  .face-off .winner.l{background:linear-gradient(90deg,rgba(45,95,63,.06),transparent 70%)}
+  .face-off .winner.r{background:linear-gradient(-90deg,rgba(45,95,63,.06),transparent 70%)}
+
+  /* 胜负条 */
+  .wl-bar{display:flex;height:32px;border:1px solid var(--rule);margin:18px 0 8px}
+  .wl-bar .seg{display:flex;align-items:center;justify-content:center;font-family:var(--mono);font-size:11px;font-weight:600;letter-spacing:.05em}
+  .wl-bar .seg.won{background:var(--win);color:#fff}
+  .wl-bar .seg.lost{background:var(--loss);color:#fff}
+  .wl-bar .seg.hot{background:#d4a574;color:#fff}
+  .wl-bar .seg.cold{background:#a39e92;color:#fff}
+
+  /* 痛点条形图 */
+  .pains{margin-top:8px}
+  .pain-row{display:grid;grid-template-columns:200px 1fr 50px;gap:14px;align-items:center;padding:9px 0;border-bottom:1px solid #ece6d8;font-size:13px}
+  .pain-row:last-child{border-bottom:none}
+  .pain-row .lbl{font-weight:500;color:var(--ink);font-size:13px}
+  .pain-row .bar{height:22px;background:#ece6d8;position:relative;border-radius:1px;overflow:hidden}
+  .pain-row .bar .fill{position:absolute;left:0;top:0;bottom:0;background:linear-gradient(90deg,var(--accent),#d86c3e);transition:width 1s ease}
+  .pain-row .bar .fill::after{content:attr(data-label);position:absolute;right:8px;top:50%;transform:translateY(-50%);font-family:var(--mono);font-size:10px;color:#fff;font-weight:600}
+  .pain-row .num{font-family:var(--mono);font-size:13px;font-weight:600;text-align:right;color:var(--ink)}
+
+  /* 定价阶梯 */
+  .pricing{display:grid;grid-template-columns:repeat(6,1fr);gap:0;border:1px solid var(--rule);background:#fff;margin-top:10px}
+  .pricing .p{padding:18px 14px;border-right:1px solid var(--rule);text-align:center;position:relative}
+  .pricing .p:last-child{border-right:none}
+  .pricing .p .tier{font-family:var(--mono);font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:var(--neutral);margin-bottom:6px}
+  .pricing .p .price{font-family:var(--serif);font-size:26px;font-weight:600;color:var(--accent2);line-height:1;margin-bottom:4px}
+  .pricing .p .unit{font-size:11px;color:var(--neutral);line-height:1.4;margin-bottom:8px;min-height:32px}
+  .pricing .p .typical{font-family:var(--mono);font-size:9px;letter-spacing:.1em;color:var(--accent);text-transform:uppercase}
+
+  /* SWOT */
+  .swot{display:grid;grid-template-columns:1fr 1fr;gap:0;border:1px solid var(--rule);background:#fff;margin-top:8px}
+  .swot > div{padding:24px 26px;border-bottom:1px solid var(--rule);border-right:1px solid var(--rule);position:relative}
+  .swot > div:nth-child(2n){border-right:none}
+  .swot > div:nth-child(n+3){border-bottom:none}
+  .swot .tag{font-family:var(--mono);font-size:10px;letter-spacing:.2em;text-transform:uppercase;margin-bottom:12px;display:inline-block;padding:3px 9px;border-radius:2px}
+  .swot h4{font-family:var(--serif);font-size:17px;font-weight:600;margin-bottom:14px;letter-spacing:-.005em}
+  .swot ul{list-style:none;font-size:13px;line-height:1.55}
+  .swot ul li{padding:5px 0 5px 18px;position:relative}
+  .swot ul li::before{content:'';position:absolute;left:0;top:13px;width:8px;height:1px;background:var(--ink)}
+  .swot .s{background:#f4f7f1}
+  .swot .s .tag{background:var(--win);color:#fff}
+  .swot .w{background:#faf2f0}
+  .swot .w .tag{background:var(--loss);color:#fff}
+  .swot .o{background:#f7f4ea}
+  .swot .o .tag{background:var(--warn);color:#fff}
+  .swot .t{background:#f0f3f7}
+  .swot .t .tag{background:var(--accent2);color:#fff}
+
+  /* 引用卡 */
+  .quotes{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:16px}
+  .q{background:#fff;border:1px solid var(--rule);padding:22px 22px 18px;position:relative}
+  .q::before{content:'"';font-family:var(--serif);font-size:80px;position:absolute;top:-14px;left:10px;color:var(--accent);line-height:1;opacity:.15;font-weight:700}
+  .q .text{font-family:var(--serif);font-size:14px;line-height:1.6;font-style:italic;margin-bottom:16px;position:relative;z-index:1}
+  .q .src{font-family:var(--mono);font-size:10px;letter-spacing:.12em;color:var(--neutral);padding-top:12px;border-top:1px solid #ece6d8;text-transform:uppercase}
+  .q .src b{color:var(--ink);font-weight:600}
+  .q.win{border-left:3px solid var(--win)}
+  .q.lose{border-left:3px solid var(--loss)}
+  .q.warn{border-left:3px solid var(--warn)}
+
+  /* 地域条形 */
+  .geo{background:#fff;border:1px solid var(--rule);padding:22px 26px}
+  .geo-row{display:grid;grid-template-columns:140px 1fr 60px;gap:12px;align-items:center;padding:8px 0;border-bottom:1px dotted #ddd6c5}
+  .geo-row:last-child{border-bottom:none}
+  .geo-row .lbl{font-family:var(--serif);font-weight:500}
+  .geo-row .bar{height:18px;background:#f0ebdc;position:relative}
+  .geo-row .bar .fill{position:absolute;left:0;top:0;bottom:0;background:var(--accent2)}
+  .geo-row .num{font-family:var(--mono);font-size:12px;font-weight:600;text-align:right}
+
+  /* 月度趋势 */
+  .trend{background:#fff;border:1px solid var(--rule);padding:24px 26px 18px}
+  .trend svg{width:100%;height:260px;display:block}
+
+  /* 行动建议 */
+  .actions{margin-top:18px}
+  .action{background:#fff;border:1px solid var(--rule);padding:22px 28px;margin-bottom:10px;display:grid;grid-template-columns:48px 1fr 130px;gap:24px;align-items:center}
+  .action .idx{font-family:var(--serif);font-size:36px;font-weight:400;color:var(--accent);line-height:1}
+  .action .body h4{font-family:var(--serif);font-size:17px;font-weight:600;margin-bottom:6px}
+  .action .body p{font-size:13px;color:#333;line-height:1.55}
+  .action .prio{text-align:center;font-family:var(--mono);font-size:10px;letter-spacing:.15em;text-transform:uppercase;padding:8px 12px;border:1px solid var(--rule);background:#f8f5ee}
+  .action .prio.p0{background:var(--accent);color:#fff;border-color:var(--accent)}
+  .action .prio.p1{background:var(--warn);color:#fff;border-color:var(--warn)}
+  .action .prio.p2{background:var(--accent2);color:#fff;border-color:var(--accent2)}
+
+  /* 客户画像饼图 */
+  .donut-grid{display:grid;grid-template-columns:1fr 1fr;gap:32px}
+  .donut-box{background:#fff;border:1px solid var(--rule);padding:26px;text-align:center}
+  .donut-box svg{width:180px;height:180px;margin-bottom:12px}
+  .donut-box .legend{display:flex;flex-wrap:wrap;gap:10px 16px;justify-content:center;font-size:11px;color:var(--ink);font-family:var(--mono);letter-spacing:.04em}
+  .donut-box .legend .dot{display:inline-block;width:8px;height:8px;border-radius:50%;margin-right:6px;vertical-align:middle}
+
+  /* 胜率矩阵 */
+  .matrix{background:#fff;border:1px solid var(--rule);padding:28px 32px}
+  .matrix-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:0;margin-top:14px}
+  .matrix-grid .cell{padding:14px 12px;border:1px solid #e8e2d4;text-align:center}
+  .matrix-grid .cell .pct{font-family:var(--serif);font-size:32px;font-weight:600;line-height:1}
+  .matrix-grid .cell .cat{font-size:11px;color:var(--neutral);margin-top:6px;line-height:1.3}
+  .matrix-grid .cell .n{font-family:var(--mono);font-size:10px;color:var(--neutral);margin-top:4px}
+  .matrix-grid .cell.green{background:#eaf0e3;border-color:#b6c6a0}
+  .matrix-grid .cell.green .pct{color:var(--win)}
+  .matrix-grid .cell.lime{background:#f0ede0;border-color:#c9bf9f}
+  .matrix-grid .cell.lime .pct{color:#5a6b1e}
+  .matrix-grid .cell.yellow{background:#f7eec6;border-color:#c9b56a}
+  .matrix-grid .cell.yellow .pct{color:#7a5c0a}
+  .matrix-grid .cell.red{background:#f2dada;border-color:#c79999}
+  .matrix-grid .cell.red .pct{color:var(--loss)}
+
+  /* 结语 */
+  .coda{margin-top:72px;padding:44px 48px;background:var(--ink);color:var(--paper);text-align:center}
+  .coda .tag{font-family:var(--mono);font-size:11px;letter-spacing:.3em;color:var(--accent);text-transform:uppercase;margin-bottom:18px}
+  .coda h2{font-family:var(--serif);font-weight:300;font-size:38px;font-style:italic;line-height:1.25;max-width:900px;margin:0 auto 20px}
+  .coda h2 em{font-style:italic;font-weight:500;color:#e8a586}
+  .coda p{font-size:13px;color:#b9b3a5;max-width:700px;margin:0 auto;line-height:1.7}
+
+  /* 页脚 */
+  footer{margin-top:48px;padding:24px 0;border-top:1px solid var(--rule);display:flex;justify-content:space-between;font-family:var(--mono);font-size:10px;letter-spacing:.14em;color:var(--neutral);text-transform:uppercase}
+
+  /* 注释字脚 */
+  .footnote{font-size:11px;color:var(--neutral);margin-top:12px;font-style:italic;line-height:1.5}
+
+  @media (max-width:980px){
+    .wrap{padding:24px 20px 60px}
+    .hero{grid-template-columns:1fr;gap:24px}
+    .hero h1{font-size:44px}
+    .exec .summary-grid{grid-template-columns:1fr 1fr;gap:24px}
+    .kpi-row{grid-template-columns:1fr 1fr}
+    .kpi-row .k{border-right:none;border-bottom:1px solid var(--rule)}
+    .two,.three{grid-template-columns:1fr}
+    .face-off .row{grid-template-columns:1fr}
+    .face-off .row .l,.face-off .row .mid{border-right:none;border-bottom:1px solid var(--rule);text-align:left}
+    .pricing{grid-template-columns:1fr 1fr}
+    .pricing .p{border-right:1px solid var(--rule);border-bottom:1px solid var(--rule)}
+    .pricing .p:nth-child(2n){border-right:none}
+    .swot{grid-template-columns:1fr}
+    .swot > div{border-right:none!important;border-bottom:1px solid var(--rule)!important}
+    .swot > div:last-child{border-bottom:none!important}
+    .quotes{grid-template-columns:1fr}
+    .matrix-grid{grid-template-columns:1fr 1fr}
+    .donut-grid{grid-template-columns:1fr}
+    .action{grid-template-columns:1fr}
+    .sh{grid-template-columns:60px 1fr}
+    .sh .n{font-size:36px}
+    .sh .t{font-size:22px}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<!-- 刊头 -->
+<div class="masthead">
+  <div class="brand">FANGGUO ▸ COMPETITIVE INTELLIGENCE BRIEF</div>
+  <div class="meta">VOL.01 · 2024/07–2026/04 · N=891 VISITS · 474 ACCOUNTS</div>
+</div>
+
+<!-- 标题区 -->
+<section class="hero">
+  <div class="left">
+    <div class="eyebrow">Strategic Dossier · 战略简报</div>
+    <h1>方果 <span class="vs">VS</span> <b>亿托</b><br/><em>一场关于</em>价格 × 生态 <em>的战争</em></h1>
+    <div class="subtitle">Based on 891 field visits across 474 POD factory accounts — the war is not on features, it is on <em>ecosystem gravity</em>.</div>
+  </div>
+  <div class="right">
+    <div class="label">About This Brief</div>
+    <p>本报告基于方果销售团队自 <strong>2024年7月至2026年4月</strong>间对 <strong>474家POD工厂</strong>客户的 <strong>891条现场拜访记录</strong>,重点聚焦与主要竞对<strong>亿托</strong>(yì tuō)的正面交锋。</p>
+    <p>我们从 <strong>价格结构、功能对比、胜负归因、客户画像、地理格局、时间趋势</strong>六个维度进行穿透式拆解,提炼可执行的战略判断。</p>
+    <p style="color:var(--accent);font-weight:500;border-top:1px solid var(--rule);padding-top:12px;margin-top:14px">核心结论:亿托是一个「价格换规模」的追随者。方果不是靠产品赢的,而是靠生态(代发/商家端/平台对接)+口碑赢的——这恰恰是护城河,也是必须加深的护城河。</p>
+  </div>
+</section>
+
+<!-- 执行摘要 -->
+<div class="exec">
+  <div class="tag">Executive Summary · 执行摘要</div>
+  <h2>亿托在 <em>75.5%</em> 的销售对话中被提及——它已不是「一个竞对」,而是方果销售叙事的<em>默认背景音</em>。但在 165 个已决胜负的客户中,方果以 <em>64.8%</em> 的胜率守住了基本盘。</h2>
+  <div class="summary-grid">
+    <div class="item">
+      <span class="lbl">Mindshare 提及率</span>
+      <span class="num">75.5<small>%</small></span>
+      <div class="desc">891 条记录中 673 条涉及亿托——几乎每一次对话都绕不过它</div>
+    </div>
+    <div class="item">
+      <span class="lbl">Win Rate 胜率</span>
+      <span class="num">64.8<small>%</small></span>
+      <div class="desc">165 个已决客户中:赢 107 / 输 58,守住但不安全</div>
+    </div>
+    <div class="item">
+      <span class="lbl">Pipeline 在谈</span>
+      <span class="num">164</span>
+      <div class="desc">A+B+C 级客户,其中 82 家高意向——未来 3 个月决胜</div>
+    </div>
+    <div class="item">
+      <span class="lbl">Price Gap 价格差</span>
+      <span class="num">2~3<small>×</small></span>
+      <div class="desc">按件计费下方果单价约为亿托的 2-3 倍,这是最高频异议</div>
+    </div>
+  </div>
+</div>
+
+<!-- §1 战场总览 -->
+<section class="section">
+  <div class="sh"><div class="n">01</div><div class="t">战场总览 <small>THE BATTLEFIELD AT A GLANCE</small></div></div>
+
+  <div class="kpi-row">
+    <div class="k hl"><div class="l">涉及亿托客户</div><div class="v">382</div><div class="d">占总客户 80.6%(382/474)</div></div>
+    <div class="k"><div class="l">已签(赢单)</div><div class="v" style="color:var(--win)">107</div><div class="d">28.0% 的客户已转化</div></div>
+    <div class="k"><div class="l">输单(战败)</div><div class="v" style="color:var(--loss)">58</div><div class="d">15.2% 的客户已被对手锁定</div></div>
+    <div class="k"><div class="l">高意向在谈</div><div class="v" style="color:var(--warn)">82</div><div class="d">A+B 级,3 个月冲单目标</div></div>
+    <div class="k"><div class="l">低意向在谈</div><div class="v" style="color:var(--neutral)">82</div><div class="d">C 级,需要养/激活</div></div>
+  </div>
+
+  <div class="footnote">※ 口径说明:客户状态取同一客户最新一次跟进的状态。"无效/重复"线索 48 家不计入胜率分母。</div>
+
+  <div style="margin-top:20px">
+    <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:6px">
+      <div style="font-family:var(--mono);font-size:11px;letter-spacing:.15em;color:var(--neutral);text-transform:uppercase">Deal Pipeline Distribution · 客户漏斗分布 (n=334,剔除无效)</div>
+      <div style="font-family:var(--mono);font-size:11px;color:var(--neutral)">107 赢 / 58 输 / 82 热 / 82 冷</div>
+    </div>
+    <div class="wl-bar">
+      <div class="seg won" style="width:32%">赢单 107 · 32%</div>
+      <div class="seg hot" style="width:24.6%">高意向 82 · 25%</div>
+      <div class="seg cold" style="width:24.6%">低意向 82 · 25%</div>
+      <div class="seg lost" style="width:17.4%">输单 58 · 17%</div>
+    </div>
+  </div>
+</section>
+
+<!-- §2 价格战 -->
+<section class="section">
+  <div class="sh"><div class="n">02</div><div class="t">价格战·亿托的定价解剖 <small>THE PRICING ANATOMY OF THE COMPETITOR</small></div></div>
+
+  <p style="font-family:var(--serif);font-size:17px;font-style:italic;color:#3a3a3a;line-height:1.6;max-width:880px;margin-bottom:20px">亿托采取「<b style="color:var(--accent2);font-style:normal">低首冲 + 包年不限量 + 免费试用</b>」三板斧,在刚起步/价格敏感型客户中极具杀伤力。从 60 余条价格点提取出的 6 档主力套餐如下:</p>
+
+  <div class="pricing">
+    <div class="p">
+      <div class="tier">Entry · 入门</div>
+      <div class="price">¥1万</div>
+      <div class="unit">10~13万单<br/>(含识图)</div>
+      <div class="typical">小厂起步</div>
+    </div>
+    <div class="p">
+      <div class="tier">Starter · 小套餐</div>
+      <div class="price">¥2.5万</div>
+      <div class="unit">50万单<br/>(对标方果3万套餐)</div>
+      <div class="typical">价格对标</div>
+    </div>
+    <div class="p">
+      <div class="tier">Common · 常见</div>
+      <div class="price">¥3万</div>
+      <div class="unit">50~80万单<br/>或 包年不限量</div>
+      <div class="typical">主力出单</div>
+    </div>
+    <div class="p" style="background:#faf2eb">
+      <div class="tier" style="color:var(--accent)">Mainstream · 主流</div>
+      <div class="price" style="color:var(--accent)">¥5万</div>
+      <div class="unit">1~2年<br/><b>不限单量</b></div>
+      <div class="typical">★ 最具杀伤力</div>
+    </div>
+    <div class="p">
+      <div class="tier">Premium · 包年</div>
+      <div class="price">¥10万</div>
+      <div class="unit">3年包年<br/>或不限单量</div>
+      <div class="typical">中大客户</div>
+    </div>
+    <div class="p">
+      <div class="tier">Enterprise · 旗舰</div>
+      <div class="price">¥15万</div>
+      <div class="unit">包年<br/>(头部客户)</div>
+      <div class="typical">标杆单</div>
+    </div>
+  </div>
+
+  <div class="two" style="margin-top:28px">
+    <div class="card">
+      <div class="ch">Pricing Weapon · 价格武器</div>
+      <h3>「不限单量」是最锋利的那把刀</h3>
+      <p style="font-size:13px;line-height:1.65;color:#333;margin-top:10px">在 58 个输单客户里,<strong>至少 19 家</strong>(33%)明确以「5万两年不限单量」或「3万包年不限量」作为选择亿托的直接理由。客户的心理账是:<em>「订单量涨起来之后,方果按件会越用越贵。」</em></p>
+      <p style="font-size:13px;line-height:1.65;color:#333;margin-top:10px">这本质上是一场<strong>「现金流友好度」</strong>之战——对于刚起步或做亿级单量的 POD 工厂,"封顶"的确定性比单价高低更重要。</p>
+      <p class="footnote" style="margin-top:12px">原声引用:"目前在用亿托5w两年不限单量的套餐,我们按单算的话比亿托贵太多不考虑。" ——溪东路客户</p>
+    </div>
+    <div class="card">
+      <div class="ch">Acquisition Tactic · 获客战术</div>
+      <h3>「免费试用 + 当天实施」的闪电战</h3>
+      <p style="font-size:13px;line-height:1.65;color:#333;margin-top:10px">亿托在 <strong>铅山/上饶/义乌苏溪</strong>等方果腹地,频繁使用「<strong>免费试用、给单量赠送</strong>」+「<strong>当天签单当天进场</strong>」的闪电战术。我们至少识别出 3 家客户因为方果<em>"实施排期太久"</em>而转投亿托。</p>
+      <p style="font-size:13px;line-height:1.65;color:#333;margin-top:10px">亿托还与多鸿、Y2 上饶工厂的老板形成关系网(销售记录提及「亿托老板认识」、「<strong>凌晨一两点电话到厂</strong>」),用服务密度对冲产品成熟度。</p>
+      <p class="footnote" style="margin-top:12px">原声引用:"忆托当天签单打钱当天就去实施了。" ——义乌苏溪工厂客户</p>
+    </div>
+  </div>
+</section>
+
+<!-- §3 功能/产品对比 -->
+<section class="section">
+  <div class="sh"><div class="n">03</div><div class="t">产品对决·逐项对比 <small>HEAD-TO-HEAD PRODUCT MATRIX</small></div></div>
+
+  <div class="face-off">
+    <div class="row head">
+      <div class="l">方果 · FANGGUO</div>
+      <div class="mid">交锋维度</div>
+      <div class="r">亿托 · YITUO</div>
+    </div>
+
+    <div class="row">
+      <div class="l winner l"><strong>¥3万 起充,按件计费 (0.05~0.25元/件)</strong><span class="note">单价最高,但"按件算得清"</span></div>
+      <div class="mid">定价结构</div>
+      <div class="r winner r"><strong>¥1万起,包年不限单量套餐</strong><span class="note">★ 客户首选维度 · 19家输单因此</span></div>
+    </div>
+
+    <div class="row">
+      <div class="l winner l"><strong>智能解码 + 批次贴标扫码</strong><span class="note">虽"解码麻烦"但溯源能力强,不易整批错</span></div>
+      <div class="mid">发货逻辑</div>
+      <div class="r"><strong>看图/拍照识图 + 打印生产标签</strong><span class="note">简单但识别率低,错就整批返工</span></div>
+    </div>
+
+    <div class="row">
+      <div class="l winner l"><strong>TEMU/SHEIN/1688/速卖通/亚马逊/美客多 全覆盖</strong><span class="note">★ 14家赢单的决胜因子</span></div>
+      <div class="mid">平台对接</div>
+      <div class="r"><strong>以 TEMU 为主,国内及速卖通全托对接弱</strong><span class="note">客户原声:"没有国内接口,1688 用不了"</span></div>
+    </div>
+
+    <div class="row">
+      <div class="l winner l"><strong>代发+工厂互推+蓝马货盘联动</strong><span class="note">★ 22家赢单决胜因子(21%)</span></div>
+      <div class="mid">代发 / 商家生态</div>
+      <div class="r"><strong>代发场景"不太合适",商城功能迟未落地</strong><span class="note">承诺做但一直未交付,已有客户放弃等待</span></div>
+    </div>
+
+    <div class="row">
+      <div class="l winner l"><strong>批量套图 + 智能排版(含带黑边/批次分类)</strong><span class="note">14家赢单决胜因子(13%)</span></div>
+      <div class="mid">套图能力</div>
+      <div class="r"><strong>套图功能"拉胯",部分需手动处理</strong><span class="note">客户原声:"套图不太专业"、"每天出问题"</span></div>
+    </div>
+
+    <div class="row">
+      <div class="l"><strong>成熟但有"早期口碑包袱"</strong><span class="note">2年前合作的老客户曾因不稳定给同行留负面印象</span></div>
+      <div class="mid">稳定性</div>
+      <div class="r winner r"><strong>近期相对稳定,但仍有闪退/卡顿/漏单投诉</strong><span class="note">20家客户反馈卡顿,14家反馈漏单</span></div>
+    </div>
+
+    <div class="row">
+      <div class="l winner l"><strong>标准实施:驻场3天+上门</strong><span class="note">服务流程规范,但"实施排期久"是丢单主因之一</span></div>
+      <div class="mid">实施服务</div>
+      <div class="r winner r"><strong>响应极快:凌晨到厂,当天签当天实施</strong><span class="note">"实施人员不懂系统"的负评也同时存在</span></div>
+    </div>
+
+    <div class="row">
+      <div class="l winner l"><strong>设计器、上架、文字/字体定制、模特图</strong><span class="note">多数客户认可,独立于 8 点、灵图 Ai 的能力</span></div>
+      <div class="mid">设计器/上架</div>
+      <div class="r"><strong>有设计器(近2个月才推出),批量上架收费且导不全</strong><span class="note">19家客户反馈上架弱</span></div>
+    </div>
+
+    <div class="row">
+      <div class="l winner l"><strong>Y2 物流、补片追溯、报工管理集成</strong><span class="note">满印工厂在 2026Q1 普遍认可</span></div>
+      <div class="mid">报工/补片</div>
+      <div class="r"><strong>报工补片功能在补,基本不额外收费但成熟度低</strong><span class="note">8家客户直接对比后倾向方果</span></div>
+    </div>
+
+    <div class="row">
+      <div class="l"><strong>不支持私有部署/换LOGO(标准SaaS)</strong><span class="note">部分大客户因此流失(如百年巨丰选蜂鸟)</span></div>
+      <div class="mid">定制化</div>
+      <div class="r"><strong>同样不支持,但对头部客户给"子账号拉网"</strong><span class="note">以福建莆田初颐为例:开给7家工厂子账号</span></div>
+    </div>
+
+    <div class="row">
+      <div class="l winner l"><strong>资金明细、代发预充值财务对账完善</strong><span class="note">14家赢单客户(13%)将按件精确对账列为优势</span></div>
+      <div class="mid">财务/对账</div>
+      <div class="r"><strong>"无法看到资金明细"、对账不准</strong><span class="note">11家客户明确反馈</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- §4 胜负归因:客户原声 -->
+<section class="section">
+  <div class="sh"><div class="n">04</div><div class="t">胜负归因·客户原声 <small>WHY WE WIN · WHY WE LOSE — IN CUSTOMERS' WORDS</small></div></div>
+
+  <div class="two">
+    <div>
+      <div style="font-family:var(--mono);font-size:11px;letter-spacing:.18em;color:var(--win);text-transform:uppercase;margin-bottom:14px;font-weight:600">▲ Top 5 Winning Factors · 方果赢单决胜因子 (107家)</div>
+      <div class="pains">
+        <div class="pain-row">
+          <div class="lbl">售后服务 / 驻场实施</div>
+          <div class="bar"><div class="fill" style="width:100%;background:linear-gradient(90deg,var(--win),#4f8060)" data-label="22%"></div></div>
+          <div class="num">24家</div>
+        </div>
+        <div class="pain-row">
+          <div class="lbl">代发/商家端/工厂互推</div>
+          <div class="bar"><div class="fill" style="width:91%;background:linear-gradient(90deg,var(--win),#4f8060)" data-label="21%"></div></div>
+          <div class="num">22家</div>
+        </div>
+        <div class="pain-row">
+          <div class="lbl">市场占有率 / 朋友口碑</div>
+          <div class="bar"><div class="fill" style="width:75%;background:linear-gradient(90deg,var(--win),#4f8060)" data-label="17%"></div></div>
+          <div class="num">18家</div>
+        </div>
+        <div class="pain-row">
+          <div class="lbl">套图/拉图能力</div>
+          <div class="bar"><div class="fill" style="width:58%;background:linear-gradient(90deg,var(--win),#4f8060)" data-label="13%"></div></div>
+          <div class="num">14家</div>
+        </div>
+        <div class="pain-row">
+          <div class="lbl">按件计费精准对账</div>
+          <div class="bar"><div class="fill" style="width:58%;background:linear-gradient(90deg,var(--win),#4f8060)" data-label="13%"></div></div>
+          <div class="num">14家</div>
+        </div>
+        <div class="pain-row">
+          <div class="lbl">平台对接多 (1688/国内)</div>
+          <div class="bar"><div class="fill" style="width:42%;background:linear-gradient(90deg,var(--win),#4f8060)" data-label="9%"></div></div>
+          <div class="num">10家</div>
+        </div>
+      </div>
+    </div>
+    <div>
+      <div style="font-family:var(--mono);font-size:11px;letter-spacing:.18em;color:var(--loss);text-transform:uppercase;margin-bottom:14px;font-weight:600">▼ Top 5 Losing Reasons · 方果输单原因 (58家)</div>
+      <div class="pains">
+        <div class="pain-row">
+          <div class="lbl">已充/已签,等到期</div>
+          <div class="bar"><div class="fill" style="width:100%;background:linear-gradient(90deg,var(--loss),#c05555)" data-label="24%"></div></div>
+          <div class="num">14家</div>
+        </div>
+        <div class="pain-row">
+          <div class="lbl">亿托价格便宜</div>
+          <div class="bar"><div class="fill" style="width:93%;background:linear-gradient(90deg,var(--loss),#c05555)" data-label="22%"></div></div>
+          <div class="num">13家</div>
+        </div>
+        <div class="pain-row">
+          <div class="lbl">拍照发货更简单</div>
+          <div class="bar"><div class="fill" style="width:43%;background:linear-gradient(90deg,var(--loss),#c05555)" data-label="10%"></div></div>
+          <div class="num">6家</div>
+        </div>
+        <div class="pain-row">
+          <div class="lbl">朋友/同行推荐亿托</div>
+          <div class="bar"><div class="fill" style="width:43%;background:linear-gradient(90deg,var(--loss),#c05555)" data-label="10%"></div></div>
+          <div class="num">6家</div>
+        </div>
+        <div class="pain-row">
+          <div class="lbl">"够用就行"没动机换</div>
+          <div class="bar"><div class="fill" style="width:43%;background:linear-gradient(90deg,var(--loss),#c05555)" data-label="10%"></div></div>
+          <div class="num">6家</div>
+        </div>
+        <div class="pain-row">
+          <div class="lbl">不限单量套餐吸引</div>
+          <div class="bar"><div class="fill" style="width:36%;background:linear-gradient(90deg,var(--loss),#c05555)" data-label="9%"></div></div>
+          <div class="num">5家</div>
+        </div>
+        <div class="pain-row">
+          <div class="lbl">免费试用拿下</div>
+          <div class="bar"><div class="fill" style="width:21%;background:linear-gradient(90deg,var(--loss),#c05555)" data-label="5%"></div></div>
+          <div class="num">3家</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 原声摘录 -->
+  <div style="margin-top:32px">
+    <div style="font-family:var(--mono);font-size:11px;letter-spacing:.18em;color:var(--neutral);text-transform:uppercase;margin-bottom:14px">★ Voice of Customer · 客户原声</div>
+    <div class="quotes">
+      <div class="q win">
+        <div class="text">"江西市场 80% 的 POD 工厂仍然选择方果,原因三个点,一是亿托套图功能拉胯,二是平台对接少,三是售后服务差。"</div>
+        <div class="src"><b>歌德烫画</b> · 2026-01-06 · <span style="color:var(--win)">C级在谈</span></div>
+      </div>
+      <div class="q win">
+        <div class="text">"我们系统从接单到处理图片、针对不同产品的生产发货环节都有一定了解,订单接口比忆托多,发货解决方案比较多。"</div>
+        <div class="src"><b>莆田欧善工贸</b> · 2025-03-22 · <span style="color:var(--win)">已签单</span></div>
+      </div>
+      <div class="q win">
+        <div class="text">"忆托在他们工厂开账号给他们使用,但目前代发客户都要求方果对接...大部分 POD 工厂用方果,我们选方果无缝衔接。"</div>
+        <div class="src"><b>鑫佰汇服饰</b> · 2025-11-29 · <span style="color:var(--win)">已签单</span></div>
+      </div>
+      <div class="q lose">
+        <div class="text">"忆托给她 1 万块钱 12 万单,单量扣减按订单来,还包含识图。他们还是想用拍照识图,觉得贴标麻烦。先让他们用忆托吧。"</div>
+        <div class="src"><b>义乌平板包</b> · <span style="color:var(--loss)">输单</span></div>
+      </div>
+      <div class="q lose">
+        <div class="text">"忆托当天签单打钱当天就去实施了...可惜方果实施排期太久,老板娘就买了忆托。"</div>
+        <div class="src"><b>义乌苏溪工厂</b> · <span style="color:var(--loss)">输单·实施速度</span></div>
+      </div>
+      <div class="q warn">
+        <div class="text">"亿托老板和多鸿的张总都认识,但多鸿垂直于手机壳,解决不了我们的问题——所以还是考虑方果。"</div>
+        <div class="src"><b>链主当家 · 操总</b> · <span style="color:var(--warn)">生态关系情报</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- §5 客户画像 -->
+<section class="section">
+  <div class="sh"><div class="n">05</div><div class="t">客户画像·在哪些场景下决战 <small>WHERE THE BATTLES TAKE PLACE</small></div></div>
+
+  <div class="two">
+    <div class="card">
+      <div class="ch">By Product Category · 按产品品类</div>
+      <h3>POD 五大品类战场</h3>
+      <p style="font-size:12px;color:var(--neutral);margin-top:6px;margin-bottom:14px">涉及亿托的 382 家客户中,主力品类分布</p>
+      <div class="pains">
+        <div class="pain-row">
+          <div class="lbl">白墨烫画 / 3D 满印服装</div>
+          <div class="bar"><div class="fill" style="width:100%" data-label="54家"></div></div>
+          <div class="num">54</div>
+        </div>
+        <div class="pain-row">
+          <div class="lbl">家纺(毛毯/抱枕/浴帘)</div>
+          <div class="bar"><div class="fill" style="width:57%" data-label="31家"></div></div>
+          <div class="num">31</div>
+        </div>
+        <div class="pain-row">
+          <div class="lbl">装饰画 / 铁皮画 / 画芯</div>
+          <div class="bar"><div class="fill" style="width:44%" data-label="24家"></div></div>
+          <div class="num">24</div>
+        </div>
+        <div class="pain-row">
+          <div class="lbl">马克杯 / 保温杯</div>
+          <div class="bar"><div class="fill" style="width:22%" data-label="12家"></div></div>
+          <div class="num">12</div>
+        </div>
+        <div class="pain-row">
+          <div class="lbl">亚克力 / 手机壳 / 徽章</div>
+          <div class="bar"><div class="fill" style="width:18%" data-label="10家"></div></div>
+          <div class="num">10</div>
+        </div>
+        <div class="pain-row">
+          <div class="lbl">UV 打印 / 激光 / 其他</div>
+          <div class="bar"><div class="fill" style="width:13%" data-label="9家"></div></div>
+          <div class="num">9</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="geo">
+      <div class="ch">By Geography · 按地域集群</div>
+      <h3 style="font-family:var(--serif);font-size:20px;font-weight:600;margin-bottom:4px">四大产业带 + 散点</h3>
+      <p style="font-size:12px;color:var(--neutral);margin-top:6px;margin-bottom:14px">涉及亿托客户地理分布 (n=382)</p>
+      <div class="geo-row">
+        <div class="lbl">义乌 / 金华</div>
+        <div class="bar"><div class="fill" style="width:100%"></div></div>
+        <div class="num">104</div>
+      </div>
+      <div class="geo-row">
+        <div class="lbl">上饶 / 铅山</div>
+        <div class="bar"><div class="fill" style="width:97%"></div></div>
+        <div class="num">101</div>
+      </div>
+      <div class="geo-row">
+        <div class="lbl">其他 / 未知</div>
+        <div class="bar"><div class="fill" style="width:108%;background:#c9c2b5"></div></div>
+        <div class="num">112</div>
+      </div>
+      <div class="geo-row">
+        <div class="lbl">莆田 / 福建</div>
+        <div class="bar"><div class="fill" style="width:32%"></div></div>
+        <div class="num">33</div>
+      </div>
+      <div class="geo-row">
+        <div class="lbl">广深 / 东莞 / 佛山</div>
+        <div class="bar"><div class="fill" style="width:31%"></div></div>
+        <div class="num">32</div>
+      </div>
+      <div class="footnote" style="margin-top:14px">★ <strong>上饶是方果大本营</strong>,但亿托已深入渗透——铅山县区内 10+ 家输单均在此;义乌是对等拉锯战场;莆田/福建对亿托偏好较强(商城拉朋友组团)。</div>
+    </div>
+  </div>
+
+  <!-- 胜率矩阵 -->
+  <div style="margin-top:24px">
+    <div class="matrix">
+      <div class="ch" style="font-family:var(--mono);font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--neutral);margin-bottom:6px">Win-Rate Matrix by Category · 按品类胜率矩阵</div>
+      <h3 style="font-family:var(--serif);font-size:20px;font-weight:600">方果在哪些品类最能打?</h3>
+      <p style="font-size:12px;color:var(--neutral);margin-top:4px">已决胜负的客户(n=165)中按品类的胜率分布</p>
+      <div class="matrix-grid">
+        <div class="cell green">
+          <div class="pct">100%</div>
+          <div class="cat">家纺<br/>(毛毯/抱枕/浴帘)</div>
+          <div class="n">赢 11 / 输 0</div>
+        </div>
+        <div class="cell green">
+          <div class="pct">100%</div>
+          <div class="cat">装饰画/铁皮画/画芯</div>
+          <div class="n">赢 8 / 输 0</div>
+        </div>
+        <div class="cell lime">
+          <div class="pct">80%</div>
+          <div class="cat">马克杯/保温杯</div>
+          <div class="n">赢 4 / 输 1</div>
+        </div>
+        <div class="cell lime">
+          <div class="pct">73%</div>
+          <div class="cat">白墨烫画/3D满印</div>
+          <div class="n">赢 8 / 输 3</div>
+        </div>
+        <div class="cell yellow">
+          <div class="pct">60%</div>
+          <div class="cat">亚克力/手机壳/徽章</div>
+          <div class="n">赢 3 / 输 2</div>
+        </div>
+      </div>
+      <p class="footnote" style="margin-top:14px">★ <strong>家纺 & 装饰画是方果的绝对优势区</strong>——代发+套图+批次是硬刚需,亿托无力竞争。<strong>亚克力/手机壳/徽章</strong>是薄弱环节,多鸿在此垂直深耕,亿托也在抢——需要专项方案。</p>
+    </div>
+  </div>
+</section>
+
+<!-- §6 时间趋势 -->
+<section class="section">
+  <div class="sh"><div class="n">06</div><div class="t">时间趋势·亿托正在变强 <small>TEMPORAL TRAJECTORY — THEY ARE SCALING UP</small></div></div>
+
+  <div class="trend">
+    <div class="ch" style="font-family:var(--mono);font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--neutral);margin-bottom:6px">Monthly Mentions · 月度亿托提及量趋势</div>
+    <h3 style="font-family:var(--serif);font-size:20px;font-weight:600;margin-bottom:4px">从 10 条/月 → 167 条/月 · 16 倍暴增</h3>
+    <p style="font-size:12px;color:var(--neutral);margin-bottom:20px">2024-12 至 2026-04,亿托在销售对话中的出现频次</p>
+    <svg viewBox="0 0 800 240" preserveAspectRatio="none">
+      <!-- 网格线 -->
+      <line x1="60" y1="40" x2="780" y2="40" stroke="#ddd6c5" stroke-width="1" stroke-dasharray="2,4"/>
+      <line x1="60" y1="90" x2="780" y2="90" stroke="#ddd6c5" stroke-width="1" stroke-dasharray="2,4"/>
+      <line x1="60" y1="140" x2="780" y2="140" stroke="#ddd6c5" stroke-width="1" stroke-dasharray="2,4"/>
+      <line x1="60" y1="190" x2="780" y2="190" stroke="#ddd6c5" stroke-width="1" stroke-dasharray="2,4"/>
+      <!-- Y轴标签 -->
+      <text x="50" y="44" text-anchor="end" fill="#a39e92" font-size="10" font-family="JetBrains Mono">200</text>
+      <text x="50" y="94" text-anchor="end" fill="#a39e92" font-size="10" font-family="JetBrains Mono">150</text>
+      <text x="50" y="144" text-anchor="end" fill="#a39e92" font-size="10" font-family="JetBrains Mono">100</text>
+      <text x="50" y="194" text-anchor="end" fill="#a39e92" font-size="10" font-family="JetBrains Mono">50</text>
+      <text x="50" y="214" text-anchor="end" fill="#a39e92" font-size="10" font-family="JetBrains Mono">0</text>
+
+      <!-- 数据点 (18 个月:2024-12 起,最大值 167 → y=40 对应 200) -->
+      <!-- 月份 x: 60 + i*(720/17) = 60 + i*42.35 -->
+      <!-- y: 210 - (v/200)*170 -->
+      <!-- Data: 24-12:10, 25-01:6, 02:20, 03:20, 04:14, 05:13, 06:21, 07:10, 08:21, 09:25, 10:37, 11:48, 12:72, 26-01:113, 02:28, 03:167, 04:47 -->
+      <!-- 柱状 -->
+      <g fill="#b8411b">
+        <rect x="76" y="201.5" width="26" height="8.5"/>
+        <rect x="118.35" y="204.9" width="26" height="5.1"/>
+        <rect x="160.7" y="193" width="26" height="17"/>
+        <rect x="203.05" y="193" width="26" height="17"/>
+        <rect x="245.4" y="198.1" width="26" height="11.9"/>
+        <rect x="287.75" y="198.95" width="26" height="11.05"/>
+        <rect x="330.1" y="192.15" width="26" height="17.85"/>
+        <rect x="372.45" y="201.5" width="26" height="8.5"/>
+        <rect x="414.8" y="192.15" width="26" height="17.85"/>
+        <rect x="457.15" y="188.75" width="26" height="21.25"/>
+        <rect x="499.5" y="178.55" width="26" height="31.45"/>
+        <rect x="541.85" y="169.2" width="26" height="40.8"/>
+        <rect x="584.2" y="148.8" width="26" height="61.2"/>
+        <rect x="626.55" y="113.95" width="26" height="96.05"/>
+        <rect x="668.9" y="186.2" width="26" height="23.8"/>
+        <rect x="711.25" y="68.05" width="26" height="141.95" fill="#d86c3e"/>
+        <rect x="753.6" y="170.05" width="26" height="39.95"/>
+      </g>
+
+      <!-- 趋势线标注 -->
+      <text x="724.25" y="62" text-anchor="middle" fill="#b8411b" font-size="11" font-family="Fraunces" font-weight="600">167 ▲</text>
+      <text x="639.55" y="108" text-anchor="middle" fill="#6b6b6b" font-size="10" font-family="JetBrains Mono">113</text>
+      <text x="597.2" y="143" text-anchor="middle" fill="#6b6b6b" font-size="10" font-family="JetBrains Mono">72</text>
+
+      <!-- X轴月份标签 -->
+      <g fill="#6b6b6b" font-size="9" font-family="JetBrains Mono" text-anchor="middle">
+        <text x="89" y="226">12</text>
+        <text x="131.35" y="226">1</text>
+        <text x="173.7" y="226">2</text>
+        <text x="216.05" y="226">3</text>
+        <text x="258.4" y="226">4</text>
+        <text x="300.75" y="226">5</text>
+        <text x="343.1" y="226">6</text>
+        <text x="385.45" y="226">7</text>
+        <text x="427.8" y="226">8</text>
+        <text x="470.15" y="226">9</text>
+        <text x="512.5" y="226">10</text>
+        <text x="554.85" y="226">11</text>
+        <text x="597.2" y="226">12</text>
+        <text x="639.55" y="226">1</text>
+        <text x="681.9" y="226">2</text>
+        <text x="724.25" y="226">3</text>
+        <text x="766.6" y="226">4</text>
+      </g>
+      <g fill="#a39e92" font-size="9" font-family="JetBrains Mono" text-anchor="middle">
+        <text x="89" y="236">'24</text>
+        <text x="342" y="236">'25</text>
+        <text x="700" y="236">'26</text>
+      </g>
+
+      <!-- 关键注释 -->
+      <line x1="711.25" y1="55" x2="640" y2="28" stroke="#b8411b" stroke-width="1"/>
+      <text x="630" y="25" text-anchor="end" fill="#b8411b" font-size="10" font-family="Fraunces" font-weight="600" font-style="italic">2026年3月峰值:</text>
+      <text x="630" y="38" text-anchor="end" fill="#b8411b" font-size="10" font-family="Fraunces" font-weight="600" font-style="italic">单月 167 条提及(历史最高)</text>
+    </svg>
+    <p class="footnote" style="margin-top:8px">★ <strong>信号解读</strong>:亿托提及量在 2025H2 开始加速,2026Q1 呈爆发式上升。虽部分是销售拜访总量上升(2026-03 总拜访 201 条创历史新高),但<strong>亿托提及率(76~83%)</strong>已成"几乎必谈"的结构性事实。这意味着——<strong>战场已经转移:从"介绍方果"转为"对比亿托"</strong>。销售话术体系必须随之升级。</p>
+  </div>
+</section>
+
+<!-- §7 竞争格局 -->
+<section class="section">
+  <div class="sh"><div class="n">07</div><div class="t">更广的江湖·其他竞对定位 <small>THE BROADER COMPETITIVE LANDSCAPE</small></div></div>
+
+  <div class="card" style="padding:24px 28px">
+    <p style="font-family:var(--serif);font-size:15px;line-height:1.7;color:#2a2a2a;max-width:920px;margin-bottom:20px">亿托是最高频出现的对手,但不是唯一。拜访记录中识别出的<strong>其他 10+ 个友商</strong>各有定位——理解这张网络图,方果才能把握真正的差异化护城河。</p>
+    <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:12px">
+      <div style="background:#faf7ee;border:1px solid var(--rule);padding:16px">
+        <div style="font-family:var(--mono);font-size:10px;letter-spacing:.18em;color:var(--accent);text-transform:uppercase;margin-bottom:6px">Head-to-Head · 正面对手</div>
+        <div style="font-family:var(--serif);font-size:18px;font-weight:600;margin-bottom:4px">亿托 · 14条共现</div>
+        <div style="font-size:12px;color:#555;line-height:1.5">马帮系出身,价格屠夫,平台对接与代发生态都是短板</div>
+      </div>
+      <div style="background:#fff;border:1px solid var(--rule);padding:16px">
+        <div style="font-family:var(--mono);font-size:10px;letter-spacing:.18em;color:var(--accent2);text-transform:uppercase;margin-bottom:6px">Vertical Niche · 垂直对手</div>
+        <div style="font-family:var(--serif);font-size:18px;font-weight:600;margin-bottom:4px">多鸿 · 8 条</div>
+        <div style="font-size:12px;color:#555;line-height:1.5">只做手机壳,在亚克力/异形品类有深度,亿托老板圈内熟识</div>
+      </div>
+      <div style="background:#fff;border:1px solid var(--rule);padding:16px">
+        <div style="font-family:var(--mono);font-size:10px;letter-spacing:.18em;color:var(--accent2);text-transform:uppercase;margin-bottom:6px">商家 SaaS · 商家端</div>
+        <div style="font-family:var(--serif);font-size:18px;font-weight:600;margin-bottom:4px">指纹科技 / 蜂鸟 · 12 条</div>
+        <div style="font-size:12px;color:#555;line-height:1.5">偏服务"商家"(非工厂),支持私有部署(百年巨丰案例)</div>
+      </div>
+      <div style="background:#fff;border:1px solid var(--rule);padding:16px">
+        <div style="font-family:var(--mono);font-size:10px;letter-spacing:.18em;color:var(--accent2);text-transform:uppercase;margin-bottom:6px">ERP 巨头 · 跨界</div>
+        <div style="font-family:var(--serif);font-size:18px;font-weight:600;margin-bottom:4px">聚水潭 · 9 条</div>
+        <div style="font-size:12px;color:#555;line-height:1.5">标品 ERP 强者,POD 薄弱;WMS 场景互补</div>
+      </div>
+      <div style="background:#fff;border:1px solid var(--rule);padding:16px">
+        <div style="font-family:var(--mono);font-size:10px;letter-spacing:.18em;color:var(--accent2);text-transform:uppercase;margin-bottom:6px">Regional · 区域对手</div>
+        <div style="font-family:var(--serif);font-size:18px;font-weight:600;margin-bottom:4px">郑维/正维 · 14 条</div>
+        <div style="font-size:12px;color:#555;line-height:1.5">上饶本地跑图工具出身,代发能力弱,正被迭代</div>
+      </div>
+      <div style="background:#fff;border:1px solid var(--rule);padding:16px">
+        <div style="font-family:var(--mono);font-size:10px;letter-spacing:.18em;color:var(--accent2);text-transform:uppercase;margin-bottom:6px">Emerging · 新兴</div>
+        <div style="font-family:var(--serif);font-size:18px;font-weight:600;margin-bottom:4px">SDS · 精制 · 4 条</div>
+        <div style="font-size:12px;color:#555;line-height:1.5">价格战搅局者,以单价极低撬动价格敏感客户</div>
+      </div>
+      <div style="background:#fff;border:1px solid var(--rule);padding:16px">
+        <div style="font-family:var(--mono);font-size:10px;letter-spacing:.18em;color:var(--accent2);text-transform:uppercase;margin-bottom:6px">跨境 ERP · 跨境</div>
+        <div style="font-family:var(--serif);font-size:18px;font-weight:600;margin-bottom:4px">领星/旺店通 · 10 条</div>
+        <div style="font-size:12px;color:#555;line-height:1.5">跨境精细化,商家端主导,与方果工厂端互补</div>
+      </div>
+      <div style="background:#fff;border:1px solid var(--rule);padding:16px">
+        <div style="font-family:var(--mono);font-size:10px;letter-spacing:.18em;color:var(--accent2);text-transform:uppercase;margin-bottom:6px">Self-dev · 自研软件</div>
+        <div style="font-family:var(--serif);font-size:18px;font-weight:600;margin-bottom:4px">8点 / 集客云等 · 6 条</div>
+        <div style="font-size:12px;color:#555;line-height:1.5">莆田作坊式自研软件,2-3 人团队,长期威胁有限</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- §8 SWOT -->
+<section class="section">
+  <div class="sh"><div class="n">08</div><div class="t">SWOT · 方果战略定位 <small>STRATEGIC POSITIONING</small></div></div>
+
+  <div class="swot">
+    <div class="s">
+      <div class="tag">S · Strengths 优势</div>
+      <h4>已建立的结构性壁垒</h4>
+      <ul>
+        <li><strong>代发/工厂互推/蓝马货盘</strong>—— 22家赢单的核心理由,亿托无对应生态</li>
+        <li><strong>平台接口覆盖最广</strong>—— TEMU+SHEIN+1688+速卖通全托+亚马逊,亿托全面落后</li>
+        <li><strong>上饶 80% POD 工厂用方果</strong>,口碑推荐效应强(18家赢单因此)</li>
+        <li><strong>财务对账/代发预充值</strong>体系完善,满足供应链复杂客户</li>
+        <li><strong>产品矩阵最宽</strong>:家纺/装饰画胜率 100%</li>
+      </ul>
+    </div>
+    <div class="w">
+      <div class="tag">W · Weaknesses 劣势</div>
+      <h4>持续被攻击的软肋</h4>
+      <ul>
+        <li><strong>单价过高</strong>——按件 0.05~0.25 元 vs 亿托封顶 <strong>一半以上输单的首因</strong></li>
+        <li><strong>实施排期长</strong>——被"当天签单当天实施"的闪电战击败过</li>
+        <li><strong>历史口碑包袱</strong>——2年前的老客户给同行留负面印象,现在还在偿还</li>
+        <li><strong>不支持私有部署/OEM</strong>——大客户(百年巨丰)因此投蜂鸟</li>
+        <li><strong>亚克力/异形品类薄弱</strong>——多鸿和亿托都在蚕食</li>
+        <li><strong>解码流程复杂</strong>——小客户觉得"麻烦",贴标抗拒高</li>
+      </ul>
+    </div>
+    <div class="o">
+      <div class="tag">O · Opportunities 机会</div>
+      <h4>可主动把握的势能</h4>
+      <ul>
+        <li><strong>60 家亿托客户到期将至</strong>—— 60 家客户明确提到剩余单量/到期,2026H2 将是巨大切换窗口</li>
+        <li><strong>50 家客户主动想换</strong>—— 因亿托漏单/卡顿/售后差,已表达切换意愿</li>
+        <li><strong>商家端生态反攻</strong>—— 通过蓝马/商家推单拉多家工厂(初颐案例:一号捆7厂)</li>
+        <li><strong>亿托付费续费前的"3个月焦虑窗口"</strong>—— 客户在此期最愿意对比</li>
+        <li><strong>82 家 A/B 级高意向</strong>—— 现有 pipeline 的最大蓄水池</li>
+        <li><strong>亿托商城功能迟未交付</strong>—— 已流失客户"不想再等",可回收</li>
+      </ul>
+    </div>
+    <div class="t">
+      <div class="tag">T · Threats 威胁</div>
+      <h4>必须警惕的风险</h4>
+      <ul>
+        <li><strong>亿托提及率暴涨 16 倍</strong>—— 2024-12 的 10/月 → 2026-03 的 167/月</li>
+        <li><strong>亿托免费试用战术</strong>—— 不花钱就占客户工位,形成使用习惯的先入为主</li>
+        <li><strong>价格战还在下探</strong>—— 1万起 1毛/单,新竞品 SDS/精制再压更低</li>
+        <li><strong>亿托在福建形成"商家-工厂"组团渗透</strong>—— 福建商家指定工厂用亿托(麦德好→吖贝案例)</li>
+        <li><strong>"销售承诺不兑现"负面传播</strong>—— 趣定客户直接引用"上饶朋友说方果解码麻烦客服慢"丢单</li>
+        <li><strong>亿托生态正在补课</strong>—— 设计器/报工已在近 2 个月推出,时间不站在我们这边</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- §9 行动建议 -->
+<section class="section">
+  <div class="sh"><div class="n">09</div><div class="t">战略行动·6项关键举措 <small>STRATEGIC IMPERATIVES — 6 MOVES TO WIN</small></div></div>
+
+  <div class="actions">
+    <div class="action">
+      <div class="idx">01</div>
+      <div class="body">
+        <h4>建立「亿托到期预警系统」—— 60家到期客户是未来6个月最大金矿</h4>
+        <p>将拜访记录中所有提到<strong>「亿托剩余单量/到期时间/续费窗口」</strong>的客户(已识别 60 家)建立专门 Tag,在客户<strong>到期前 60-90 天</strong>发起标准化切换 Play:包含 1 次上门演示 + 1 次免费 POC + 切换无缝衔接保证。这是赢得<strong>「卡在包年合约里的高意向客户」</strong>的最高效率打法。</p>
+      </div>
+      <div class="prio p0">PRIORITY 0 · 立即启动</div>
+    </div>
+
+    <div class="action">
+      <div class="idx">02</div>
+      <div class="body">
+        <h4>推出「不限单量」对等套餐(或年包变体) —— 直接封死亿托最锋利的一把刀</h4>
+        <p>亿托「5万两年不限单量」是输单 #1 理由之一,但客户真正害怕的不是单价,是<strong>单量用完后的加价风险</strong>。建议推出「5万 + 100万单 + 单量用完按 0.08 续单」的「软不限量」方案,或针对<strong>日单量 ≥ 2000 的大客户</strong>定向推出包年套餐。核心是<strong>给销售一个可以不丢单的弹药</strong>。</p>
+      </div>
+      <div class="prio p0">PRIORITY 0 · 产品侧定价</div>
+    </div>
+
+    <div class="action">
+      <div class="idx">03</div>
+      <div class="body">
+        <h4>压缩实施排期 —— 签单到进场控制在 72 小时内,否则就输给闪电战</h4>
+        <p>义乌苏溪工厂明确因"方果实施排期太久"转投亿托。亿托"当天签当天进场"已成常态战术。建议:(a)设立<strong>「快速实施专项小组」</strong>,对"与亿托正面竞争"的客户保证 72 小时到场;(b)对远程可跑通的客户(家纺/装饰画品类)推行<strong>远程优先实施</strong>;(c)销售环节提前预判,在合同签订前就预约实施档期。</p>
+      </div>
+      <div class="prio p0">PRIORITY 0 · 运营侧</div>
+    </div>
+
+    <div class="action">
+      <div class="idx">04</div>
+      <div class="body">
+        <h4>打造「代发生态 2.0」—— 把最大护城河挖得更深</h4>
+        <p>代发/商家端/工厂互推已是方果 21% 赢单的核心因子,但亿托正在通过「<strong>商家指定工厂用亿托</strong>」(麦德好→吖贝案例)模仿这条路。建议:(a)把蓝马货盘整合度做到亿托无法追赶;(b)推出<strong>「方果商家生态联盟」</strong>—— 商家充值享受工厂折扣;(c)把<strong>已有 107 家签单客户</strong>拉入方果工厂白名单,强化网络效应。单客户的 LTV 不在产品上,在网络里。</p>
+      </div>
+      <div class="prio p1">PRIORITY 1 · 战略</div>
+    </div>
+
+    <div class="action">
+      <div class="idx">05</div>
+      <div class="body">
+        <h4>销售话术武器化 —— 把 6 条最毒的客户原声做成对比卡</h4>
+        <p>当前销售在"对比亿托"上缺乏结构化弹药,每个人用自己的话讲。建议制作<strong>「方果 vs 亿托 战术对比卡」</strong>(PDF + 小程序),内含:(a)真实客户原声证言(已收集 30+ 条);(b)5 大品类胜率矩阵;(c)已切换客户名单(7-10家);(d)ROI 测算器(按件 vs 包年)。在"对比阶段"交到客户手里,比销售口头讲 10 分钟有效。</p>
+      </div>
+      <div class="prio p1">PRIORITY 1 · 市场侧</div>
+    </div>
+
+    <div class="action">
+      <div class="idx">06</div>
+      <div class="body">
+        <h4>正视亚克力/异形品类薄弱点 —— 要么深挖,要么战略放弃</h4>
+        <p>亚克力/手机壳/徽章品类胜率仅 60%,且多鸿在这里垂直深耕,亿托也在抢。建议:(a)评估该品类的<strong>战略价值</strong>——若单量不大(目前仅10家识别),考虑<strong>战略放弃</strong>并推荐客户到多鸿,换取生态信任;(b)若决定深做,需在<strong>"看图发货高识别率"+"徽章批次管理"</strong>上投入产品开发,否则销售说再多都没用。</p>
+      </div>
+      <div class="prio p2">PRIORITY 2 · 需要决策</div>
+    </div>
+  </div>
+</section>
+
+<!-- 结语 -->
+<div class="coda">
+  <div class="tag">— The Bottom Line · 底层判断 —</div>
+  <h2>亿托不会消失,但它注定做不成方果正在做的事。<br/><em>方果的胜利不在于击败亿托,而在于让客户意识到:</em><br/>他们要的是一个生态,不是一个软件。</h2>
+  <p>2026 年将是 POD 工厂软件市场的分水岭。头部客户已经明白:<strong>「谁掌握代发网络,谁掌握订单流」</strong>。方果当前 64.8% 的胜率只是基础——真正的目标,是把生态密度做到让亿托的价格战失去弹药。</p>
+</div>
+
+<footer>
+  <div>FANGGUO COMPETITIVE INTELLIGENCE · EYES ONLY</div>
+  <div>METHODOLOGY: 891 FIELD VISITS · 474 ACCOUNTS · KEYWORD + MANUAL ANALYSIS</div>
+</footer>
+
+</div>
+</body>
+</html>
