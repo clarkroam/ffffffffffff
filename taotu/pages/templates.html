@@ -1,0 +1,592 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>模板 / 版型库 · 模板版型中心</title>
+<link rel="stylesheet" href="../assets/styles.css" />
+<style>
+  /* 大类导航 */
+  .cat-bar {
+    display: flex; gap: 10px; overflow-x: auto; padding-bottom: 4px;
+    margin-bottom: 16px;
+  }
+  .cat {
+    flex-shrink: 0; padding: 14px 16px;
+    border: 1px solid var(--line); background: var(--bg-canvas);
+    border-radius: var(--r-lg);
+    display: flex; gap: 12px; align-items: center;
+    min-width: 180px;
+  }
+  .cat .ic {
+    width: 42px; height: 42px; border-radius: 12px;
+    display: grid; place-items: center; color: #fff; font-size: 20px;
+  }
+  .cat.on { border-color: var(--ink-1); background: var(--bg-ink); color: #fff; }
+  .cat.on .name { color: #fff; }
+  .cat.on .num { color: rgba(255,255,255,.6); }
+  .cat .name { font-weight: 600; font-size: 13.5px; }
+  .cat .num { font-size: 11px; color: var(--ink-3); margin-top: 2px; }
+
+  .toolbar {
+    display: flex; gap: 10px; align-items: center;
+    background: var(--bg-canvas); border: 1px solid var(--line);
+    border-radius: var(--r-md); padding: 10px;
+    margin-bottom: 14px;
+  }
+
+  /* 主区 */
+  .lib { display: grid; grid-template-columns: 220px 1fr 320px; gap: 18px; }
+  @media (max-width: 1280px){ .lib { grid-template-columns: 1fr; } .lib aside.right { display: none; } }
+
+  .sub-filter { padding: 8px 0; }
+  .sub-filter h4 { font-size: 12px; color: var(--ink-3); padding: 6px 12px; margin: 0; letter-spacing: .5px; text-transform: uppercase; }
+  .sub-filter a {
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 7px 12px; border-radius: var(--r-md); font-size: 13px;
+    color: var(--ink-2);
+  }
+  .sub-filter a:hover { background: var(--bg-soft); }
+  .sub-filter a.on { background: var(--brand-soft); color: var(--brand-dark); font-weight: 600; }
+  .sub-filter a .c { font-size: 11px; color: var(--ink-4); }
+
+  /* 网格 */
+  .pat-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; }
+  .pat {
+    background: var(--bg-canvas); border: 1px solid var(--line);
+    border-radius: var(--r-lg); overflow: hidden; padding: 0;
+    cursor: pointer; transition: transform .2s ease, box-shadow .2s ease;
+  }
+  .pat:hover { transform: translateY(-3px); box-shadow: var(--shadow-md); }
+  .pat .pic {
+    aspect-ratio: 4/5; position: relative;
+    background: var(--bg-soft);
+  }
+  .pat .pic .badge {
+    position: absolute; top: 8px; left: 8px;
+    display: flex; gap: 4px;
+  }
+  .pat .pic .badge-r {
+    position: absolute; top: 8px; right: 8px;
+    background: rgba(0,0,0,.75); color: #fff;
+    border-radius: var(--r-pill); padding: 3px 8px; font-size: 11px;
+  }
+  .pat .body { padding: 10px 12px; }
+  .pat .name { font-weight: 600; font-size: 13px; }
+  .pat .meta { display: flex; justify-content: space-between; align-items: center; margin-top: 6px; font-size: 12px; color: var(--ink-3); }
+  .pat .stars { color: var(--gold); }
+  .pat .rule { font-size: 11px; color: var(--ink-4); margin-top: 4px; }
+
+  /* 模拟版型 SVG */
+  .pat .svg-fill {
+    position: absolute; inset: 0;
+    display: grid; place-items: center;
+  }
+  .garment {
+    width: 80%; height: 80%;
+  }
+
+  /* 详情 panel */
+  .detail { padding: 0; overflow: hidden; position: sticky; top: 84px; }
+  .detail .hero {
+    aspect-ratio: 1/1; position: relative;
+  }
+  .detail .body { padding: 14px 16px 16px; }
+  .detail h2 { margin: 0; }
+  .detail .meta { margin-top: 4px; color: var(--ink-3); font-size: 12px; }
+  .detail .stats {
+    display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px;
+    background: var(--bg-soft); border-radius: var(--r-md); padding: 10px;
+    margin-top: 14px;
+  }
+  .detail .stats .v { font-weight: 700; }
+  .detail .stats .l { font-size: 11px; color: var(--ink-3); }
+  .detail .rules-row { font-size: 12px; }
+  .detail .rules-row strong { color: var(--ink-1); }
+
+  /* 多店铺多模板套图 banner */
+  .sets-banner {
+    background: linear-gradient(135deg, #FFE4D6 0%, #FFF1E8 100%);
+    border-radius: var(--r-lg);
+    padding: 16px 18px;
+    border: 1px solid #FFD0B0;
+    margin-bottom: 14px;
+    display: flex; align-items: center; gap: 14px;
+  }
+  .sets-banner .icon-l {
+    width: 46px; height: 46px; border-radius: 12px; background: #fff;
+    display: grid; place-items: center; font-size: 22px;
+  }
+</style>
+</head>
+<body>
+
+<header class="topbar">
+  <a class="logo" href="../index.html"><span class="mark"></span>方果<span style="color:var(--ink-3);font-weight:500">·设计师平台</span></a>
+  <nav>
+    <a href="../index.html">总览</a>
+    <a href="designer-dashboard.html">设计师中心</a>
+    <a href="task-hall.html">任务大厅</a>
+    <a href="ai-studio.html">AI 创作</a>
+    <a class="active" href="templates.html">版型库</a>
+    <a href="commercialize.html">商品化</a>
+    <a href="earnings.html">收益结算</a>
+  </nav>
+  <div class="grow"></div>
+  <div class="switch"><button class="on">设计师视角</button><button>运营视角</button></div>
+  <button class="iconbtn"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 8a6 6 0 1 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10 21a2 2 0 0 0 4 0"/></svg><span class="dot"></span></button>
+  <div class="avatar">L</div>
+</header>
+
+<main class="main wide">
+  <div class="pagehead">
+    <div>
+      <div class="crumbs">模板 / 版型中心 · <span>版型库</span></div>
+      <div class="h1">模板 / 版型库 <span class="tag gold" style="vertical-align:middle">方果独家 · 1067 套女装满印</span></div>
+      <div class="desc">服装满印版型 + 多品类商品模板（手机壳 / 杯 / 亚克力 / 铁皮画 / 家纺 / 鞋帽 / 雨伞 / 相框相册）。每套版型均含质量评分、适配规则与多店铺多模板套图能力。</div>
+    </div>
+    <div class="row">
+      <a class="btn" href="#">下载方果母版规范 v3</a>
+      <a class="btn primary" href="#">上传新版型（运营）</a>
+    </div>
+  </div>
+
+  <!-- 多店铺多模板套图 banner -->
+  <div class="sets-banner">
+    <div class="icon-l">📚</div>
+    <div style="flex:1">
+      <div class="h3">多店铺 · 多模板套图</div>
+      <div class="muted" style="font-size:12.5px">同一组印花一次性套用 N 套版型 + 适配 M 个店铺规范，自动生成上架图组合包。本月你已生成 12 个套图组，节省人工时 ~ 86h。</div>
+    </div>
+    <div class="row">
+      <a class="btn brand" href="commercialize.html">立即套图 →</a>
+      <a class="btn ghost" href="#">查看历史套图</a>
+    </div>
+  </div>
+
+  <!-- 大类导航 -->
+  <div class="cat-bar">
+    <div class="cat on">
+      <div class="ic" style="background:linear-gradient(135deg,#FF8A3D,#FF5A1F)">👗</div>
+      <div><div class="name">服装版型</div><div class="num">1,067 套</div></div>
+    </div>
+    <div class="cat">
+      <div class="ic" style="background:linear-gradient(135deg,#A1C4FD,#1F6FEB)">📱</div>
+      <div><div class="name">手机壳</div><div class="num">486 款</div></div>
+    </div>
+    <div class="cat">
+      <div class="ic" style="background:linear-gradient(135deg,#FFEFBA,#C9A100)">🥤</div>
+      <div><div class="name">杯子</div><div class="num">312 款</div></div>
+    </div>
+    <div class="cat">
+      <div class="ic" style="background:linear-gradient(135deg,#FBC2EB,#A18CD1)">🪞</div>
+      <div><div class="name">亚克力</div><div class="num">208 款</div></div>
+    </div>
+    <div class="cat">
+      <div class="ic" style="background:linear-gradient(135deg,#0E1116,#5C6573)">🛡</div>
+      <div><div class="name">铁皮画</div><div class="num">164 款</div></div>
+    </div>
+    <div class="cat">
+      <div class="ic" style="background:linear-gradient(135deg,#84FAB0,#3CB371)">🛏</div>
+      <div><div class="name">家纺</div><div class="num">282 款</div></div>
+    </div>
+    <div class="cat">
+      <div class="ic" style="background:linear-gradient(135deg,#FF9A9E,#FAD0C4)">👟</div>
+      <div><div class="name">鞋帽</div><div class="num">196 款</div></div>
+    </div>
+    <div class="cat">
+      <div class="ic" style="background:linear-gradient(135deg,#5EE7DF,#B490CA)">☂</div>
+      <div><div class="name">雨伞</div><div class="num">94 款</div></div>
+    </div>
+    <div class="cat">
+      <div class="ic" style="background:linear-gradient(135deg,#FFC1DA,#FF5A1F)">🖼</div>
+      <div><div class="name">相框相册</div><div class="num">128 款</div></div>
+    </div>
+  </div>
+
+  <!-- 工具栏 -->
+  <div class="toolbar">
+    <div class="searchbar" style="flex:1; height:36px">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>
+      <input placeholder="搜索版型编号 / 名称 / 标签..." />
+    </div>
+    <div class="filterbar">
+      <span class="filter-pill active">全部</span>
+      <span class="filter-pill">满印</span>
+      <span class="filter-pill">插片</span>
+      <span class="filter-pill">局部印</span>
+      <span class="filter-pill">尺码 XS-XXL</span>
+      <span class="filter-pill">男女通版</span>
+    </div>
+    <select style="border:1px solid var(--line);border-radius:6px;padding:6px 10px;font-size:12.5px;background:#fff">
+      <option>排序：质量评分</option><option>使用次数</option><option>最新上架</option>
+    </select>
+  </div>
+
+  <div class="lib">
+
+    <!-- 左：子类目 -->
+    <aside class="card padless">
+      <div class="sub-filter">
+        <h4>子类目（服装）</h4>
+        <a class="on">连衣裙 满印 <span class="c">312</span></a>
+        <a>T 恤 / 短袖 <span class="c">228</span></a>
+        <a>卫衣 / 长袖 <span class="c">186</span></a>
+        <a>家居服 / 睡衣 <span class="c">112</span></a>
+        <a>外套 / 风衣 <span class="c">86</span></a>
+        <a>瑜伽 / 运动 <span class="c">74</span></a>
+        <a>儿童装 <span class="c">69</span></a>
+      </div>
+      <div class="sub-filter" style="border-top:1px solid var(--line)">
+        <h4>风格匹配</h4>
+        <a>复古插画</a>
+        <a class="on">极简几何 <span class="c">154</span></a>
+        <a>国潮</a>
+        <a>水彩</a>
+        <a>街头潮流</a>
+        <a>儿童卡通</a>
+      </div>
+      <div class="sub-filter" style="border-top:1px solid var(--line)">
+        <h4>评分</h4>
+        <a>★ 4.8 以上 <span class="c">86</span></a>
+        <a>★ 4.5 以上 <span class="c">312</span></a>
+        <a>★ 4.0 以上 <span class="c">684</span></a>
+      </div>
+      <div class="sub-filter" style="border-top:1px solid var(--line)">
+        <h4>适配店铺</h4>
+        <a><label class="row" style="gap:6px"><input type="checkbox" checked /> Shopee 跨境</label></a>
+        <a><label class="row" style="gap:6px"><input type="checkbox" checked /> TikTok Shop</label></a>
+        <a><label class="row" style="gap:6px"><input type="checkbox" /> Amazon</label></a>
+        <a><label class="row" style="gap:6px"><input type="checkbox" /> Temu</label></a>
+        <a><label class="row" style="gap:6px"><input type="checkbox" /> 独立站</label></a>
+      </div>
+    </aside>
+
+    <!-- 中：版型网格 -->
+    <section>
+      <div class="row" style="justify-content:space-between;margin-bottom:10px">
+        <div class="muted" style="font-size:13px">共 <strong style="color:var(--ink-1)">312</strong> 套连衣裙满印版型 · 当前页 1 / 13</div>
+        <div class="row" style="gap:6px">
+          <button class="btn sm">批量预览选中</button>
+          <button class="btn brand sm">套版型出图</button>
+        </div>
+      </div>
+
+      <div class="pat-grid">
+
+        <!-- Pat 1 -->
+        <div class="pat">
+          <div class="pic gradient-1">
+            <div class="badge">
+              <span class="tag" style="background:rgba(0,0,0,.7);color:#fff">FG-DR-0142</span>
+              <span class="tag gold">★ 4.92</span>
+            </div>
+            <span class="badge-r">满印</span>
+            <div class="svg-fill">
+              <svg class="garment" viewBox="0 0 100 130">
+                <path d="M30 10 L40 5 L60 5 L70 10 L82 28 L72 36 L70 120 L30 120 L28 36 L18 28 Z" fill="rgba(255,255,255,.85)" stroke="#fff" stroke-width="1.2" />
+                <circle cx="50" cy="20" r="8" fill="rgba(255,255,255,.4)"/>
+              </svg>
+            </div>
+          </div>
+          <div class="body">
+            <div class="name">长袖蕾丝边连衣裙 满印 · v3.1</div>
+            <div class="meta"><span class="stars">★ 4.92</span><span>使用 1,284</span></div>
+            <div class="rule">📐 适配：女装 满印 · XS – XXL · 重复点 60cm</div>
+          </div>
+        </div>
+
+        <!-- Pat 2 -->
+        <div class="pat">
+          <div class="pic gradient-2">
+            <div class="badge">
+              <span class="tag" style="background:rgba(0,0,0,.7);color:#fff">FG-DR-0218</span>
+              <span class="tag success">★ 4.86</span>
+            </div>
+            <span class="badge-r">满印 · 蓬蓬</span>
+            <div class="svg-fill"><svg class="garment" viewBox="0 0 100 130">
+              <path d="M30 12 L42 8 L58 8 L70 12 L78 32 L74 38 L88 110 L12 110 L26 38 L22 32 Z" fill="rgba(255,255,255,.85)" stroke="#fff" stroke-width="1.2"/>
+            </svg></div>
+          </div>
+          <div class="body">
+            <div class="name">蓬蓬袖 短款连衣裙 · v2.4</div>
+            <div class="meta"><span class="stars">★ 4.86</span><span>使用 902</span></div>
+            <div class="rule">📐 适配：女装 满印 · S – XL · 重复点 50cm</div>
+          </div>
+        </div>
+
+        <!-- Pat 3 -->
+        <div class="pat">
+          <div class="pic gradient-9">
+            <div class="badge">
+              <span class="tag" style="background:rgba(0,0,0,.7);color:#fff">FG-DR-0306</span>
+              <span class="tag success">★ 4.78</span>
+            </div>
+            <span class="badge-r">满印 · A 字</span>
+            <div class="svg-fill"><svg class="garment" viewBox="0 0 100 130">
+              <path d="M36 14 L44 8 L56 8 L64 14 L72 30 L64 36 L84 116 L16 116 L36 36 L28 30 Z" fill="rgba(255,255,255,.85)" stroke="#fff" stroke-width="1.2"/>
+            </svg></div>
+          </div>
+          <div class="body">
+            <div class="name">复古田园 A 字裙 · v1.6</div>
+            <div class="meta"><span class="stars">★ 4.78</span><span>使用 562</span></div>
+            <div class="rule">📐 适配：女装 满印 · S – XL</div>
+          </div>
+        </div>
+
+        <!-- Pat 4 -->
+        <div class="pat">
+          <div class="pic gradient-4">
+            <div class="badge">
+              <span class="tag" style="background:rgba(0,0,0,.7);color:#fff">FG-DR-0421</span>
+              <span class="tag success">★ 4.73</span>
+            </div>
+            <span class="badge-r">满印 · 度假</span>
+            <div class="svg-fill"><svg class="garment" viewBox="0 0 100 130">
+              <path d="M28 16 L42 6 L58 6 L72 16 L86 30 L74 38 L80 120 L20 120 L26 38 L14 30 Z" fill="rgba(255,255,255,.85)" stroke="#fff" stroke-width="1.2"/>
+            </svg></div>
+          </div>
+          <div class="body">
+            <div class="name">海岛度假 长裙 · v3.0</div>
+            <div class="meta"><span class="stars">★ 4.73</span><span>使用 408</span></div>
+            <div class="rule">📐 适配：女装 满印 · M – XXL</div>
+          </div>
+        </div>
+
+        <!-- Pat 5 -->
+        <div class="pat">
+          <div class="pic gradient-7">
+            <div class="badge">
+              <span class="tag" style="background:rgba(0,0,0,.7);color:#fff">FG-DR-0156</span>
+              <span class="tag">★ 4.62</span>
+            </div>
+            <span class="badge-r">满印 · 修身</span>
+            <div class="svg-fill"><svg class="garment" viewBox="0 0 100 130">
+              <path d="M34 12 L44 6 L56 6 L66 12 L72 28 L66 34 L70 120 L30 120 L34 34 L28 28 Z" fill="rgba(255,255,255,.85)" stroke="#fff" stroke-width="1.2"/>
+            </svg></div>
+          </div>
+          <div class="body">
+            <div class="name">修身连衣裙 · v2.0</div>
+            <div class="meta"><span class="stars">★ 4.62</span><span>使用 372</span></div>
+            <div class="rule">📐 适配：女装 满印 · XS – L</div>
+          </div>
+        </div>
+
+        <!-- Pat 6 -->
+        <div class="pat">
+          <div class="pic gradient-12">
+            <div class="badge">
+              <span class="tag" style="background:rgba(0,0,0,.7);color:#fff">FG-DR-0508</span>
+              <span class="tag">★ 4.58</span>
+              <span class="tag warning">新增</span>
+            </div>
+            <span class="badge-r">满印 · 法式</span>
+            <div class="svg-fill"><svg class="garment" viewBox="0 0 100 130">
+              <path d="M32 12 L46 6 L54 6 L68 12 L78 30 L70 36 L76 118 L24 118 L30 36 L22 30 Z" fill="rgba(255,255,255,.85)" stroke="#fff" stroke-width="1.2"/>
+            </svg></div>
+          </div>
+          <div class="body">
+            <div class="name">法式 V 领连衣裙 · v1.0</div>
+            <div class="meta"><span class="stars">★ 4.58</span><span>使用 86</span></div>
+            <div class="rule">📐 适配：女装 满印 · S – XL · 5/6 上架</div>
+          </div>
+        </div>
+
+        <!-- Pat 7 -->
+        <div class="pat">
+          <div class="pic gradient-3">
+            <div class="badge">
+              <span class="tag" style="background:rgba(0,0,0,.7);color:#fff">FG-DR-0612</span>
+              <span class="tag">★ 4.52</span>
+            </div>
+            <span class="badge-r">满印 · 田园</span>
+            <div class="svg-fill"><svg class="garment" viewBox="0 0 100 130">
+              <path d="M30 14 L42 8 L58 8 L70 14 L82 32 L72 38 L82 116 L18 116 L28 38 L18 32 Z" fill="rgba(255,255,255,.85)" stroke="#fff" stroke-width="1.2"/>
+            </svg></div>
+          </div>
+          <div class="body">
+            <div class="name">田园碎花 长裙 · v2.6</div>
+            <div class="meta"><span class="stars">★ 4.52</span><span>使用 268</span></div>
+            <div class="rule">📐 适配：女装 满印 · S – XXL</div>
+          </div>
+        </div>
+
+        <!-- Pat 8 -->
+        <div class="pat">
+          <div class="pic gradient-6">
+            <div class="badge">
+              <span class="tag" style="background:rgba(0,0,0,.7);color:#fff">FG-DR-0701</span>
+              <span class="tag">★ 4.48</span>
+            </div>
+            <span class="badge-r">满印 · 短款</span>
+            <div class="svg-fill"><svg class="garment" viewBox="0 0 100 130">
+              <path d="M34 14 L44 8 L56 8 L66 14 L74 30 L66 36 L70 100 L30 100 L34 36 L26 30 Z" fill="rgba(255,255,255,.85)" stroke="#fff" stroke-width="1.2"/>
+            </svg></div>
+          </div>
+          <div class="body">
+            <div class="name">夏日短款连衣裙 · v1.8</div>
+            <div class="meta"><span class="stars">★ 4.48</span><span>使用 192</span></div>
+            <div class="rule">📐 适配：女装 满印 · XS – L</div>
+          </div>
+        </div>
+
+        <!-- Pat 9 -->
+        <div class="pat">
+          <div class="pic gradient-5">
+            <div class="badge">
+              <span class="tag" style="background:rgba(0,0,0,.7);color:#fff">FG-DR-0834</span>
+              <span class="tag">★ 4.40</span>
+            </div>
+            <span class="badge-r">满印 · 长袖</span>
+            <div class="svg-fill"><svg class="garment" viewBox="0 0 100 130">
+              <path d="M30 12 L42 6 L58 6 L70 12 L80 22 L74 32 L72 118 L28 118 L26 32 L20 22 Z" fill="rgba(255,255,255,.85)" stroke="#fff" stroke-width="1.2"/>
+            </svg></div>
+          </div>
+          <div class="body">
+            <div class="name">长袖中长款 连衣裙 · v3.2</div>
+            <div class="meta"><span class="stars">★ 4.40</span><span>使用 142</span></div>
+            <div class="rule">📐 适配：女装 满印 · S – XXL · 春秋</div>
+          </div>
+        </div>
+
+        <!-- Pat 10 -->
+        <div class="pat">
+          <div class="pic gradient-10">
+            <div class="badge">
+              <span class="tag" style="background:rgba(0,0,0,.7);color:#fff">FG-DR-0902</span>
+              <span class="tag">★ 4.36</span>
+            </div>
+            <span class="badge-r">满印 · 民族</span>
+            <div class="svg-fill"><svg class="garment" viewBox="0 0 100 130">
+              <path d="M28 16 L44 8 L56 8 L72 16 L88 32 L72 38 L80 110 L20 110 L28 38 L12 32 Z" fill="rgba(255,255,255,.85)" stroke="#fff" stroke-width="1.2"/>
+            </svg></div>
+          </div>
+          <div class="body">
+            <div class="name">民族风 大摆 连衣裙 · v2.0</div>
+            <div class="meta"><span class="stars">★ 4.36</span><span>使用 102</span></div>
+            <div class="rule">📐 适配：女装 满印 · M – XXL · 度假</div>
+          </div>
+        </div>
+
+        <!-- Pat 11 -->
+        <div class="pat">
+          <div class="pic gradient-11">
+            <div class="badge">
+              <span class="tag" style="background:rgba(0,0,0,.7);color:#fff">FG-DR-0976</span>
+              <span class="tag">★ 4.32</span>
+            </div>
+            <span class="badge-r">满印 · 衬衫</span>
+            <div class="svg-fill"><svg class="garment" viewBox="0 0 100 130">
+              <path d="M34 14 L44 6 L56 6 L66 14 L74 28 L66 34 L72 116 L28 116 L34 34 L26 28 Z" fill="rgba(255,255,255,.85)" stroke="#fff" stroke-width="1.2"/>
+            </svg></div>
+          </div>
+          <div class="body">
+            <div class="name">复古衬衫 连衣裙 · v1.4</div>
+            <div class="meta"><span class="stars">★ 4.32</span><span>使用 78</span></div>
+            <div class="rule">📐 适配：女装 满印 · S – L</div>
+          </div>
+        </div>
+
+        <!-- Pat 12 -->
+        <div class="pat">
+          <div class="pic gradient-8" style="color:#fff">
+            <div class="badge">
+              <span class="tag" style="background:rgba(255,255,255,.18);color:#fff">FG-DR-1024</span>
+              <span class="tag warning">需重审</span>
+            </div>
+            <span class="badge-r">满印 · 暗黑</span>
+            <div class="svg-fill"><svg class="garment" viewBox="0 0 100 130">
+              <path d="M32 12 L44 6 L56 6 L68 12 L78 28 L70 34 L74 118 L26 118 L30 34 L22 28 Z" fill="rgba(255,255,255,.18)" stroke="rgba(255,255,255,.6)" stroke-width="1.2"/>
+            </svg></div>
+          </div>
+          <div class="body">
+            <div class="name">暗黑哥特 连衣裙 · v0.9</div>
+            <div class="meta" style="color:var(--ink-3)"><span class="stars">★ 3.92</span><span>使用 32</span></div>
+            <div class="rule">📐 适配规则待补充 · 等待审核</div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- 分页 -->
+      <div class="row" style="justify-content:center;margin-top:18px;gap:6px">
+        <button class="btn sm">‹</button>
+        <button class="btn sm primary">1</button>
+        <button class="btn sm">2</button>
+        <button class="btn sm">3</button>
+        <button class="btn sm">…</button>
+        <button class="btn sm">13</button>
+        <button class="btn sm">›</button>
+      </div>
+    </section>
+
+    <!-- 右：版型详情 -->
+    <aside class="card detail right">
+      <div class="hero gradient-1">
+        <div class="badge" style="position:absolute;top:10px;left:10px"><span class="tag" style="background:rgba(0,0,0,.7);color:#fff">FG-DR-0142</span></div>
+        <div style="position:absolute;top:10px;right:10px"><span class="tag gold">TOP 1%</span></div>
+        <div class="svg-fill">
+          <svg class="garment" viewBox="0 0 100 130">
+            <path d="M30 10 L40 5 L60 5 L70 10 L82 28 L72 36 L70 120 L30 120 L28 36 L18 28 Z" fill="rgba(255,255,255,.88)" stroke="#fff" stroke-width="1.2" />
+            <circle cx="50" cy="20" r="8" fill="rgba(255,255,255,.4)"/>
+          </svg>
+        </div>
+      </div>
+      <div class="body">
+        <div class="row" style="justify-content:space-between"><h2 class="h2">长袖蕾丝边连衣裙 · v3.1</h2><span class="tag gold">★ 4.92</span></div>
+        <div class="meta">FG-DR-0142 · 满印 · 女装 · 跨境主推</div>
+
+        <div class="stats">
+          <div><div class="v">1,284</div><div class="l">已被使用</div></div>
+          <div><div class="v">XS – XXL</div><div class="l">尺码范围</div></div>
+          <div><div class="v">60 cm</div><div class="l">重复点</div></div>
+        </div>
+
+        <hr class="divider" />
+
+        <div class="rules-row">
+          <div class="muted" style="font-size:11px;letter-spacing:.5px;text-transform:uppercase">适配规则</div>
+          <div class="row wrap mt-8" style="gap:6px">
+            <span class="tag">复古插画 ✔</span>
+            <span class="tag">极简几何 ✔</span>
+            <span class="tag">国潮 ✔</span>
+            <span class="tag" style="opacity:.45">极小元素 ✘ 易模糊</span>
+          </div>
+          <div class="muted mt-8" style="font-size:11.5px">建议印花重复点 ≥ 50cm，避免拼接接缝处出现关键元素。</div>
+        </div>
+
+        <hr class="divider" />
+
+        <div class="rules-row">
+          <div class="muted" style="font-size:11px;letter-spacing:.5px;text-transform:uppercase">店铺适配</div>
+          <div class="row wrap mt-8" style="gap:6px">
+            <span class="tag success">Shopee ✔</span>
+            <span class="tag success">TikTok Shop ✔</span>
+            <span class="tag success">Amazon ✔</span>
+            <span class="tag">Temu （需调比例）</span>
+          </div>
+        </div>
+
+        <hr class="divider" />
+        <div class="rules-row">
+          <div class="muted" style="font-size:11px;letter-spacing:.5px;text-transform:uppercase">引用样本</div>
+          <div class="g4 mt-8">
+            <div class="thumb gradient-1"></div>
+            <div class="thumb gradient-2"></div>
+            <div class="thumb gradient-9"></div>
+            <div class="thumb gradient-12"></div>
+          </div>
+          <div class="muted mt-8" style="font-size:11.5px">销量 TOP 3 印花使用案例，可点击复用。</div>
+        </div>
+
+        <button class="btn brand lg" style="width:100%;margin-top:14px">套用此版型 →</button>
+        <div class="row" style="gap:6px;margin-top:8px">
+          <a class="btn sm" style="flex:1">下载源文件</a>
+          <a class="btn sm" style="flex:1">收藏</a>
+        </div>
+      </div>
+    </aside>
+  </div>
+</main>
+</body>
+</html>

@@ -1,0 +1,365 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>李小果 · 设计师主页 · 方果设计师平台</title>
+<link rel="stylesheet" href="../assets/styles.css" />
+<style>
+  /* Banner */
+  .pf-banner {
+    position: relative; height: 280px;
+    border-radius: var(--r-xl);
+    overflow: hidden;
+    background:
+      radial-gradient(800px 320px at 20% 0%, rgba(255,90,31,.45), transparent 70%),
+      radial-gradient(700px 280px at 80% 100%, rgba(184,134,11,.55), transparent 70%),
+      linear-gradient(135deg, #2A1810 0%, #5C2A14 50%, #8B4513 100%);
+  }
+  .pf-banner::before {
+    content: ""; position: absolute; inset: 0;
+    background-image:
+      radial-gradient(circle at 20% 30%, rgba(255,255,255,.15) 0%, transparent 6%),
+      radial-gradient(circle at 70% 60%, rgba(255,255,255,.10) 0%, transparent 7%),
+      radial-gradient(circle at 40% 80%, rgba(255,255,255,.08) 0%, transparent 5%),
+      radial-gradient(circle at 85% 20%, rgba(255,255,255,.10) 0%, transparent 6%);
+  }
+  .pf-banner .deco {
+    position: absolute; inset: 0;
+    display: flex; gap: 14px; padding: 30px;
+    align-items: center; justify-content: flex-end;
+  }
+  .pf-banner .deco .ic {
+    width: 90px; height: 110px; border-radius: 12px;
+    transform: rotate(-8deg);
+    box-shadow: 0 14px 32px rgba(0,0,0,.3);
+    border: 4px solid rgba(255,255,255,.85);
+  }
+  .pf-banner .deco .ic + .ic { transform: rotate(6deg) translateY(20px); }
+  .pf-banner .deco .ic + .ic + .ic { transform: rotate(-3deg) translateY(-10px); }
+
+  /* Profile head */
+  .pf-head {
+    margin-top: -70px; padding: 0 30px 0; position: relative; z-index: 2;
+    display: grid; grid-template-columns: 130px 1fr auto; gap: 22px;
+    align-items: flex-end;
+    margin-bottom: 22px;
+  }
+  .pf-avatar {
+    width: 130px; height: 130px; border-radius: 50%;
+    background: linear-gradient(135deg,#FFB76B,#FF5A1F);
+    border: 6px solid #fff; box-shadow: 0 8px 22px rgba(0,0,0,.12);
+    display: grid; place-items: center;
+    color: #fff; font-size: 56px; font-weight: 800;
+    position: relative;
+  }
+  .pf-avatar::after {
+    content: ""; position: absolute; right: 0; bottom: 6px;
+    width: 28px; height: 28px; border-radius: 50%;
+    background: var(--success); border: 4px solid #fff;
+  }
+  .pf-name { display: flex; gap: 12px; align-items: center; flex-wrap: wrap; }
+  .pf-name h1 { margin: 0; font-size: 28px; letter-spacing: -.2px; }
+  .pf-meta { color: var(--ink-3); font-size: 13.5px; margin-top: 4px; }
+  .pf-tags { margin-top: 10px; display: flex; gap: 6px; flex-wrap: wrap; }
+
+  /* Stats strip */
+  .stat-strip {
+    display: grid; grid-template-columns: repeat(6, 1fr); gap: 0;
+    background: var(--bg-canvas); border: 1px solid var(--line);
+    border-radius: var(--r-lg);
+    margin-bottom: 22px;
+    overflow: hidden;
+  }
+  .stat-strip .s {
+    padding: 16px 18px; border-right: 1px solid var(--line);
+  }
+  .stat-strip .s:last-child { border: 0; }
+  .stat-strip .num { font-size: 22px; font-weight: 700; }
+  .stat-strip .lbl { font-size: 12px; color: var(--ink-3); margin-top: 4px; }
+
+  /* Layout */
+  .pf-layout { display: grid; grid-template-columns: 1fr 320px; gap: 20px; }
+  @media (max-width: 1100px){ .pf-layout { grid-template-columns: 1fr; } }
+
+  /* Tabs */
+  .pf-tabs {
+    display: flex; gap: 6px; border-bottom: 1px solid var(--line);
+    margin-bottom: 16px;
+  }
+  .pf-tabs a {
+    padding: 12px 18px; color: var(--ink-3); font-weight: 500;
+    border-bottom: 2px solid transparent; margin-bottom: -1px;
+  }
+  .pf-tabs a.on { color: var(--ink-1); border-color: var(--brand); font-weight: 600; }
+
+  /* Masonry / Pinterest style */
+  .masonry { columns: 3 240px; column-gap: 14px; }
+  .masonry .item {
+    break-inside: avoid; margin-bottom: 14px;
+    position: relative; border-radius: var(--r-md); overflow: hidden;
+    background: var(--bg-soft);
+    cursor: pointer;
+  }
+  .masonry .item .meta {
+    position: absolute; inset: 0;
+    background: linear-gradient(180deg, transparent 50%, rgba(0,0,0,.65) 100%);
+    color: #fff; padding: 16px;
+    display: flex; flex-direction: column; justify-content: flex-end;
+    opacity: 0; transition: opacity .2s ease;
+  }
+  .masonry .item:hover .meta { opacity: 1; }
+  .masonry .item .meta strong { font-size: 14px; }
+  .masonry .item .meta .row-s { display: flex; gap: 10px; font-size: 11.5px; margin-top: 4px; opacity: .9; }
+  .masonry .item .pin {
+    position: absolute; top: 8px; left: 8px;
+  }
+
+  .h-tall { height: 320px; }
+  .h-med { height: 240px; }
+  .h-short { height: 180px; }
+  .h-x { height: 380px; }
+
+  /* Right side: about / contact */
+  .about-card {
+    border: 1px solid var(--line); background: var(--bg-canvas);
+    border-radius: var(--r-lg); padding: 18px;
+  }
+  .about-card .row-c { display: flex; justify-content: space-between; padding: 6px 0; font-size: 13px; }
+  .about-card .row-c .l { color: var(--ink-3); }
+  .commission-card {
+    background: var(--bg-ink); color: var(--ink-on-dark);
+    border: 0; border-radius: var(--r-lg); padding: 18px;
+  }
+  .commission-card h3 { color: #fff; margin: 0; }
+  .commission-card .price-l {
+    font-size: 26px; font-weight: 800; margin: 8px 0 4px;
+    background: linear-gradient(135deg,#FFD27A,#FF8A3D);
+    -webkit-background-clip: text; background-clip: text; color: transparent;
+  }
+  .styles-bars .row-b {
+    display: grid; grid-template-columns: 90px 1fr 30px; gap: 8px; align-items: center;
+    padding: 5px 0; font-size: 12px;
+  }
+</style>
+</head>
+<body>
+
+<header class="topbar">
+  <a class="logo" href="../index.html"><span class="mark"></span>方果<span style="color:var(--ink-3);font-weight:500">·设计师平台</span></a>
+  <nav>
+    <a href="../index.html">总览</a>
+    <a class="active" href="designer-dashboard.html">设计师中心</a>
+    <a href="task-hall.html">任务大厅</a>
+    <a href="ai-studio.html">AI 创作</a>
+    <a href="templates.html">版型库</a>
+    <a href="commercialize.html">商品化</a>
+    <a href="earnings.html">收益结算</a>
+  </nav>
+  <div class="grow"></div>
+  <div class="switch"><button class="on">设计师视角</button><button>运营视角</button></div>
+  <button class="iconbtn"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 8a6 6 0 1 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10 21a2 2 0 0 0 4 0"/></svg><span class="dot"></span></button>
+  <div class="avatar">L</div>
+</header>
+
+<main class="main wide">
+
+  <div class="pagehead" style="margin-bottom:14px">
+    <div>
+      <div class="crumbs">设计师中心 · <span>李小果 的设计师主页</span></div>
+    </div>
+    <div class="row">
+      <a class="btn" href="portfolio.html">编辑作品集</a>
+      <a class="btn" href="designer-dashboard.html">回到工作台</a>
+      <a class="btn primary">分享主页 ↗</a>
+    </div>
+  </div>
+
+  <!-- Banner -->
+  <section class="pf-banner">
+    <div class="deco">
+      <div class="ic gradient-1"></div>
+      <div class="ic gradient-9"></div>
+      <div class="ic gradient-12"></div>
+      <div class="ic gradient-4"></div>
+    </div>
+  </section>
+
+  <!-- Head -->
+  <div class="pf-head">
+    <div class="pf-avatar">L</div>
+    <div>
+      <div class="pf-name">
+        <h1>李小果</h1>
+        <span class="level l4">L4 · 资深设计师</span>
+        <span class="tag gold">★ 4.86 优质供给</span>
+        <span class="tag success">通过率 94%</span>
+      </div>
+      <div class="pf-meta">12 个月专注 复古插画 · 女装满印 · 跨境 POD · 杭州</div>
+      <div class="pf-tags">
+        <span class="tag brand">复古插画</span>
+        <span class="tag brand">极简几何</span>
+        <span class="tag brand">国潮</span>
+        <span class="tag">女装满印</span>
+        <span class="tag">T 恤</span>
+        <span class="tag">家居服</span>
+        <span class="tag">儿童装</span>
+        <span class="tag info">支持 AI 协作</span>
+      </div>
+    </div>
+    <div class="row" style="gap:8px">
+      <a class="btn">+ 关注</a>
+      <a class="btn">收藏</a>
+      <a class="btn brand">向我发任务 →</a>
+    </div>
+  </div>
+
+  <!-- Stats -->
+  <div class="stat-strip">
+    <div class="s"><div class="num tabular">128</div><div class="lbl">已上架作品</div></div>
+    <div class="s"><div class="num tabular">2,840</div><div class="lbl">本月主页浏览</div></div>
+    <div class="s"><div class="num tabular">486</div><div class="lbl">关注者</div></div>
+    <div class="s"><div class="num tabular">62 / 月</div><div class="lbl">承接任务</div></div>
+    <div class="s"><div class="num tabular">¥ 18,420</div><div class="lbl">本月收益</div></div>
+    <div class="s"><div class="num tabular">8,640</div><div class="lbl">爆款月销 (4 月)</div></div>
+  </div>
+
+  <div class="pf-layout">
+
+    <!-- 主区：作品瀑布流 -->
+    <div>
+      <div class="pf-tabs">
+        <a class="on">作品集 (128)</a>
+        <a>已上架商品 (84)</a>
+        <a>合作任务 (62)</a>
+        <a>授权图案 (24)</a>
+        <a>客户评价 (118)</a>
+      </div>
+
+      <div class="row mb-16" style="gap:6px;flex-wrap:wrap">
+        <span class="filter-pill active">全部</span>
+        <span class="filter-pill">复古插画 (62)</span>
+        <span class="filter-pill">极简几何 (28)</span>
+        <span class="filter-pill">国潮 (18)</span>
+        <span class="filter-pill">女装满印 (98)</span>
+        <span class="filter-pill">家居服 (16)</span>
+        <span class="filter-pill">爆款 ★</span>
+      </div>
+
+      <div class="masonry">
+        <div class="item h-x gradient-1">
+          <span class="tag pin gold">爆款 · 月销 8,640</span>
+          <div class="meta"><strong>复古田园 No.07</strong><div class="row-s"><span>👁 12,420</span><span>❤ 822</span><span>🛒 ¥ 198</span></div></div>
+        </div>
+        <div class="item h-tall gradient-9">
+          <span class="tag pin brand">置顶</span>
+          <div class="meta"><strong>蕾丝玫瑰 满印 #3</strong><div class="row-s"><span>👁 6,120</span><span>❤ 412</span></div></div>
+        </div>
+        <div class="item h-med gradient-4">
+          <div class="meta"><strong>海岛度假 长裙</strong><div class="row-s"><span>👁 4,820</span></div></div>
+        </div>
+        <div class="item h-short gradient-12">
+          <div class="meta"><strong>极简几何 v3</strong></div>
+        </div>
+        <div class="item h-tall gradient-2">
+          <span class="tag pin success">已授权 · 4 家</span>
+          <div class="meta"><strong>蕾丝边女装套图</strong><div class="row-s"><span>授权 ¥ 1,520</span></div></div>
+        </div>
+        <div class="item h-x gradient-7">
+          <div class="meta"><strong>修身长袖连衣裙 满印</strong><div class="row-s"><span>👁 3,460</span></div></div>
+        </div>
+        <div class="item h-med gradient-3">
+          <div class="meta"><strong>田园碎花 春夏</strong></div>
+        </div>
+        <div class="item h-short gradient-6">
+          <div class="meta"><strong>夏日短款</strong></div>
+        </div>
+        <div class="item h-tall gradient-10" style="color:#fff">
+          <span class="tag pin info">AI 协作</span>
+          <div class="meta"><strong>母亲节系列 · 第 1 期</strong><div class="row-s"><span>30 张入库</span></div></div>
+        </div>
+        <div class="item h-med gradient-5">
+          <div class="meta"><strong>水彩花卉 · 浅色</strong></div>
+        </div>
+        <div class="item h-x gradient-11">
+          <div class="meta"><strong>温馨家居 印花</strong></div>
+        </div>
+        <div class="item h-short gradient-8" style="color:#fff">
+          <div class="meta"><strong>暗黑机能 实验稿</strong></div>
+        </div>
+      </div>
+
+      <div class="row" style="justify-content:center;margin-top:18px">
+        <button class="btn">查看全部 128 件作品 →</button>
+      </div>
+    </div>
+
+    <!-- 右侧 -->
+    <aside class="col" style="gap:14px">
+
+      <div class="commission-card">
+        <h3>邀约报价 / 接单</h3>
+        <div class="muted" style="color:rgba(255,255,255,.6);font-size:12px;margin-top:4px">建议起步价（仅供参考）</div>
+        <div class="price-l">¥ 60 - 200 / 张</div>
+        <div class="muted" style="color:rgba(255,255,255,.6);font-size:11.5px">套图 ¥60 / 详情 ¥160 / 授权图案 ¥380</div>
+        <div class="row mt-12" style="gap:6px;flex-wrap:wrap">
+          <span class="tag" style="background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.14);color:#fff">套图</span>
+          <span class="tag" style="background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.14);color:#fff">详情图</span>
+          <span class="tag" style="background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.14);color:#fff">效果图</span>
+          <span class="tag" style="background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.14);color:#fff">授权</span>
+          <span class="tag" style="background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.14);color:#fff">买断</span>
+        </div>
+        <a class="btn brand lg" style="width:100%;margin-top:14px;justify-content:center">向我发任务 →</a>
+        <a class="btn ghost" style="width:100%;margin-top:6px;color:#fff;border-color:rgba(255,255,255,.2);justify-content:center">购买授权图案</a>
+      </div>
+
+      <div class="about-card">
+        <div class="h2">关于我</div>
+        <div class="muted mt-8" style="font-size:13px">毕业于美院插画系，2024 年起入驻方果，专注女装满印 / 复古插画。承接套图、详情、授权与买断，可与 AI 协作出大批量。</div>
+        <hr class="divider" />
+        <div class="row-c"><span class="l">入驻时间</span><span>2024 年 11 月</span></div>
+        <div class="row-c"><span class="l">所在地</span><span>杭州</span></div>
+        <div class="row-c"><span class="l">主要语言</span><span>中文 / English</span></div>
+        <div class="row-c"><span class="l">响应时间</span><span class="status success">≤ 1 h</span></div>
+        <div class="row-c"><span class="l">违规记录</span><span class="status success">0 次</span></div>
+        <div class="row-c"><span class="l">实名 / 商业认证</span><span class="status success">已通过</span></div>
+      </div>
+
+      <div class="about-card">
+        <div class="h2">擅长风格分布</div>
+        <div class="styles-bars mt-12">
+          <div class="row-b"><span>复古插画</span><div class="bar brand"><i style="width:88%"></i></div><span class="muted right">88%</span></div>
+          <div class="row-b"><span>极简几何</span><div class="bar"><i style="width:62%;background:var(--ink-1)"></i></div><span class="muted right">62%</span></div>
+          <div class="row-b"><span>国潮</span><div class="bar"><i style="width:48%;background:var(--ink-1)"></i></div><span class="muted right">48%</span></div>
+          <div class="row-b"><span>水彩</span><div class="bar"><i style="width:36%;background:var(--ink-1)"></i></div><span class="muted right">36%</span></div>
+          <div class="row-b"><span>儿童卡通</span><div class="bar"><i style="width:20%;background:var(--ink-1)"></i></div><span class="muted right">20%</span></div>
+        </div>
+
+        <hr class="divider" />
+        <div class="h2">主要类目</div>
+        <div class="row wrap mt-12" style="gap:6px">
+          <span class="tag brand">女装满印 ✦</span>
+          <span class="tag">T 恤</span>
+          <span class="tag">家居服</span>
+          <span class="tag">儿童装</span>
+          <span class="tag">手机壳</span>
+        </div>
+      </div>
+
+      <div class="about-card">
+        <div class="row" style="justify-content:space-between"><div class="h2">客户评价 4.86 / 5</div><a class="more muted" href="#">全部 →</a></div>
+        <div class="muted mt-8" style="font-size:12.5px">基于 118 条客户与运营评分</div>
+        <hr class="divider" />
+        <div class="muted" style="font-size:12px">⭐⭐⭐⭐⭐ <strong style="color:var(--ink-1)">"出图速度快、风格稳定，给跨境店铺解决了大量批量问题。"</strong></div>
+        <div class="muted" style="font-size:11px;margin-top:4px">—— 蓝马货盘 · 选品组 · 5/4</div>
+        <hr class="divider" />
+        <div class="muted" style="font-size:12px">⭐⭐⭐⭐⭐ <strong style="color:var(--ink-1)">"对版型重复点理解到位，几乎不返工。"</strong></div>
+        <div class="muted" style="font-size:11px;margin-top:4px">—— 方果 工厂 ERP · 4/27</div>
+      </div>
+
+    </aside>
+  </div>
+
+</main>
+</body>
+</html>

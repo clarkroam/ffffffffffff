@@ -1,0 +1,579 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>我的作品集 · 设计师中心</title>
+<link rel="stylesheet" href="../assets/styles.css" />
+<style>
+  /* Status row counters */
+  .status-row {
+    display: grid; grid-template-columns: repeat(6, 1fr); gap: 10px;
+    margin-bottom: 18px;
+  }
+  .sc {
+    background: var(--bg-canvas); border: 1px solid var(--line);
+    border-radius: var(--r-md); padding: 12px 14px; cursor: pointer;
+  }
+  .sc.on { background: var(--ink-1); color: #fff; border-color: var(--ink-1); }
+  .sc.on .lbl { color: rgba(255,255,255,.6); }
+  .sc .lbl { font-size: 12px; color: var(--ink-3); }
+  .sc .num { font-weight: 700; font-size: 22px; margin-top: 2px; letter-spacing: -.3px; }
+
+  /* Upload zone */
+  .upload-zone {
+    border: 1px dashed var(--line-strong); border-radius: var(--r-lg);
+    background:
+      linear-gradient(135deg, rgba(255,90,31,.04), rgba(110,60,255,.04)),
+      var(--bg-canvas);
+    padding: 22px;
+    display: grid; grid-template-columns: 1fr auto; gap: 18px; align-items: center;
+    margin-bottom: 16px;
+  }
+  .upload-zone .ttl { font-size: 16px; font-weight: 700; }
+  .upload-zone .sub { color: var(--ink-3); font-size: 12.5px; margin-top: 4px; }
+  .upload-zone .qa { display: flex; gap: 8px; margin-top: 12px; }
+  .upload-zone .qa .q {
+    background: var(--bg-soft); padding: 6px 12px; border-radius: var(--r-pill); font-size: 12px;
+    color: var(--ink-2);
+  }
+
+  /* Toolbar */
+  .toolbar {
+    display: flex; gap: 10px; align-items: center;
+    background: var(--bg-canvas); border: 1px solid var(--line);
+    border-radius: var(--r-md); padding: 10px;
+    margin-bottom: 14px;
+  }
+  .toolbar .seg { display: inline-flex; padding: 3px; border: 1px solid var(--line); border-radius: var(--r-pill); background: var(--bg-canvas); }
+  .toolbar .seg button {
+    border: 0; background: transparent; padding: 5px 10px;
+    border-radius: var(--r-pill); color: var(--ink-3); font-size: 12.5px;
+  }
+  .toolbar .seg button.on { background: var(--ink-1); color: #fff; }
+
+  /* Grid */
+  .pf-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 14px; }
+  @media (max-width: 1280px){ .pf-grid { grid-template-columns: repeat(3, 1fr); } }
+  .work {
+    background: var(--bg-canvas); border: 1px solid var(--line);
+    border-radius: var(--r-lg); overflow: hidden; padding: 0;
+    cursor: pointer; transition: transform .15s ease, box-shadow .15s ease;
+  }
+  .work:hover { transform: translateY(-2px); box-shadow: var(--shadow-md); }
+  .work .pic {
+    aspect-ratio: 1/1; position: relative;
+  }
+  .work .pic .badges {
+    position: absolute; top: 8px; left: 8px;
+    display: flex; gap: 4px;
+  }
+  .work .pic .check {
+    position: absolute; top: 8px; right: 8px;
+    width: 18px; height: 18px; border-radius: 4px;
+    background: rgba(255,255,255,.85); border: 1px solid var(--line);
+    color: var(--ink-4); font-size: 11px;
+    display: grid; place-items: center;
+  }
+  .work .pic .stats {
+    position: absolute; left: 8px; bottom: 8px; right: 8px;
+    display: flex; justify-content: space-between;
+    color: rgba(255,255,255,.95); font-size: 11px; font-weight: 500;
+    text-shadow: 0 1px 2px rgba(0,0,0,.4);
+  }
+  .work .body { padding: 10px 12px 12px; }
+  .work .nm { font-weight: 600; font-size: 13.5px; }
+  .work .meta {
+    display: flex; justify-content: space-between; align-items: center;
+    margin-top: 6px; font-size: 12px;
+  }
+  .work .meta .tags { display: flex; gap: 4px; }
+  .work .price { font-weight: 700; }
+  .work .row-stats {
+    display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 6px;
+    margin-top: 6px; font-size: 11px; color: var(--ink-3);
+    padding-top: 6px; border-top: 1px solid var(--line);
+  }
+  .work .row-stats span strong { color: var(--ink-1); }
+
+  /* Empty / new tile */
+  .work.add {
+    border-style: dashed;
+    background: transparent;
+    display: grid; place-items: center; min-height: 280px;
+  }
+  .work.add .ico { font-size: 32px; color: var(--ink-4); }
+
+  /* Status badge color variants */
+  .badge-listed { background: var(--success); color: #fff; }
+  .badge-review { background: var(--warning); color: #fff; }
+  .badge-draft { background: var(--ink-3); color: #fff; }
+  .badge-rejected { background: var(--danger); color: #fff; }
+  .badge-licensed { background: var(--ai); color: #fff; }
+</style>
+</head>
+<body>
+
+<header class="topbar">
+  <a class="logo" href="../index.html"><span class="mark"></span>方果<span style="color:var(--ink-3);font-weight:500">·设计师平台</span></a>
+  <nav>
+    <a href="../index.html">总览</a>
+    <a class="active" href="designer-dashboard.html">设计师中心</a>
+    <a href="task-hall.html">任务大厅</a>
+    <a href="ai-studio.html">AI 创作</a>
+    <a href="templates.html">版型库</a>
+    <a href="commercialize.html">商品化</a>
+    <a href="earnings.html">收益结算</a>
+  </nav>
+  <div class="grow"></div>
+  <div class="switch"><button class="on">设计师视角</button><button>运营视角</button></div>
+  <button class="iconbtn"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 8a6 6 0 1 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10 21a2 2 0 0 0 4 0"/></svg><span class="dot"></span></button>
+  <div class="avatar">L</div>
+</header>
+
+<div class="shell">
+
+  <aside class="sidebar">
+    <div class="group">
+      <div class="group-title">设计师中心</div>
+      <a class="menu" href="designer-dashboard.html">🏠 工作台</a>
+      <a class="menu" href="designer-profile.html">👤 我的设计师主页</a>
+      <a class="menu active" href="portfolio.html">🖼 作品集 <span class="count">128</span></a>
+      <a class="menu" href="task-hall.html">📋 任务大厅 <span class="count">426</span></a>
+      <a class="menu" href="#">🧾 我的报价</a>
+      <a class="menu" href="#">🏷 风格 / 类目标签</a>
+      <a class="menu" href="#">🏆 设计师等级</a>
+      <a class="menu" href="#">📑 版权 / 授权记录</a>
+    </div>
+    <div class="group">
+      <div class="group-title">创作工具</div>
+      <a class="menu" href="ai-studio.html">✨ AI 创作工作台</a>
+      <a class="menu" href="templates.html">📐 模板 / 版型库</a>
+      <a class="menu" href="commercialize.html">🛒 商品化中心</a>
+    </div>
+    <div class="group">
+      <div class="group-title">收益</div>
+      <a class="menu" href="earnings.html">💰 收益看板</a>
+    </div>
+  </aside>
+
+  <main class="main">
+
+    <div class="pagehead">
+      <div>
+        <div class="crumbs">设计师中心 · <span>我的作品集</span></div>
+        <div class="h1">我的作品集</div>
+        <div class="desc">128 件作品 · 分类管理你的所有印花稿、上架商品、授权记录与草稿。</div>
+      </div>
+      <div class="row">
+        <a class="btn" href="designer-profile.html">查看我的公开主页 ↗</a>
+        <a class="btn primary">+ 上传作品</a>
+      </div>
+    </div>
+
+    <!-- Status row -->
+    <div class="status-row">
+      <div class="sc on">
+        <div class="lbl">全部</div>
+        <div class="num tabular">128</div>
+      </div>
+      <div class="sc">
+        <div class="lbl">已上架（在售）</div>
+        <div class="num tabular">84</div>
+      </div>
+      <div class="sc">
+        <div class="lbl">待审核</div>
+        <div class="num tabular">12</div>
+      </div>
+      <div class="sc">
+        <div class="lbl">已授权</div>
+        <div class="num tabular">24</div>
+      </div>
+      <div class="sc">
+        <div class="lbl">草稿</div>
+        <div class="num tabular">6</div>
+      </div>
+      <div class="sc">
+        <div class="lbl">驳回（待修改）</div>
+        <div class="num tabular">2</div>
+      </div>
+    </div>
+
+    <!-- Upload zone -->
+    <div class="upload-zone">
+      <div>
+        <div class="ttl">📤 拖拽或点击上传，单批次最多 80 张</div>
+        <div class="sub">系统会自动跑「质量评分 + 版权风险扫描 + 类目匹配」，再进入审核队列。</div>
+        <div class="qa">
+          <span class="q">📁 本地上传</span>
+          <span class="q">✨ 从 AI 工作台导入</span>
+          <span class="q">🔗 从 URL 抓取（仅授权图）</span>
+          <span class="q">📸 从手机扫码上传</span>
+        </div>
+      </div>
+      <div class="row" style="gap:8px">
+        <a class="btn ghost">查看上传规范</a>
+        <a class="btn brand lg">立即上传 →</a>
+      </div>
+    </div>
+
+    <!-- Toolbar -->
+    <div class="toolbar">
+      <div class="searchbar" style="flex:1; height:36px">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>
+        <input placeholder="搜索作品名 / 编号 / 标签..." />
+      </div>
+      <div class="filterbar">
+        <span class="filter-pill active">全部风格</span>
+        <span class="filter-pill">复古插画</span>
+        <span class="filter-pill">极简几何</span>
+        <span class="filter-pill">国潮</span>
+      </div>
+      <div class="filterbar">
+        <span class="filter-pill active">全部类目</span>
+        <span class="filter-pill">女装满印</span>
+        <span class="filter-pill">家居服</span>
+      </div>
+      <div class="seg">
+        <button class="on">网格</button>
+        <button>列表</button>
+      </div>
+      <select style="border:1px solid var(--line);border-radius:6px;padding:6px 10px;font-size:12.5px;background:#fff">
+        <option>排序：最新上传</option><option>销量</option><option>浏览</option><option>收益</option>
+      </select>
+    </div>
+
+    <!-- Grid -->
+    <div class="pf-grid">
+
+      <div class="work">
+        <div class="pic gradient-1">
+          <span class="badges">
+            <span class="tag badge-listed">已上架</span>
+            <span class="tag gold">爆款</span>
+          </span>
+          <span class="check"></span>
+          <div class="stats"><span>👁 12.4k</span><span>❤ 822</span></div>
+        </div>
+        <div class="body">
+          <div class="nm">复古田园 No.07</div>
+          <div class="meta">
+            <span class="tag">复古插画</span>
+            <span class="price">¥ 198</span>
+          </div>
+          <div class="row-stats">
+            <span>月销 <strong>8,640</strong></span>
+            <span>奖励 <strong>¥4,200</strong></span>
+            <span>评分 <strong>★4.92</strong></span>
+          </div>
+        </div>
+      </div>
+
+      <div class="work">
+        <div class="pic gradient-9">
+          <span class="badges">
+            <span class="tag badge-listed">已上架</span>
+          </span>
+          <span class="check"></span>
+          <div class="stats"><span>👁 6.1k</span><span>❤ 412</span></div>
+        </div>
+        <div class="body">
+          <div class="nm">蕾丝玫瑰 满印 #3</div>
+          <div class="meta">
+            <span class="tag">复古插画</span>
+            <span class="price">¥ 168</span>
+          </div>
+          <div class="row-stats">
+            <span>月销 <strong>2,420</strong></span>
+            <span>分成 <strong>¥920</strong></span>
+            <span>评分 <strong>★4.78</strong></span>
+          </div>
+        </div>
+      </div>
+
+      <div class="work">
+        <div class="pic gradient-12">
+          <span class="badges">
+            <span class="tag badge-licensed">已授权 ×4</span>
+          </span>
+          <span class="check"></span>
+          <div class="stats"><span>👁 4.2k</span></div>
+        </div>
+        <div class="body">
+          <div class="nm">极简几何 v3</div>
+          <div class="meta">
+            <span class="tag">极简几何</span>
+            <span class="price">¥ 380 / 次</span>
+          </div>
+          <div class="row-stats">
+            <span>授权次数 <strong>4</strong></span>
+            <span>累计 <strong>¥1,520</strong></span>
+            <span>授权方 <strong>3 家</strong></span>
+          </div>
+        </div>
+      </div>
+
+      <div class="work">
+        <div class="pic gradient-2">
+          <span class="badges">
+            <span class="tag badge-review">待审核</span>
+          </span>
+          <span class="check"></span>
+          <div class="stats"><span>已提交 5/4</span></div>
+        </div>
+        <div class="body">
+          <div class="nm">蕾丝边女装套图 #4</div>
+          <div class="meta">
+            <span class="tag">复古插画</span>
+            <span class="muted" style="font-size:12px">等待 4h</span>
+          </div>
+          <div class="row-stats">
+            <span>预评分 <strong>★4.6</strong></span>
+            <span>风险 <strong style="color:var(--success)">低 12%</strong></span>
+            <span>5/8 出审</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="work">
+        <div class="pic gradient-4">
+          <span class="badges">
+            <span class="tag badge-listed">已上架</span>
+          </span>
+          <span class="check"></span>
+          <div class="stats"><span>👁 4.8k</span></div>
+        </div>
+        <div class="body">
+          <div class="nm">海岛度假 长裙</div>
+          <div class="meta">
+            <span class="tag">复古插画</span>
+            <span class="price">¥ 168</span>
+          </div>
+          <div class="row-stats">
+            <span>月销 <strong>1,820</strong></span>
+            <span>分成 <strong>¥692</strong></span>
+            <span>评分 <strong>★4.62</strong></span>
+          </div>
+        </div>
+      </div>
+
+      <div class="work">
+        <div class="pic gradient-3">
+          <span class="badges">
+            <span class="tag badge-listed">已上架</span>
+          </span>
+          <span class="check"></span>
+          <div class="stats"><span>👁 3.8k</span></div>
+        </div>
+        <div class="body">
+          <div class="nm">田园碎花 春夏</div>
+          <div class="meta">
+            <span class="tag">复古插画</span>
+            <span class="price">¥ 158</span>
+          </div>
+          <div class="row-stats">
+            <span>月销 <strong>1,260</strong></span>
+            <span>分成 <strong>¥478</strong></span>
+            <span>评分 <strong>★4.52</strong></span>
+          </div>
+        </div>
+      </div>
+
+      <div class="work">
+        <div class="pic gradient-7">
+          <span class="badges">
+            <span class="tag badge-listed">已上架</span>
+          </span>
+          <span class="check"></span>
+          <div class="stats"><span>👁 3.4k</span></div>
+        </div>
+        <div class="body">
+          <div class="nm">修身长袖连衣裙 满印</div>
+          <div class="meta">
+            <span class="tag">极简几何</span>
+            <span class="price">¥ 188</span>
+          </div>
+          <div class="row-stats">
+            <span>月销 <strong>1,140</strong></span>
+            <span>分成 <strong>¥432</strong></span>
+            <span>评分 <strong>★4.62</strong></span>
+          </div>
+        </div>
+      </div>
+
+      <div class="work">
+        <div class="pic gradient-10" style="color:#fff">
+          <span class="badges">
+            <span class="tag" style="background:rgba(255,255,255,.18);color:#fff">AI 协作</span>
+            <span class="tag badge-review">待审核</span>
+          </span>
+          <span class="check"></span>
+          <div class="stats"><span>30 张入库</span></div>
+        </div>
+        <div class="body">
+          <div class="nm">母亲节系列 · 第 1 期</div>
+          <div class="meta">
+            <span class="tag">水彩</span>
+            <span class="muted" style="font-size:12px">提交 5/7</span>
+          </div>
+          <div class="row-stats">
+            <span>批次 <strong>30 张</strong></span>
+            <span>已通过 <strong>26</strong></span>
+            <span>风险 <strong style="color:var(--warning)">2</strong></span>
+          </div>
+        </div>
+      </div>
+
+      <div class="work">
+        <div class="pic gradient-5">
+          <span class="badges">
+            <span class="tag badge-listed">已上架</span>
+          </span>
+          <span class="check"></span>
+          <div class="stats"><span>👁 2.6k</span></div>
+        </div>
+        <div class="body">
+          <div class="nm">水彩花卉 · 浅色</div>
+          <div class="meta">
+            <span class="tag">水彩</span>
+            <span class="price">¥ 178</span>
+          </div>
+          <div class="row-stats">
+            <span>月销 <strong>820</strong></span>
+            <span>分成 <strong>¥312</strong></span>
+            <span>评分 <strong>★4.40</strong></span>
+          </div>
+        </div>
+      </div>
+
+      <div class="work">
+        <div class="pic gradient-6">
+          <span class="badges">
+            <span class="tag badge-listed">已上架</span>
+          </span>
+          <span class="check"></span>
+          <div class="stats"><span>👁 2.2k</span></div>
+        </div>
+        <div class="body">
+          <div class="nm">夏日短款</div>
+          <div class="meta">
+            <span class="tag">极简几何</span>
+            <span class="price">¥ 138</span>
+          </div>
+          <div class="row-stats">
+            <span>月销 <strong>720</strong></span>
+            <span>分成 <strong>¥273</strong></span>
+            <span>评分 <strong>★4.48</strong></span>
+          </div>
+        </div>
+      </div>
+
+      <div class="work">
+        <div class="pic gradient-11">
+          <span class="badges">
+            <span class="tag badge-licensed">已授权 ×2</span>
+          </span>
+          <span class="check"></span>
+          <div class="stats"><span>👁 1.8k</span></div>
+        </div>
+        <div class="body">
+          <div class="nm">温馨家居 印花</div>
+          <div class="meta">
+            <span class="tag">水彩</span>
+            <span class="price">¥ 280 / 次</span>
+          </div>
+          <div class="row-stats">
+            <span>授权次数 <strong>2</strong></span>
+            <span>累计 <strong>¥560</strong></span>
+            <span>评分 <strong>★4.32</strong></span>
+          </div>
+        </div>
+      </div>
+
+      <div class="work">
+        <div class="pic gradient-8" style="color:#fff">
+          <span class="badges">
+            <span class="tag badge-rejected">驳回</span>
+          </span>
+          <span class="check"></span>
+          <div class="stats"><span style="color:#fff">需修改</span></div>
+        </div>
+        <div class="body">
+          <div class="nm">暗黑机能 实验稿</div>
+          <div class="meta">
+            <span class="tag">街头潮流</span>
+            <span class="muted" style="font-size:12px">5/3 驳回</span>
+          </div>
+          <div class="row-stats">
+            <span>原因 <strong>构图</strong></span>
+            <span>评分 <strong>★3.6</strong></span>
+            <span style="color:var(--brand)">去修改 →</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="work">
+        <div class="pic gradient-1" style="opacity:.5">
+          <span class="badges">
+            <span class="tag badge-draft">草稿</span>
+          </span>
+          <span class="check"></span>
+        </div>
+        <div class="body">
+          <div class="nm">复古田园 No.08（草稿）</div>
+          <div class="meta">
+            <span class="tag">复古插画</span>
+            <span class="muted" style="font-size:12px">未发布</span>
+          </div>
+          <div class="row-stats">
+            <span>保存于 5/6</span>
+            <span>3 张完成</span>
+            <span style="color:var(--brand)">继续 →</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="work">
+        <div class="pic gradient-9" style="opacity:.5">
+          <span class="badges">
+            <span class="tag badge-draft">草稿</span>
+          </span>
+          <span class="check"></span>
+        </div>
+        <div class="body">
+          <div class="nm">蕾丝玫瑰 #4（草稿）</div>
+          <div class="meta">
+            <span class="tag">复古插画</span>
+            <span class="muted" style="font-size:12px">未发布</span>
+          </div>
+          <div class="row-stats">
+            <span>保存于 5/4</span>
+            <span>1 张完成</span>
+            <span style="color:var(--brand)">继续 →</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="work add">
+        <div>
+          <div class="ico">＋</div>
+          <div class="muted center">上传新作品</div>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="row" style="justify-content:center;margin-top:18px;gap:6px">
+      <button class="btn sm">‹</button>
+      <button class="btn sm primary">1</button>
+      <button class="btn sm">2</button>
+      <button class="btn sm">3</button>
+      <button class="btn sm">…</button>
+      <button class="btn sm">9</button>
+      <button class="btn sm">›</button>
+    </div>
+
+  </main>
+</div>
+</body>
+</html>
