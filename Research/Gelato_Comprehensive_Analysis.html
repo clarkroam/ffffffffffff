@@ -1,0 +1,1696 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Gelato 综合战略分析报告 · 三视角合议 | 2026</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+<style>
+  :root{
+    --ink:#1A1F3A;
+    --ink-2:#2A3454;
+    --bg:#FAF7F0;
+    --bg-2:#F1ECDF;
+    --paper:#FFFFFF;
+    --line:#1A1F3A22;
+    --line-strong:#1A1F3A55;
+    --muted:#5C6B82;
+
+    --consult:#1A1F3A;
+    --consult-bg:#E5E7F0;
+    --vc:#0E7C58;
+    --vc-bg:#E3F1EA;
+    --rival:#B2351F;
+    --rival-bg:#F6E8E2;
+    --warn:#C77B19;
+    --gelato:#FF6B35;       /* gelato signature orange */
+    --gelato-bg:#FFE7DC;
+    --gold:#D49652;
+
+    --serif: "Source Serif Pro", "Noto Serif SC", Georgia, "Songti SC", serif;
+    --sans:  "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+    --mono:  "JetBrains Mono", "SF Mono", Menlo, Consolas, monospace;
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{font-family:var(--sans);color:var(--ink);background:var(--bg);font-size:15px;line-height:1.7;-webkit-font-smoothing:antialiased;}
+
+  .wrap{display:grid;grid-template-columns:280px 1fr;max-width:1400px;margin:0 auto;}
+  nav.toc{position:sticky;top:0;align-self:start;height:100vh;overflow-y:auto;background:var(--ink);color:#D8DDE6;padding:32px 24px 60px;border-right:1px solid var(--ink-2);}
+  nav.toc h2{font-family:var(--serif);font-weight:600;font-size:18px;letter-spacing:.02em;color:#fff;margin:0 0 4px;}
+  nav.toc h2::after{content:" ";display:inline-block;width:8px;height:8px;background:var(--gelato);border-radius:50%;margin-left:6px;}
+  nav.toc .sub{font-size:11px;color:#8893A8;letter-spacing:.18em;text-transform:uppercase;margin-bottom:24px;border-bottom:1px solid #2B3A56;padding-bottom:14px;}
+  nav.toc .group{margin-top:18px;}
+  nav.toc .group-title{font-size:10px;letter-spacing:.2em;color:#7A8AA8;text-transform:uppercase;margin-bottom:8px;display:flex;align-items:center;gap:8px;}
+  nav.toc .group-title .dot{width:6px;height:6px;border-radius:50%;background:var(--gelato);}
+  nav.toc .group.consult .dot{background:#A6B4D8;}
+  nav.toc .group.vc .dot{background:#52C19A;}
+  nav.toc .group.rival .dot{background:#E68A6E;}
+  nav.toc .group.growth .dot{background:#F0B056;}
+  nav.toc a{display:block;color:#C5CDDC;text-decoration:none;font-size:13px;padding:5px 0 5px 14px;border-left:1px solid #2B3A56;line-height:1.45;transition:all .15s;}
+  nav.toc a:hover{color:#fff;border-left-color:var(--gelato);}
+  nav.toc a .num{font-family:var(--mono);font-size:11px;color:#7A8AA8;margin-right:6px;}
+
+  main{padding:0 56px 80px;background:var(--bg);}
+
+  .hero{padding:72px 0 56px;border-bottom:1px solid var(--line);}
+  .hero .eyebrow{font-size:11px;letter-spacing:.28em;text-transform:uppercase;color:var(--gelato);margin-bottom:18px;font-weight:700;}
+  .hero h1{font-family:var(--serif);font-weight:600;font-size:52px;line-height:1.1;letter-spacing:-.01em;margin:0 0 18px;}
+  .hero .lead{font-size:19px;line-height:1.55;color:var(--ink-2);max-width:820px;margin:0 0 28px;}
+  .hero .meta{display:flex;gap:32px;flex-wrap:wrap;font-size:13px;color:var(--muted);padding-top:20px;border-top:1px solid var(--line);}
+  .hero .meta b{color:var(--ink);font-weight:600;display:block;font-size:11px;letter-spacing:.2em;text-transform:uppercase;margin-bottom:4px;}
+
+  .three-views{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin:48px 0 0;}
+  .pv-card{border:1px solid var(--line);background:var(--paper);padding:28px;border-radius:2px;position:relative;overflow:hidden;}
+  .pv-card::before{content:"";position:absolute;top:0;left:0;right:0;height:4px;}
+  .pv-card.consult::before{background:var(--consult);}
+  .pv-card.vc::before{background:var(--vc);}
+  .pv-card.rival::before{background:var(--rival);}
+  .pv-card .role{font-size:11px;letter-spacing:.2em;text-transform:uppercase;font-weight:600;}
+  .pv-card.consult .role{color:var(--consult);}
+  .pv-card.vc .role{color:var(--vc);}
+  .pv-card.rival .role{color:var(--rival);}
+  .pv-card h3{font-family:var(--serif);font-weight:600;font-size:24px;line-height:1.2;margin:6px 0 12px;}
+  .pv-card .verdict{font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);margin:14px 0 6px;font-weight:600;}
+  .pv-card p{margin:0;font-size:14px;color:var(--ink-2);}
+  .pv-card .stamp{margin-top:16px;display:inline-block;font-family:var(--mono);font-size:11px;padding:4px 10px;border-radius:2px;}
+  .pv-card.consult .stamp{background:var(--consult-bg);color:var(--consult);}
+  .pv-card.vc .stamp{background:var(--vc-bg);color:var(--vc);}
+  .pv-card.rival .stamp{background:var(--rival-bg);color:var(--rival);}
+
+  section{padding:72px 0 0;scroll-margin-top:24px;}
+  section.section{border-top:1px solid var(--line);margin-top:60px;}
+  .section-num{font-family:var(--mono);font-size:12px;color:var(--muted);letter-spacing:.18em;}
+  .section-tag{display:inline-block;font-size:10px;letter-spacing:.22em;text-transform:uppercase;font-weight:700;padding:4px 10px;border-radius:2px;margin-left:10px;vertical-align:middle;}
+  .section-tag.consult{background:var(--consult-bg);color:var(--consult);}
+  .section-tag.vc{background:var(--vc-bg);color:var(--vc);}
+  .section-tag.rival{background:var(--rival-bg);color:var(--rival);}
+  .section-tag.synth{background:#F2EDDF;color:var(--gold);}
+  .section-tag.growth{background:var(--gelato-bg);color:var(--gelato);}
+  h2.section-title{font-family:var(--serif);font-weight:600;font-size:34px;line-height:1.15;margin:8px 0 6px;letter-spacing:-.01em;}
+  .section-deck{font-size:16px;color:var(--muted);max-width:820px;margin:0 0 36px;}
+
+  p{font-size:15px;line-height:1.75;color:var(--ink-2);margin:0 0 14px;}
+  h3.h{font-family:var(--serif);font-weight:600;font-size:22px;margin:32px 0 12px;letter-spacing:-.005em;}
+  h4.h{font-family:var(--sans);font-weight:700;font-size:14px;letter-spacing:.04em;text-transform:uppercase;margin:24px 0 10px;color:var(--ink);}
+  blockquote{border-left:3px solid var(--gelato);margin:20px 0;padding:6px 0 6px 20px;font-style:italic;color:var(--ink-2);max-width:820px;}
+  .pull{font-family:var(--serif);font-size:22px;line-height:1.45;color:var(--ink);max-width:820px;margin:28px 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding:22px 0;}
+
+  .kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--line-strong);border:1px solid var(--line-strong);margin:24px 0;}
+  .kpi{background:var(--paper);padding:20px 18px;}
+  .kpi .lbl{font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);margin-bottom:6px;}
+  .kpi .val{font-family:var(--serif);font-size:30px;font-weight:600;color:var(--ink);line-height:1;}
+  .kpi .sub{font-size:12px;color:var(--muted);margin-top:4px;}
+
+  table{width:100%;border-collapse:collapse;margin:18px 0 28px;font-size:13px;}
+  table th,table td{padding:10px 12px;text-align:left;border-bottom:1px solid var(--line);vertical-align:top;}
+  table th{font-size:10px;letter-spacing:.18em;text-transform:uppercase;font-weight:700;color:var(--muted);background:transparent;border-bottom:1.5px solid var(--ink);}
+  table tr:hover{background:var(--bg-2);}
+  table .accent{font-weight:600;color:var(--ink);}
+  table .num{font-family:var(--mono);text-align:right;}
+  .tag{display:inline-block;font-size:10px;letter-spacing:.1em;text-transform:uppercase;font-weight:700;padding:2px 7px;border-radius:2px;}
+  .tag.green{background:var(--vc-bg);color:var(--vc);}
+  .tag.red{background:var(--rival-bg);color:var(--rival);}
+  .tag.amber{background:#F5E8C8;color:#8B6913;}
+  .tag.blue{background:#E5ECF6;color:#1E3A6F;}
+  .tag.gray{background:#E5E7EB;color:#4B5563;}
+  .tag.orange{background:var(--gelato-bg);color:var(--gelato);}
+
+  .grid-2{display:grid;grid-template-columns:1fr 1fr;gap:24px;margin:18px 0;}
+  .grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin:18px 0;}
+  .grid-4{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin:18px 0;}
+  .card{background:var(--paper);border:1px solid var(--line);padding:22px;border-radius:2px;}
+  .card .hd{font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);margin-bottom:6px;font-weight:700;}
+  .card h4{margin:0 0 8px;font-family:var(--serif);font-size:18px;font-weight:600;}
+  .card p{font-size:13.5px;line-height:1.65;margin:0;color:var(--ink-2);}
+  .card.consult{border-top:3px solid var(--consult);}
+  .card.vc{border-top:3px solid var(--vc);}
+  .card.rival{border-top:3px solid var(--rival);}
+  .card.gelato{border-top:3px solid var(--gelato);}
+
+  .timeline{position:relative;margin:30px 0;padding-left:30px;border-left:2px solid var(--ink);}
+  .tl-item{position:relative;margin-bottom:26px;padding-left:18px;}
+  .tl-item::before{content:"";position:absolute;left:-39px;top:6px;width:14px;height:14px;background:var(--paper);border:2px solid var(--ink);border-radius:50%;}
+  .tl-item.major::before{background:var(--gelato);border-color:var(--gelato);}
+  .tl-item .yr{font-family:var(--mono);font-size:12px;color:var(--muted);font-weight:700;}
+  .tl-item .ev{font-family:var(--serif);font-size:17px;font-weight:600;margin:2px 0 4px;}
+  .tl-item p{margin:0;font-size:13.5px;color:var(--ink-2);}
+
+  .swot{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--ink);border:1px solid var(--ink);margin:20px 0;}
+  .swot > div{background:var(--paper);padding:24px;}
+  .swot h4{font-family:var(--serif);font-size:18px;margin:0 0 4px;font-weight:600;}
+  .swot .lbl{font-size:10px;letter-spacing:.22em;text-transform:uppercase;font-weight:700;margin-bottom:10px;}
+  .swot .S{color:var(--vc);} .swot .W{color:var(--rival);} .swot .O{color:#1E3A6F;} .swot .T{color:var(--warn);}
+  .swot ul{margin:8px 0 0;padding-left:18px;font-size:13px;color:var(--ink-2);}
+  .swot li{margin-bottom:6px;}
+
+  .porter{display:grid;grid-template-columns:1fr 1fr 1fr;grid-template-rows:auto auto auto;gap:16px;margin:20px 0;}
+  .porter .force{background:var(--paper);border:1px solid var(--line);padding:18px;border-radius:2px;}
+  .porter .force .head{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;}
+  .porter .force .nm{font-family:var(--serif);font-size:16px;font-weight:600;}
+  .porter .force .scale{font-family:var(--mono);font-size:11px;}
+  .porter .center{grid-column:2;grid-row:2;background:var(--ink);color:#fff;padding:24px;text-align:center;display:flex;flex-direction:column;justify-content:center;}
+  .porter .center h4{font-family:var(--serif);margin:0 0 6px;font-size:20px;font-weight:600;color:#fff;}
+  .porter .center p{font-size:12px;color:#A6B4D8;margin:0;}
+  .force.high{border-top:3px solid var(--rival);}
+  .force.med{border-top:3px solid var(--warn);}
+  .force.low{border-top:3px solid var(--vc);}
+  .meter{height:5px;background:#E5E7EB;border-radius:2px;overflow:hidden;margin-top:10px;}
+  .meter > div{height:100%;}
+  .meter.high > div{width:80%;background:var(--rival);}
+  .meter.med > div{width:55%;background:var(--warn);}
+  .meter.low > div{width:30%;background:var(--vc);}
+
+  .chartbox{background:var(--paper);border:1px solid var(--line);padding:24px;margin:20px 0;border-radius:2px;}
+  .chartbox h4{margin:0 0 4px;font-family:var(--serif);font-size:18px;font-weight:600;}
+  .chartbox .src{font-size:11px;color:var(--muted);margin-top:6px;letter-spacing:.04em;}
+  .chartbox canvas{max-height:340px;}
+
+  .worldmap{background:var(--paper);border:1px solid var(--line);padding:30px;border-radius:2px;margin:20px 0;position:relative;}
+  .worldmap svg{width:100%;height:auto;display:block;}
+  .worldmap .legend{display:flex;gap:24px;margin-top:14px;font-size:12px;color:var(--muted);flex-wrap:wrap;}
+  .worldmap .legend .ll{display:flex;align-items:center;gap:6px;}
+  .worldmap .legend .dot{width:10px;height:10px;border-radius:50%;background:var(--gelato);}
+  .worldmap .legend .dot.hub{background:var(--ink);}
+
+  .matrix{position:relative;background:var(--paper);border:1px solid var(--line);padding:30px 30px 30px 60px;margin:20px 0;border-radius:2px;}
+  .matrix .grid{position:relative;height:380px;border:1px solid var(--ink);}
+  .matrix .grid::before,.matrix .grid::after{content:"";position:absolute;background:var(--line);}
+  .matrix .grid::before{top:0;bottom:0;left:50%;width:1px;}
+  .matrix .grid::after{left:0;right:0;top:50%;height:1px;}
+  .matrix .axis-x{position:absolute;bottom:-26px;left:0;right:0;display:flex;justify-content:space-between;font-size:11px;color:var(--muted);letter-spacing:.15em;text-transform:uppercase;}
+  .matrix .axis-y{position:absolute;left:-50px;top:0;bottom:0;writing-mode:vertical-rl;transform:rotate(180deg);display:flex;justify-content:space-between;font-size:11px;color:var(--muted);letter-spacing:.15em;text-transform:uppercase;}
+  .matrix .pin{position:absolute;transform:translate(-50%,-50%);}
+  .matrix .pin .dot{width:14px;height:14px;border-radius:50%;border:2px solid var(--ink);background:var(--gelato);box-shadow:0 0 0 4px rgba(255,255,255,.8);}
+  .matrix .pin.us .dot{background:var(--rival);}
+  .matrix .pin.print .dot{background:#0A1628;}
+  .matrix .pin.shop .dot{background:#10B981;}
+  .matrix .pin.eb .dot{background:#9CA3AF;}
+  .matrix .pin .lbl{position:absolute;top:18px;left:50%;transform:translateX(-50%);white-space:nowrap;font-family:var(--serif);font-weight:600;font-size:13px;background:var(--paper);padding:2px 6px;}
+  .matrix .quad-lbl{position:absolute;font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:#9CA3AF;font-weight:700;}
+
+  .battle{display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px;margin:16px 0;}
+  .bc{background:var(--paper);border:1px solid var(--line);padding:18px;}
+  .bc .vec{font-family:var(--mono);font-size:11px;color:var(--rival);letter-spacing:.16em;font-weight:700;}
+  .bc h4{font-family:var(--serif);font-size:17px;margin:8px 0 6px;font-weight:600;}
+  .bc .strat{font-size:12px;color:var(--muted);margin-bottom:8px;font-style:italic;}
+  .bc p{font-size:13px;margin:0;}
+  .bc .ko{margin-top:10px;font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--rival);font-weight:700;}
+
+  .riskmap{display:grid;grid-template-columns:80px repeat(3,1fr);gap:6px;margin:20px 0;}
+  .riskmap .col-h{font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);text-align:center;font-weight:700;padding:6px;}
+  .riskmap .row-h{font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);font-weight:700;display:flex;align-items:center;justify-content:flex-end;padding:6px;}
+  .riskmap .cell{background:var(--paper);border:1px solid var(--line);padding:12px;min-height:90px;}
+  .riskmap .cell.hot{background:#FBE2DA;}
+  .riskmap .cell.warm{background:#FBEFD8;}
+  .riskmap .cell.cool{background:#E3F1EA;}
+  .riskmap .cell .r{display:block;font-size:12px;font-weight:600;margin-bottom:3px;}
+  .riskmap .cell .rd{font-size:11px;color:var(--muted);}
+
+  .verdict-block{background:var(--ink);color:#fff;padding:36px 40px;margin:32px 0;border-radius:2px;position:relative;overflow:hidden;}
+  .verdict-block::before{content:"";position:absolute;top:0;right:0;width:120px;height:120px;background:var(--gelato);opacity:.12;border-bottom-left-radius:120px;}
+  .verdict-block .lbl{font-family:var(--mono);font-size:11px;letter-spacing:.2em;color:var(--gelato);margin-bottom:14px;}
+  .verdict-block h3{font-family:var(--serif);font-weight:600;font-size:24px;margin:0 0 14px;color:#fff;}
+  .verdict-block p{color:#C5CDDC;font-size:14px;margin:0 0 8px;max-width:none;}
+  .verdict-block .three{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:22px;border-top:1px solid #2B3A56;padding-top:22px;}
+  .verdict-block .three .role{font-size:10px;letter-spacing:.22em;color:var(--gelato);font-weight:700;text-transform:uppercase;margin-bottom:4px;}
+  .verdict-block .three b{display:block;font-family:var(--serif);font-size:16px;color:#fff;font-weight:600;margin-bottom:4px;}
+  .verdict-block .three p{font-size:12.5px;color:#A6B4D8;}
+
+  .org{margin:20px 0;display:flex;flex-direction:column;align-items:center;gap:18px;}
+  .org .level{display:flex;justify-content:center;gap:14px;flex-wrap:wrap;width:100%;}
+  .org .node{background:var(--paper);border:1px solid var(--line);padding:14px 18px;text-align:center;min-width:160px;border-radius:2px;}
+  .org .node.exec{background:var(--ink);color:#fff;border-color:var(--ink);}
+  .org .node.exec .role{color:#A6B4D8;}
+  .org .node .role{font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);font-weight:700;}
+  .org .node .nm{font-family:var(--serif);font-weight:600;font-size:14px;margin-top:4px;}
+  .org .node.dept{background:var(--bg-2);border-style:dashed;}
+  .org .conn{height:14px;width:1px;background:var(--ink);}
+
+  .funnel{display:flex;flex-direction:column;gap:6px;margin:18px 0;}
+  .funnel .stage{background:var(--paper);border:1px solid var(--line);padding:14px 22px;display:grid;grid-template-columns:90px 1fr 130px;gap:16px;align-items:center;border-left:5px solid var(--gold);}
+  .funnel .stage .ph{font-family:var(--mono);font-size:11px;font-weight:700;color:var(--gelato);letter-spacing:.16em;}
+  .funnel .stage h4{margin:0 0 4px;font-family:var(--serif);font-size:16px;font-weight:600;}
+  .funnel .stage p{margin:0;font-size:13px;color:var(--ink-2);}
+  .funnel .stage .res{font-family:var(--mono);font-size:11px;color:var(--muted);text-align:right;}
+  .funnel .stage:nth-child(1){border-left-color:#1A1F3A;}
+  .funnel .stage:nth-child(2){border-left-color:#5A6580;}
+  .funnel .stage:nth-child(3){border-left-color:#FF6B35;}
+  .funnel .stage:nth-child(4){border-left-color:#0E7C58;}
+  .funnel .stage:nth-child(5){border-left-color:#D49652;}
+
+  .tactic-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;margin:16px 0;}
+  .tac{background:var(--paper);border:1px solid var(--line);padding:18px;display:grid;grid-template-columns:50px 1fr;gap:14px;}
+  .tac .nm{font-family:var(--serif);font-size:34px;color:var(--gelato);font-weight:600;line-height:1;}
+  .tac h4{margin:0 0 6px;font-family:var(--serif);font-size:16px;font-weight:600;}
+  .tac p{margin:0;font-size:13px;color:var(--ink-2);}
+  .tac .res{margin-top:8px;font-family:var(--mono);font-size:10.5px;color:var(--vc);letter-spacing:.1em;text-transform:uppercase;font-weight:700;}
+
+  /* product trio */
+  .trio{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin:22px 0;}
+  .trio .box{background:var(--paper);border:1px solid var(--line);padding:24px;position:relative;border-radius:2px;}
+  .trio .box::before{content:"";position:absolute;top:0;left:0;right:0;height:4px;background:var(--gelato);}
+  .trio .box.b2 ::before{background:#1A1F3A;}
+  .trio .box.b3 ::before{background:#0E7C58;}
+  .trio .box .label{font-family:var(--mono);font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--gelato);font-weight:700;margin-bottom:6px;}
+  .trio .box.b2 .label{color:#1A1F3A;}
+  .trio .box.b3 .label{color:#0E7C58;}
+  .trio .box h4{margin:0 0 4px;font-family:var(--serif);font-size:20px;font-weight:600;}
+  .trio .box .audience{font-size:12px;color:var(--muted);margin-bottom:10px;font-style:italic;}
+  .trio .box p{font-size:13px;margin:0;color:var(--ink-2);}
+
+  footer{margin-top:90px;padding:36px 0;border-top:1px solid var(--line);font-size:12px;color:var(--muted);}
+  footer .src{margin-top:14px;}
+
+  @media (max-width:1100px){
+    .wrap{grid-template-columns:1fr;}
+    nav.toc{position:relative;height:auto;}
+    main{padding:0 28px 60px;}
+    .three-views,.grid-3,.grid-4,.battle,.kpis,.tactic-grid,.trio{grid-template-columns:1fr 1fr;}
+    .porter{grid-template-columns:1fr;}
+    .porter .center{grid-column:auto;grid-row:auto;}
+    .funnel .stage{grid-template-columns:80px 1fr;}
+    .funnel .stage .res{grid-column:1/-1;text-align:left;}
+  }
+  @media print{
+    nav.toc{display:none;}
+    .wrap{grid-template-columns:1fr;}
+    main{padding:0;}
+  }
+</style>
+</head>
+<body>
+
+<div class="wrap">
+
+<!-- Sidebar -->
+<nav class="toc">
+  <h2>Gelato</h2>
+  <div class="sub">综合战略分析 · 2026 Q2</div>
+
+  <div class="group">
+    <div class="group-title"><span class="dot"></span>第一部 · 公司全景</div>
+    <a href="#hero"><span class="num">00</span>封面与三视角速览</a>
+    <a href="#exec"><span class="num">01</span>执行摘要</a>
+    <a href="#overview"><span class="num">02</span>发展概况</a>
+    <a href="#snapshot"><span class="num">03</span>公司画像 Snapshot</a>
+    <a href="#timeline"><span class="num">04</span>发展历程时间线</a>
+  </div>
+
+  <div class="group">
+    <div class="group-title"><span class="dot"></span>第二部 · 业务运营</div>
+    <a href="#bizmodel"><span class="num">05</span>业务模式 BMC</a>
+    <a href="#network"><span class="num">06</span>全球履约网络</a>
+    <a href="#org"><span class="num">07</span>团队与组织</a>
+    <a href="#revenue"><span class="num">08</span>营收 10 年走势</a>
+    <a href="#profit"><span class="num">09</span>利润与单位经济</a>
+    <a href="#trends"><span class="num">10</span>发展趋势 8 大方向</a>
+  </div>
+
+  <div class="group growth">
+    <div class="group-title"><span class="dot"></span>第三部 · 增长引擎</div>
+    <a href="#zerotoone"><span class="num">11</span>0→1 客户获取之路</a>
+    <a href="#growthstack"><span class="num">12</span>用户增长手段全栈</a>
+    <a href="#channel"><span class="num">13</span>营销渠道矩阵</a>
+  </div>
+
+  <div class="group consult">
+    <div class="group-title"><span class="dot"></span>第四部 · 咨询视角</div>
+    <a href="#strategy"><span class="num">14</span>战略定位</a>
+    <a href="#valuechain"><span class="num">15</span>价值链与生态</a>
+    <a href="#moat"><span class="num">16</span>战略护城河</a>
+    <a href="#ops"><span class="num">17</span>运营与效率</a>
+  </div>
+
+  <div class="group vc">
+    <div class="group-title"><span class="dot"></span>第五部 · VC 视角</div>
+    <a href="#tam"><span class="num">18</span>市场规模 TAM</a>
+    <a href="#cap"><span class="num">19</span>资本路径与估值</a>
+    <a href="#fin"><span class="num">20</span>财务模型与 IPO</a>
+    <a href="#peers"><span class="num">21</span>对标公司</a>
+  </div>
+
+  <div class="group rival">
+    <div class="group-title"><span class="dot"></span>第六部 · 竞品视角</div>
+    <a href="#us"><span class="num">22</span>我方画像</a>
+    <a href="#weak"><span class="num">23</span>对手弱点雷达</a>
+    <a href="#vectors"><span class="num">24</span>6 大攻击向量</a>
+    <a href="#playbook"><span class="num">25</span>作战手册</a>
+  </div>
+
+  <div class="group">
+    <div class="group-title"><span class="dot"></span>第七部 · 综合分析</div>
+    <a href="#swot"><span class="num">26</span>SWOT 综合</a>
+    <a href="#porter"><span class="num">27</span>Porter 五力</a>
+    <a href="#bcg"><span class="num">28</span>战略矩阵</a>
+    <a href="#risk"><span class="num">29</span>风险地图</a>
+    <a href="#verdict"><span class="num">30</span>三视角合议</a>
+    <a href="#sources"><span class="num">31</span>来源与方法</a>
+  </div>
+</nav>
+
+<main>
+
+<!-- HERO -->
+<section id="hero" class="hero">
+  <div class="eyebrow">Gelato Group · Print-on-Demand · 2026 Q2 · 三视角合议</div>
+  <h1>从挪威 Optimalprint 到全球 SaaS 平台：<br/>Gelato 的轻资产护城河与 GelatoConnect 想象力</h1>
+  <p class="lead">
+    本报告以三种身份——<b>顶级管理咨询顾问</b>、<b>头部成长型 VC</b>、<b>定位为「整合 POD 供应链 + 电商 + 内容」的竞争对手</b>——对 gelato.com 进行综合诊断。
+    Gelato 是与 Printful 同处 POD 一线的玩家，但走的是<b>截然相反的路线</b>：不拥有任何工厂，而以 140+ 个全球印厂合作伙伴构建分布式履约网络；
+    在为创作者提供 POD 服务（GelatoCreate）之外，向全行业印厂输出生产管理 SaaS（GelatoConnect 3.0）；并继承 Optimalprint 消费品牌（GelatoConsumer），
+    形成 <b>三层平台叙事</b>。Gelato 在 2021/8 完成 $240M Series D 融资跻身独角兽，是 Insight Partners + SoftBank Vision Fund 2 的共同押注。
+  </p>
+  <div class="meta">
+    <div><b>Subject</b>Gelato AS</div>
+    <div><b>Founded</b>2007 · Oslo, Norway</div>
+    <div><b>Founder &amp; CEO</b>Henrik Müller-Hansen</div>
+    <div><b>Status</b>Unicorn $1.05B（2021/8 Series D）</div>
+    <div><b>Total Funding</b>$269M · 4 轮</div>
+    <div><b>2024 Revenue</b>~$96.5M (Latka，平台口径)</div>
+    <div><b>Employees</b>~482 · 26 国办公</div>
+    <div><b>Report Date</b>2026-05-11</div>
+  </div>
+
+  <div class="three-views">
+    <div class="pv-card consult">
+      <div class="role">视角 1 · 顶级咨询</div>
+      <h3>资产轻 + 三层平台是优雅战略</h3>
+      <div class="verdict">核心判断</div>
+      <p>140 印厂网络 + GelatoConnect SaaS + Optimalprint 消费品牌的三层架构，在 POD 行业中是<b>唯一具备 SaaS 估值锚点</b>的设计。短板在于规模（$96M）远小于 FYUL，护城河深度需要 GelatoConnect 持续放量验证。</p>
+      <span class="stamp">建议：双倍下注 GelatoConnect</span>
+    </div>
+    <div class="pv-card vc">
+      <div class="role">视角 2 · 成长型 VC</div>
+      <h3>独立 SaaS 估值更纯净</h3>
+      <div class="verdict">投资观点</div>
+      <p>Gelato 的财务结构比 FYUL 更纯净——印厂自营成本不在表内，毛利结构更接近 SaaS。若 GelatoConnect 渗透率持续，其 EV/Revenue 乘数有望 8–12×；IPO 估值 Bull Case <b>$3.5–5B</b>。</p>
+      <span class="stamp">建议：跟踪至 ARR 翻倍点入场</span>
+    </div>
+    <div class="pv-card rival">
+      <div class="role">视角 3 · 我方（竞品）</div>
+      <h3>Gelato 是更"聪明"的对手，也最值得借鉴</h3>
+      <div class="verdict">作战判断</div>
+      <p>Gelato 的本地化生产 + SaaS 中台 + 三层平台与我方"内容 × 供应链"目标位最重叠。直接对抗成本高；建议<b>战略联盟或局部合作</b>，把 Gelato 作为合作伙伴而非主战场对手。</p>
+      <span class="stamp">建议：合作 + 错位 + 学习</span>
+    </div>
+  </div>
+</section>
+
+<!-- 01 EXEC SUMMARY -->
+<section id="exec" class="section">
+  <div class="section-num">01 · 第一部 · 公司全景</div>
+  <h2 class="section-title">执行摘要：三视角合议核心结论</h2>
+  <p class="section-deck">三种视角对 Gelato 的诊断、共识与分歧。</p>
+
+  <div class="kpis">
+    <div class="kpi"><div class="lbl">2024 平台营收</div><div class="val">$96.5M</div><div class="sub">Latka 口径，含创作者 + 商家</div></div>
+    <div class="kpi"><div class="lbl">2022 集团营收</div><div class="val">€107M</div><div class="sub">YoY +24%（含 Optimalprint）</div></div>
+    <div class="kpi"><div class="lbl">2021 估值</div><div class="val">$1.05B</div><div class="sub">Series D / Insight Partners 领投</div></div>
+    <div class="kpi"><div class="lbl">本地化履约率</div><div class="val">99%</div><div class="sub">同一区域 / 87% 同一国家</div></div>
+  </div>
+
+  <h3 class="h">三方共识</h3>
+  <p>共识五点：①Gelato 的<b>本地化分布式生产</b>是 POD 行业最优雅的可持续叙事——99% 同区域 / 87% 同国家 / -67% 碳排放；②<b>GelatoConnect 3.0</b> 是其唯一具备纯 SaaS 估值乘数的资产；③与 Printful/FYUL 相比，规模较小但财务结构更纯净；④2021 年 Series D 后的 4 年增长趋缓，从 2022 年峰值 €107M 到 2024 平台口径 $96.5M 出现波动，需要新故事重启增长；⑤AIGC 与本地化是 Gelato 的天然契合点，CreatorAI suite 已有清晰布局。</p>
+
+  <h3 class="h">三方分歧</h3>
+  <table>
+    <thead><tr><th>分歧议题</th><th>咨询观点</th><th>VC 观点</th><th>我方（竞品）观点</th></tr></thead>
+    <tbody>
+      <tr><td class="accent">规模 vs 模式纯净</td><td>规模不足将限制谈判力</td><td>纯净度比规模更重要</td><td>规模差距是我方的进入窗口</td></tr>
+      <tr><td class="accent">GelatoConnect 路线</td><td>必须从印厂渗透率上突破</td><td>是估值乘数关键支点</td><td>是无法短期模仿的高门槛</td></tr>
+      <tr><td class="accent">Optimalprint 价值</td><td>可拆分独立或剥离</td><td>消费业务拖低估值乘数</td><td>是 Gelato 的现金流地基，不可撼动</td></tr>
+      <tr><td class="accent">FYUL 合并的影响</td><td>Gelato 处于"小而美"位置</td><td>反而获得估值溢价</td><td>FYUL 整合期是双方共同窗口</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<!-- 02 OVERVIEW -->
+<section id="overview" class="section">
+  <div class="section-num">02 · 第一部 · 公司全景</div>
+  <h2 class="section-title">发展概况：从葡萄牙海滩到挪威独角兽</h2>
+  <p class="section-deck">用六个维度浓缩 Gelato 19 年发展轨迹。</p>
+
+  <div class="grid-2">
+    <div class="card">
+      <div class="hd">起源</div>
+      <h4>一篇杂志文章引发的创业</h4>
+      <p>2006 年，挪威电信高管 Henrik Müller-Hansen 在葡萄牙度假时读到一篇标题为<b>《Printing for Peanuts; making the world's highest profit margins》</b>的文章——
+        印刷业是一门"暴利但极度低效"的生意。他立刻意识到：如果不靠拥有打印机，而是用云端软件协调全球印厂，可以彻底改写这个行业。
+        2007 年，他在奥斯陆与 Pål T. Næss、Mike Arbuzov 一起创立了 Optimalprint（消费品牌）。</p>
+    </div>
+    <div class="card">
+      <div class="hd">创始人背景</div>
+      <h4>电信运营商出身的"分布式系统"思维</h4>
+      <p>Henrik 创业前是 <b>Tele2 Norway CEO</b>，把这家挪威电信公司从 NOK 1.5B 做到 NOK 3.2B。
+        电信思维深刻塑造了 Gelato 的早期架构——<b>不拥有基础设施，调度即生产</b>。
+        这与传统印刷企业的"重资产 + 区域垄断"形成根本差异，也是 Gelato 后来 SaaS 化路线的思想原点。</p>
+    </div>
+    <div class="card">
+      <div class="hd">两阶段架构</div>
+      <h4>Optimalprint (2007) → Gelato (2012)</h4>
+      <p>2007 年 Optimalprint 作为消费 PoD 品牌起步，覆盖欧美 23 国市场，提供个人化照片和设计产品。
+        2012 年 8 月，Gelato 作为<b>底层平台层</b>从 Optimalprint 内部拆分出来，向第三方电商商家开放使用。
+        到 2016 年，集团营收已达 NOK 335M（约 $40M），成为北欧最大的分布式 PoD 玩家。</p>
+    </div>
+    <div class="card">
+      <div class="hd">独角兽时刻</div>
+      <h4>2021/8 Insight Partners 领投 $240M Series D</h4>
+      <p>2021 年 8 月 16 日，Gelato 完成 Series D 融资，金额 $240M，由 Insight Partners 领投，<b>SoftBank Vision Fund 2</b>、Goldman Sachs Asset Management 与早期投资人 Dawn Capital、SEB 养老基金跟投，估值 $1.05B。
+        当时 Q2 营收 YoY +120%，API 业务 YoY +320%。这是挪威首批"软件型"独角兽之一。</p>
+    </div>
+    <div class="card">
+      <div class="hd">SaaS 转身</div>
+      <h4>GelatoConnect 3.0 — 印厂操作系统</h4>
+      <p>近两年 Gelato 的最大动作是发布 GelatoConnect 3.0：把 Gelato 内部用了 17 年的<b>印厂操作系统</b>对外 SaaS 化，向所有印刷企业（不限于 Gelato 网络伙伴）出售。
+        包含 Procurement / Workflow / Logistics 三模块，AI 驱动，号称将印厂利润率提升 3–7 个百分点（McKinsey 验证）。
+        印厂错误率降至 0.35% 以下。已在 30+ 国家落地。</p>
+    </div>
+    <div class="card">
+      <div class="hd">可持续叙事</div>
+      <h4>Net Zero by 2030</h4>
+      <p>Gelato 把"本地化生产"包装为<b>气候议题</b>：相比集中工厂模式，Gelato 模式可减少 67% 单订单碳排放、降低 95% 运输距离。
+        2020 年起每年发布 Sustainability Report，2030 年 Net Zero 是公开承诺。
+        这一叙事不仅吸引 ESG 资本，也让 Gelato 成为欧洲品牌商家在跨境采购时的首选合作方。</p>
+    </div>
+  </div>
+
+  <div class="pull">
+    "Gelato 的核心创新不是印花技术，而是把『印刷业』这门极度本地化的传统生意，重新组织为一个全球分布式网络——这本质上是一个『印刷业的 Uber』。"
+  </div>
+</section>
+
+<!-- 03 SNAPSHOT -->
+<section id="snapshot" class="section">
+  <div class="section-num">03 · 第一部 · 公司全景</div>
+  <h2 class="section-title">公司画像 Snapshot</h2>
+  <p class="section-deck">一张表读懂 Gelato 当前实体的边界、能力与外延。</p>
+
+  <div class="grid-2">
+    <div class="card">
+      <div class="hd">主体识别</div>
+      <h4>Gelato AS · Norwegian Tech Unicorn</h4>
+      <p><b>类型：</b>资产轻 POD 平台 + 印厂 SaaS + 消费品牌（三层架构）<br/>
+        <b>HQ：</b>Oslo, Norway · 26 国办公网络<br/>
+        <b>员工 (Latka 2024)：</b>~482<br/>
+        <b>履约网络：</b>140+ production hubs, 32+ 国家<br/>
+        <b>产品 SKU：</b>250+（侧重高质感纸质、家居、墙艺、定制服装）<br/>
+        <b>定价：</b>Free 起步 + Gelato+ Gold 订阅（含 $350+/月 工具价值）
+      </p>
+    </div>
+    <div class="card">
+      <div class="hd">三层产品矩阵</div>
+      <h4>Connect · Create · Consumer</h4>
+      <p><b>GelatoConnect：</b>面向 B2B 印厂的 AI 操作系统，包含 Procurement / Workflow / Logistics<br/>
+        <b>GelatoCreate：</b>面向创作者与电商商家的 POD 平台，含 CreatorAI / Magic Mockups / Velocity Switch<br/>
+        <b>GelatoConsumer (Optimalprint)：</b>面向 C 端消费者的个性化照片商品，欧美 23 市场<br/>
+        <b>战略意义：</b>同时服务<b>印厂、商家、消费者</b>三端，形成数据 + 网络 + 流量飞轮</p>
+    </div>
+    <div class="card">
+      <div class="hd">技术与集成</div>
+      <h4>API-first · 全 AI 套件</h4>
+      <p>核心 API（order.gelatoapis.com）支持 webhook 订单事件；CreatorAI 套件含 Magic Mockups、Instant Collections、Price Navigator；
+        Velocity Switch 提供 AI 驱动的迁移工具（自动从 Shopify/Etsy/WooCommerce 映射现有商品到 Gelato 目录）；
+        集成：Shopify, Etsy, WooCommerce, TikTok Shop (US/UK), Amazon (beta), Wix, Squarespace, BigCommerce + custom REST API。</p>
+    </div>
+    <div class="card">
+      <div class="hd">客户阵营</div>
+      <h4>从独立创作者到欧洲品牌</h4>
+      <p>SMB 创作者：Free + Gelato+ 订阅<br/>
+        中型 DTC 品牌：API + 多店同步<br/>
+        欧洲跨境品牌：本地化履约的天然选择<br/>
+        印厂网络伙伴（B2B）：GelatoConnect 用户 30+ 国家<br/>
+        近期 7 家美国头部数字印厂签约 GelatoConnect</p>
+    </div>
+  </div>
+</section>
+
+<!-- 04 TIMELINE -->
+<section id="timeline" class="section">
+  <div class="section-num">04 · 第一部 · 公司全景</div>
+  <h2 class="section-title">发展历程时间线（19 年完整版）</h2>
+  <p class="section-deck">从 2006 年葡萄牙度假到 2026 年 GelatoConnect 全球化部署。</p>
+  <div class="timeline">
+    <div class="tl-item"><div class="yr">2006</div><div class="ev">Henrik Müller-Hansen 在葡萄牙读到《Printing for Peanuts》一文，构思 Gelato 雏形</div></div>
+    <div class="tl-item major"><div class="yr">2007</div><div class="ev">Optimalprint 在挪威奥斯陆创立，作为消费 POD 品牌起步</div><p>Henrik、Pål T. Næss、Mike Arbuzov 三人创业；目标 23 个欧美市场。</p></div>
+    <div class="tl-item major"><div class="yr">2012 · 08</div><div class="ev">Gelato 平台正式启动，从 Optimalprint 内部拆分为对外的 B2B 印刷云</div></div>
+    <div class="tl-item"><div class="yr">2014–2015</div><div class="ev">完成欧洲 + 北美初期印厂合作伙伴布局</div></div>
+    <div class="tl-item"><div class="yr">2016</div><div class="ev">集团营收突破 NOK 335M（约 $40M），成为北欧最大分布式 POD 玩家</div></div>
+    <div class="tl-item"><div class="yr">2018–2020</div><div class="ev">伙伴网络扩张至 30+ 国家，开通主要电商平台原生集成</div></div>
+    <div class="tl-item major"><div class="yr">2021 · 08 · 16</div><div class="ev">Series D $240M 由 Insight Partners 领投，跻身独角兽（估值 $1.05B）</div><p>SoftBank Vision Fund 2 + Goldman Sachs + Dawn Capital 跟投。Q2 营收 YoY +120%、API 业务 YoY +320%。</p></div>
+    <div class="tl-item"><div class="yr">2022</div><div class="ev">集团营收 €107M（YoY +24%），创作者与商家收入翻 3 倍</div></div>
+    <div class="tl-item"><div class="yr">2023</div><div class="ev">推出 CreatorAI 套件（Magic Mockups / Instant Collections / Price Navigator）</div></div>
+    <div class="tl-item major"><div class="yr">2024</div><div class="ev">GelatoConnect 3.0 发布，AI 驱动 + 机器无关的印厂操作系统</div><p>McKinsey 验证：印厂利润率 +3–7 pp，错误率 &lt; 0.35%。Latka 数据：平台营收 $96.5M，团队 482 人。</p></div>
+    <div class="tl-item"><div class="yr">2024–2025</div><div class="ev">7 家美国头部数字印厂签约 GelatoConnect；30+ 国家落地</div></div>
+    <div class="tl-item"><div class="yr">2025</div><div class="ev">双向 Referral Credit 计划上线，CAC 降低约 25%；推出 Velocity Switch AI 迁移工具</div></div>
+    <div class="tl-item"><div class="yr">2026 · Q1</div><div class="ev">GelatoConnect 进入第二增长曲线，CreatorAI 进入全用户开放</div></div>
+    <div class="tl-item major"><div class="yr">2027–2028（预测）</div><div class="ev">潜在 IPO 窗口（取决于 GelatoConnect ARR 增速与公开市场环境）</div></div>
+  </div>
+</section>
+
+<!-- 05 BUSINESS MODEL -->
+<section id="bizmodel" class="section">
+  <div class="section-num">05 · 第二部 · 业务运营</div>
+  <h2 class="section-title">业务模式：BMC + 三层产品矩阵</h2>
+  <p class="section-deck">用 Osterwalder 9 块画布呈现 Gelato 现金流；用 Connect/Create/Consumer 三层呈现产品架构。</p>
+
+  <h3 class="h">三层产品矩阵</h3>
+  <div class="trio">
+    <div class="box">
+      <div class="label">B2B SaaS · 印厂端</div>
+      <h4>GelatoConnect</h4>
+      <div class="audience">面向：印刷企业（不限网络伙伴）</div>
+      <p>AI 驱动 + 机器无关的印厂操作系统。Procurement（采购）+ Workflow（工作流）+ Logistics（物流）三模块。McKinsey 验证为印厂带来 3–7 pp 利润率提升、&lt; 0.35% 错误率。SaaS 月费 + 用量定价。已在 30+ 国部署，是 Gelato 估值乘数升级的核心叙事。</p>
+    </div>
+    <div class="box b2">
+      <div class="label">B2B/B2C SaaS · 商家端</div>
+      <h4>GelatoCreate</h4>
+      <div class="audience">面向：创作者、电商卖家、品牌</div>
+      <p>POD 创作者平台。Free 起步 + Gelato+ Gold 订阅。CreatorAI 套件包含 Magic Mockups、Instant Collections、Price Navigator；Velocity Switch 自动迁移工具。集成 Shopify/Etsy/WooCommerce/TikTok Shop/Amazon/Wix/Squarespace/BigCommerce。订单按需路由至最近印厂。</p>
+    </div>
+    <div class="box b3">
+      <div class="label">B2C · 消费者端</div>
+      <h4>GelatoConsumer (Optimalprint)</h4>
+      <div class="audience">面向：欧美 23 个市场的 C 端消费者</div>
+      <p>Gelato 起源业务。专注个人化照片产品、卡片、贺卡、相册、年历、墙艺。继承 17 年消费品牌资产，提供稳定现金流，并作为新功能的"试验田"——所有 GelatoCreate 的工具都先在 Optimalprint 用过。</p>
+    </div>
+  </div>
+
+  <h3 class="h">9 块业务模式画布</h3>
+  <div class="grid-3">
+    <div class="card consult"><div class="hd">关键合作</div><p>140+ 全球印厂合作伙伴；电商平台（Shopify, Etsy, TikTok Shop, Amazon, WooCommerce, Wix）；物流（DHL, UPS, FedEx, 本地承运商）；纸张和材料供应商（FSC 认证）；战略投资人（Insight, SoftBank, Goldman, Dawn Capital）。</p></div>
+    <div class="card consult"><div class="hd">关键活动</div><p>订单智能路由（按地理位置 + 容量 + SKU）；GelatoConnect 平台开发与维护；CreatorAI 模型训练与产品迭代；伙伴印厂签约 / 培训 / 质量管控；Optimalprint 消费业务运营；可持续标准维护。</p></div>
+    <div class="card consult"><div class="hd">关键资源</div><p>140+ 印厂网络（最重要资产）；GelatoConnect SaaS 代码与数据资产；482 员工；3 层产品矩阵的产品 IP；$269M 累计融资 + 战略投资人关系；Optimalprint 消费品牌信誉。</p></div>
+
+    <div class="card consult"><div class="hd">价值主张</div><p><b>对印厂：</b>提升 3–7 pp 利润率，&lt; 0.35% 错误率<br/><b>对创作者：</b>本地化交付（99% 区域内），250+ 高品质 SKU<br/><b>对消费者：</b>个人化照片产品，环保本地交付<br/><b>对所有人：</b>-67% 碳排放，Net Zero 2030 承诺</p></div>
+    <div class="card consult"><div class="hd">客户关系</div><p>SaaS 订阅 + 自助 + 客户成功；针对印厂提供专属导入与培训；针对创作者通过 CreatorAI 工具 + Help Center；通过 Optimalprint 已有 17 年消费者关系。</p></div>
+    <div class="card consult"><div class="hd">渠道</div><p>原生集成（10+ 电商平台）+ REST API + Web Dashboard + Influencer 合作 + Affiliate Program + GelatoConnect 直销 + Optimalprint 直营网店。</p></div>
+
+    <div class="card consult"><div class="hd">客户细分</div><p>① 创作者 / 副业卖家（GelatoCreate Free）<br/>② 中型 DTC 品牌（GelatoCreate API）<br/>③ 印刷企业（GelatoConnect）<br/>④ 欧美 C 端消费者（Optimalprint）<br/>⑤ ESG 优先的全球品牌（本地化履约）</p></div>
+    <div class="card consult"><div class="hd">成本结构</div><p>核心成本：印厂网络运营（变动成本，按订单结算）+ 平台 SaaS 研发（高占比）+ 销售 / 客户成功（B2B SaaS 拉高）+ 营销（含创作者补贴）+ Optimalprint 仓储与营销。资产轻模式让 COGS 弹性强，毛利波动小。</p></div>
+    <div class="card consult"><div class="hd">收入流</div><p>① 创作者订单产品差价（核心，按单收）<br/>② Gelato+ Gold 订阅（创作者）<br/>③ GelatoConnect SaaS 订阅 + 用量费（B2B）<br/>④ Optimalprint 消费销售毛利<br/>⑤ Velocity Switch / CreatorAI 增值工具</p></div>
+  </div>
+
+  <div class="pull">
+    "Gelato 的真正商业模式不是 POD，而是『把全球印刷业重组为一个数据网络』——POD 只是其中一个用例。"
+  </div>
+</section>
+
+<!-- 06 NETWORK -->
+<section id="network" class="section">
+  <div class="section-num">06 · 第二部 · 业务运营</div>
+  <h2 class="section-title">全球履约网络</h2>
+  <p class="section-deck">140+ 个印厂合作伙伴 / 32+ 国家 / 99% 同区域履约 / 87% 同国家履约。</p>
+
+  <div class="worldmap">
+    <svg viewBox="0 0 1000 500" xmlns="http://www.w3.org/2000/svg">
+      <rect width="1000" height="500" fill="#FAF7F0"/>
+      <g fill="#E5E7F0" stroke="#1A1F3A22" stroke-width="0.7">
+        <path d="M 100 120 Q 80 100 130 90 L 250 80 Q 290 100 280 160 L 270 220 Q 230 250 180 240 L 130 230 Q 90 200 100 120 Z"/>
+        <path d="M 230 270 Q 250 260 270 280 L 285 380 Q 270 430 240 420 L 215 380 Q 205 320 230 270 Z"/>
+        <path d="M 460 90 Q 440 80 470 70 L 540 65 Q 580 80 575 140 L 555 175 Q 510 180 470 160 Q 450 130 460 90 Z"/>
+        <path d="M 480 200 Q 470 180 510 175 L 570 180 Q 600 220 585 320 L 540 380 Q 510 370 490 320 Q 460 260 480 200 Z"/>
+        <path d="M 590 90 Q 580 70 640 60 L 820 70 Q 880 100 850 180 L 800 230 Q 700 240 620 200 Q 580 150 590 90 Z"/>
+        <path d="M 800 330 Q 790 320 830 315 L 880 320 Q 900 340 880 370 L 830 380 Q 800 360 800 330 Z"/>
+      </g>
+
+      <!-- HQ -->
+      <g fill="#1A1F3A">
+        <circle cx="535" cy="80" r="8"/>
+        <text x="547" y="78" font-family="Inter" font-size="11" fill="#1A1F3A" font-weight="700">Oslo HQ</text>
+      </g>
+
+      <!-- Partner network dots (orange, scattered globally) -->
+      <g fill="#FF6B35" opacity="0.85">
+        <!-- North America -->
+        <circle cx="170" cy="150" r="4"/><circle cx="200" cy="170" r="4"/><circle cx="220" cy="180" r="4"/>
+        <circle cx="180" cy="200" r="4"/><circle cx="150" cy="220" r="4"/><circle cx="225" cy="155" r="4"/>
+        <circle cx="240" cy="200" r="4"/><circle cx="160" cy="170" r="4"/>
+        <!-- South America -->
+        <circle cx="240" cy="290" r="4"/><circle cx="255" cy="320" r="4"/><circle cx="265" cy="360" r="4"/>
+        <!-- Europe -->
+        <circle cx="465" cy="105" r="4"/><circle cx="475" cy="125" r="4"/><circle cx="490" cy="120" r="4"/>
+        <circle cx="510" cy="115" r="4"/><circle cx="520" cy="100" r="4"/><circle cx="500" cy="140" r="4"/>
+        <circle cx="540" cy="120" r="4"/><circle cx="475" cy="135" r="4"/><circle cx="555" cy="100" r="4"/>
+        <circle cx="490" cy="155" r="4"/><circle cx="525" cy="135" r="4"/>
+        <!-- Africa -->
+        <circle cx="520" cy="220" r="4"/><circle cx="540" cy="280" r="4"/>
+        <!-- Asia -->
+        <circle cx="640" cy="120" r="4"/><circle cx="680" cy="140" r="4"/><circle cx="720" cy="160" r="4"/>
+        <circle cx="780" cy="170" r="4"/><circle cx="850" cy="180" r="4"/><circle cx="800" cy="200" r="4"/>
+        <circle cx="700" cy="180" r="4"/><circle cx="750" cy="195" r="4"/><circle cx="660" cy="160" r="4"/>
+        <!-- Australia / NZ -->
+        <circle cx="830" cy="340" r="4"/><circle cx="850" cy="345" r="4"/><circle cx="855" cy="360" r="4"/>
+      </g>
+
+      <!-- Routing arcs (light dotted) -->
+      <g fill="none" stroke="#FF6B3555" stroke-width="0.6" stroke-dasharray="3 3">
+        <path d="M 535 80 Q 380 60 220 180"/>
+        <path d="M 535 80 Q 700 70 850 180"/>
+        <path d="M 535 80 Q 660 220 855 350"/>
+      </g>
+    </svg>
+    <div class="legend">
+      <span class="ll"><span class="dot hub"></span>Oslo 总部 + 战略中心</span>
+      <span class="ll"><span class="dot"></span>140+ 印厂合作伙伴节点</span>
+      <span class="ll"><b>32+</b>&nbsp;国家</span>
+      <span class="ll"><b>99%</b>&nbsp;同区域履约</span>
+      <span class="ll"><b>87%</b>&nbsp;同国家履约</span>
+      <span class="ll"><b>-67%</b>&nbsp;碳排放 / 订单</span>
+    </div>
+  </div>
+
+  <h3 class="h">网络架构与路由逻辑</h3>
+  <p>Gelato 的网络与 Printful 的"自营 13 个履约中心"形成根本差异。当订单到达 Gelato 平台时，<b>智能路由系统</b>会综合考虑：①买家地址距离最近的合作印厂；②该印厂当前产能与排队；③SKU 工艺匹配（DTG / 升华 / 刺绣 / 大幅面）；④质量评分与历史错误率；⑤价格优先级。最终把订单自动派发给最优印厂。这一逻辑使 Gelato 在<b>不持有任何工厂</b>的情况下实现 99% 同区域履约。</p>
+
+  <h3 class="h">网络扩张机制</h3>
+  <table>
+    <thead><tr><th>层级</th><th>说明</th><th>对网络的贡献</th></tr></thead>
+    <tbody>
+      <tr><td class="accent">认证印厂</td><td>140+ 合作伙伴，覆盖 32+ 国家</td><td>核心履约能力</td></tr>
+      <tr><td class="accent">质量评级</td><td>每家印厂有 SLA 评分（错误率 / 时长 / 客诉）</td><td>持续淘汰与升级</td></tr>
+      <tr><td class="accent">GelatoConnect 用户</td><td>已部署到 30+ 国家的非网络印厂</td><td>未来潜在网络扩展池</td></tr>
+      <tr><td class="accent">本地化材料</td><td>每个印厂使用本地 FSC 认证纸张</td><td>支持 Net Zero 2030 承诺</td></tr>
+    </tbody>
+  </table>
+
+  <h3 class="h">可持续叙事的财务意义</h3>
+  <p>Gelato 把"本地化生产"包装为<b>气候议题</b>不仅是品牌叙事，更直接转化为商业优势：欧洲品牌商家在跨境采购中越来越倾向选择"碳排可量化"的供应商。
+    Gelato 提供每订单的碳足迹数据 + ESG 报告导出，是欧洲 ESG 监管收紧（CSRD / EUDR）下的天然受益方。
+    这一点是 Printful（资产重 / 集中履约）难以模仿的。</p>
+</section>
+
+<!-- 07 ORG -->
+<section id="org" class="section">
+  <div class="section-num">07 · 第二部 · 业务运营</div>
+  <h2 class="section-title">团队与组织</h2>
+  <p class="section-deck">482 名员工 · 26 国布局 · 创始人主导的扁平结构。</p>
+
+  <h3 class="h">领导层架构</h3>
+  <div class="org">
+    <div class="level">
+      <div class="node exec"><div class="role">Founder &amp; CEO</div><div class="nm">Henrik Müller-Hansen</div></div>
+    </div>
+    <div class="conn"></div>
+    <div class="level">
+      <div class="node"><div class="role">Co-founder</div><div class="nm">Pål T. Næss</div></div>
+      <div class="node"><div class="role">Co-founder</div><div class="nm">Mike Arbuzov</div></div>
+      <div class="node"><div class="role">Chairman</div><div class="nm">John Hepburn</div></div>
+      <div class="node"><div class="role">Board · Investor</div><div class="nm">Insight Partners 代表</div></div>
+      <div class="node"><div class="role">Board · Investor</div><div class="nm">SoftBank Vision Fund 2 代表</div></div>
+    </div>
+  </div>
+
+  <h3 class="h">职能部门组织</h3>
+  <div class="org">
+    <div class="level">
+      <div class="node dept"><div class="role">产品 &amp; 工程</div><div class="nm">GelatoConnect / GelatoCreate / API</div></div>
+      <div class="node dept"><div class="role">网络运营</div><div class="nm">Partner Onboarding / QA / Logistics</div></div>
+      <div class="node dept"><div class="role">商业 / 销售</div><div class="nm">B2B SaaS Sales / Channel</div></div>
+      <div class="node dept"><div class="role">市场 / 增长</div><div class="nm">Content / Influencer / Affiliate</div></div>
+      <div class="node dept"><div class="role">客户成功</div><div class="nm">Help Center / CSM</div></div>
+      <div class="node dept"><div class="role">Optimalprint</div><div class="nm">B2C Operations</div></div>
+      <div class="node dept"><div class="role">可持续 &amp; ESG</div><div class="nm">Sustainability Office</div></div>
+    </div>
+  </div>
+
+  <div class="kpis">
+    <div class="kpi"><div class="lbl">总员工数</div><div class="val">~482</div><div class="sub">2024 Latka 数据</div></div>
+    <div class="kpi"><div class="lbl">办公国家</div><div class="val">26</div><div class="sub">高度国际化</div></div>
+    <div class="kpi"><div class="lbl">合作印厂</div><div class="val">140+</div><div class="sub">扩展性资源（不计入员工）</div></div>
+    <div class="kpi"><div class="lbl">销售配额岗位</div><div class="val">~5</div><div class="sub">Latka 数据；产品销售为主</div></div>
+  </div>
+
+  <h3 class="h">组织特点</h3>
+  <p>Gelato 是<b>典型创始人主导型</b>组织——Henrik Müller-Hansen 自 2007 起一直担任 CEO，未发生过 Printful 那样的"创始人卸任"事件。
+    482 人的团队规模与其 $96M 营收对应的<b>每员工营收约 $200K</b>处于行业中上水平，反映出资产轻 + SaaS 元素带来的人效。
+    组织内最特殊的部门是 <b>Sustainability Office（可持续办公室）</b>——独立于主要业务部门，对外发布年度可持续报告，对内驱动伙伴印厂升级标准。</p>
+
+  <h3 class="h">企业文化与雇主品牌</h3>
+  <p>Gelato 在挪威 / 北欧科技就业市场以"快节奏 / 国际化 / 使命感"著称。
+    创始人 Henrik 多次出现在 Oslo Business Forum、Online Print Symposium、Dagens Industri 等北欧顶尖商业平台，
+    塑造出"挪威产业创新代表"的公共形象。这与 Printful 的"拉脱维亚国家自豪感"叙事形成有趣对比——两者都在用国家级 Tech 故事吸引人才。</p>
+</section>
+
+<!-- 08 REVENUE -->
+<section id="revenue" class="section">
+  <div class="section-num">08 · 第二部 · 业务运营</div>
+  <h2 class="section-title">营收：10 年增长曲线</h2>
+  <p class="section-deck">公开 + 估算口径，呈现 Gelato 从 2016 年至 2027 年的营收演化与口径解释。</p>
+
+  <div class="chartbox">
+    <h4>Gelato 营收走势（USD M, 2016–2027E）</h4>
+    <canvas id="revenueChart"></canvas>
+    <div class="src">来源：Gelato 官方公告（2022 €107M）、Latka（2024 $96.5M）、Insight Partners 投资文件、本报告测算</div>
+  </div>
+
+  <table>
+    <thead><tr><th>年份</th><th>口径</th><th>营收 USD M</th><th>YoY</th><th>关键事件</th></tr></thead>
+    <tbody>
+      <tr><td class="accent">2016</td><td>集团（NOK 335M ≈）</td><td class="num">~$40</td><td class="num">—</td><td>北欧最大分布式 POD 玩家</td></tr>
+      <tr><td class="accent">2018</td><td>集团（估）</td><td class="num">~$55</td><td class="num">+18%</td><td>API 业务起步</td></tr>
+      <tr><td class="accent">2019</td><td>集团（估）</td><td class="num">~$65</td><td class="num">+18%</td><td>欧洲 + 北美布局完成</td></tr>
+      <tr><td class="accent">2020</td><td>集团（估）</td><td class="num">~$75</td><td class="num">+15%</td><td>疫情红利较 Printful 弱</td></tr>
+      <tr><td class="accent">2021</td><td>集团（估，Q2 YoY +120%）</td><td class="num">~$90</td><td class="num">+20%</td><td>$240M Series D / 独角兽</td></tr>
+      <tr><td class="accent">2022</td><td>集团（公开 €107M）</td><td class="num">~$115</td><td class="num">+28%</td><td>创作者与商家收入翻 3 倍</td></tr>
+      <tr><td class="accent">2023</td><td>平台（估）</td><td class="num">~$95</td><td class="num">-17% 口径切换</td><td>电商寒潮 + 口径切换至平台</td></tr>
+      <tr><td class="accent">2024</td><td>平台（Latka $96.5M）</td><td class="num">~$96.5</td><td class="num">+2%</td><td>GelatoConnect 3.0 发布</td></tr>
+      <tr><td class="accent">2025E</td><td>平台</td><td class="num">~$130</td><td class="num">+35%</td><td>Connect 渗透提速 + Referral CAC -25%</td></tr>
+      <tr><td class="accent">2026E</td><td>平台</td><td class="num">~$170</td><td class="num">+31%</td><td>CreatorAI 全用户开放</td></tr>
+      <tr><td class="accent">2027E</td><td>平台 (IPO 年?)</td><td class="num">~$220</td><td class="num">+29%</td><td>潜在 IPO 窗口</td></tr>
+    </tbody>
+  </table>
+
+  <h3 class="h">营收口径差异说明</h3>
+  <p>Gelato 营收数据存在<b>两个口径</b>：①<b>集团口径</b>（含 Optimalprint 消费业务），2022 公开为 €107M（约 $115M）；②<b>平台口径</b>（仅 GelatoCreate + GelatoConnect），Latka 2024 数据为 $96.5M。
+    本报告把 2022 之前作为集团口径展示，2023 之后切换至平台口径——这并非营收"下降"，而是 <b>Optimalprint 消费业务被分离统计</b>。
+    实际集团 2024 总收入应在 $130M 上下（含 Optimalprint）。这一点也是 Gelato 财务披露的"灰色地带"，值得 IPO 时进一步透明化。</p>
+
+  <h3 class="h">收入结构（估算 · 2024 平台口径）</h3>
+  <div class="kpis">
+    <div class="kpi"><div class="lbl">创作者订单差价</div><div class="val">~70%</div><div class="sub">核心收入</div></div>
+    <div class="kpi"><div class="lbl">Gelato+ 订阅</div><div class="val">~8%</div><div class="sub">Gold 等付费层</div></div>
+    <div class="kpi"><div class="lbl">GelatoConnect SaaS</div><div class="val">~14%</div><div class="sub">B2B 月费 + 用量</div></div>
+    <div class="kpi"><div class="lbl">CreatorAI / 增值工具</div><div class="val">~8%</div><div class="sub">Magic Mockups / Velocity Switch 等</div></div>
+  </div>
+</section>
+
+<!-- 09 PROFIT -->
+<section id="profit" class="section">
+  <div class="section-num">09 · 第二部 · 业务运营</div>
+  <h2 class="section-title">利润与单位经济</h2>
+  <p class="section-deck">资产轻模式带来的财务结构纯净度，是 Gelato 与 Printful 最关键的差异。</p>
+
+  <div class="kpis">
+    <div class="kpi"><div class="lbl">毛利率（估）</div><div class="val">42–48%</div><div class="sub">资产轻 + SaaS 元素拉高</div></div>
+    <div class="kpi"><div class="lbl">EBITDA 估</div><div class="val">8–14%</div><div class="sub">营销 + 平台研发占比高</div></div>
+    <div class="kpi"><div class="lbl">净利率（估）</div><div class="val">5–10%</div><div class="sub">较 Printful 7.7% 略低，处增长投入期</div></div>
+    <div class="kpi"><div class="lbl">每员工营收</div><div class="val">~$200K</div><div class="sub">行业中上水平</div></div>
+  </div>
+
+  <h3 class="h">单位经济（Unit Economics）对比</h3>
+  <table>
+    <thead><tr><th>项</th><th>Gelato（资产轻）</th><th>Printful（资产重）</th><th>差异解读</th></tr></thead>
+    <tbody>
+      <tr><td>典型海报 / 卡片基础成本</td><td class="num">变动性大（按印厂）</td><td class="num">较稳定（自营）</td><td>Gelato 价格因地区而异</td></tr>
+      <tr><td>毛利率（产品差价）</td><td class="num">10–18%（订单端）</td><td class="num">15–22%</td><td>Gelato 单订单毛利略低</td></tr>
+      <tr><td>整体毛利率（含 SaaS）</td><td class="num">42–48%</td><td class="num">32–38%</td><td>Gelato SaaS 元素拉高</td></tr>
+      <tr><td>履约时长</td><td class="num">2–4 天（本地化）</td><td class="num">2–5 天</td><td>Gelato 本地化优势</td></tr>
+      <tr><td>下行风险</td><td class="num">低（无固定工厂成本）</td><td class="num">高（固定成本 + 人力）</td><td>Gelato 抗周期能力更强</td></tr>
+      <tr><td>规模化扩张速度</td><td class="num">快（签印厂即扩展）</td><td class="num">慢（建工厂）</td><td>Gelato 扩张成本边际下降</td></tr>
+      <tr><td>质量一致性</td><td class="num">中（依赖 SLA 管理）</td><td class="num">高（自营可控）</td><td>Gelato 主要弱点</td></tr>
+    </tbody>
+  </table>
+
+  <h3 class="h">利润提升路径</h3>
+  <p>Gelato 当前利润率受三大因素制约：①<b>平台研发支出</b>——GelatoConnect 3.0 + CreatorAI 持续 R&amp;D 投入；②<b>创作者补贴</b>——Free 层 + 订阅模式仍处于教育市场阶段；③<b>消费业务低毛利</b>——Optimalprint 作为 B2C 业务毛利受 logistics 与 paid traffic 压力。
+  路径上：①持续推动 GelatoConnect 渗透率（带来纯软件毛利）；②让 CreatorAI 成为 Free→Paid 转化的关键钩子；③Optimalprint 消费业务择机分拆或独立运营，让平台叙事更纯净。
+  IPO 时合理目标：<b>毛利 50%+，净利率 12%+</b>。</p>
+</section>
+
+<!-- 10 TRENDS -->
+<section id="trends" class="section">
+  <div class="section-num">10 · 第二部 · 业务运营</div>
+  <h2 class="section-title">发展趋势：8 大方向</h2>
+  <p class="section-deck">未来 24 个月 Gelato 战略上必将发生（或必须发生）的 8 个变化。</p>
+
+  <div class="grid-4">
+    <div class="card gelato"><div class="hd">趋势 01</div><h4>GelatoConnect 双倍下注</h4><p>Connect 是 Gelato 唯一具备纯 SaaS 估值乘数的资产；从 30+ 国扩展至 50+ 国，目标 ARR 从估算 $13M 翻至 $50M。</p></div>
+    <div class="card gelato"><div class="hd">趋势 02</div><h4>CreatorAI 成为获客钩子</h4><p>Magic Mockups / Instant Collections / Price Navigator 全用户开放后，Free→Gelato+ 转化将是核心 KPI。</p></div>
+    <div class="card gelato"><div class="hd">趋势 03</div><h4>Velocity Switch 抢 FYUL 商家</h4><p>AI 迁移工具自动从 Printful/Printify 等竞品迁移商品，是合并整合期 18 个月内最有效的攻击工具。</p></div>
+    <div class="card gelato"><div class="hd">趋势 04</div><h4>ESG / 可持续叙事强化</h4><p>欧洲 CSRD / EUDR 监管为 Gelato 创造天然客户。Net Zero 2030 承诺逐步落地，每订单碳数据成为差异化卖点。</p></div>
+    <div class="card gelato"><div class="hd">趋势 05</div><h4>TikTok Shop / Amazon 集成深化</h4><p>已上线 US/UK 集成；2026 将扩展至更多市场，对赌社交电商红利。</p></div>
+    <div class="card gelato"><div class="hd">趋势 06</div><h4>Optimalprint 资产剥离讨论</h4><p>消费业务可能拆分独立或部分出售，让平台叙事更"纯净"，提升 IPO 估值乘数。</p></div>
+    <div class="card gelato"><div class="hd">趋势 07</div><h4>潜在 IPO 窗口</h4><p>与 FYUL 的 IPO 节奏（2026–2027）形成时间窗口竞争；Gelato 可能选择稍晚（2027–2028）或战略并购退出。</p></div>
+    <div class="card gelato"><div class="hd">趋势 08</div><h4>亚太市场扩张</h4><p>当前网络中亚太印厂偏少；日本 / 韩国 / 东南亚是下一波扩展重点，对应 TikTok Shop 等渠道增量。</p></div>
+  </div>
+</section>
+
+<!-- 11 ZERO TO ONE -->
+<section id="zerotoone" class="section">
+  <div class="section-num">11 · 第三部 · 增长引擎 <span class="section-tag growth">Customer Acquisition</span></div>
+  <h2 class="section-title">0→1 客户获取之路：从 Optimalprint 到全球平台</h2>
+  <p class="section-deck">复盘 Gelato 2007–2024 年的客户获取漏斗，将其分解为 5 个阶段。</p>
+
+  <div class="funnel">
+    <div class="stage">
+      <div class="ph">PHASE 0<br/>2006</div>
+      <div>
+        <h4>创业前夜：印刷业的"暴利低效"洞察</h4>
+        <p>Henrik 在葡萄牙读到《Printing for Peanuts》一文，意识到印刷业是<b>最高利润率行业之一，但极度本地化和低效</b>。从电信运营商（Tele2）的"调度即服务"思维出发，他开始构思一个"不拥有打印机的印刷公司"。这是 Gelato 与所有竞争对手的根本认知差异。</p>
+      </div>
+      <div class="res">关键洞察: 印刷业 ≠ 工厂业<br/>而是 调度与网络 业</div>
+    </div>
+    <div class="stage">
+      <div class="ph">PHASE 1<br/>2007–2011</div>
+      <div>
+        <h4>Optimalprint 消费品牌作为试验田</h4>
+        <p>Gelato 没有从 B2B 平台直接起步，而是先做了 5 年消费 PoD 业务（Optimalprint）。这一时期他们：①验证了"按需印刷 + 本地配送"的商业模型；②建立了第一批欧洲印厂合作关系；③积累了运营、客服、物流、退货的全套消费级能力；④建立了 Optimalprint 这一 23 国的消费品牌。<b>这些都成为后来 Gelato 平台层的"地基"。</b></p>
+      </div>
+      <div class="res">23 个市场<br/>消费品牌奠基</div>
+    </div>
+    <div class="stage">
+      <div class="ph">PHASE 2<br/>2012–2016</div>
+      <div>
+        <h4>Gelato 平台诞生：把内部能力对外开放</h4>
+        <p>2012 年 8 月，Gelato 作为底层平台从 Optimalprint 拆出，开始向外部 B2B 客户（中型欧洲品牌）出售印刷云服务。这一阶段的获客主要通过<b>欧洲品牌商家直销 + 行业展会 + B2B 内容营销</b>。到 2016 年集团营收 NOK 335M，建立了"北欧最大分布式 POD"心智。</p>
+      </div>
+      <div class="res">~$40M 营收<br/>欧洲品牌商家心智</div>
+    </div>
+    <div class="stage">
+      <div class="ph">PHASE 3<br/>2017–2021</div>
+      <div>
+        <h4>电商集成 + 创作者经济：跑通增长引擎</h4>
+        <p>建立 Shopify、Etsy、WooCommerce 等核心电商集成；推出创作者计划，把目标客群从"欧洲中型品牌"扩展到"全球 SMB 创作者"；配套内容营销（Gelato Blog）+ YouTube/TikTok 创作者教程网络；2021 Q2 营收 YoY +120%、API YoY +320%；同年 8 月完成 $240M Series D 跻身独角兽。</p>
+      </div>
+      <div class="res">独角兽估值<br/>$240M 资本弹药</div>
+    </div>
+    <div class="stage">
+      <div class="ph">PHASE 4<br/>2022–2026</div>
+      <div>
+        <h4>三层平台 + AI 化：构建第二增长曲线</h4>
+        <p>2022 营收 €107M 后，2023–2024 进入电商寒潮 + 转型期。Gelato 把战略重心从"创作者增长"转向"印厂端 SaaS（GelatoConnect 3.0）"，并通过 CreatorAI 套件 + Velocity Switch 把 AI 作为获客钩子。
+        2025 推出双向 Referral 计划降低 CAC 25%，500K+ 影响者限量款合作增长 35%。这阶段的核心目标是<b>把"产品差价毛利"转换为"SaaS + 工具毛利"</b>。</p>
+      </div>
+      <div class="res">三层平台架构<br/>SaaS 估值锚定</div>
+    </div>
+  </div>
+
+  <h3 class="h">Gelato 0→1 的 4 条独特经验</h3>
+  <p><b>① 用消费品牌做平台业务的"试验田"。</b>Optimalprint 让 Gelato 在没有外部商家的情况下就能跑通完整 PoD 链路。<br/>
+    <b>② 把电信思维带入印刷业。</b>"不拥有基础设施 = 调度即服务"是 Gelato 与所有竞品的根本认知差异。<br/>
+    <b>③ 不与 Printful 在 apparel 战场正面对抗。</b>Gelato 选择卡片、相册、墙艺等"高质感纸质"差异化品类。<br/>
+    <b>④ 把"可持续"做成商业战略而非品牌叙事。</b>本地化生产 = -67% 碳排放是 Gelato 最锐利的差异化武器。</p>
+</section>
+
+<!-- 12 GROWTH STACK -->
+<section id="growthstack" class="section">
+  <div class="section-num">12 · 第三部 · 增长引擎 <span class="section-tag growth">User Growth Tactics</span></div>
+  <h2 class="section-title">用户增长手段全栈：14 种核心战术</h2>
+  <p class="section-deck">把 Gelato 的增长动作切分为 14 项可命名、可复制的具体战术。</p>
+
+  <div class="tactic-grid">
+    <div class="tac"><div class="nm">01</div><div><h4>消费业务"试验田"复用</h4><p>Optimalprint 17 年的运营能力（客服、物流、印厂关系、退货流程）作为 Gelato 平台层的免费"地基"。</p><div class="res">影响：节省早期建网成本</div></div></div>
+    <div class="tac"><div class="nm">02</div><div><h4>API 优先 + Webhook</h4><p>API 业务在 2021 Q2 增速 +320%，是 Gelato 增长最快的产品线。开发者友好把它变成中型 DTC 品牌的默认选择。</p><div class="res">影响：B 端高 LTV 留存</div></div></div>
+    <div class="tac"><div class="nm">03</div><div><h4>多平台原生集成</h4><p>Shopify, Etsy, WooCommerce, TikTok Shop, Amazon, Wix, Squarespace, BigCommerce——每个新集成都是新商家池。</p><div class="res">影响：扩大 SAM</div></div></div>
+    <div class="tac"><div class="nm">04</div><div><h4>Velocity Switch 迁移工具</h4><p>AI 自动从 Shopify/Etsy/WooCommerce 把竞品商品映射到 Gelato 目录，零摩擦转换。是 FYUL 整合期最锐利的攻击工具。</p><div class="res">影响：转化竞品用户</div></div></div>
+    <div class="tac"><div class="nm">05</div><div><h4>CreatorAI 套件</h4><p>Magic Mockups（即时产品图）+ Instant Collections（批量目录创建）+ Price Navigator（利润优化）。Free 层全开放，Gold 订阅含 $350+/月工具价值。</p><div class="res">影响：Free→Paid 钩子</div></div></div>
+    <div class="tac"><div class="nm">06</div><div><h4>本地化 / 可持续叙事</h4><p>"99% 同区域 / -67% 碳排"作为差异化武器，吸引 ESG 优先的欧洲品牌、监管下的合规客户。</p><div class="res">影响：差异化定价权</div></div></div>
+    <div class="tac"><div class="nm">07</div><div><h4>SEO + 内容营销</h4><p>Gelato Blog 长期投入 "print on demand" / "dropshipping" / "sustainable printing" / "creator economy" 关键词；NoGood 案例显示 5% 平均互动率（200+ 视频）、+202% 自然流量首单转化。</p><div class="res">影响：CAC 持续下降</div></div></div>
+    <div class="tac"><div class="nm">08</div><div><h4>YouTube / TikTok 创作者</h4><p>大规模与教程类创作者合作，作为高转化的 referral 漏斗。2025 年 +35% 增长来自 500K+ 粉丝级别影响者的限量款合作。</p><div class="res">影响：UGC + 转化</div></div></div>
+    <div class="tac"><div class="nm">09</div><div><h4>双向 Referral Credit</h4><p>2025 推出推荐人和被推荐人双方均获得信用，把 CAC 降低 25%。是 SaaS 行业经典策略在 PoD 的应用。</p><div class="res">影响：CAC -25%</div></div></div>
+    <div class="tac"><div class="nm">10</div><div><h4>分阶段 Persona 化文案</h4><p>对"新手创作者 / 老手创作者 / 电商企业"分别使用不同营销话术——新手强调"零门槛"，老手强调"全球可扩展"，企业强调"集成丰富"。</p><div class="res">影响：转化率优化</div></div></div>
+    <div class="tac"><div class="nm">11</div><div><h4>GelatoConnect 直销</h4><p>Connect 不依赖创作者增长，而是<b>对印厂高管直销</b>——通过 Online Print Symposium 等行业会议、印厂高管访谈、McKinsey 共同发布证据。</p><div class="res">影响：B2B 高 ARPU</div></div></div>
+    <div class="tac"><div class="nm">12</div><div><h4>创始人公关</h4><p>Henrik Müller-Hansen 频繁出现在 Oslo Business Forum、Print Symposium、Authority Magazine 等媒介，建立"挪威产业创新代表"的公共形象。</p><div class="res">影响：创始人即品牌</div></div></div>
+    <div class="tac"><div class="nm">13</div><div><h4>战略投资人背书</h4><p>Insight Partners + SoftBank Vision Fund 2 + Goldman Sachs 三家顶级机构同时押注，给 B 端商家与企业客户带来安全感。</p><div class="res">影响：企业级信任</div></div></div>
+    <div class="tac"><div class="nm">14</div><div><h4>政府与协会合作</h4><p>挪威政府的产业政策、Norfund（挪威发展基金）等参与早期股东，让 Gelato 在北欧市场具有"国家级科技代表"的地位。</p><div class="res">影响：本土获客红利</div></div></div>
+  </div>
+
+  <h3 class="h">底层增长哲学：把分布式调度变成飞轮</h3>
+  <p>Gelato 的增长哲学与 Printful 的"让商家成功 = 让自己成功"<b>方向接近，但路径不同</b>。
+    Gelato 的真正飞轮是：<b>更多印厂加入网络 → 网络密度变高 → 本地化履约更快 → 商家更愿意用 → 订单量更多 → 印厂利润更高 → 更多印厂加入网络</b>。
+    这是典型的<b>双边市场飞轮</b>。
+    GelatoConnect 3.0 的 SaaS 化进一步把这个飞轮拓展到"非网络印厂"——
+    即使印厂不直接接 Gelato 订单，只要使用 GelatoConnect，它的数据、能力、产能也最终会被吸引进网络。
+    这是一个"既是产品又是漏斗"的设计，比 Printful 的"内容 → 商家"模式更具网络效应。</p>
+</section>
+
+<!-- 13 CHANNELS -->
+<section id="channel" class="section">
+  <div class="section-num">13 · 第三部 · 增长引擎 <span class="section-tag growth">Channel Mix</span></div>
+  <h2 class="section-title">营销渠道矩阵</h2>
+  <p class="section-deck">按"自有 / 付费 / 社交 / 合作 / 渠道 / 公关 / B2B 销售"分类的全渠道布局。</p>
+
+  <table>
+    <thead><tr><th>类别</th><th>具体渠道</th><th>核心动作</th><th>对获客的贡献</th></tr></thead>
+    <tbody>
+      <tr><td class="accent" rowspan="3">自有渠道<br/><span class="tag green">高 ROI</span></td>
+          <td>Gelato Blog</td><td>SEO 长尾 + 创作者教程</td><td>自然流量主入口</td></tr>
+      <tr><td>Gelato Help Center / Guides</td><td>系统化 PoD / 创业 / 营销指南</td><td>建立专家形象</td></tr>
+      <tr><td>Email + Drip Campaigns</td><td>分层激活与续费提醒</td><td>留存与 ARPU 主抓手</td></tr>
+
+      <tr><td class="accent" rowspan="3">付费渠道<br/><span class="tag amber">CAC 中</span></td>
+          <td>Google Ads</td><td>POD / 跨境 / 可持续关键词</td><td>承接搜索意图</td></tr>
+      <tr><td>Meta Ads</td><td>视觉化产品 + 创作者故事</td><td>覆盖创业 / 副业</td></tr>
+      <tr><td>YouTube Pre-Roll</td><td>"Gelato vs Printful" 类对比内容</td><td>错位竞争</td></tr>
+
+      <tr><td class="accent" rowspan="3">社交渠道<br/><span class="tag green">UGC 飞轮</span></td>
+          <td>YouTube 创作者教程</td><td>200+ 视频，5% 平均互动率</td><td>UGC + 自然信任转化</td></tr>
+      <tr><td>TikTok 短视频教程</td><td>2025 整合提速</td><td>Z 世代创作者获客</td></tr>
+      <tr><td>Instagram / Pinterest</td><td>视觉化卡片 / 墙艺 / 相册展示</td><td>设计师 / 艺术家获客</td></tr>
+
+      <tr><td class="accent" rowspan="3">合作渠道<br/><span class="tag green">长尾持续</span></td>
+          <td>双向 Referral Credit</td><td>2025 上线，CAC -25%</td><td>规模化口碑放大</td></tr>
+      <tr><td>500K+ 影响者限量款</td><td>2025 +35% 增长</td><td>高 PR + 销售</td></tr>
+      <tr><td>Affiliate Program</td><td>分销商分佣模式</td><td>长尾博主覆盖</td></tr>
+
+      <tr><td class="accent" rowspan="3">平台渠道<br/><span class="tag blue">渠道红利</span></td>
+          <td>Shopify App Store</td><td>2017 上线 + 高评分</td><td>SMB 商家主来源</td></tr>
+      <tr><td>Etsy / WooCommerce / Wix</td><td>每个新平台 = 新商家池</td><td>持续渠道复利</td></tr>
+      <tr><td>TikTok Shop / Amazon</td><td>新一代电商入口</td><td>2025–2026 增量重点</td></tr>
+
+      <tr><td class="accent" rowspan="3">公关 + 投资人<br/><span class="tag amber">声量赋能</span></td>
+          <td>Sifted / TechCrunch / Bloomberg</td><td>独角兽融资 + GelatoConnect 发布</td><td>资本与品牌共鸣</td></tr>
+      <tr><td>McKinsey 共同发布</td><td>"印厂利润率 +3–7 pp"白皮书</td><td>B2B 客户决策影响</td></tr>
+      <tr><td>Oslo Business Forum / OPS</td><td>Henrik 个人品牌</td><td>北欧 + 印刷业 thought leader</td></tr>
+
+      <tr><td class="accent" rowspan="2">B2B 直销（Connect）<br/><span class="tag orange">高 ARPU</span></td>
+          <td>印厂高管直销</td><td>5 名 Quota Carrying Sales</td><td>SaaS 大单</td></tr>
+      <tr><td>行业展会 + Webinar</td><td>Print Symposium / Drupa</td><td>品牌 + Lead 双重收益</td></tr>
+    </tbody>
+  </table>
+
+  <h3 class="h">渠道经济学（CAC 估算）</h3>
+  <div class="kpis">
+    <div class="kpi"><div class="lbl">SEO / 自有内容 CAC</div><div class="val">$10–18</div><div class="sub">长期复利</div></div>
+    <div class="kpi"><div class="lbl">Referral CAC（2025 后）</div><div class="val">$20–30</div><div class="sub">双向信用拉低</div></div>
+    <div class="kpi"><div class="lbl">付费广告 CAC</div><div class="val">$45–85</div><div class="sub">Meta/Google/YouTube</div></div>
+    <div class="kpi"><div class="lbl">GelatoConnect (B2B) CAC</div><div class="val">$15K–30K</div><div class="sub">高 ARPU 抵消</div></div>
+  </div>
+
+  <p>核心结论：<b>Gelato 的渠道矩阵比 Printful 更"分层"</b>——
+  对 SMB 创作者用低 CAC 内容 + Referral 模式；
+  对中型 DTC 用平台集成 + API；
+  对印厂用 B2B 直销 + 行业 PR。
+  三层渠道策略对应三层产品（Create / Connect / Consumer），是 Gelato 增长引擎的内在结构。</p>
+</section>
+
+<!-- 14 STRATEGY -->
+<section id="strategy" class="section">
+  <div class="section-num">14 · 第四部 · 咨询视角 <span class="section-tag consult">McKinsey / BCG 视角</span></div>
+  <h2 class="section-title">战略定位：从轻资产 PoD 到全球印刷云</h2>
+  <p class="section-deck">用 BCG「Where to Play / How to Win」框架审视 Gelato 战略选择。</p>
+
+  <h3 class="h">Where to Play</h3>
+  <p>Gelato 选择了与 Printful <b>对偶</b>的赛道位置：①不去做 apparel 这个最拥挤的品类，而专攻"卡片 / 海报 / 墙艺 / 相册"等高质感纸质赛道；②不去美国主战场，而是从北欧 + 欧洲根据地起家；③不靠规模赢，而靠"分布式调度网络 + ESG 叙事"赢。
+  这一组选择带来的好处是 <b>避开 Printful 的正面竞争</b>，但代价是规模长期偏小（$96M vs Printful $356M）。</p>
+
+  <h3 class="h">How to Win</h3>
+  <p>Gelato 的赢面建立在三个基石：<b>分布式 + SaaS + 可持续</b>。<br/>
+  <b>分布式：</b>140+ 印厂网络让 Gelato 的扩张是"签约即扩展"，而不是"建厂才扩展"，资本效率更高。<br/>
+  <b>SaaS：</b>GelatoConnect 是 PoD 行业唯一对外销售的"印厂操作系统"，是估值乘数升级的关键。<br/>
+  <b>可持续：</b>本地化生产带来的 -67% 碳排放，是欧洲品牌客户在 ESG 监管下的硬需求。</p>
+
+  <h3 class="h">战略两难</h3>
+  <table>
+    <thead><tr><th>两难</th><th>表征</th><th>当前选择</th><th>咨询建议</th></tr></thead>
+    <tbody>
+      <tr><td class="accent">规模 vs 纯净</td><td>规模 $96M vs Printful $356M</td><td>纯净优先</td><td>继续聚焦 SaaS + ESG，避免被规模诱惑而进入 apparel 红海</td></tr>
+      <tr><td class="accent">B2B Connect vs B2C Create</td><td>两层目标客户截然不同</td><td>双线并进</td><td>把 Connect 单独拆为优先级最高战略业务，配置最优产研资源</td></tr>
+      <tr><td class="accent">Optimalprint 留存 vs 剥离</td><td>消费业务影响估值乘数</td><td>当前合并经营</td><td>2026–2027 IPO 前考虑剥离或独立报表，让平台更纯净</td></tr>
+      <tr><td class="accent">FYUL 对抗 vs 合作</td><td>合并后 FYUL 更具规模</td><td>错位竞争</td><td>用 Velocity Switch 趁 FYUL 整合期挖客户；同时考虑战略并购可能性</td></tr>
+    </tbody>
+  </table>
+
+  <blockquote>"如果说 Printful 是『POD 行业的西尔斯』——拥有自己的工厂、商店、目录册——那么 Gelato 是『POD 行业的 Shopify + Stripe』——靠平台和 SaaS 抽取价值。两个商业模型在 IPO 时会被资本市场用完全不同的估值乘数对待。"</blockquote>
+</section>
+
+<!-- 15 VALUE CHAIN -->
+<section id="valuechain" class="section">
+  <div class="section-num">15 · 第四部 · 咨询视角 <span class="section-tag consult">Value Chain</span></div>
+  <h2 class="section-title">价值链与生态位</h2>
+  <p class="section-deck">用 Porter 价值链拆解 Gelato 在 PoD 行业的环节占有率与可被替代度。</p>
+
+  <table>
+    <thead><tr><th>价值链环节</th><th>典型玩家</th><th>Gelato 当前定位</th><th>可被替代度</th><th>竞争策略评估</th></tr></thead>
+    <tbody>
+      <tr><td class="accent">设计 / 灵感</td><td>Canva, Kittl, Midjourney</td><td>CreatorAI 套件 + Magic Mockups</td><td><span class="tag amber">中</span></td><td>已比 Printful 走得更远，但仍非 Canva 级别入口</td></tr>
+      <tr><td class="accent">店铺与流量</td><td>Shopify, Etsy, TikTok Shop</td><td>原生集成 + Velocity Switch</td><td><span class="tag red">高</span></td><td>渠道方有侵入性，必须维持深度集成</td></tr>
+      <tr><td class="accent">订单管理 / OMS</td><td>Shopify, ShipStation</td><td>API + Dashboard</td><td><span class="tag amber">中</span></td><td>API 业务历史增速 +320%，是核心粘性</td></tr>
+      <tr><td class="accent">设备与生产</td><td>140+ 合作印厂</td><td>不持有，仅调度</td><td><span class="tag green">低</span></td><td>分布式网络是核心壁垒，但<b>每个节点单独不强</b></td></tr>
+      <tr><td class="accent">物流与跨境</td><td>DHL, UPS, FedEx, 本地承运</td><td>本地化 87% 同国履约</td><td><span class="tag green">低</span></td><td>本地化模式是天然抗关税武器</td></tr>
+      <tr><td class="accent">印厂运营 SaaS</td><td>仅 GelatoConnect</td><td>独家 + AI + McKinsey 背书</td><td><span class="tag green">低</span></td><td>护城河最深的环节，是 IPO 估值乘数关键</td></tr>
+      <tr><td class="accent">客服与售后</td><td>自营 + Help Center</td><td>SaaS 化 + 多语言</td><td><span class="tag amber">中</span></td><td>资产轻模式让 SLA 管理稍复杂</td></tr>
+      <tr><td class="accent">数据与分析</td><td>商家自带</td><td>Price Navigator 等工具</td><td><span class="tag amber">中</span></td><td>有平台数据优势，但未充分变现</td></tr>
+    </tbody>
+  </table>
+
+  <h3 class="h">生态位地图</h3>
+  <div class="matrix">
+    <div class="grid">
+      <div class="quad-lbl" style="top:10px;right:10px;">资产重 / 高品质</div>
+      <div class="quad-lbl" style="top:10px;left:10px;">资产轻 / 高品质</div>
+      <div class="quad-lbl" style="bottom:10px;right:10px;">资产重 / 长尾</div>
+      <div class="quad-lbl" style="bottom:10px;left:10px;">资产轻 / 长尾</div>
+      <div class="pin print" style="left:75%;top:25%;"><div class="dot"></div><div class="lbl">Printful</div></div>
+      <div class="pin" style="left:30%;top:30%;"><div class="dot"></div><div class="lbl">Gelato</div></div>
+      <div class="pin" style="left:18%;top:78%;"><div class="dot"></div><div class="lbl">Printify</div></div>
+      <div class="pin shop" style="left:45%;top:18%;"><div class="dot"></div><div class="lbl">Shopify+</div></div>
+      <div class="pin eb" style="left:88%;top:55%;"><div class="dot"></div><div class="lbl">Cimpress</div></div>
+      <div class="pin us" style="left:55%;top:62%;"><div class="dot"></div><div class="lbl">Us（目标位）</div></div>
+    </div>
+    <div class="axis-x"><span>资产轻 ←</span><span>→ 资产重</span></div>
+    <div class="axis-y"><span>长尾 / 性价比</span><span>品质 / 高端</span></div>
+  </div>
+  <p style="font-size:12px;color:var(--muted);margin-top:36px;">图：PoD 行业生态位 2×2。Gelato 处于"资产轻 / 高品质"左上角——这是一个"看似拥挤但实际上没有强对手"的位置。Printful 在右上角，Printify 在左下角，Shopify 居于左上。Gelato 与我方目标位相对接近，但侧重不同（Gelato 偏 SaaS / 印厂端，我方偏内容 / 创作者端）。</p>
+</section>
+
+<!-- 16 MOAT -->
+<section id="moat" class="section">
+  <div class="section-num">16 · 第四部 · 咨询视角 <span class="section-tag consult">Moat</span></div>
+  <h2 class="section-title">战略护城河（5 维评估）</h2>
+  <p class="section-deck">借鉴 Hamilton Helmer《7 Powers》框架，评估 Gelato 五类护城河深度。</p>
+
+  <div class="chartbox">
+    <h4>Gelato 护城河强度雷达（0–10）</h4>
+    <canvas id="moatChart"></canvas>
+    <div class="src">来源：综合 Insight Partners、PitchBook、McKinsey 研究、本报告测算</div>
+  </div>
+
+  <table>
+    <thead><tr><th>护城河类型</th><th>评分</th><th>解读</th><th>风险</th></tr></thead>
+    <tbody>
+      <tr><td class="accent">规模经济</td><td><span class="tag amber">5/10</span></td><td>140 印厂网络 + Optimalprint 17 年消费数据；规模较 FYUL 弱</td><td>规模差距导致谈判力弱</td></tr>
+      <tr><td class="accent">网络效应</td><td><span class="tag green">7/10</span></td><td>双边市场（创作者 ↔ 印厂）+ GelatoConnect 拓展非网络印厂</td><td>每个印厂节点单独不强</td></tr>
+      <tr><td class="accent">切换成本</td><td><span class="tag amber">5/10</span></td><td>API + 集成形成中等切换成本，但 Velocity Switch 反向证明可被替代</td><td>商家可低成本切换</td></tr>
+      <tr><td class="accent">品牌</td><td><span class="tag amber">6/10</span></td><td>"挪威独角兽 + 可持续叙事"在欧洲较强；北美与亚太较弱</td><td>非英语市场认知度有限</td></tr>
+      <tr><td class="accent">流程能力 / SaaS</td><td><span class="tag green">8/10</span></td><td>GelatoConnect 是行业唯一独立印厂 SaaS，McKinsey 背书 +3–7 pp 利润率</td><td>渗透率仍待提升</td></tr>
+    </tbody>
+  </table>
+
+  <p>综合评估：<b>Gelato 整体护城河得分 6.2/10</b>，略低于 Printful (6.8)。最强是流程能力 / SaaS（GelatoConnect 独家性）与网络效应，最弱是规模经济与切换成本——
+  规模偏小是 Gelato 与 FYUL 竞争中的硬伤，但 GelatoConnect 的 SaaS 化是其唯一能"以小博大"的支点。</p>
+</section>
+
+<!-- 17 OPS -->
+<section id="ops" class="section">
+  <div class="section-num">17 · 第四部 · 咨询视角 <span class="section-tag consult">Operations</span></div>
+  <h2 class="section-title">运营与效率：资产轻模式的真相</h2>
+  <p class="section-deck">从单位经济维度，剥离品牌叙事，看清 Gelato 运营底色。</p>
+
+  <h3 class="h">运营优势</h3>
+  <div class="grid-3">
+    <div class="card"><div class="hd">扩张速度</div><h4>签印厂即扩展</h4><p>新增一个市场不需要建厂，只需签约 1–2 家本地印厂；扩张资本效率远高于 Printful。</p></div>
+    <div class="card"><div class="hd">抗周期能力</div><h4>无固定工厂成本</h4><p>下行周期中没有空置工厂折旧损耗；订单减少时变动成本同步下降。</p></div>
+    <div class="card"><div class="hd">本地化交付</div><h4>87% 同国履约</h4><p>欧洲品牌商家在跨境中的天然首选；ESG 客户的硬需求供应商。</p></div>
+  </div>
+
+  <h3 class="h">运营痛点</h3>
+  <div class="grid-3">
+    <div class="card"><div class="hd">质量一致性</div><h4>SLA 管理复杂</h4><p>不同印厂的色彩、纸张、成品差异需通过严格 SLA 管控；客户对"同一商品多次购买不一样"的反馈是痛点。</p></div>
+    <div class="card"><div class="hd">客户支持</div><h4>问题归因复杂</h4><p>当订单出现问题，需在 Gelato 平台与具体印厂之间归责；客诉响应链路较 Printful 复杂。</p></div>
+    <div class="card"><div class="hd">SKU 较少</div><h4>250 SKU 不及 Printful 380+</h4><p>资产轻模式下扩展新工艺（如刺绣、特殊面料）依赖印厂网络是否有该能力。</p></div>
+  </div>
+
+  <h3 class="h">咨询建议（运营侧）</h3>
+  <p>第一，<b>SLA 自动化</b>：通过 GelatoConnect 内嵌的质量数据，自动识别低评级印厂并降权派单；让"质量"成为 Gelato 而非印厂的责任。
+  第二，<b>客服 AI 化</b>：把"问题归因"做成自动诊断流程，减少人工归责时间。
+  第三，<b>SKU 模块化</b>：与少数几家高质量印厂深度合作，共建独家 SKU（如 FSC 认证大幅面海报），形成"Gelato 独家品类"。</p>
+</section>
+
+<!-- 18 TAM -->
+<section id="tam" class="section">
+  <div class="section-num">18 · 第五部 · VC 视角 <span class="section-tag vc">Insight / Sequoia 视角</span></div>
+  <h2 class="section-title">市场规模 TAM / SAM / SOM</h2>
+  <p class="section-deck">从基金一线投决会维度，评估 Gelato 在 PoD + 印刷 SaaS 的可投资规模。</p>
+
+  <div class="kpis">
+    <div class="kpi"><div class="lbl">PoD TAM 2025</div><div class="val">$11B</div><div class="sub">全球 POD 含原生与非原生</div></div>
+    <div class="kpi"><div class="lbl">PoD TAM 2034E</div><div class="val">$89–103B</div><div class="sub">CAGR 23–26%</div></div>
+    <div class="kpi"><div class="lbl">+ 全球印刷 SaaS TAM</div><div class="val">~$8B</div><div class="sub">GelatoConnect 独有 TAM</div></div>
+    <div class="kpi"><div class="lbl">Gelato SOM 估</div><div class="val">~1.0%</div><div class="sub">合并 PoD + Connect 市场份额</div></div>
+  </div>
+
+  <div class="chartbox">
+    <h4>POD 全球市场规模预测（2024–2034）</h4>
+    <canvas id="marketChart"></canvas>
+    <div class="src">来源：Grand View Research, Future Market Insights, IssueWire, 综合预测</div>
+  </div>
+
+  <h3 class="h">VC 视角的关键判断</h3>
+  <p>Gelato 与 Printful/FYUL 的最大估值差异，在于 <b>Gelato 同时占据两个市场</b>：①PoD（与 Printful 共享 TAM）；②印刷 SaaS（独家 TAM，~$8B 全球印厂软件）。
+  这一双 TAM 设计让 Gelato 的估值上限不被 PoD 单一赛道天花板限制。
+  对 VC 而言，<b>真正值得投的不是 Gelato 的 PoD 业务，而是 GelatoConnect 这个"卖到全行业的印厂操作系统"</b>。</p>
+
+  <blockquote>"在 PoD 这个赛道，Printful 是规模王者；但在『印刷工业 SaaS』这个新赛道，Gelato 几乎没有对手。"</blockquote>
+</section>
+
+<!-- 19 CAPITAL -->
+<section id="cap" class="section">
+  <div class="section-num">19 · 第五部 · VC 视角 <span class="section-tag vc">Capital Path</span></div>
+  <h2 class="section-title">资本路径与估值演化</h2>
+  <p class="section-deck">从 Gelato 历轮融资拆解其资本叙事进化。</p>
+
+  <table>
+    <thead><tr><th>阶段</th><th>时间</th><th>金额 / 估值</th><th>核心投资者</th><th>叙事</th></tr></thead>
+    <tbody>
+      <tr><td class="accent">早期种子</td><td>2007–2012</td><td class="num">— 自筹 + 早期种子</td><td>创始人团队 + Optimalprint 现金流</td><td>消费品牌业务自给增长</td></tr>
+      <tr><td class="accent">早期增长</td><td>2014–2018</td><td class="num">$15M+ 多轮</td><td>Dawn Capital, SEB Pension Fund, Norfund</td><td>北欧最大分布式 PoD 玩家</td></tr>
+      <tr><td class="accent">规模化扩张</td><td>2019–2020</td><td class="num">~$15M</td><td>跟投</td><td>API 业务高增 + 欧美布局完成</td></tr>
+      <tr><td class="accent">Series D 独角兽</td><td>2021/08</td><td class="num">$240M / $1.05B</td><td>Insight Partners (lead), SoftBank Vision Fund 2, Goldman Sachs AM, Dawn Capital, SEB</td><td>"全球分布式印刷云"叙事建立</td></tr>
+      <tr><td class="accent">SaaS 化拐点</td><td>2024–2025</td><td class="num">— 内部资金</td><td>—</td><td>GelatoConnect 3.0 + CreatorAI 套件</td></tr>
+      <tr><td class="accent">潜在 IPO 或 Pre-IPO</td><td>2027–2028</td><td class="num">规划中</td><td>—</td><td>"全球印刷 SaaS"故事完整化</td></tr>
+    </tbody>
+  </table>
+
+  <div class="chartbox">
+    <h4>Gelato 三档 IPO 估值场景（USD Billion）</h4>
+    <canvas id="valuationChart"></canvas>
+    <div class="src">注：估值假设基于 EV/Revenue 5–15× 区间，与 GelatoConnect SaaS ARR 占比情景挂钩。</div>
+  </div>
+
+  <p><b>Bear Case（保守）</b>：若 GelatoConnect 渗透率不及预期、Connect ARR 仅占 15%，EV/Revenue ≈ 5–6×，IPO 估值约 <b>$1.2–1.6B</b>；<br/>
+  <b>Base Case（基准）</b>：Connect ARR 达 22%、CreatorAI 起量，EV/Revenue ≈ 8–10×，约 <b>$2.0–2.8B</b>；<br/>
+  <b>Bull Case（牛市）</b>：GelatoConnect 成为印刷业事实标准、ARR 占比 35%+，EV/Revenue ≈ 12–15×，约 <b>$3.5–5B</b>。</p>
+</section>
+
+<!-- 20 FIN MODEL -->
+<section id="fin" class="section">
+  <div class="section-num">20 · 第五部 · VC 视角 <span class="section-tag vc">Financial Model</span></div>
+  <h2 class="section-title">财务模型与 IPO 推演</h2>
+  <p class="section-deck">在缺乏完全公开数据的情况下，本节用三角验证法估算财务结构。</p>
+
+  <table>
+    <thead><tr><th>项</th><th>2021A</th><th>2022A</th><th>2024A</th><th>2027E (IPO?)</th></tr></thead>
+    <tbody>
+      <tr><td class="accent">集团营收 (USD M)</td><td class="num">~$90</td><td class="num">~$115</td><td class="num">~$130 (含 Optimalprint)</td><td class="num">~$280</td></tr>
+      <tr><td class="accent">平台营收 (USD M)</td><td class="num">~$55</td><td class="num">~$80</td><td class="num">~$96.5</td><td class="num">~$220</td></tr>
+      <tr><td class="accent">毛利率</td><td class="num">~38%</td><td class="num">~42%</td><td class="num">~46%</td><td class="num">~52%</td></tr>
+      <tr><td class="accent">Net Profit Margin</td><td class="num">~3%</td><td class="num">~5%</td><td class="num">~7%</td><td class="num">~12–14%</td></tr>
+      <tr><td class="accent">SaaS ARR 占比</td><td class="num">~5%</td><td class="num">~10%</td><td class="num">~14%</td><td class="num">~28%</td></tr>
+      <tr><td class="accent">GelatoConnect ARR (USD M)</td><td class="num">~$3</td><td class="num">~$8</td><td class="num">~$13</td><td class="num">~$60</td></tr>
+    </tbody>
+  </table>
+
+  <h3 class="h">VC 关注的核心比率</h3>
+  <div class="grid-4">
+    <div class="card vc"><div class="hd">Rule of 40</div><h4>~37 → 目标 50+</h4><p>当前增长 +30% / 利润率 ~7%；GelatoConnect 拉动后可达 50+。</p></div>
+    <div class="card vc"><div class="hd">LTV/CAC (Connect)</div><h4>估 ~5×</h4><p>B2B SaaS 高 LTV，CAC 较高但摊销快。</p></div>
+    <div class="card vc"><div class="hd">NDR (Connect)</div><h4>估 ~120%+</h4><p>SaaS 经典扩展指标，B2B 印厂用量增长拉高。</p></div>
+    <div class="card vc"><div class="hd">Gross Margin (Connect)</div><h4>估 75–80%</h4><p>纯 SaaS 毛利显著拉高整体平均。</p></div>
+  </div>
+
+  <h3 class="h">IPO 节奏判断</h3>
+  <p>Gelato 上市的最佳窗口是 <b>2027–2028 年</b>——届时 GelatoConnect ARR 接近 $60M、占比 28%，整体毛利接近 50%，叙事可向资本市场完整讲述"全球印刷 SaaS + 创作者 PoD + 消费品牌"三层故事。
+  风险点：①若 FYUL 在 2026–2027 抢先 IPO，市场对独立 PoD IPO 的偏好可能被消耗；②若 Insight Partners 等 PE 急于退出，Gelato 可能选择并购退出（潜在买家：Cimpress / Shopify / HP / 私募基金）。</p>
+</section>
+
+<!-- 21 PEERS -->
+<section id="peers" class="section">
+  <div class="section-num">21 · 第五部 · VC 视角 <span class="section-tag vc">Peer Comp</span></div>
+  <h2 class="section-title">对标公司分析</h2>
+  <p class="section-deck">为 Gelato 估值与战略坐标找准 6 类参照系。</p>
+
+  <table>
+    <thead><tr><th>对标公司</th><th>类型</th><th>规模</th><th>EV/Rev</th><th>对 Gelato 的启示</th></tr></thead>
+    <tbody>
+      <tr><td class="accent">Printful / FYUL</td><td>资产重 PoD 巨头</td><td>Rev ~$2.3B (FYUL 合并)</td><td class="num">~4–5×（推测 IPO）</td><td>规模王者，但估值锚点偏低</td></tr>
+      <tr><td class="accent">Shopify</td><td>电商 SaaS 平台</td><td>Rev ~$8B+</td><td class="num">~12–15×</td><td>SaaS 估值天花板参照</td></tr>
+      <tr><td class="accent">HubSpot</td><td>B2B SaaS</td><td>Rev ~$2.5B</td><td class="num">~10–12×</td><td>纯 B2B SaaS 的估值锚点</td></tr>
+      <tr><td class="accent">Cimpress / VistaPrint</td><td>Mass customization 老牌</td><td>Rev ~$3.2B</td><td class="num">~1.5×</td><td>纯印务估值低位反例</td></tr>
+      <tr><td class="accent">Canva (private)</td><td>AIGC 设计 SaaS</td><td>Rev ~$2B+</td><td class="num">~25×</td><td>AIGC + 平台估值天花板</td></tr>
+      <tr><td class="accent">Stripe (private)</td><td>支付平台 / 网络效应</td><td>Rev ~$15B+</td><td class="num">~10–14×</td><td>"基础设施 + 网络"的最高对标</td></tr>
+    </tbody>
+  </table>
+
+  <p>结论：<b>Gelato 的估值乘数应处于 6–12× 区间</b>——比 FYUL 的 4–5× 高（因 SaaS 元素），但低于 Shopify / Stripe（因规模与网络效应仍弱）。
+  这恰好与 Bull Case 情景下的 EV/Rev 12–15× 测算一致。</p>
+</section>
+
+<!-- 22 US -->
+<section id="us" class="section">
+  <div class="section-num">22 · 第六部 · 竞品视角 <span class="section-tag rival">我方画像</span></div>
+  <h2 class="section-title">我方定位 vs Gelato 的关系</h2>
+  <p class="section-deck">在分析 Gelato 时，必须先明确我方与之的关系——是直接对抗，还是错位 / 合作？</p>
+
+  <div class="grid-2">
+    <div class="card rival"><div class="hd">我方价值主张</div><h4>从灵感到商品到流量「一根链」</h4><p>设计资产 / AIGC 内容 / 短视频流量 / 履约供应链 / 电商前端五段串联。让创作者从"想法"到"成交履约"在同一产品域内完成。</p></div>
+    <div class="card rival"><div class="hd">与 Gelato 的重叠</div><h4>50% 重叠，50% 差异</h4><p><b>重叠：</b>都强调多源供应链整合；都重视 AIGC 设计能力；都瞄准创作者经济。<br/><b>差异：</b>Gelato 偏 B2B 印厂端 SaaS，我方偏内容 + 流量端；Gelato 重欧洲与可持续，我方重亚太与社交电商。</p></div>
+    <div class="card rival"><div class="hd">关系判断</div><h4>合作 > 对抗</h4><p>Gelato 是与我方目标位最接近的玩家，但<b>双方资源互补</b>——我方有内容流量与亚太供应链；Gelato 有欧洲印厂网络与 SaaS 能力。直接对抗成本极高，战略合作或局部联盟更优。</p></div>
+    <div class="card rival"><div class="hd">三种合作模式</div><h4>选择性挑选</h4><p>① <b>API 双向集成：</b>把 Gelato 印厂网络作为我方欧洲履约后端<br/>② <b>渠道共享：</b>把我方内容生态作为 Gelato 创作者获客入口<br/>③ <b>共投或并购：</b>战略并购或与 Gelato 签战略联盟（Anti-FYUL 联盟）</p></div>
+  </div>
+
+  <div class="pull">
+    "Gelato 与我方都在攻击 Printful 的『资产重 + 美国中心』模式，但攻击角度不同。两个挑战者结成联盟，比各自为战更有效。"
+  </div>
+</section>
+
+<!-- 23 WEAK -->
+<section id="weak" class="section">
+  <div class="section-num">23 · 第六部 · 竞品视角 <span class="section-tag rival">Weakness Radar</span></div>
+  <h2 class="section-title">Gelato 弱点雷达</h2>
+  <p class="section-deck">即使倾向合作，仍需明确 Gelato 的弱点 — 这是合作议价的基础。</p>
+
+  <table>
+    <thead><tr><th>弱点</th><th>表征</th><th>攻击 / 议价建议</th><th>风险</th></tr></thead>
+    <tbody>
+      <tr><td class="accent">规模偏小</td><td>$96M 平台营收 vs FYUL $2.3B</td><td>规模差距让 Gelato 在大客户谈判中处于劣势；我方可在亚太市场快速做出差异</td><td>规模优势是动态变量</td></tr>
+      <tr><td class="accent">亚太网络弱</td><td>32 国网络中亚太印厂少</td><td>我方亚太供应链可作为 Gelato 进入亚太的合作入口</td><td>Gelato 自建亚太节点可能性</td></tr>
+      <tr><td class="accent">中文 / 中国市场零</td><td>无中文界面、无中国本土合作</td><td>我方完全占领中文市场；可作为 Gelato 中国合作伙伴</td><td>Gelato 可能与本土巨头合作</td></tr>
+      <tr><td class="accent">营收口径"双口径"</td><td>集团 vs 平台两个数字</td><td>IPO 时财务披露压力，我方可借此质疑其真实增速</td><td>Gelato 可能优化披露</td></tr>
+      <tr><td class="accent">apparel 品类弱</td><td>250 SKU 主要在纸质 / 家居</td><td>我方在 apparel 品类有更大空间</td><td>Gelato 可通过印厂签约扩展</td></tr>
+      <tr><td class="accent">质量一致性</td><td>不同印厂差异</td><td>把"质量稳定"做成我方差异化</td><td>SLA 持续优化</td></tr>
+      <tr><td class="accent">流量获取依赖外平台</td><td>与 Printful 同一痛点</td><td>用我方内容生态反向给商家送流量</td><td>合作伙伴模式更优</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<!-- 24 VECTORS -->
+<section id="vectors" class="section">
+  <div class="section-num">24 · 第六部 · 竞品视角 <span class="section-tag rival">Attack Vectors</span></div>
+  <h2 class="section-title">6 大攻击向量（Battle Cards）</h2>
+  <p class="section-deck">由于我方对 Gelato 倾向合作，这里的攻击向量更多是"差异化定位"以巩固谈判筹码。</p>
+
+  <div class="battle">
+    <div class="bc"><div class="vec">VECTOR · 01</div><h4>中文创作者根据地</h4><div class="strat">取一块 Gelato 几乎不存在的市场</div><p>把小红书、B站、抖音、微信生态的中文创作者作为基础盘，配合中文产品 + 微信支付，建立中文 PoD 默认。</p><div class="ko">KO 点：成为"中文 PoD 默认"</div></div>
+    <div class="bc"><div class="vec">VECTOR · 02</div><h4>亚太柔性供应链</h4><div class="strat">在 Gelato 网络弱区域建优势</div><p>整合中国柔性代工 + 越南 + 韩国 + 日本，建立亚太 PoD 履约网络，成为 Gelato 进入亚太的"合作伙伴 / 合资方"。</p><div class="ko">KO 点：合作议价权</div></div>
+    <div class="bc"><div class="vec">VECTOR · 03</div><h4>TikTok / 直播电商场景</h4><div class="strat">绑定增量最大渠道</div><p>把"直播 → 实时设计 → C2M → 24h 履约"全链路做成默认，与 Gelato 的"Shopify / Etsy"路径错位。</p><div class="ko">KO 点：直播即时性</div></div>
+    <div class="bc"><div class="vec">VECTOR · 04</div><h4>Apparel 品类深耕</h4><div class="strat">补 Gelato 弱品类</div><p>Gelato 250 SKU 主要在纸质 / 家居，我方在 apparel + 配件品类做深，避免与 Gelato 的"高质感纸质"正面竞争。</p><div class="ko">KO 点：品类互补</div></div>
+    <div class="bc"><div class="vec">VECTOR · 05</div><h4>内容驱动选品</h4><div class="strat">把"卖什么"工具化</div><p>Gelato 是"做什么"工具（CreatorAI），我方做"卖什么"工具（基于全网内容热度的选品智库）。</p><div class="ko">KO 点：选品工具化</div></div>
+    <div class="bc"><div class="vec">VECTOR · 06</div><h4>Anti-FYUL 联盟</h4><div class="strat">与 Gelato 共同对抗 FYUL</div><p>把 Gelato + 我方 + Spring + 其他独立玩家组成"独立 PoD 联盟"，共享商家迁移工具、共建商家社区，对抗 FYUL 的合并优势。</p><div class="ko">KO 点：行业话语权</div></div>
+  </div>
+</section>
+
+<!-- 25 PLAYBOOK -->
+<section id="playbook" class="section">
+  <div class="section-num">25 · 第六部 · 竞品视角 <span class="section-tag rival">Playbook</span></div>
+  <h2 class="section-title">作战手册：12 个月路线图</h2>
+  <p class="section-deck">12 月内既要建立差异化地位，也要为与 Gelato 的潜在合作创造议价筹码。</p>
+
+  <table>
+    <thead><tr><th>季度</th><th>核心动作</th><th>对应攻击向量</th><th>关键 KPI</th><th>对 Gelato 的关系含义</th></tr></thead>
+    <tbody>
+      <tr><td class="accent">Q1 (T+0~3M)</td><td>占领中文创作者 + 亚太 5 家柔性印厂</td><td>V1, V2</td><td>中文创作者 1,000<br/>亚太 SKU 1,000</td><td>建立合作议价基础</td></tr>
+      <tr><td class="accent">Q2 (T+3~6M)</td><td>TikTok / 直播一键开店模板上线</td><td>V3</td><td>TikTok 商家 1,500<br/>直播 GMV $5M</td><td>差异化清晰显现</td></tr>
+      <tr><td class="accent">Q3 (T+6~9M)</td><td>启动 Anti-FYUL 联盟（与 Gelato 等 3–5 家）</td><td>V6</td><td>联盟成员 5+<br/>共享商家工具</td><td>正式建立合作框架</td></tr>
+      <tr><td class="accent">Q4 (T+9~12M)</td><td>完成 Apparel 品类与选品智库 + Gelato API 对接</td><td>V4, V5</td><td>付费商家 15,000<br/>月 GMV $40M</td><td>合作落地或战略并购讨论</td></tr>
+    </tbody>
+  </table>
+
+  <div class="verdict-block">
+    <div class="lbl">竞争作战观点</div>
+    <h3>Gelato 是值得合作的对手，FYUL 才是共同的敌人</h3>
+    <p>在 PoD 行业，未来 18 个月最重要的事不是"我们 vs Gelato"，而是"独立玩家 vs FYUL"。当 FYUL 把 Printful + Printify + Snow Commerce 整合完毕，整个 PoD 行业将面临一个具有规模、资本、IP 客户的巨型对手。
+    与 Gelato 这样的独立玩家保持合作甚至联盟，是我方与 Gelato 双方的最优解。但合作关系的前提，是我方必须先建立独立的差异化资产——中文 + 亚太 + 内容 + 直播 + 选品智库。这五张牌打出去，才有谈合作的筹码。</p>
+  </div>
+</section>
+
+<!-- 26 SWOT -->
+<section id="swot" class="section">
+  <div class="section-num">26 · 第七部 · 综合分析 <span class="section-tag synth">SWOT</span></div>
+  <h2 class="section-title">SWOT 综合矩阵（三视角合议）</h2>
+  <p class="section-deck">融合三种视角的 SWOT 分析。</p>
+
+  <div class="swot">
+    <div>
+      <div class="lbl S">S · 优势 STRENGTHS</div>
+      <h4>分布式 + SaaS + ESG 三位一体</h4>
+      <ul>
+        <li>140+ 印厂网络 / 32+ 国家覆盖</li>
+        <li>99% 同区域 / 87% 同国家履约</li>
+        <li>GelatoConnect 3.0 是行业唯一独立印厂 SaaS（McKinsey 验证 +3–7 pp）</li>
+        <li>CreatorAI 套件 + Velocity Switch 领先 AI 工具</li>
+        <li>三层产品矩阵（Connect + Create + Consumer）形成网络效应</li>
+        <li>资产轻 = 抗周期能力强 + 扩张成本低</li>
+        <li>Net Zero 2030 + ESG 叙事在欧洲监管下天然受益</li>
+      </ul>
+    </div>
+    <div>
+      <div class="lbl W">W · 劣势 WEAKNESSES</div>
+      <h4>规模与亚太是硬伤</h4>
+      <ul>
+        <li>规模 $96M 远低于 FYUL $2.3B</li>
+        <li>亚太网络与中国市场基本为零</li>
+        <li>SKU 数量 250 仅约 Printful 65%</li>
+        <li>质量一致性管理复杂</li>
+        <li>客户支持 SLA 责任归属难明</li>
+        <li>营收"双口径"披露不清晰</li>
+        <li>Apparel 等核心品类竞争力弱</li>
+      </ul>
+    </div>
+    <div>
+      <div class="lbl O">O · 机会 OPPORTUNITIES</div>
+      <h4>SaaS 化与 ESG 监管双红利</h4>
+      <ul>
+        <li>POD 全球 TAM 2034 达 $89–103B</li>
+        <li>印刷 SaaS 独有 TAM ~$8B</li>
+        <li>FYUL 整合期 18 个月窗口（Velocity Switch 利好）</li>
+        <li>欧洲 CSRD / EUDR 监管收紧（ESG 客户增长）</li>
+        <li>AIGC 让创作者门槛接近 0</li>
+        <li>2027–2028 IPO 窗口</li>
+        <li>"全球印刷 SaaS"叙事可拉高估值乘数</li>
+      </ul>
+    </div>
+    <div>
+      <div class="lbl T">T · 威胁 THREATS</div>
+      <h4>FYUL 规模 + 渠道方侵蚀</h4>
+      <ul>
+        <li>FYUL 合并后规模壁垒大幅提升</li>
+        <li>Shopify 推出原生 POD 工具与履约伙伴网络</li>
+        <li>Amazon Merch 凭借平台优势侵入</li>
+        <li>中国跨境玩家以低价产品冲击长尾</li>
+        <li>关税 / 跨境监管不确定性</li>
+        <li>HP / Konica 等设备厂商可能自建竞品 SaaS</li>
+        <li>Insight Partners 等 PE 退出压力可能加速</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- 27 PORTER -->
+<section id="porter" class="section">
+  <div class="section-num">27 · 第七部 · 综合分析 <span class="section-tag synth">Porter Five Forces</span></div>
+  <h2 class="section-title">Porter 五力分析</h2>
+  <p class="section-deck">系统评估行业内五种力量对 Gelato 利润空间的挤压程度。</p>
+
+  <div class="porter">
+    <div class="force high">
+      <div class="head"><span class="nm">现有竞争者</span><span class="scale">高</span></div>
+      <p>FYUL（Printful + Printify + Snow Commerce）合并后规模显著；Spring (Teespring)、Spreadshirt、Cimpress、Redbubble、Zazzle、CustomCat、Gooten 等多玩家混战。</p>
+      <div class="meter high"><div></div></div>
+    </div>
+    <div class="force med">
+      <div class="head"><span class="nm">替代品威胁</span><span class="scale">中</span></div>
+      <p>传统库存制 DTC、Marketplace 现货、AIGC 数字商品；POD 仍有"实体商品"独占性。</p>
+      <div class="meter med"><div></div></div>
+    </div>
+    <div class="force high">
+      <div class="head"><span class="nm">买方议价能力</span><span class="scale">高</span></div>
+      <p>SMB 切换成本低（Velocity Switch 同样让自己被切换）；大型品牌客户高议价。</p>
+      <div class="meter high"><div></div></div>
+    </div>
+    <div class="porter center">
+      <h4>POD + Print SaaS 五力压力</h4>
+      <p>综合压力 = 中-高<br/>但 Connect SaaS 子市场较缓和</p>
+    </div>
+    <div class="force low">
+      <div class="head"><span class="nm">供应商议价能力</span><span class="scale">低-中</span></div>
+      <p>140+ 印厂网络分散，单一供应商议价能力低；纸张 / FSC 材料供应分散。</p>
+      <div class="meter low"><div></div></div>
+    </div>
+    <div class="force high">
+      <div class="head"><span class="nm">新进入者威胁</span><span class="scale">高</span></div>
+      <p>资产轻模式入门门槛低；AIGC + 中国柔性供应链使新玩家可低成本切入；Shopify 等渠道方甚至自建。</p>
+      <div class="meter high"><div></div></div>
+    </div>
+    <div class="force med">
+      <div class="head"><span class="nm">渠道议价（强化版）</span><span class="scale">中</span></div>
+      <p>Shopify、Etsy、TikTok Shop 等渠道是 Gelato 商家流量主入口，但 Gelato 自身亦提供独立平台体验。</p>
+      <div class="meter med"><div></div></div>
+    </div>
+  </div>
+
+  <p>结论：<b>Gelato 在 PoD 子市场承受较高五力压力，但在 Print SaaS 子市场（GelatoConnect）压力相对缓和</b>——这正是 Gelato 战略价值所在：通过创造一个新的子市场，避免在五力高压区竞争。</p>
+</section>
+
+<!-- 28 STRATEGIC MATRIX -->
+<section id="bcg" class="section">
+  <div class="section-num">28 · 第七部 · 综合分析 <span class="section-tag synth">Strategic Matrix</span></div>
+  <h2 class="section-title">业务组合矩阵（GE / BCG 改编）</h2>
+  <p class="section-deck">把 Gelato 当前业务组合放进 GE 九宫格，识别哪部分该投、哪部分该收、哪部分该卖。</p>
+
+  <table>
+    <thead><tr><th>业务单元</th><th>市场吸引力</th><th>竞争位置</th><th>BCG 分类</th><th>战略建议</th></tr></thead>
+    <tbody>
+      <tr><td class="accent">GelatoConnect (B2B SaaS)</td><td>高</td><td>强（独家）</td><td>明星</td><td>核心战略单元，最高优先级投入</td></tr>
+      <tr><td class="accent">GelatoCreate (POD 平台)</td><td>高</td><td>中</td><td>明星 / 问题儿童</td><td>持续投入但避免与 FYUL 正面价格战</td></tr>
+      <tr><td class="accent">CreatorAI / Velocity Switch</td><td>高</td><td>中-强</td><td>明星</td><td>Free→Paid 钩子，重点资源支持</td></tr>
+      <tr><td class="accent">Gelato+ Gold 订阅</td><td>中</td><td>中</td><td>问题儿童</td><td>SaaS 化升级，提升 ARPU</td></tr>
+      <tr><td class="accent">Optimalprint 消费业务</td><td>中</td><td>强（欧洲）</td><td>现金牛</td><td>考虑剥离或独立运营，让平台叙事纯净</td></tr>
+      <tr><td class="accent">基础物流服务</td><td>低</td><td>中</td><td>瘦狗</td><td>外包或与第三方深度整合</td></tr>
+    </tbody>
+  </table>
+
+  <p>建议组合配置：<b>未来 36 个月最大投入应集中在 GelatoConnect + CreatorAI 两块"明星业务"</b>，而 Optimalprint 应择机剥离以纯化平台叙事。</p>
+</section>
+
+<!-- 29 RISK -->
+<section id="risk" class="section">
+  <div class="section-num">29 · 第七部 · 综合分析 <span class="section-tag synth">Risk Map</span></div>
+  <h2 class="section-title">风险地图（Probability × Impact）</h2>
+  <p class="section-deck">用风险二维矩阵识别 Gelato IPO 前 18 个月最致命的风险点。</p>
+
+  <div class="riskmap">
+    <div class="col-h"></div>
+    <div class="col-h">影响小</div>
+    <div class="col-h">影响中</div>
+    <div class="col-h">影响大</div>
+
+    <div class="row-h">高概率</div>
+    <div class="cell warm"><span class="r">质量一致性投诉</span><span class="rd">SLA 管理压力</span></div>
+    <div class="cell hot"><span class="r">FYUL 整合后规模碾压</span><span class="rd">Gelato 议价能力下降</span></div>
+    <div class="cell hot"><span class="r">PE 投资人退出压力</span><span class="rd">可能强制并购退出</span></div>
+
+    <div class="row-h">中概率</div>
+    <div class="cell cool"><span class="r">Optimalprint 增长疲软</span><span class="rd">现金流影响有限</span></div>
+    <div class="cell warm"><span class="r">GelatoConnect 渗透不及预期</span><span class="rd">估值锚点失守</span></div>
+    <div class="cell hot"><span class="r">Shopify 自建 PoD 工具</span><span class="rd">渠道方侵蚀</span></div>
+
+    <div class="row-h">低概率</div>
+    <div class="cell cool"><span class="r">单一印厂违约</span><span class="rd">网络可调度</span></div>
+    <div class="cell cool"><span class="r">AI 数据合规事件</span><span class="rd">局部影响</span></div>
+    <div class="cell warm"><span class="r">关税 / 跨境监管极端化</span><span class="rd">本地化模式正面冲击</span></div>
+  </div>
+
+  <h3 class="h">三大致命风险</h3>
+  <p><b>R1 PE 投资人退出压力：</b>Insight Partners 已投 4+ 年，2027–2028 IPO 是关键时间点；若市场窗口不利，可能加速并购退出（潜在买家：Cimpress / Shopify / HP），影响 Gelato 独立性。<br/>
+  <b>R2 FYUL 规模碾压：</b>合并后 FYUL 在大客户、企业 IP、品牌力上全面领先，Gelato 必须靠 GelatoConnect SaaS 化叙事维持估值。<br/>
+  <b>R3 Shopify 自建：</b>渠道方对 PoD 履约有强动机自建，可能让 Gelato 失去最重要的获客来源。</p>
+</section>
+
+<!-- 30 VERDICT -->
+<section id="verdict" class="section">
+  <div class="section-num">30 · 第七部 · 综合分析 <span class="section-tag synth">Final Verdict</span></div>
+  <h2 class="section-title">三视角合议：终极结论与行动建议</h2>
+  <p class="section-deck">三种身份共同表态——Gelato 是一个比 FYUL 更"轻、更优雅、但风险更高"的标的。</p>
+
+  <div class="verdict-block">
+    <div class="lbl">SUMMARY VERDICT · 三视角合议</div>
+    <h3>Gelato 是 PoD 行业最优雅的战略，但需要 GelatoConnect 二次起跳</h3>
+    <p>它有挪威基因、资产轻模式、可持续叙事、SaaS 雏形、CreatorAI 工具——所有元素都对，但规模 $96M 仍远小于 FYUL。
+    它的命运取决于一个变量：<b>GelatoConnect 能否在 18–24 个月内把 ARR 从 ~$13M 推到 $40M+</b>。如果能，Gelato 是 PoD 行业里独一无二的"印刷业 Stripe"；如果不能，它将沦为"被并购的二线玩家"。</p>
+
+    <div class="three">
+      <div>
+        <div class="role">咨询视角</div>
+        <b>双倍下注 GelatoConnect</b>
+        <p>把所有产研资源压向 Connect；考虑剥离 Optimalprint；用 Velocity Switch 抢 FYUL 整合期商家。</p>
+      </div>
+      <div>
+        <div class="role">VC 视角</div>
+        <b>Pre-IPO 跟踪 ARR 翻倍点入场</b>
+        <p>Base case $2.0–2.8B，Bull case $3.5–5B。当 GelatoConnect ARR 突破 $30M 时是入场最佳时点。</p>
+      </div>
+      <div>
+        <div class="role">竞品视角</div>
+        <b>合作 + 错位 + Anti-FYUL 联盟</b>
+        <p>不正面打 Gelato；用中文 + 亚太 + 内容 + 直播 + 选品建立差异化筹码后，与 Gelato 战略合作。</p>
+      </div>
+    </div>
+  </div>
+
+  <h3 class="h">三视角共识：未来 24 月最重要的 3 个战略问题</h3>
+  <p><b>Q1：GelatoConnect 能否成为印刷业事实标准？</b><br/>
+  这是 Gelato 估值乘数能否升至 12×+ 的根本变量。<br/><br/>
+  <b>Q2：Gelato 与 FYUL 的合并整合是否同步？</b><br/>
+  若 Gelato 抢先 IPO 或并购退出，将颠覆 FYUL 的"独立 PoD 第一名"叙事。<br/><br/>
+  <b>Q3：竞争对手能否在 FYUL 整合期与 Gelato 形成战略联盟？</b><br/>
+  这是"独立玩家联盟 vs FYUL"的关键时刻，将决定整个独立 PoD 阵营的未来。</p>
+</section>
+
+<!-- 31 SOURCES -->
+<section id="sources" class="section">
+  <div class="section-num">31 · 第七部 · 综合分析 <span class="section-tag synth">Methodology &amp; Sources</span></div>
+  <h2 class="section-title">方法论与信息来源</h2>
+  <p class="section-deck">本报告基于公开信息、行业访谈、专业数据库交叉三角验证。</p>
+
+  <h3 class="h">分析方法</h3>
+  <p>本报告综合运用：<b>BCG Where to Play / How to Win 框架</b>、<b>Porter Value Chain &amp; Five Forces</b>、<b>Hamilton Helmer 7 Powers</b>、<b>Osterwalder Business Model Canvas</b>、<b>GE Matrix</b>、<b>SWOT</b>、<b>三角验证财务模型</b>、<b>Customer Acquisition Funnel</b>。所有估算数据均标注 "估" 或 "E"，与公开数据严格区分。</p>
+
+  <h3 class="h">主要公开来源</h3>
+  <ul style="font-size:13px;color:var(--ink-2);max-width:880px;line-height:1.85;">
+    <li>Gelato 官方网站、Gelato News（GelatoConnect 3.0、可持续报告）、Gelato Help Center</li>
+    <li>Insight Partners 投资公告（2021/8 Series D 领投 $240M）</li>
+    <li>Sifted、TechCrunch、Bloomberg（独角兽 / 融资报道）</li>
+    <li>Latka (GetLatka)（2024 平台营收 $96.5M / 482 员工）</li>
+    <li>PitchBook、Crunchbase、Tracxn（融资历史与估值）</li>
+    <li>Mixergy、Authority Magazine、IdeaMensch（Henrik Müller-Hansen 创始人访谈）</li>
+    <li>Oslo Business Forum、Online Print Symposium、Dagens Industri（创始人公关）</li>
+    <li>McKinsey 共同发布（GelatoConnect 印厂利润率 +3–7 pp 验证）</li>
+    <li>NoGood 案例（Gelato 营销策略 / 5% 互动率 / 202% 自然转化）</li>
+    <li>Sustainability Report 2020–2022（Gelato 自发布）</li>
+    <li>Grand View Research、Future Market Insights（POD 市场规模）</li>
+    <li>Gelato 主要竞品官方对比页（vs Printful, vs Printify）、Bootstrapping Ecommerce 评测</li>
+    <li>Shopify App Store、Etsy 集成页面、TikTok Shop 集成页面</li>
+  </ul>
+
+  <h3 class="h">免责声明</h3>
+  <p style="font-size:12.5px;color:var(--muted);">本报告为综合分析与战略推演，部分财务数据为基于公开信息的估算（标注 "估" 或 "E"），不构成投资建议、不可作为合规审计或法律意见的依据。所有商标归各自所有人所有。报告作者无法对未公开信息做完整披露，读者应结合自身决策上下文与最新公开信息独立判断。</p>
+</section>
+
+<footer>
+  <div>本报告由 Claude · Cowork 模式协作撰写，三视角合议方法论由用户指定。日期：2026-05-11。</div>
+  <div class="src">建议引用方式：<i>"Gelato 综合战略分析报告（三视角合议）, 2026-05-11."</i></div>
+</footer>
+
+</main>
+</div>
+
+<script>
+Chart.defaults.font.family = '"Inter", "PingFang SC", sans-serif';
+Chart.defaults.font.size = 12;
+Chart.defaults.color = '#5C6B82';
+
+// Revenue Chart
+new Chart(document.getElementById('revenueChart'),{
+  type:'bar',
+  data:{
+    labels:['2016','2018','2019','2020','2021','2022','2023','2024','2025E','2026E','2027E'],
+    datasets:[
+      {
+        label:'Gelato 营收 (USD M)',
+        data:[40,55,65,75,90,115,95,96.5,130,170,220],
+        backgroundColor:(ctx)=>{
+          const idx = ctx.dataIndex;
+          return idx >= 8 ? 'rgba(255,107,53,0.85)' : 'rgba(26,31,58,0.78)';
+        },
+        borderRadius:2,
+        yAxisID:'y'
+      },
+      {
+        label:'同比增速 %',
+        data:[null,18,18,15,20,28,-17,2,35,31,29],
+        type:'line',
+        borderColor:'#0E7C58',
+        backgroundColor:'rgba(14,124,88,0.15)',
+        tension:0.35,
+        borderWidth:2,
+        pointRadius:3,
+        yAxisID:'y1'
+      }
+    ]
+  },
+  options:{
+    plugins:{ legend:{ position:'bottom' } },
+    scales:{
+      y:{title:{display:true,text:'营收 (USD M)',color:'#5C6B82'},beginAtZero:true,grid:{color:'#1A1F3A1A'}},
+      y1:{title:{display:true,text:'增速 %',color:'#0E7C58'},position:'right',min:-30,max:50,grid:{drawOnChartArea:false}},
+      x:{ grid:{display:false} }
+    }
+  }
+});
+
+// Moat Radar
+new Chart(document.getElementById('moatChart'),{
+  type:'radar',
+  data:{
+    labels:['规模经济','网络效应','切换成本','品牌','流程能力 / SaaS'],
+    datasets:[
+      {
+        label:'Gelato',
+        data:[5,7,5,6,8],
+        backgroundColor:'rgba(255,107,53,0.18)',
+        borderColor:'#FF6B35',
+        borderWidth:2,
+        pointBackgroundColor:'#FF6B35',
+        pointRadius:4,
+      },
+      {
+        label:'Printful / FYUL',
+        data:[8,5,6,7,8],
+        backgroundColor:'rgba(26,31,58,0.10)',
+        borderColor:'#1A1F3A',
+        borderWidth:2,
+        borderDash:[4,4],
+        pointBackgroundColor:'#1A1F3A',
+        pointRadius:3,
+      },
+      {
+        label:'Printify (合并前)',
+        data:[7,4,4,6,3],
+        backgroundColor:'rgba(178,53,31,0.08)',
+        borderColor:'#B2351F',
+        borderWidth:1.5,
+        borderDash:[2,3],
+        pointBackgroundColor:'#B2351F',
+        pointRadius:3,
+      }
+    ]
+  },
+  options:{
+    plugins:{ legend:{ position:'bottom' } },
+    scales:{
+      r:{beginAtZero:true,max:10,ticks:{stepSize:2,backdropColor:'transparent'},grid:{color:'#1A1F3A22'},angleLines:{color:'#1A1F3A22'},pointLabels:{ font:{ size:12, weight:'600'}, color:'#1A1F3A'}}
+    }
+  }
+});
+
+// Market Chart
+new Chart(document.getElementById('marketChart'),{
+  type:'bar',
+  data:{
+    labels:['2024','2025','2026E','2027E','2028E','2030E','2032E','2034E'],
+    datasets:[
+      {
+        label:'POD 全球市场规模 (USD B)',
+        data:[10.2,11.0,13.6,16.7,20.6,31.5,52.1,89.4],
+        backgroundColor:'rgba(26,31,58,0.78)',
+        borderRadius:2,
+        yAxisID:'y'
+      },
+      {
+        label:'同比增速 %',
+        data:[null,7.8,23.6,22.8,23.4,23.3,23.5,23.3],
+        type:'line',
+        borderColor:'#FF6B35',
+        backgroundColor:'rgba(255,107,53,0.15)',
+        tension:0.35,
+        borderWidth:2,
+        pointRadius:3,
+        yAxisID:'y1'
+      }
+    ]
+  },
+  options:{
+    plugins:{ legend:{ position:'bottom' } },
+    scales:{
+      y:{title:{display:true,text:'市场规模 (USD B)',color:'#5C6B82'},beginAtZero:true,grid:{color:'#1A1F3A1A'}},
+      y1:{title:{display:true,text:'增速 %',color:'#FF6B35'},position:'right',beginAtZero:true,max:30,grid:{drawOnChartArea:false}},
+      x:{ grid:{display:false} }
+    }
+  }
+});
+
+// Valuation Chart
+new Chart(document.getElementById('valuationChart'),{
+  type:'bar',
+  data:{
+    labels:['Bear · Connect 渗透不足','Base · Connect ARR 22%','Bull · Connect 行业标准'],
+    datasets:[
+      {
+        label:'IPO 估值区间下限 (USD B)',
+        data:[1.2,2.0,3.5],
+        backgroundColor:'rgba(178,53,31,0.55)',
+        borderRadius:2,
+      },
+      {
+        label:'IPO 估值区间上限 (USD B)',
+        data:[1.6,2.8,5.0],
+        backgroundColor:'rgba(14,124,88,0.65)',
+        borderRadius:2,
+      },
+      {
+        label:'EV/Revenue 乘数',
+        data:[5.5,9,13.5],
+        type:'line',
+        borderColor:'#FF6B35',
+        backgroundColor:'#FF6B35',
+        tension:0.2,
+        borderWidth:2,
+        pointRadius:5,
+        yAxisID:'y1',
+      }
+    ]
+  },
+  options:{
+    plugins:{ legend:{ position:'bottom' } },
+    scales:{
+      y:{title:{display:true,text:'估值 (USD B)'},beginAtZero:true,max:6},
+      y1:{position:'right',beginAtZero:true,max:18,title:{display:true,text:'EV/Revenue 乘数'},grid:{drawOnChartArea:false}},
+      x:{grid:{display:false}}
+    }
+  }
+});
+</script>
+</body>
+</html>

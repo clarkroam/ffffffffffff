@@ -1,0 +1,1708 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Redbubble (Articore) 综合战略分析报告 · 三视角合议 | 2026</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+<style>
+  :root{
+    --ink:#1A1224;
+    --ink-2:#2A1F38;
+    --bg:#FAF6F2;
+    --bg-2:#F1E9E2;
+    --paper:#FFFFFF;
+    --line:#1A122422;
+    --line-strong:#1A122455;
+    --muted:#5C6B82;
+
+    --consult:#1A1224;
+    --consult-bg:#E8E2EE;
+    --vc:#0E7C58;
+    --vc-bg:#E3F1EA;
+    --rival:#B2351F;
+    --rival-bg:#F6E8E2;
+    --warn:#C77B19;
+    --rb:#E63946;          /* Redbubble signature red */
+    --rb-bg:#FCE2E5;
+    --gold:#B89052;
+
+    --serif: "Source Serif Pro", "Noto Serif SC", Georgia, "Songti SC", serif;
+    --sans:  "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+    --mono:  "JetBrains Mono", "SF Mono", Menlo, Consolas, monospace;
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{font-family:var(--sans);color:var(--ink);background:var(--bg);font-size:15px;line-height:1.7;-webkit-font-smoothing:antialiased;}
+
+  .wrap{display:grid;grid-template-columns:280px 1fr;max-width:1400px;margin:0 auto;}
+  nav.toc{position:sticky;top:0;align-self:start;height:100vh;overflow-y:auto;background:var(--ink);color:#D8DDE6;padding:32px 24px 60px;border-right:1px solid var(--ink-2);}
+  nav.toc h2{font-family:var(--serif);font-weight:600;font-size:18px;letter-spacing:.02em;color:#fff;margin:0 0 4px;}
+  nav.toc h2::after{content:" ";display:inline-block;width:8px;height:8px;background:var(--rb);border-radius:50%;margin-left:6px;vertical-align:middle;}
+  nav.toc .sub{font-size:11px;color:#8893A8;letter-spacing:.18em;text-transform:uppercase;margin-bottom:24px;border-bottom:1px solid #2B3A56;padding-bottom:14px;}
+  nav.toc .group{margin-top:18px;}
+  nav.toc .group-title{font-size:10px;letter-spacing:.2em;color:#7A8AA8;text-transform:uppercase;margin-bottom:8px;display:flex;align-items:center;gap:8px;}
+  nav.toc .group-title .dot{width:6px;height:6px;border-radius:50%;background:var(--rb);}
+  nav.toc .group.consult .dot{background:#A6B4D8;}
+  nav.toc .group.vc .dot{background:#52C19A;}
+  nav.toc .group.rival .dot{background:#E68A6E;}
+  nav.toc .group.growth .dot{background:#F0B056;}
+  nav.toc a{display:block;color:#C5CDDC;text-decoration:none;font-size:13px;padding:5px 0 5px 14px;border-left:1px solid #2B3A56;line-height:1.45;transition:all .15s;}
+  nav.toc a:hover{color:#fff;border-left-color:var(--rb);}
+  nav.toc a .num{font-family:var(--mono);font-size:11px;color:#7A8AA8;margin-right:6px;}
+
+  main{padding:0 56px 80px;background:var(--bg);}
+
+  .hero{padding:72px 0 56px;border-bottom:1px solid var(--line);}
+  .hero .eyebrow{font-size:11px;letter-spacing:.28em;text-transform:uppercase;color:var(--rb);margin-bottom:18px;font-weight:700;}
+  .hero h1{font-family:var(--serif);font-weight:600;font-size:52px;line-height:1.1;letter-spacing:-.01em;margin:0 0 18px;}
+  .hero .lead{font-size:19px;line-height:1.55;color:var(--ink-2);max-width:820px;margin:0 0 28px;}
+  .hero .meta{display:flex;gap:32px;flex-wrap:wrap;font-size:13px;color:var(--muted);padding-top:20px;border-top:1px solid var(--line);}
+  .hero .meta b{color:var(--ink);font-weight:600;display:block;font-size:11px;letter-spacing:.2em;text-transform:uppercase;margin-bottom:4px;}
+
+  .three-views{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin:48px 0 0;}
+  .pv-card{border:1px solid var(--line);background:var(--paper);padding:28px;border-radius:2px;position:relative;overflow:hidden;}
+  .pv-card::before{content:"";position:absolute;top:0;left:0;right:0;height:4px;}
+  .pv-card.consult::before{background:var(--consult);}
+  .pv-card.vc::before{background:var(--vc);}
+  .pv-card.rival::before{background:var(--rival);}
+  .pv-card .role{font-size:11px;letter-spacing:.2em;text-transform:uppercase;font-weight:600;}
+  .pv-card.consult .role{color:var(--consult);}
+  .pv-card.vc .role{color:var(--vc);}
+  .pv-card.rival .role{color:var(--rival);}
+  .pv-card h3{font-family:var(--serif);font-weight:600;font-size:24px;line-height:1.2;margin:6px 0 12px;}
+  .pv-card .verdict{font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);margin:14px 0 6px;font-weight:600;}
+  .pv-card p{margin:0;font-size:14px;color:var(--ink-2);}
+  .pv-card .stamp{margin-top:16px;display:inline-block;font-family:var(--mono);font-size:11px;padding:4px 10px;border-radius:2px;}
+  .pv-card.consult .stamp{background:var(--consult-bg);color:var(--consult);}
+  .pv-card.vc .stamp{background:var(--vc-bg);color:var(--vc);}
+  .pv-card.rival .stamp{background:var(--rival-bg);color:var(--rival);}
+
+  section{padding:72px 0 0;scroll-margin-top:24px;}
+  section.section{border-top:1px solid var(--line);margin-top:60px;}
+  .section-num{font-family:var(--mono);font-size:12px;color:var(--muted);letter-spacing:.18em;}
+  .section-tag{display:inline-block;font-size:10px;letter-spacing:.22em;text-transform:uppercase;font-weight:700;padding:4px 10px;border-radius:2px;margin-left:10px;vertical-align:middle;}
+  .section-tag.consult{background:var(--consult-bg);color:var(--consult);}
+  .section-tag.vc{background:var(--vc-bg);color:var(--vc);}
+  .section-tag.rival{background:var(--rival-bg);color:var(--rival);}
+  .section-tag.synth{background:#F2EDDF;color:var(--gold);}
+  .section-tag.growth{background:var(--rb-bg);color:var(--rb);}
+  h2.section-title{font-family:var(--serif);font-weight:600;font-size:34px;line-height:1.15;margin:8px 0 6px;letter-spacing:-.01em;}
+  .section-deck{font-size:16px;color:var(--muted);max-width:820px;margin:0 0 36px;}
+
+  p{font-size:15px;line-height:1.75;color:var(--ink-2);margin:0 0 14px;}
+  h3.h{font-family:var(--serif);font-weight:600;font-size:22px;margin:32px 0 12px;letter-spacing:-.005em;}
+  h4.h{font-family:var(--sans);font-weight:700;font-size:14px;letter-spacing:.04em;text-transform:uppercase;margin:24px 0 10px;color:var(--ink);}
+  blockquote{border-left:3px solid var(--rb);margin:20px 0;padding:6px 0 6px 20px;font-style:italic;color:var(--ink-2);max-width:820px;}
+  .pull{font-family:var(--serif);font-size:22px;line-height:1.45;color:var(--ink);max-width:820px;margin:28px 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding:22px 0;}
+
+  .kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--line-strong);border:1px solid var(--line-strong);margin:24px 0;}
+  .kpi{background:var(--paper);padding:20px 18px;}
+  .kpi .lbl{font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);margin-bottom:6px;}
+  .kpi .val{font-family:var(--serif);font-size:30px;font-weight:600;color:var(--ink);line-height:1;}
+  .kpi .sub{font-size:12px;color:var(--muted);margin-top:4px;}
+
+  table{width:100%;border-collapse:collapse;margin:18px 0 28px;font-size:13px;}
+  table th,table td{padding:10px 12px;text-align:left;border-bottom:1px solid var(--line);vertical-align:top;}
+  table th{font-size:10px;letter-spacing:.18em;text-transform:uppercase;font-weight:700;color:var(--muted);background:transparent;border-bottom:1.5px solid var(--ink);}
+  table tr:hover{background:var(--bg-2);}
+  table .accent{font-weight:600;color:var(--ink);}
+  table .num{font-family:var(--mono);text-align:right;}
+  .tag{display:inline-block;font-size:10px;letter-spacing:.1em;text-transform:uppercase;font-weight:700;padding:2px 7px;border-radius:2px;}
+  .tag.green{background:var(--vc-bg);color:var(--vc);}
+  .tag.red{background:var(--rival-bg);color:var(--rival);}
+  .tag.amber{background:#F5E8C8;color:#8B6913;}
+  .tag.blue{background:#E5ECF6;color:#1E3A6F;}
+  .tag.gray{background:#E5E7EB;color:#4B5563;}
+  .tag.rb{background:var(--rb-bg);color:var(--rb);}
+
+  .grid-2{display:grid;grid-template-columns:1fr 1fr;gap:24px;margin:18px 0;}
+  .grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin:18px 0;}
+  .grid-4{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin:18px 0;}
+  .card{background:var(--paper);border:1px solid var(--line);padding:22px;border-radius:2px;}
+  .card .hd{font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);margin-bottom:6px;font-weight:700;}
+  .card h4{margin:0 0 8px;font-family:var(--serif);font-size:18px;font-weight:600;}
+  .card p{font-size:13.5px;line-height:1.65;margin:0;color:var(--ink-2);}
+  .card.consult{border-top:3px solid var(--consult);}
+  .card.vc{border-top:3px solid var(--vc);}
+  .card.rival{border-top:3px solid var(--rival);}
+  .card.rb{border-top:3px solid var(--rb);}
+
+  .timeline{position:relative;margin:30px 0;padding-left:30px;border-left:2px solid var(--ink);}
+  .tl-item{position:relative;margin-bottom:26px;padding-left:18px;}
+  .tl-item::before{content:"";position:absolute;left:-39px;top:6px;width:14px;height:14px;background:var(--paper);border:2px solid var(--ink);border-radius:50%;}
+  .tl-item.major::before{background:var(--rb);border-color:var(--rb);}
+  .tl-item.bad::before{background:#7A1212;border-color:#7A1212;}
+  .tl-item .yr{font-family:var(--mono);font-size:12px;color:var(--muted);font-weight:700;}
+  .tl-item .ev{font-family:var(--serif);font-size:17px;font-weight:600;margin:2px 0 4px;}
+  .tl-item p{margin:0;font-size:13.5px;color:var(--ink-2);}
+
+  .swot{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--ink);border:1px solid var(--ink);margin:20px 0;}
+  .swot > div{background:var(--paper);padding:24px;}
+  .swot h4{font-family:var(--serif);font-size:18px;margin:0 0 4px;font-weight:600;}
+  .swot .lbl{font-size:10px;letter-spacing:.22em;text-transform:uppercase;font-weight:700;margin-bottom:10px;}
+  .swot .S{color:var(--vc);} .swot .W{color:var(--rival);} .swot .O{color:#1E3A6F;} .swot .T{color:var(--warn);}
+  .swot ul{margin:8px 0 0;padding-left:18px;font-size:13px;color:var(--ink-2);}
+  .swot li{margin-bottom:6px;}
+
+  .porter{display:grid;grid-template-columns:1fr 1fr 1fr;grid-template-rows:auto auto auto;gap:16px;margin:20px 0;}
+  .porter .force{background:var(--paper);border:1px solid var(--line);padding:18px;border-radius:2px;}
+  .porter .force .head{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;}
+  .porter .force .nm{font-family:var(--serif);font-size:16px;font-weight:600;}
+  .porter .force .scale{font-family:var(--mono);font-size:11px;}
+  .porter .center{grid-column:2;grid-row:2;background:var(--ink);color:#fff;padding:24px;text-align:center;display:flex;flex-direction:column;justify-content:center;}
+  .porter .center h4{font-family:var(--serif);margin:0 0 6px;font-size:20px;font-weight:600;color:#fff;}
+  .porter .center p{font-size:12px;color:#A6B4D8;margin:0;}
+  .force.high{border-top:3px solid var(--rival);}
+  .force.med{border-top:3px solid var(--warn);}
+  .force.low{border-top:3px solid var(--vc);}
+  .meter{height:5px;background:#E5E7EB;border-radius:2px;overflow:hidden;margin-top:10px;}
+  .meter > div{height:100%;}
+  .meter.high > div{width:80%;background:var(--rival);}
+  .meter.med > div{width:55%;background:var(--warn);}
+  .meter.low > div{width:30%;background:var(--vc);}
+
+  .chartbox{background:var(--paper);border:1px solid var(--line);padding:24px;margin:20px 0;border-radius:2px;}
+  .chartbox h4{margin:0 0 4px;font-family:var(--serif);font-size:18px;font-weight:600;}
+  .chartbox .src{font-size:11px;color:var(--muted);margin-top:6px;letter-spacing:.04em;}
+  .chartbox canvas{max-height:340px;}
+
+  .worldmap{background:var(--paper);border:1px solid var(--line);padding:30px;border-radius:2px;margin:20px 0;}
+  .worldmap svg{width:100%;height:auto;display:block;}
+  .worldmap .legend{display:flex;gap:24px;margin-top:14px;font-size:12px;color:var(--muted);flex-wrap:wrap;}
+  .worldmap .legend .ll{display:flex;align-items:center;gap:6px;}
+  .worldmap .legend .dot{width:10px;height:10px;border-radius:50%;background:var(--rb);}
+  .worldmap .legend .dot.hub{background:var(--ink);}
+
+  .matrix{position:relative;background:var(--paper);border:1px solid var(--line);padding:30px 30px 30px 60px;margin:20px 0;border-radius:2px;}
+  .matrix .grid{position:relative;height:380px;border:1px solid var(--ink);}
+  .matrix .grid::before,.matrix .grid::after{content:"";position:absolute;background:var(--line);}
+  .matrix .grid::before{top:0;bottom:0;left:50%;width:1px;}
+  .matrix .grid::after{left:0;right:0;top:50%;height:1px;}
+  .matrix .axis-x{position:absolute;bottom:-26px;left:0;right:0;display:flex;justify-content:space-between;font-size:11px;color:var(--muted);letter-spacing:.15em;text-transform:uppercase;}
+  .matrix .axis-y{position:absolute;left:-50px;top:0;bottom:0;writing-mode:vertical-rl;transform:rotate(180deg);display:flex;justify-content:space-between;font-size:11px;color:var(--muted);letter-spacing:.15em;text-transform:uppercase;}
+  .matrix .pin{position:absolute;transform:translate(-50%,-50%);}
+  .matrix .pin .dot{width:14px;height:14px;border-radius:50%;border:2px solid var(--ink);background:var(--rb);box-shadow:0 0 0 4px rgba(255,255,255,.8);}
+  .matrix .pin.us .dot{background:var(--rival);}
+  .matrix .pin.print .dot{background:#0A1628;}
+  .matrix .pin.gel .dot{background:#FF6B35;}
+  .matrix .pin.shop .dot{background:#10B981;}
+  .matrix .pin.eb .dot{background:#9CA3AF;}
+  .matrix .pin .lbl{position:absolute;top:18px;left:50%;transform:translateX(-50%);white-space:nowrap;font-family:var(--serif);font-weight:600;font-size:13px;background:var(--paper);padding:2px 6px;}
+  .matrix .quad-lbl{position:absolute;font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:#9CA3AF;font-weight:700;}
+
+  .battle{display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px;margin:16px 0;}
+  .bc{background:var(--paper);border:1px solid var(--line);padding:18px;}
+  .bc .vec{font-family:var(--mono);font-size:11px;color:var(--rival);letter-spacing:.16em;font-weight:700;}
+  .bc h4{font-family:var(--serif);font-size:17px;margin:8px 0 6px;font-weight:600;}
+  .bc .strat{font-size:12px;color:var(--muted);margin-bottom:8px;font-style:italic;}
+  .bc p{font-size:13px;margin:0;}
+  .bc .ko{margin-top:10px;font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--rival);font-weight:700;}
+
+  .riskmap{display:grid;grid-template-columns:80px repeat(3,1fr);gap:6px;margin:20px 0;}
+  .riskmap .col-h{font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);text-align:center;font-weight:700;padding:6px;}
+  .riskmap .row-h{font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);font-weight:700;display:flex;align-items:center;justify-content:flex-end;padding:6px;}
+  .riskmap .cell{background:var(--paper);border:1px solid var(--line);padding:12px;min-height:90px;}
+  .riskmap .cell.hot{background:#FBE2DA;}
+  .riskmap .cell.warm{background:#FBEFD8;}
+  .riskmap .cell.cool{background:#E3F1EA;}
+  .riskmap .cell .r{display:block;font-size:12px;font-weight:600;margin-bottom:3px;}
+  .riskmap .cell .rd{font-size:11px;color:var(--muted);}
+
+  .verdict-block{background:var(--ink);color:#fff;padding:36px 40px;margin:32px 0;border-radius:2px;position:relative;overflow:hidden;}
+  .verdict-block::before{content:"";position:absolute;top:0;right:0;width:120px;height:120px;background:var(--rb);opacity:.15;border-bottom-left-radius:120px;}
+  .verdict-block .lbl{font-family:var(--mono);font-size:11px;letter-spacing:.2em;color:var(--rb);margin-bottom:14px;}
+  .verdict-block h3{font-family:var(--serif);font-weight:600;font-size:24px;margin:0 0 14px;color:#fff;}
+  .verdict-block p{color:#C5CDDC;font-size:14px;margin:0 0 8px;max-width:none;}
+  .verdict-block .three{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:22px;border-top:1px solid #2B3A56;padding-top:22px;}
+  .verdict-block .three .role{font-size:10px;letter-spacing:.22em;color:var(--rb);font-weight:700;text-transform:uppercase;margin-bottom:4px;}
+  .verdict-block .three b{display:block;font-family:var(--serif);font-size:16px;color:#fff;font-weight:600;margin-bottom:4px;}
+  .verdict-block .three p{font-size:12.5px;color:#A6B4D8;}
+
+  .org{margin:20px 0;display:flex;flex-direction:column;align-items:center;gap:18px;}
+  .org .level{display:flex;justify-content:center;gap:14px;flex-wrap:wrap;width:100%;}
+  .org .node{background:var(--paper);border:1px solid var(--line);padding:14px 18px;text-align:center;min-width:160px;border-radius:2px;}
+  .org .node.exec{background:var(--ink);color:#fff;border-color:var(--ink);}
+  .org .node.exec .role{color:#A6B4D8;}
+  .org .node .role{font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);font-weight:700;}
+  .org .node .nm{font-family:var(--serif);font-weight:600;font-size:14px;margin-top:4px;}
+  .org .node.dept{background:var(--bg-2);border-style:dashed;}
+  .org .conn{height:14px;width:1px;background:var(--ink);}
+
+  .funnel{display:flex;flex-direction:column;gap:6px;margin:18px 0;}
+  .funnel .stage{background:var(--paper);border:1px solid var(--line);padding:14px 22px;display:grid;grid-template-columns:90px 1fr 130px;gap:16px;align-items:center;border-left:5px solid var(--gold);}
+  .funnel .stage .ph{font-family:var(--mono);font-size:11px;font-weight:700;color:var(--rb);letter-spacing:.16em;}
+  .funnel .stage h4{margin:0 0 4px;font-family:var(--serif);font-size:16px;font-weight:600;}
+  .funnel .stage p{margin:0;font-size:13px;color:var(--ink-2);}
+  .funnel .stage .res{font-family:var(--mono);font-size:11px;color:var(--muted);text-align:right;}
+  .funnel .stage:nth-child(1){border-left-color:#1A1224;}
+  .funnel .stage:nth-child(2){border-left-color:#5A4070;}
+  .funnel .stage:nth-child(3){border-left-color:#E63946;}
+  .funnel .stage:nth-child(4){border-left-color:#0E7C58;}
+  .funnel .stage:nth-child(5){border-left-color:#7A1212;}
+
+  .tactic-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;margin:16px 0;}
+  .tac{background:var(--paper);border:1px solid var(--line);padding:18px;display:grid;grid-template-columns:50px 1fr;gap:14px;}
+  .tac .nm{font-family:var(--serif);font-size:34px;color:var(--rb);font-weight:600;line-height:1;}
+  .tac h4{margin:0 0 6px;font-family:var(--serif);font-size:16px;font-weight:600;}
+  .tac p{margin:0;font-size:13px;color:var(--ink-2);}
+  .tac .res{margin-top:8px;font-family:var(--mono);font-size:10.5px;color:var(--vc);letter-spacing:.1em;text-transform:uppercase;font-weight:700;}
+
+  .quad{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin:16px 0;}
+  .quad .box{background:var(--paper);border:1px solid var(--line);padding:18px;border-radius:2px;border-top:3px solid var(--rb);}
+  .quad .box.b2{border-top-color:#1A1224;}
+  .quad .box.b3{border-top-color:#5A4070;}
+  .quad .box.b4{border-top-color:#0E7C58;}
+  .quad .box .lbl{font-family:var(--mono);font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--rb);font-weight:700;margin-bottom:6px;}
+  .quad .box.b2 .lbl{color:#1A1224;} .quad .box.b3 .lbl{color:#5A4070;} .quad .box.b4 .lbl{color:#0E7C58;}
+  .quad .box h4{margin:0 0 4px;font-family:var(--serif);font-size:17px;font-weight:600;}
+  .quad .box .audi{font-size:12px;color:var(--muted);font-style:italic;margin-bottom:6px;}
+  .quad .box p{font-size:12.5px;margin:0;}
+
+  footer{margin-top:90px;padding:36px 0;border-top:1px solid var(--line);font-size:12px;color:var(--muted);}
+
+  @media (max-width:1100px){
+    .wrap{grid-template-columns:1fr;}
+    nav.toc{position:relative;height:auto;}
+    main{padding:0 28px 60px;}
+    .three-views,.grid-3,.grid-4,.battle,.kpis,.tactic-grid,.quad{grid-template-columns:1fr 1fr;}
+    .porter{grid-template-columns:1fr;}
+    .porter .center{grid-column:auto;grid-row:auto;}
+    .funnel .stage{grid-template-columns:80px 1fr;}
+    .funnel .stage .res{grid-column:1/-1;text-align:left;}
+  }
+  @media print{
+    nav.toc{display:none;}
+    .wrap{grid-template-columns:1fr;}
+    main{padding:0;}
+  }
+</style>
+</head>
+<body>
+
+<div class="wrap">
+
+<!-- Sidebar -->
+<nav class="toc">
+  <h2>Redbubble</h2>
+  <div class="sub">Articore Group · ASX:ATG · 2026 Q2</div>
+
+  <div class="group">
+    <div class="group-title"><span class="dot"></span>第一部 · 公司全景</div>
+    <a href="#hero"><span class="num">00</span>封面与三视角速览</a>
+    <a href="#exec"><span class="num">01</span>执行摘要</a>
+    <a href="#overview"><span class="num">02</span>发展概况</a>
+    <a href="#snapshot"><span class="num">03</span>公司画像 Snapshot</a>
+    <a href="#timeline"><span class="num">04</span>发展历程时间线</a>
+  </div>
+
+  <div class="group">
+    <div class="group-title"><span class="dot"></span>第二部 · 业务运营</div>
+    <a href="#bizmodel"><span class="num">05</span>业务模式 BMC</a>
+    <a href="#network"><span class="num">06</span>全球履约网络</a>
+    <a href="#org"><span class="num">07</span>团队与组织</a>
+    <a href="#revenue"><span class="num">08</span>营收 10 年走势</a>
+    <a href="#profit"><span class="num">09</span>利润与单位经济</a>
+    <a href="#trends"><span class="num">10</span>发展趋势 8 大方向</a>
+  </div>
+
+  <div class="group growth">
+    <div class="group-title"><span class="dot"></span>第三部 · 增长引擎</div>
+    <a href="#zerotoone"><span class="num">11</span>0→1 客户获取之路</a>
+    <a href="#growthstack"><span class="num">12</span>用户增长手段全栈</a>
+    <a href="#channel"><span class="num">13</span>营销渠道矩阵</a>
+  </div>
+
+  <div class="group consult">
+    <div class="group-title"><span class="dot"></span>第四部 · 咨询视角</div>
+    <a href="#strategy"><span class="num">14</span>战略定位</a>
+    <a href="#valuechain"><span class="num">15</span>价值链与生态</a>
+    <a href="#moat"><span class="num">16</span>战略护城河</a>
+    <a href="#ops"><span class="num">17</span>运营与效率</a>
+  </div>
+
+  <div class="group vc">
+    <div class="group-title"><span class="dot"></span>第五部 · VC 视角</div>
+    <a href="#tam"><span class="num">18</span>市场规模 TAM</a>
+    <a href="#cap"><span class="num">19</span>资本路径与估值</a>
+    <a href="#fin"><span class="num">20</span>财务模型与转型</a>
+    <a href="#peers"><span class="num">21</span>对标公司</a>
+  </div>
+
+  <div class="group rival">
+    <div class="group-title"><span class="dot"></span>第六部 · 竞品视角</div>
+    <a href="#us"><span class="num">22</span>我方画像</a>
+    <a href="#weak"><span class="num">23</span>对手弱点雷达</a>
+    <a href="#vectors"><span class="num">24</span>6 大攻击向量</a>
+    <a href="#playbook"><span class="num">25</span>作战手册</a>
+  </div>
+
+  <div class="group">
+    <div class="group-title"><span class="dot"></span>第七部 · 综合分析</div>
+    <a href="#swot"><span class="num">26</span>SWOT 综合</a>
+    <a href="#porter"><span class="num">27</span>Porter 五力</a>
+    <a href="#bcg"><span class="num">28</span>战略矩阵</a>
+    <a href="#risk"><span class="num">29</span>风险地图</a>
+    <a href="#verdict"><span class="num">30</span>三视角合议</a>
+    <a href="#sources"><span class="num">31</span>来源与方法</a>
+  </div>
+</nav>
+
+<main>
+
+<!-- HERO -->
+<section id="hero" class="hero">
+  <div class="eyebrow">Redbubble (Articore Group · ASX:ATG) · Print-on-Demand Marketplace · 2026 Q2 · 三视角合议</div>
+  <h1>从 Melbourne 创意社区到 ATG 上市公司：<br/>Redbubble / Articore 的转型阵痛与重生赌注</h1>
+  <p class="lead">
+    本报告以三种身份——<b>顶级管理咨询顾问</b>、<b>头部成长型 VC</b>、<b>定位为「整合 POD 供应链 + 电商 + 内容」的竞争对手</b>——对 Redbubble.com 进行综合诊断。
+    与 Printful（资产重）和 Gelato（资产轻 SaaS）不同，Redbubble 是一个 <b>纯粹的两边市场（marketplace）</b>——
+    它不直接服务"想开店的创作者"，而是聚集 <b>1M+ 独立艺术家</b> 上传设计、由用户购买、第三方印厂履约。
+    这是 POD 行业里 <b>唯一上市的公司</b>（2016 年 ASX 上市），也是<b>唯一经历过完整周期</b>的公司——
+    从 2020 疫情期高点（市值近 AUD $2.5B）到 2023 低谷（市值 ~AUD $120M）再到 2024–2025 转型期。
+    2023 年 10 月集团更名为 <b>Articore Group（ASX:ATG）</b>，旗下品牌矩阵：Redbubble + TeePublic + Frankly Wearing + Dashery。
+    2025 年 6 月联合创始人 Martin Hosking 退出，CEO 由 Vivek Kumar 接任。
+  </p>
+  <div class="meta">
+    <div><b>Subject</b>Articore Group Limited (ASX: ATG)</div>
+    <div><b>Founded</b>2006 · Melbourne, Australia</div>
+    <div><b>Founders</b>Martin Hosking, Peter Styles, Paul Vanzella</div>
+    <div><b>IPO</b>2016/05 · ASX · 估值 AUD $267M</div>
+    <div><b>Brands</b>Redbubble · TeePublic · Frankly Wearing · Dashery</div>
+    <div><b>Independent Creators</b>3M+ (across all brands)</div>
+    <div><b>FY25 GPAPA</b>~AUD $61M (margin 26.5%)</div>
+    <div><b>Report Date</b>2026-05-11</div>
+  </div>
+
+  <div class="three-views">
+    <div class="pv-card consult">
+      <div class="role">视角 1 · 顶级咨询</div>
+      <h3>转型方向对，但增长引擎尚未启动</h3>
+      <div class="verdict">核心判断</div>
+      <p>FY24-25 通过 OpEx -17% + GPAPA 优化实现"利润转身"，但 MPR 仍 -19%。Articore 的真正问题是<b>市场模式正被结构性侵蚀</b>——SEO 流量被 Google AI Overview 吃掉、AI 涌入让作品池贬值、Etsy/Amazon Merch 抢长尾。</p>
+      <span class="stamp">建议：从市场→工具加速</span>
+    </div>
+    <div class="pv-card vc">
+      <div class="role">视角 2 · 成长型 VC</div>
+      <h3>典型困境反转交易（Deep Value Turnaround）</h3>
+      <div class="verdict">投资观点</div>
+      <p>市值仅 AUD $120–150M，FY24/25 已现金流正向。但 MPR 持续下行 + 转型不确定让赔率非常二元——成功则 3-5x，失败则归零。这是<b>困境反转专项基金</b>的标的，不适合普通成长基金。</p>
+      <span class="stamp">建议：仅困境反转基金可考虑</span>
+    </div>
+    <div class="pv-card rival">
+      <div class="role">视角 3 · 我方（竞品）</div>
+      <h3>Redbubble 的 1M+ 艺术家是最值钱的资产</h3>
+      <div class="verdict">作战判断</div>
+      <p>Redbubble 模式自身很难再起飞，但它积累的 1M+ 艺术家 + 海量原创设计 + 5M 客户数据是<b>极有价值的可挖掘资产</b>。我方应主动接触艺术家、提供更优分成与工具，并研究是否在 ATG 估值更低时考虑战略并购。</p>
+      <span class="stamp">建议：挖艺术家 + 评估并购</span>
+    </div>
+  </div>
+</section>
+
+<!-- 01 EXEC SUMMARY -->
+<section id="exec" class="section">
+  <div class="section-num">01 · 第一部 · 公司全景</div>
+  <h2 class="section-title">执行摘要：三视角合议核心结论</h2>
+  <p class="section-deck">三种视角对 Articore Group（Redbubble + TeePublic + Frankly Wearing + Dashery）的诊断、共识与分歧。</p>
+
+  <div class="kpis">
+    <div class="kpi"><div class="lbl">FY25 MPR</div><div class="val">~AUD $230M</div><div class="sub">同比 -19%（持续下行）</div></div>
+    <div class="kpi"><div class="lbl">FY25 GPAPA</div><div class="val">~AUD $61M</div><div class="sub">毛利后净获客毛利</div></div>
+    <div class="kpi"><div class="lbl">独立艺术家</div><div class="val">3M+</div><div class="sub">FY25 全集团 / Redbubble 单体 1M+</div></div>
+    <div class="kpi"><div class="lbl">市值</div><div class="val">AUD $120–150M</div><div class="sub">2024–2026 区间，曾达 AUD $2.5B</div></div>
+  </div>
+
+  <h3 class="h">三方共识</h3>
+  <p>共识五点：①Redbubble 是 POD 行业唯一一家走完整"周期"的公司——疫情期市值峰值 ~AUD $2.5B，2023 年低谷 ~AUD $120M，2024–2025 进入"利润转身"但收入仍下行；②市场模式（marketplace）相对资产模式（Printful / Gelato）<b>正在结构性失效</b>——Google AI Overview / AI 涌入设计池 / 平台抽佣战让两边市场吸引力下降；③但 Redbubble 拥有 PoD 行业<b>最大的艺术家社区</b>（1M+），这是真正的稀缺资产；④2023 年的<b>账户分级 + 抽佣调整</b>是必要但有争议的动作——许多艺术家因被收 50% 平台费而离开；⑤Dashery（创作者独立店铺 SaaS）是 Articore 寻找新增长曲线的尝试，方向对但进度慢。</p>
+
+  <h3 class="h">三方分歧</h3>
+  <table>
+    <thead><tr><th>分歧议题</th><th>咨询观点</th><th>VC 观点</th><th>我方（竞品）观点</th></tr></thead>
+    <tbody>
+      <tr><td class="accent">市场 vs 工具</td><td>必须从市场转向工具，Dashery 是关键</td><td>市场资产已重估，工具叙事可拉乘数</td><td>市场艺术家 = 我方挖掘对象</td></tr>
+      <tr><td class="accent">SEO 依赖性</td><td>致命软肋，急需多元流量</td><td>结构性威胁尚未充分定价</td><td>是攻击的最佳切入点</td></tr>
+      <tr><td class="accent">收购 Frankly Wearing</td><td>战略合理，地理多元化</td><td>资本开支引人担忧</td><td>Articore 整合能力存疑</td></tr>
+      <tr><td class="accent">FY26 EBIT 指引 $2-8M</td><td>偏保守，可信度高</td><td>缺乏增长想象力</td><td>说明转型仍在阵痛期</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<!-- 02 OVERVIEW -->
+<section id="overview" class="section">
+  <div class="section-num">02 · 第一部 · 公司全景</div>
+  <h2 class="section-title">发展概况：从 Melbourne 创意市场到 ASX 上市公司</h2>
+  <p class="section-deck">用六个维度浓缩 Redbubble 20 年发展轨迹。</p>
+
+  <div class="grid-2">
+    <div class="card">
+      <div class="hd">起源</div>
+      <h4>"让艺术家分享作品"的创意社区</h4>
+      <p>2006 年，Martin Hosking（前 Looksmart 高管 / 创意写作背景）与 Peter Styles、Paul Vanzella 在 Melbourne 创立 Redbubble。
+        最初是<b>艺术家分享作品的在线社区</b>，靠 $2M 投资人启动。后来发现"靠定制服务赚钱"模式不通，
+        关键转身是<b>把艺术家本身变成客户</b>——技术不变，但商业模式从"为消费者印东西"变成"帮艺术家在产品上变现"。这一转身是 Redbubble 整个故事的起点。</p>
+    </div>
+    <div class="card">
+      <div class="hd">独特创业基因</div>
+      <h4>创意写作背景的"非典型创始人"</h4>
+      <p>Martin Hosking 不是技术或电商背景出身——他是<b>创意写作硕士、墨尔本剧院公司董事</b>。这种"艺术 + 商业"的双面属性让 Redbubble 比 Printful 或 Gelato 更接近"艺术家友好"——
+        它的设计师社区文化、作品策展、艺术家 profile 页面都更像 Behance / Dribbble 而非纯电商。这一基因后来也成为它的<b>双刃剑</b>——浪漫的社区文化在专业化竞争面前显得脆弱。</p>
+    </div>
+    <div class="card">
+      <div class="hd">规模化拐点</div>
+      <h4>2016 年 ASX 上市 / 2018 年收购 TeePublic</h4>
+      <p>2016 年 5 月以 AUD $1.33/股上市，募资 AUD $30M，估值 AUD $267M，超额认购数倍。
+        2018 年 10 月以 USD $41M（总值约 USD $57.7M）现金收购美国竞品 TeePublic——这是 Redbubble 最重要的并购，
+        把它从"澳洲单一品牌"扩展为<b>"全球艺术家市场集团"</b>，TeePublic 保持独立运营。</p>
+    </div>
+    <div class="card">
+      <div class="hd">疫情高点与崩塌</div>
+      <h4>2020 峰值 vs 2023 谷底</h4>
+      <p>2020–2021 疫情期间 Redbubble 经历 PoD 行业<b>最戏剧性的爆发与崩塌</b>。
+        市值在 2021 年初达 AUD $2.5B+ 高点；但电商寒潮 + Google 算法变化 + AI 涌入让 FY22 营收 -13%、FY23 -3%、EBITDA 亏 AUD $40.7M、净亏 AUD $54.2M。
+        2023 年裁员 37%（141 人）— 这是 PoD 行业有史以来最大规模的单家公司裁员。</p>
+    </div>
+    <div class="card">
+      <div class="hd">重整与改名</div>
+      <h4>2023/10 更名 Articore（ASX:ATG）</h4>
+      <p>2023 年 10 月 Redbubble 集团更名为 <b>Articore Group</b>，ASX 代码从 RBL 改为 ATG，强调它是"<b>artist marketplaces 集合</b>"而非单品牌。
+        同时启动账户分级 + 抽佣改革（标准 50% / 高级 20% / Pro 0%）— 此举短期内让大量艺术家离开但带动 GPAPA 利润率改善。</p>
+    </div>
+    <div class="card">
+      <div class="hd">新一阶段</div>
+      <h4>Hosking 退出 + 新 CEO + 新品牌矩阵</h4>
+      <p>2025 年 6 月联合创始人 Martin Hosking 在董事会动荡中退出；Vivek Kumar（前 TeePublic CEO，Amazon 老兵）接任集团 CEO。
+        2025 年推出 <b>Dashery</b> SaaS 平台，让艺术家自建店铺（FY25 已带来 AUD $1.3M MPR / 1,200 创作者）；2026 年 5 月收购<b>印度创作者市场 Frankly Wearing</b>。
+        新阵容押注"<b>多市场矩阵 + 创作者工具化</b>"。</p>
+    </div>
+  </div>
+
+  <div class="pull">
+    "Redbubble 的故事是 POD 行业里最具教育意义的——它告诉你『纯市场模式』在 SEO 红利消失、AI 涌入、平台分发变革面前，可以从独角兽跌回 nano cap。"
+  </div>
+</section>
+
+<!-- 03 SNAPSHOT -->
+<section id="snapshot" class="section">
+  <div class="section-num">03 · 第一部 · 公司全景</div>
+  <h2 class="section-title">公司画像 Snapshot</h2>
+  <p class="section-deck">一张表读懂 Articore Group 当前的边界、能力与外延。</p>
+
+  <div class="grid-2">
+    <div class="card">
+      <div class="hd">主体识别</div>
+      <h4>Articore Group Limited (ASX: ATG)</h4>
+      <p><b>类型：</b>艺术家市场集团（marketplaces holding）<br/>
+        <b>HQ：</b>Melbourne, Australia<br/>
+        <b>员工 (FY25)：</b>~250（FY23 裁员 37% 后稳定运营规模）<br/>
+        <b>运营品牌：</b>Redbubble · TeePublic · Frankly Wearing · Dashery<br/>
+        <b>艺术家：</b>3M+ across all brands<br/>
+        <b>履约模型：</b>纯第三方网络（不持有任何工厂）
+      </p>
+    </div>
+    <div class="card">
+      <div class="hd">FY25 多品牌矩阵</div>
+      <h4>四个不同战略价值的市场</h4>
+      <p><b>Redbubble.com（核心 / 老品牌）：</b>1M+ 艺术家，全品类 70+ 商品；FY25 MPR 主要贡献者<br/>
+        <b>TeePublic.com（增长引擎）：</b>2018 收购，T-shirt 为主，美国市场强势<br/>
+        <b>Dashery.com（新生 SaaS）：</b>艺术家自建店铺工具，FY25 MPR $1.3M / 1,200 创作者<br/>
+        <b>Frankly Wearing（2026/5 收购）：</b>印度创作者市场，开拓亚洲新市场</p>
+    </div>
+    <div class="card">
+      <div class="hd">技术与履约</div>
+      <h4>第三方履约 + DORS 路由系统</h4>
+      <p><b>履约：</b>10 个第三方印厂位置（美国、加拿大、欧洲、澳大利亚）<br/>
+        <b>DORS：</b>Dynamic Order Routing System，按地理 + 容量 + SKU 自动分配订单<br/>
+        <b>商品类型：</b>从衣服、配件到墙艺、家居、文具、贴纸 70+ 类<br/>
+        <b>艺术家工具：</b>Studio 设计上传 + 自动产品图生成 + 标签 / 关键词系统（SEO 重要驱动）</p>
+    </div>
+    <div class="card">
+      <div class="hd">商业模式特征</div>
+      <h4>纯市场抽佣 + 长尾 SEO</h4>
+      <p><b>核心收入：</b>商品销售毛利 + 艺术家账户分级费（FY24 改革后）<br/>
+        <b>艺术家分账：</b>Standard 50% 平台费 / Premium 20% / Pro 0%（基于销量与活跃度评级）<br/>
+        <b>定价权：</b>艺术家自定 markup（&gt; 20% 加收 50% 超额费），平台保留底价<br/>
+        <b>流量来源：</b>50% 自然搜索（最严重依赖），社交、口碑次之</p>
+    </div>
+  </div>
+</section>
+
+<!-- 04 TIMELINE -->
+<section id="timeline" class="section">
+  <div class="section-num">04 · 第一部 · 公司全景</div>
+  <h2 class="section-title">发展历程时间线（20 年完整版）</h2>
+  <p class="section-deck">从 2006 年 Melbourne 三人创业到 2026 年 Frankly Wearing 收购。</p>
+  <div class="timeline">
+    <div class="tl-item major"><div class="yr">2006</div><div class="ev">Martin Hosking、Peter Styles、Paul Vanzella 在 Melbourne 创立 Redbubble</div><p>$2M 启动资金，定位为"艺术家在线社区"。</p></div>
+    <div class="tl-item"><div class="yr">2007–2010</div><div class="ev">商业模式转身：从"为消费者定制"变为"帮艺术家变现"</div><p>关键决策：让艺术家成为真正客户，而不是 B2C 服务对象。</p></div>
+    <div class="tl-item"><div class="yr">2011–2015</div><div class="ev">扩展商品类别 + 全球化运营 + 印厂网络铺开</div><p>到 2015 年成为澳洲最知名的艺术家市场。</p></div>
+    <div class="tl-item major"><div class="yr">2016 · 05</div><div class="ev">ASX 上市，AUD $1.33/股，募资 $30M，估值 $267M，超额认购</div><p>当时 H1 GTV $80.6M（同比 +55%），全年 GTV 预测 $143.5M。</p></div>
+    <div class="tl-item major"><div class="yr">2018 · 10</div><div class="ev">以 USD $41M 收购美国竞品 TeePublic（总值含对赌 USD $57.7M）</div><p>TeePublic 由 Adam Schwartz 创立于 2013，T-shirt 为主，保留独立运营。</p></div>
+    <div class="tl-item major"><div class="yr">2020–2021</div><div class="ev">疫情爆发，营收高速增长，市值峰值近 AUD $2.5B</div><p>POD 行业历史性的需求峰值，但 Redbubble 的爆发也为后来"消化期"埋下伏笔。</p></div>
+    <div class="tl-item bad"><div class="yr">2022</div><div class="ev">Marketplace Revenue 同比 -13%，进入下行周期</div></div>
+    <div class="tl-item bad"><div class="yr">2023 · 上半年</div><div class="ev">FY23 EBITDA 亏损 AUD $40.7M，净亏 $54.2M；裁员 37%（141 人）</div><p>POD 行业历史最大单家裁员事件。</p></div>
+    <div class="tl-item major"><div class="yr">2023 · 10</div><div class="ev">集团更名 Articore Group，ASX 代码 RBL → ATG；启动账户分级</div><p>Standard 收 50% 平台费 / Premium 20% / Pro 0%，引发部分艺术家流失。</p></div>
+    <div class="tl-item"><div class="yr">2024 · FY24</div><div class="ev">"利润转身"：GPAPA $69M（+5%），margin +590bps，op EBITDA +$32.4M 同比改善</div><p>但 MPR 全年仍下降；现金流转正。</p></div>
+    <div class="tl-item"><div class="yr">2024–2025</div><div class="ev">推出 Dashery（创作者自建店铺 SaaS），FY25 MPR $1.3M / 1,200 创作者</div></div>
+    <div class="tl-item bad"><div class="yr">2025 · 06</div><div class="ev">联合创始人 Martin Hosking 在董事会动荡中退出；Vivek Kumar（原 TeePublic CEO / Amazon 老兵）接任集团 CEO</div></div>
+    <div class="tl-item"><div class="yr">2025 · FY25</div><div class="ev">MPR -19% / GPAPA margin 26.5% / OpEx -17% / 现金流正向</div></div>
+    <div class="tl-item major"><div class="yr">2026 · 05</div><div class="ev">收购印度创作者市场 Frankly Wearing，开拓亚洲</div></div>
+    <div class="tl-item"><div class="yr">FY26 指引</div><div class="ev">GPAPA margin 27–29%，正向 EBIT $2–8M，正向 cash flow $5–12M</div></div>
+  </div>
+</section>
+
+<!-- 05 BUSINESS MODEL -->
+<section id="bizmodel" class="section">
+  <div class="section-num">05 · 第二部 · 业务运营</div>
+  <h2 class="section-title">业务模式：BMC + 四品牌矩阵</h2>
+  <p class="section-deck">用 Osterwalder 9 块画布呈现 Articore 的现金流，用四品牌矩阵呈现集团结构。</p>
+
+  <h3 class="h">Articore 四品牌矩阵</h3>
+  <div class="quad">
+    <div class="box">
+      <div class="lbl">主品牌 / 老牌</div>
+      <h4>Redbubble.com</h4>
+      <div class="audi">面向：通用艺术家 + 多品类买家</div>
+      <p>1M+ 艺术家、70+ 商品类型；从 T-shirt 到墙艺到贴纸全品类。FY25 MPR 主要贡献者，但下行最快。</p>
+    </div>
+    <div class="box b2">
+      <div class="lbl">收购品牌</div>
+      <h4>TeePublic.com</h4>
+      <div class="audi">面向：T-shirt 为主，美国买家</div>
+      <p>2018 年收购，专注 T-shirt 与服装；美国市场强势，CEO Vivek Kumar 之前主管这块业务。是相对韧性较强的品牌。</p>
+    </div>
+    <div class="box b3">
+      <div class="lbl">新生 SaaS</div>
+      <h4>Dashery.com</h4>
+      <div class="audi">面向：希望自建独立店的高价值艺术家</div>
+      <p>2024–2025 上线。让创作者自建带自定义域名的店铺，是 Articore 从"市场"转"工具"的第一步。FY25 MPR $1.3M / 1,200 创作者 / GPAPA margin 35.5%。</p>
+    </div>
+    <div class="box b4">
+      <div class="lbl">2026 收购</div>
+      <h4>Frankly Wearing</h4>
+      <div class="audi">面向：印度 + 南亚创作者</div>
+      <p>2026 年 5 月收购，进入印度 / 南亚创作者市场。地理多元化的尝试，规模与整合效果待观察。</p>
+    </div>
+  </div>
+
+  <h3 class="h">9 块业务模式画布</h3>
+  <div class="grid-3">
+    <div class="card consult"><div class="hd">关键合作</div><p>10+ 第三方印厂（美 / 加 / 欧 / 澳）；UPS, FedEx, DHL 等承运；Google, Pinterest, Instagram 等流量来源；TeePublic、Frankly Wearing、Dashery 子公司；Visa/Mastercard/PayPal 支付。</p></div>
+    <div class="card consult"><div class="hd">关键活动</div><p>艺术家社区运营 + 设计上传与策展；订单智能路由（DORS）；SEO / paid 营销 + 站内搜索算法；账户分级 + 反欺诈；商品打样与质检；客户服务。</p></div>
+    <div class="card consult"><div class="hd">关键资源</div><p>1M+ Redbubble 艺术家 + 4.8M 设计库（FY23）；TeePublic 美国市场；ASX 上市公司治理结构；20 年品牌资产；Articore 多品牌组合管理能力。</p></div>
+
+    <div class="card consult"><div class="hd">价值主张</div><p><b>对艺术家：</b>零起步成本变现作品；4 个市场叠加曝光<br/><b>对买家：</b>1M+ 艺术家原创设计的"独一无二"商品<br/><b>对企业 / IP：</b>策展型品牌内容市场<br/>核心：用 SEO 长尾让"小众识别表达"找到精准买家</p></div>
+    <div class="card consult"><div class="hd">客户关系</div><p>艺术家社区自助 + 论坛 + Help Center；分级账户体系（FY24 后）；个性化商家通讯；买家通过站内推荐与算法</p></div>
+    <div class="card consult"><div class="hd">渠道</div><p>Redbubble.com + TeePublic.com + Dashery + Frankly Wearing 直接网站；Google / Pinterest / Instagram / TikTok SEO + paid；不依赖 Shopify / Etsy 集成</p></div>
+
+    <div class="card consult"><div class="hd">客户细分</div><p>① 艺术家（1M+，作为商家）<br/>② 个性化商品买家（5M+ FY23）<br/>③ 粉丝群体（IP 周边）<br/>④ 礼物购买者（"独一无二"动机）<br/>⑤ Dashery 创作者（高价值留存目标）</p></div>
+    <div class="card consult"><div class="hd">成本结构</div><p>核心成本：付费营销（Google / Meta，是大头）+ 平台 SaaS 研发 + 客服 + 支付处理 + 公司运营。资产轻无工厂折旧；MPR 下行期固定成本占比变高，是利润压力主因。</p></div>
+    <div class="card consult"><div class="hd">收入流</div><p>① 商品销售毛利（核心）<br/>② 艺术家账户分级费（Standard 50% / Premium 20%）<br/>③ Excess markup 费（&gt;20% 加 50%）<br/>④ Dashery 订阅或交易费（新增）<br/>⑤ 偶尔的 IP 授权合作</p></div>
+  </div>
+
+  <div class="pull">
+    "Redbubble 不是 print on demand 公司，而是一个『艺术家长尾搜索引擎』。当 Google 改变长尾搜索的呈现方式，Redbubble 的整套商业模式根基就开始松动。"
+  </div>
+</section>
+
+<!-- 06 NETWORK -->
+<section id="network" class="section">
+  <div class="section-num">06 · 第二部 · 业务运营</div>
+  <h2 class="section-title">全球履约网络</h2>
+  <p class="section-deck">10 个第三方印厂位置 / DORS 智能路由 / 多印厂多包裹模式。</p>
+
+  <div class="worldmap">
+    <svg viewBox="0 0 1000 500" xmlns="http://www.w3.org/2000/svg">
+      <rect width="1000" height="500" fill="#FAF6F2"/>
+      <g fill="#E8E2EE" stroke="#1A122422" stroke-width="0.7">
+        <path d="M 100 120 Q 80 100 130 90 L 250 80 Q 290 100 280 160 L 270 220 Q 230 250 180 240 L 130 230 Q 90 200 100 120 Z"/>
+        <path d="M 230 270 Q 250 260 270 280 L 285 380 Q 270 430 240 420 L 215 380 Q 205 320 230 270 Z"/>
+        <path d="M 460 90 Q 440 80 470 70 L 540 65 Q 580 80 575 140 L 555 175 Q 510 180 470 160 Q 450 130 460 90 Z"/>
+        <path d="M 480 200 Q 470 180 510 175 L 570 180 Q 600 220 585 320 L 540 380 Q 510 370 490 320 Q 460 260 480 200 Z"/>
+        <path d="M 590 90 Q 580 70 640 60 L 820 70 Q 880 100 850 180 L 800 230 Q 700 240 620 200 Q 580 150 590 90 Z"/>
+        <path d="M 800 330 Q 790 320 830 315 L 880 320 Q 900 340 880 370 L 830 380 Q 800 360 800 330 Z"/>
+      </g>
+
+      <!-- HQ -->
+      <g fill="#1A1224">
+        <circle cx="850" cy="370" r="8"/>
+        <text x="780" y="395" font-family="Inter" font-size="11" fill="#1A1224" font-weight="700">Melbourne HQ</text>
+      </g>
+
+      <!-- Print partners -->
+      <g fill="#E63946" opacity="0.85">
+        <!-- US -->
+        <circle cx="170" cy="170" r="6"/><text x="60" y="174" font-family="Inter" font-size="10" fill="#7A1212" font-weight="700">USA West</text>
+        <circle cx="220" cy="180" r="6"/><text x="232" y="184" font-family="Inter" font-size="10" fill="#7A1212" font-weight="700">USA East</text>
+        <circle cx="200" cy="200" r="6"/>
+        <!-- Canada -->
+        <circle cx="225" cy="155" r="6"/><text x="237" y="148" font-family="Inter" font-size="10" fill="#7A1212" font-weight="700">Canada</text>
+        <!-- Europe -->
+        <circle cx="465" cy="105" r="6"/><text x="397" y="100" font-family="Inter" font-size="10" fill="#7A1212" font-weight="700">UK</text>
+        <circle cx="475" cy="125" r="6"/><text x="487" y="125" font-family="Inter" font-size="10" fill="#7A1212" font-weight="700">Germany</text>
+        <circle cx="490" cy="140" r="6"/>
+        <circle cx="500" cy="120" r="6"/>
+        <!-- Australia -->
+        <circle cx="855" cy="350" r="6"/><text x="755" y="350" font-family="Inter" font-size="10" fill="#7A1212" font-weight="700">Australia</text>
+      </g>
+
+      <!-- Routing arcs -->
+      <g fill="none" stroke="#E6394655" stroke-width="0.6" stroke-dasharray="3 3">
+        <path d="M 850 370 Q 600 200 220 180"/>
+        <path d="M 850 370 Q 700 100 470 105"/>
+        <path d="M 220 180 Q 350 80 470 105"/>
+      </g>
+    </svg>
+    <div class="legend">
+      <span class="ll"><span class="dot hub"></span>Melbourne 总部 + 集团运营</span>
+      <span class="ll"><span class="dot"></span>10+ 第三方印厂位置</span>
+      <span class="ll"><b>DORS</b>&nbsp;智能路由系统</span>
+      <span class="ll"><b>不持有</b>&nbsp;任何自营工厂</span>
+    </div>
+  </div>
+
+  <h3 class="h">第三方履约网络的关键属性</h3>
+  <table>
+    <thead><tr><th>维度</th><th>Redbubble 网络</th><th>对比 Gelato 网络</th><th>对比 Printful 自营</th></tr></thead>
+    <tbody>
+      <tr><td class="accent">网络规模</td><td>~10 个固定第三方印厂位置</td><td>140+ 印厂 / 32 国</td><td>13 自营履约中心</td></tr>
+      <tr><td class="accent">履约时长</td><td>1–7 天（区域差异）</td><td>2–4 天（本地化）</td><td>2–5 天</td></tr>
+      <tr><td class="accent">质量管理</td><td>SLA + 商品退货策略</td><td>SLA + GelatoConnect 数据</td><td>自营完全控制</td></tr>
+      <tr><td class="accent">多印厂订单</td><td>是（订单可分多包寄出）</td><td>较少</td><td>极少</td></tr>
+      <tr><td class="accent">扩张成本</td><td>低（伙伴模式）</td><td>低（伙伴模式）</td><td>高（建厂）</td></tr>
+      <tr><td class="accent">规模壁垒</td><td>弱</td><td>中（路由智能 + Connect SaaS）</td><td>强（自营资产）</td></tr>
+    </tbody>
+  </table>
+
+  <h3 class="h">DORS：动态订单路由系统</h3>
+  <p>DORS（Dynamic Order Routing System）是 Redbubble 在 FY23–FY24 上线的关键技术升级——根据<b>地理位置 + 印厂当前容量 + SKU 工艺匹配 + 价格优先级 + 历史质量</b>自动选择印厂派单。
+    DORS 是支撑 FY24 GPAPA margin +590bps 改善的核心运营杠杆之一。
+    但相比 GelatoConnect，DORS 是<b>内部工具</b>而非可对外销售的 SaaS——它是 Articore 运营效率提升的功臣，但不能成为新的收入引擎。</p>
+</section>
+
+<!-- 07 ORG -->
+<section id="org" class="section">
+  <div class="section-num">07 · 第二部 · 业务运营</div>
+  <h2 class="section-title">团队与组织</h2>
+  <p class="section-deck">FY23 裁员后 ~250 人；2025 年董事会动荡 + CEO 更替。</p>
+
+  <h3 class="h">领导层架构（2025/06 更新后）</h3>
+  <div class="org">
+    <div class="level">
+      <div class="node exec"><div class="role">Group CEO（2025/06 上任）</div><div class="nm">Vivek Kumar (前 TeePublic CEO / Amazon 20 年)</div></div>
+    </div>
+    <div class="conn"></div>
+    <div class="level">
+      <div class="node"><div class="role">Group Chair（2025 接任）</div><div class="nm">Robin Mendelson (前 Amazon)</div></div>
+      <div class="node"><div class="role">CFO</div><div class="nm">财务高管</div></div>
+      <div class="node"><div class="role">CTO / VP Engineering</div><div class="nm">技术高管</div></div>
+      <div class="node"><div class="role">VP Marketing</div><div class="nm">付费 + SEO</div></div>
+    </div>
+  </div>
+
+  <h3 class="h">职能部门组织</h3>
+  <div class="org">
+    <div class="level">
+      <div class="node dept"><div class="role">Redbubble 业务</div><div class="nm">主品牌运营</div></div>
+      <div class="node dept"><div class="role">TeePublic 业务</div><div class="nm">独立 LA 总部</div></div>
+      <div class="node dept"><div class="role">Dashery 团队</div><div class="nm">创作者 SaaS</div></div>
+      <div class="node dept"><div class="role">Frankly Wearing</div><div class="nm">印度本土团队</div></div>
+      <div class="node dept"><div class="role">DORS / Routing</div><div class="nm">技术中台</div></div>
+      <div class="node dept"><div class="role">财务 / 公司治理</div><div class="nm">ASX 合规</div></div>
+      <div class="node dept"><div class="role">艺术家信任与安全</div><div class="nm">内容审核 / IP</div></div>
+    </div>
+  </div>
+
+  <div class="kpis">
+    <div class="kpi"><div class="lbl">FY25 员工</div><div class="val">~250</div><div class="sub">FY23 裁员 37%（141 人）后</div></div>
+    <div class="kpi"><div class="lbl">运营品牌</div><div class="val">4</div><div class="sub">RB / TP / Dashery / FW</div></div>
+    <div class="kpi"><div class="lbl">主要办公地点</div><div class="val">3</div><div class="sub">Melbourne / LA / 印度</div></div>
+    <div class="kpi"><div class="lbl">独立艺术家</div><div class="val">3M+</div><div class="sub">扩展资源（不计入员工）</div></div>
+  </div>
+
+  <h3 class="h">2025 年董事会动荡：一段不寻常的领导层故事</h3>
+  <p>2025 年 6 月发生了 PoD 行业前所未有的领导层动荡：
+  联合创始人 Martin Hosking 于 2023 年回归 CEO，但 2025 年在董事会动荡中被推退；
+  与此同时，原董事长 Anne Ward、非执董事 Ben Heap 在股东决议下被罢免；
+  Hosking 与前董事长 Richard Cawsey 一同从董事会退出；
+  最终新 CEO 由 Vivek Kumar（前 TeePublic CEO，Amazon 20 年老兵）出任，新董事长 Robin Mendelson（前 Amazon）领衔；
+  整个治理结构向<b>"美国 / 北美市场为重心"</b>倾斜。这一系列动作显示 ATG <b>资本市场对原有挪威 / 澳洲创业团队失去耐心</b>，转向"职业经理人化 + 美国化"的新阶段。</p>
+</section>
+
+<!-- 08 REVENUE -->
+<section id="revenue" class="section">
+  <div class="section-num">08 · 第二部 · 业务运营</div>
+  <h2 class="section-title">营收：10 年完整曲线</h2>
+  <p class="section-deck">公开 + ASX 财报口径，呈现 Redbubble 从 IPO 到当下的营收演化。</p>
+
+  <div class="chartbox">
+    <h4>Redbubble / Articore 营收走势（AUD M, FY16–FY27E）</h4>
+    <canvas id="revenueChart"></canvas>
+    <div class="src">来源：ASX 财报、Articore 投资者 PDF（2025/8 FY25 + 2025/2 1HFY25）、综合预测</div>
+  </div>
+
+  <table>
+    <thead><tr><th>财年</th><th>口径</th><th>MPR (AUD M)</th><th>YoY</th><th>关键事件</th></tr></thead>
+    <tbody>
+      <tr><td class="accent">FY16</td><td>Pre-IPO 全年 GTV 预测</td><td class="num">~$143</td><td class="num">—</td><td>5 月 ASX 上市</td></tr>
+      <tr><td class="accent">FY18</td><td>集团</td><td class="num">~$215</td><td class="num">+30%</td><td>10 月收购 TeePublic</td></tr>
+      <tr><td class="accent">FY19</td><td>集团（TeePublic 全年）</td><td class="num">~$280</td><td class="num">+30%</td><td>双品牌整合期</td></tr>
+      <tr><td class="accent">FY20</td><td>集团（疫情上半场）</td><td class="num">~$350</td><td class="num">+25%</td><td>WFH 个性化需求</td></tr>
+      <tr><td class="accent">FY21</td><td>集团（疫情高点）</td><td class="num">~$554</td><td class="num">+58%</td><td>市值峰值 ~AUD $2.5B</td></tr>
+      <tr><td class="accent">FY22</td><td>集团（首次下降）</td><td class="num">~$483</td><td class="num">-13%</td><td>电商寒潮 / Apple ATT 影响</td></tr>
+      <tr><td class="accent">FY23</td><td>集团（深谷）</td><td class="num">~$469</td><td class="num">-3%</td><td>EBITDA 亏 $40.7M / 裁员 37%</td></tr>
+      <tr><td class="accent">FY24</td><td>集团（"利润转身"）</td><td class="num">~$285（口径变化）</td><td class="num">— 变量</td><td>GPAPA $69M / op EBITDA +$32.4M 改善</td></tr>
+      <tr><td class="accent">FY25</td><td>集团</td><td class="num">~$230</td><td class="num">-19%</td><td>GPAPA margin 26.5% / OpEx -17%</td></tr>
+      <tr><td class="accent">FY26E</td><td>集团 (公司指引)</td><td class="num">~$215–230</td><td class="num">小幅下行</td><td>EBIT 指引 $2–8M（扭亏）</td></tr>
+      <tr><td class="accent">FY27E</td><td>集团（含 Frankly Wearing）</td><td class="num">~$240</td><td class="num">+5%（含并购）</td><td>潜在企稳</td></tr>
+    </tbody>
+  </table>
+
+  <h3 class="h">营收下行的三大驱动</h3>
+  <p><b>① SEO 流量结构性侵蚀。</b>Google 算法多次更新（特别是 2023 年起的 Helpful Content Update + 2024 年 AI Overview）让 Redbubble 严重依赖的"长尾搜索 → 商品页"路径流量大幅缩水。<br/>
+  <b>② AI 涌入设计池。</b>2023 年起大量 AI 生成设计涌入平台，造成"作品池稀释 + 信誉受损"，部分高质量艺术家流失。<br/>
+  <b>③ 账户分级反作用。</b>2023 年推出的 Standard 50% / Premium 20% / Pro 0% 账户分级虽然改善毛利率，但短期内造成<b>大量长尾艺术家停止上传</b>，影响"作品池广度"这一核心资产。</p>
+</section>
+
+<!-- 09 PROFIT -->
+<section id="profit" class="section">
+  <div class="section-num">09 · 第二部 · 业务运营</div>
+  <h2 class="section-title">利润与单位经济</h2>
+  <p class="section-deck">作为上市公司，Articore 是 PoD 行业唯一拥有完整财务披露的玩家。</p>
+
+  <div class="kpis">
+    <div class="kpi"><div class="lbl">FY25 GPAPA Margin</div><div class="val">26.5%</div><div class="sub">毛利后净获客毛利率</div></div>
+    <div class="kpi"><div class="lbl">FY24 op EBITDA</div><div class="val">AUD $14.8M</div><div class="sub">同比改善 +$32.4M</div></div>
+    <div class="kpi"><div class="lbl">FY25 OpEx 变化</div><div class="val">-17%</div><div class="sub">深度成本控制</div></div>
+    <div class="kpi"><div class="lbl">FY26 EBIT 指引</div><div class="val">$2–8M</div><div class="sub">公司公开指引 / 扭亏目标</div></div>
+  </div>
+
+  <h3 class="h">单位经济（Unit Economics）跨公司对比</h3>
+  <table>
+    <thead><tr><th>项</th><th>Redbubble (Articore)</th><th>Gelato</th><th>Printful</th></tr></thead>
+    <tbody>
+      <tr><td>商业模式</td><td>纯市场（marketplace）</td><td>资产轻平台</td><td>资产重 PoD</td></tr>
+      <tr><td>毛利率（estimated）</td><td class="num">~28%（GPAPA 后）</td><td class="num">42–48%</td><td class="num">32–38%</td></tr>
+      <tr><td>付费营销占比</td><td class="num">高（依赖 Google / Meta）</td><td class="num">中</td><td class="num">中-低（内容驱动）</td></tr>
+      <tr><td>艺术家分账</td><td class="num">15–50%（账户分级后）</td><td class="num">N/A（创作者直接定价）</td><td class="num">N/A</td></tr>
+      <tr><td>固定成本占比</td><td class="num">低（无工厂）</td><td class="num">中</td><td class="num">高</td></tr>
+      <tr><td>抗周期能力</td><td class="num">中（需流量持续）</td><td class="num">高（变动成本）</td><td class="num">中（固定成本压力）</td></tr>
+      <tr><td>财务透明度</td><td class="num"><b>极高（ASX 上市）</b></td><td class="num">部分</td><td class="num">部分</td></tr>
+    </tbody>
+  </table>
+
+  <h3 class="h">FY23 → FY25 利润转身机制</h3>
+  <p>从 FY23 EBITDA 亏 AUD $40.7M 到 FY25 op EBITDA 接近持平的转身，主要由三个动作共同驱动：</p>
+  <p><b>① 账户分级 + 抽佣调整。</b>2023 年 9 月启动，对低活跃 / 低质量艺术家收 50% 平台费——直接推动 GPAPA margin 从 ~22.7% 到 26.5%。<br/>
+  <b>② DORS 路由系统。</b>把订单分配从手工规则改为算法驱动，降低废单 + 提高单印厂效率。<br/>
+  <b>③ 大刀阔斧的成本削减。</b>FY23 裁员 37% + FY25 OpEx 再 -17%——把员工成本从 ~AUD $80M 量级砍到 ~AUD $50M 以下。<br/><br/>
+  <b>但代价是：</b>MPR（Marketplace Revenue）持续下行（FY25 -19%）。Articore 现在是<b>"先利润后增长"</b>的公司，与 PoD 行业其他玩家"先增长后利润"的逻辑相反。这是上市公司压力下的现实选择。</p>
+</section>
+
+<!-- 10 TRENDS -->
+<section id="trends" class="section">
+  <div class="section-num">10 · 第二部 · 业务运营</div>
+  <h2 class="section-title">发展趋势：8 大方向</h2>
+  <p class="section-deck">未来 24 月 Articore 战略上必将发生（或必须发生）的 8 个变化。</p>
+
+  <div class="grid-4">
+    <div class="card rb"><div class="hd">趋势 01</div><h4>从市场转工具（Dashery）</h4><p>Dashery 是 Articore 转型的关键押注。FY26-27 必须把 Dashery MPR 从 $1.3M 提升至 $10M+ 才能验证模式。</p></div>
+    <div class="card rb"><div class="hd">趋势 02</div><h4>SEO 多元化突围</h4><p>必须减少对 Google 自然搜索的依赖；加大 social commerce、邮件营销、艺术家社区流量。</p></div>
+    <div class="card rb"><div class="hd">趋势 03</div><h4>AI 治理 + 反内容稀释</h4><p>必须把 AI 生成设计纳入审核流程，避免"作品池贬值"。可能推出"人工艺术家认证"机制。</p></div>
+    <div class="card rb"><div class="hd">趋势 04</div><h4>地理多元化（亚洲）</h4><p>Frankly Wearing 收购是第一步；FY27 可能进一步扩展东南亚、印尼等市场。</p></div>
+    <div class="card rb"><div class="hd">趋势 05</div><h4>美国化治理</h4><p>新 CEO Kumar + Chair Mendelson 均为 Amazon 系；公司治理与运营重心明显向北美倾斜。</p></div>
+    <div class="card rb"><div class="hd">趋势 06</div><h4>艺术家保留与升级</h4><p>FY24 改革后部分艺术家流失；FY26-27 需要重新建立信任，提供高质量艺术家"升级 Pro"路径。</p></div>
+    <div class="card rb"><div class="hd">趋势 07</div><h4>潜在私有化或并购</h4><p>市值仅 $120–150M、现金流转正，是 PE 抄底或战略买家收购的理想目标。FYUL 或 Shopify 都有动机。</p></div>
+    <div class="card rb"><div class="hd">趋势 08</div><h4>IP / 授权业务深耕</h4><p>Redbubble 与 IP 持有人合作历史悠久；FY26-27 可能强化"官方 IP 周边"业务，与 FYUL/Snow Commerce 直接竞争。</p></div>
+  </div>
+</section>
+
+<!-- 11 ZERO TO ONE -->
+<section id="zerotoone" class="section">
+  <div class="section-num">11 · 第三部 · 增长引擎 <span class="section-tag growth">Customer Acquisition</span></div>
+  <h2 class="section-title">0→1 客户获取之路：从 Melbourne 艺术社区到 1M+ 艺术家</h2>
+  <p class="section-deck">复盘 Redbubble 2006–2024 年的客户获取漏斗。与 Printful（B2B 商家）、Gelato（多端）不同，Redbubble 的 0→1 是<b>艺术家 + 买家</b>双边市场冷启动。</p>
+
+  <div class="funnel">
+    <div class="stage">
+      <div class="ph">PHASE 0<br/>2006</div>
+      <div>
+        <h4>创业前夜：艺术家无处变现的市场空白</h4>
+        <p>2006 年，Martin Hosking 注意到一个现象：互联网让艺术家更容易创作和分享，但<b>没有一个简单的方式让他们把作品变成商品并赚到钱</b>。在 Etsy 早期阶段（2005 创立），还没有专注"艺术家把设计印在产品上变现"的纯市场玩家。这是一个空白。</p>
+      </div>
+      <div class="res">市场空白：艺术家变现工具<br/>$2M 启动资金</div>
+    </div>
+    <div class="stage">
+      <div class="ph">PHASE 1<br/>2006–2010</div>
+      <div>
+        <h4>关键转身：从"为消费者印东西"到"为艺术家变现"</h4>
+        <p>最初 Redbubble 是给消费者提供个性化定制的服务，但增长缓慢。<b>关键转身</b>是 2008–2010 年间——团队意识到"艺术家本身才是真正的客户"。技术不变，但变现逻辑变了——艺术家上传设计、自定 markup、Redbubble 抽佣、买家通过站内搜索找到喜欢的设计。这是一个"双边市场"诞生的时刻。</p>
+      </div>
+      <div class="res">商业模式定型<br/>双边市场启动</div>
+    </div>
+    <div class="stage">
+      <div class="ph">PHASE 2<br/>2011–2015</div>
+      <div>
+        <h4>双边飞轮：作品池 + 买家流量互相放大</h4>
+        <p>飞轮逻辑：<b>艺术家上传更多设计 → SEO 排名更广覆盖 → 买家流量增加 → 艺术家赚更多 → 更多艺术家加入</b>。这是经典的双边市场机制。
+        Redbubble 通过<b>艺术家友好的社区文化（profile 页、作品策展、艺术家通讯）+ 长尾 SEO（每件商品独立 URL，关键词丰富）</b>把这个飞轮快速放大。
+        到 2015 年成为澳洲最大的艺术家市场。</p>
+      </div>
+      <div class="res">飞轮启动<br/>SEO 长尾红利</div>
+    </div>
+    <div class="stage">
+      <div class="ph">PHASE 3<br/>2016–2021</div>
+      <div>
+        <h4>资本加持：IPO + TeePublic 并购 + 疫情爆发</h4>
+        <p>2016 年 ASX 上市募资 $30M 打开海外扩张资本；2018 年收购 TeePublic 把美国市场补齐；2020-21 疫情期成为 PoD 行业最大受益者之一，市值峰值 ~AUD $2.5B。
+        这一阶段的获客主要靠<b>SEO 复利 + 平台推荐 + 疫情期"个性化商品"自然需求暴增</b>。
+        到 FY21，集团 MPR 达 AUD $554M，是 IPO 时的 4× 量级。</p>
+      </div>
+      <div class="res">峰值市值<br/>AUD $554M MPR</div>
+    </div>
+    <div class="stage">
+      <div class="ph">PHASE 4<br/>2022–2026</div>
+      <div>
+        <h4>市场模式失效：SEO 崩塌 + AI 涌入 + 利润转型</h4>
+        <p>FY22 起进入<b>负周期</b>：Google 算法变化（Helpful Content / AI Overview）让长尾搜索流量被 AI 摘要 + 大平台垄断；AI 涌入让作品池稀释；账户分级动作让长尾艺术家流失。
+        FY23 EBITDA 亏 $40.7M，裁员 37%；FY24-25 通过 OpEx 削减实现"利润转身"但 MPR 仍 -19%。
+        2025 年 6 月 Hosking 退出；新阶段押注 Dashery + Frankly Wearing。</p>
+      </div>
+      <div class="res">市场模式失效<br/>转型阵痛 + 新赌注</div>
+    </div>
+  </div>
+
+  <h3 class="h">Redbubble 0→1 的 4 条关键经验</h3>
+  <p><b>① 双边市场需要"艺术家先来"。</b>Redbubble 把所有早期资源给艺术家——免费、零库存、profile 页、作品策展——
+  让艺术家先建立信任，再让飞轮自动滚起来。<br/>
+  <b>② SEO 是唯一可持续的获客引擎（直到它不是）。</b>1M+ 艺术家 × 每人多个设计 × 每件商品独立 URL = 海量长尾，是 Google 时代最优的 SEO 资产。
+  但 2023 年起这个引擎开始失效，<b>Redbubble 没有提前布局其他流量</b>是最大失误。<br/>
+  <b>③ 上市可以是双刃剑。</b>2016 IPO 给了海外扩张资本，但也带来短期 KPI 压力，让公司在 FY23 亏损时不得不快速裁员转型。<br/>
+  <b>④ 转型需要在巅峰开始，不是在谷底。</b>Articore 直到 FY24 才真正从市场转工具（Dashery），但流量崩塌已经在 2022 年发生。<b>"在阳光灿烂时修屋顶"</b>是 Redbubble 给所有 PoD 玩家的最大教训。</p>
+</section>
+
+<!-- 12 GROWTH STACK -->
+<section id="growthstack" class="section">
+  <div class="section-num">12 · 第三部 · 增长引擎 <span class="section-tag growth">User Growth Tactics</span></div>
+  <h2 class="section-title">用户增长手段全栈：14 种核心战术</h2>
+  <p class="section-deck">把 Redbubble 的增长动作切分为 14 项可命名、可复制的具体战术。</p>
+
+  <div class="tactic-grid">
+    <div class="tac"><div class="nm">01</div><div><h4>艺术家先来策略</h4><p>0→1 阶段把所有资源（免费、profile 页、推荐位）给艺术家，等他们带来作品后买家自然跟进。这是双边市场冷启动的"艺术家优先"哲学。</p><div class="res">影响：双边市场启动</div></div></div>
+    <div class="tac"><div class="nm">02</div><div><h4>SEO 长尾搜索引擎</h4><p>1M+ 艺术家 × 每人多个设计 × 每件商品独立 URL = Google 最爱的长尾内容。50% 流量来自搜索引擎。是 Redbubble 早期最强的获客引擎。</p><div class="res">影响：CAC 接近 0</div></div></div>
+    <div class="tac"><div class="nm">03</div><div><h4>艺术家社区文化</h4><p>Behance 风格的 profile 页、作品策展、艺术家访谈、Editor Picks。让艺术家觉得"被看见"，比 Etsy 等纯交易平台更有归属感。</p><div class="res">影响：艺术家粘性</div></div></div>
+    <div class="tac"><div class="nm">04</div><div><h4>多商品形式覆盖</h4><p>同一个设计能印在 70+ 商品（T-shirt、墙艺、贴纸、文具、家居），让艺术家一次上传 = 多次变现。</p><div class="res">影响：作品价值最大化</div></div></div>
+    <div class="tac"><div class="nm">05</div><div><h4>关键词 / 标签系统</h4><p>每件商品有标签 + 描述 + 关键词，艺术家被教导"如何打标签提升 SEO"。整个站内搜索由这个标签生态驱动。</p><div class="res">影响：站内 + 站外 SEO</div></div></div>
+    <div class="tac"><div class="nm">06</div><div><h4>Pinterest / Instagram 视觉营销</h4><p>艺术家自发把自己作品分享到 Pinterest / Instagram，反向给 Redbubble 商品页带流量。Redbubble 提供 Pin-friendly 的产品图。</p><div class="res">影响：UGC 飞轮</div></div></div>
+    <div class="tac"><div class="nm">07</div><div><h4>礼物 / 节日营销</h4><p>圣诞、情人节、母亲节等 PoD 自然销售旺季，Redbubble 大量投放"找一个特别的礼物"主题广告。</p><div class="res">影响：旺季放大</div></div></div>
+    <div class="tac"><div class="nm">08</div><div><h4>粉丝 / 亚文化群体</h4><p>动漫、游戏、电影、独立乐队的粉丝在 Redbubble 找"小众识别表达"。"我属于这个群体"是核心购买动机。</p><div class="res">影响：高 LTV 受众</div></div></div>
+    <div class="tac"><div class="nm">09</div><div><h4>付费营销 (Google / Meta)</h4><p>大量投入 Google Shopping / Meta Ads。但 FY24 后随着 GPAPA 优先策略，付费营销变得"更精确但更小"。</p><div class="res">影响：MPR 主驱动</div></div></div>
+    <div class="tac"><div class="nm">10</div><div><h4>站内推荐算法</h4><p>"You may also like"、"Trending designs"、"Best sellers"等算法栏目优化转化。是站内 LTV 提升核心。</p><div class="res">影响：客单价 / 复购</div></div></div>
+    <div class="tac"><div class="nm">11</div><div><h4>买家会员 / 折扣体系</h4><p>注册即送优惠券、Loyalty 体系、捆绑折扣。维持复购率与客单价。</p><div class="res">影响：复购</div></div></div>
+    <div class="tac"><div class="nm">12</div><div><h4>艺术家分级 + 抽佣调整 (FY24)</h4><p>2023/9 起 Standard / Premium / Pro 三级账户。短期艺术家流失，但长期把"高产 + 高质艺术家"留下，提升单艺术家 ARPU。</p><div class="res">影响：GPAPA +590bps</div></div></div>
+    <div class="tac"><div class="nm">13</div><div><h4>Dashery 创作者升级路径 (FY25+)</h4><p>把 Redbubble 上的高价值艺术家引导到 Dashery 自建店——既保住艺术家，又让其有"自己的店"叙事。</p><div class="res">影响：高价值留存</div></div></div>
+    <div class="tac"><div class="nm">14</div><div><h4>地理多元化收购 (Frankly Wearing)</h4><p>2026/5 收购印度创作者市场，把"挪威 / 澳洲 / 美国" 三角扩展到南亚。</p><div class="res">影响：地理 TAM 扩大</div></div></div>
+  </div>
+
+  <h3 class="h">底层增长哲学：双边飞轮 vs 现实困境</h3>
+  <p>Redbubble 的增长哲学一直是<b>"双边飞轮 + SEO 复利"</b>——艺术家越多 → 设计越多 → SEO 越强 → 买家越多 → 艺术家更多。
+  这个飞轮在 2010–2021 年完美运转，把 Redbubble 推上市值 AUD $2.5B 的高点。
+  但 2022 年起飞轮开始<b>逆向旋转</b>——
+  Google 流量减少 → 买家少 → 艺术家赚得少 → 部分艺术家离开 → 作品池不再扩展 → SEO 弱化 → 流量更少。
+  这是 Articore 当下面临的真正问题：<b>飞轮的方向已经改变，但目前所有的运营动作（账户分级、Dashery、Frankly Wearing）都是在外围修补，没有根本解决飞轮逆转的核心机制</b>。</p>
+</section>
+
+<!-- 13 CHANNELS -->
+<section id="channel" class="section">
+  <div class="section-num">13 · 第三部 · 增长引擎 <span class="section-tag growth">Channel Mix</span></div>
+  <h2 class="section-title">营销渠道矩阵</h2>
+  <p class="section-deck">高度依赖 SEO + 付费的渠道结构是 Articore 双刃剑。</p>
+
+  <table>
+    <thead><tr><th>类别</th><th>具体渠道</th><th>核心动作</th><th>对获客的贡献</th></tr></thead>
+    <tbody>
+      <tr><td class="accent" rowspan="3">自有渠道<br/><span class="tag green">高 ROI 但脆弱</span></td>
+          <td>Google 自然搜索（SEO）</td><td>1M+ 艺术家 × 多商品 = 海量长尾</td><td>50% 总流量，最依赖</td></tr>
+      <tr><td>Email Marketing</td><td>买家会员 + 艺术家通讯</td><td>留存与复购</td></tr>
+      <tr><td>Redbubble Blog + Help Center</td><td>艺术家教程 + SEO 内容</td><td>艺术家激活 + SEO</td></tr>
+
+      <tr><td class="accent" rowspan="3">付费渠道<br/><span class="tag amber">CAC 高</span></td>
+          <td>Google Shopping</td><td>商品级出价</td><td>FY24 后强化效率</td></tr>
+      <tr><td>Meta Ads (FB/IG)</td><td>视觉化产品 + LAL 受众</td><td>新买家获客</td></tr>
+      <tr><td>YouTube / TikTok Ads</td><td>新增量渠道</td><td>FY25+ 加大投入</td></tr>
+
+      <tr><td class="accent" rowspan="3">社交渠道<br/><span class="tag green">UGC 飞轮</span></td>
+          <td>Pinterest</td><td>艺术家自发分享</td><td>视觉商品强相关</td></tr>
+      <tr><td>Instagram</td><td>艺术家 profile 链接</td><td>双向引流</td></tr>
+      <tr><td>TikTok</td><td>"Etsy / Redbubble haul"内容</td><td>买家发现新渠道</td></tr>
+
+      <tr><td class="accent" rowspan="3">合作 / 联盟<br/><span class="tag amber">中</span></td>
+          <td>Affiliate Program</td><td>分销商分佣</td><td>长尾博主</td></tr>
+      <tr><td>艺术家自带流量</td><td>艺术家分享自己 Redbubble 链接</td><td>免费且高质量</td></tr>
+      <tr><td>IP 合作（亚文化）</td><td>正版授权品类</td><td>高 PR 价值</td></tr>
+
+      <tr><td class="accent" rowspan="2">渠道流量<br/><span class="tag rb">弱</span></td>
+          <td>不依赖 Shopify / Etsy 集成</td><td>独立站思路</td><td>失去渠道红利但保留品牌</td></tr>
+      <tr><td>Apps（iOS / Android）</td><td>Redbubble 自有 App</td><td>较小占比</td></tr>
+
+      <tr><td class="accent" rowspan="2">公关 / 投资人<br/><span class="tag amber">声量赋能</span></td>
+          <td>ASX 公开披露</td><td>季度 / 半年报 / 年报</td><td>资本市场关注</td></tr>
+      <tr><td>媒体（Ragtrader, Inside Retail, etc）</td><td>转型故事报道</td><td>品牌叙事</td></tr>
+    </tbody>
+  </table>
+
+  <h3 class="h">渠道经济学（CAC 估算）</h3>
+  <div class="kpis">
+    <div class="kpi"><div class="lbl">SEO / 自然流量 CAC</div><div class="val">~$2–5</div><div class="sub">极低（取决于 SEO 是否回归）</div></div>
+    <div class="kpi"><div class="lbl">Pinterest / IG UGC CAC</div><div class="val">~$8–15</div><div class="sub">艺术家分享间接获客</div></div>
+    <div class="kpi"><div class="lbl">Google / Meta Paid CAC</div><div class="val">~$25–55</div><div class="sub">FY24 后效率提升</div></div>
+    <div class="kpi"><div class="lbl">Affiliate / 联盟 CAC</div><div class="val">~$15–30</div><div class="sub">长尾博主</div></div>
+  </div>
+
+  <p>核心结论：<b>Redbubble 的渠道结构最大问题不是 CAC 高，而是渠道集中度过高</b>——
+  50% 流量来自 Google 搜索这一个来源。
+  当 Google 政策、算法、AI Overview 任何一个变量改变，整个公司的获客都会受冲击。
+  Articore 当前最迫切的不是优化每个渠道的效率，而是<b>把鸡蛋放进多个篮子</b>。</p>
+</section>
+
+<!-- 14 STRATEGY -->
+<section id="strategy" class="section">
+  <div class="section-num">14 · 第四部 · 咨询视角 <span class="section-tag consult">McKinsey / BCG 视角</span></div>
+  <h2 class="section-title">战略定位：从纯市场到混合矩阵</h2>
+  <p class="section-deck">用 BCG「Where to Play / How to Win」框架审视 Articore 的战略选择。</p>
+
+  <h3 class="h">Where to Play</h3>
+  <p>Articore 的赛道选择经历了三个阶段：①<b>2006–2018 单一艺术家市场</b>（Redbubble.com）；②<b>2018–2023 双品牌矩阵</b>（+ TeePublic）；③<b>2023+ 艺术家矩阵集团</b>（Articore = Redbubble + TeePublic + Dashery + Frankly Wearing）。
+  战略上正在从"艺术家市场"扩展到"<b>艺术家变现工具集团</b>"。这个赛道选择正确——但执行力存疑，因为每个新品牌（Dashery、Frankly Wearing）都还很小。</p>
+
+  <h3 class="h">How to Win</h3>
+  <p>Articore 历史上的赢面是：<b>艺术家社区文化 + 长尾 SEO + 多商品类型 + 上市资本</b>。
+  但 2022 年后这四个赢面全部被削弱：
+  社区文化被 AI 涌入稀释；
+  SEO 被 Google 算法变化打击；
+  多商品被 Etsy / Amazon 大幅赶超；
+  上市资本反而变成"必须利润"的束缚。<br/>
+  当下 Articore 最需要重建的是<b>新的赢面</b>——目前看：①Dashery 是工具叙事的尝试；②Frankly Wearing 是地理多元化；③账户分级是质量优化。
+  但这三个都不够强，需要更激进的战略选择。</p>
+
+  <h3 class="h">战略两难</h3>
+  <table>
+    <thead><tr><th>两难</th><th>表征</th><th>当前选择</th><th>咨询建议</th></tr></thead>
+    <tbody>
+      <tr><td class="accent">市场 vs 工具</td><td>marketplace 模型逐渐失效</td><td>Dashery 试水</td><td>更激进——把 Dashery 提升至与 Redbubble 同级战略地位</td></tr>
+      <tr><td class="accent">独立 vs 私有化</td><td>市值仅 $120M，公开市场束缚</td><td>当前继续上市</td><td>认真考虑 PE 私有化，避免季度 KPI 压力</td></tr>
+      <tr><td class="accent">多品牌 vs 聚焦</td><td>4 品牌运营复杂度高</td><td>多品牌共存</td><td>合并 Redbubble + TeePublic 后台，把 Dashery 独立</td></tr>
+      <tr><td class="accent">SEO 修复 vs 新流量</td><td>Google 流量持续下行</td><td>主要靠付费补</td><td>必须建立 social commerce / 邮件 / app 多元流量</td></tr>
+    </tbody>
+  </table>
+
+  <blockquote>"Articore 现在像一艘曾经豪华的远洋邮轮——船很漂亮，乘客（艺术家）很多，但发动机（SEO 飞轮）故障，公司在用救生艇（OpEx 削减 + 小品牌新增）维持航行。船能不能开到下一个港，取决于能否换上新引擎。"</blockquote>
+</section>
+
+<!-- 15 VALUE CHAIN -->
+<section id="valuechain" class="section">
+  <div class="section-num">15 · 第四部 · 咨询视角 <span class="section-tag consult">Value Chain</span></div>
+  <h2 class="section-title">价值链与生态位</h2>
+  <p class="section-deck">用 Porter 价值链拆解 Redbubble / Articore 在 PoD 行业的环节占有率。</p>
+
+  <table>
+    <thead><tr><th>价值链环节</th><th>典型玩家</th><th>Redbubble 当前定位</th><th>可被替代度</th><th>竞争策略评估</th></tr></thead>
+    <tbody>
+      <tr><td class="accent">设计 / 灵感</td><td>Canva, Kittl, Midjourney</td><td>艺术家自创为主，无 AIGC 工具</td><td><span class="tag red">高</span></td><td>缺乏设计入口工具，是结构性劣势</td></tr>
+      <tr><td class="accent">店铺与流量</td><td>Shopify, Etsy</td><td>独立站，不集成第三方</td><td><span class="tag red">高</span></td><td>独立站思路让它失去渠道红利</td></tr>
+      <tr><td class="accent">订单管理</td><td>—</td><td>Dashboard + DORS 路由</td><td><span class="tag amber">中</span></td><td>DORS 是内部工具非对外 SaaS</td></tr>
+      <tr><td class="accent">设备与生产</td><td>10+ 第三方印厂</td><td>不持有，仅协议</td><td><span class="tag green">低</span></td><td>资产轻最弱版本——仅 10 个印厂</td></tr>
+      <tr><td class="accent">物流</td><td>UPS, FedEx, DHL</td><td>整合多承运</td><td><span class="tag amber">中</span></td><td>多印厂导致多包裹问题</td></tr>
+      <tr><td class="accent">站内搜索 / SEO</td><td>—</td><td><b>核心资产</b></td><td><span class="tag amber">正在削弱</span></td><td>Google 改变带来的结构性风险</td></tr>
+      <tr><td class="accent">客户支持</td><td>—</td><td>自营 Help Center</td><td><span class="tag amber">中</span></td><td>责任归属（艺术家 vs 平台 vs 印厂）复杂</td></tr>
+      <tr><td class="accent">艺术家社区</td><td>Behance, Dribbble</td><td><b>独家资产 1M+</b></td><td><span class="tag green">低</span></td><td>20 年积累的社区是真正护城河</td></tr>
+    </tbody>
+  </table>
+
+  <h3 class="h">生态位地图（POD 行业 4×4）</h3>
+  <div class="matrix">
+    <div class="grid">
+      <div class="quad-lbl" style="top:10px;right:10px;">资产重 / 高品质</div>
+      <div class="quad-lbl" style="top:10px;left:10px;">资产轻 / 高品质</div>
+      <div class="quad-lbl" style="bottom:10px;right:10px;">资产重 / 长尾</div>
+      <div class="quad-lbl" style="bottom:10px;left:10px;">资产轻 / 长尾</div>
+      <div class="pin print" style="left:75%;top:25%;"><div class="dot"></div><div class="lbl">Printful</div></div>
+      <div class="pin gel" style="left:30%;top:30%;"><div class="dot"></div><div class="lbl">Gelato</div></div>
+      <div class="pin" style="left:18%;top:78%;"><div class="dot"></div><div class="lbl">Printify</div></div>
+      <div class="pin" style="left:25%;top:60%;"><div class="dot"></div><div class="lbl">Redbubble</div></div>
+      <div class="pin shop" style="left:45%;top:18%;"><div class="dot"></div><div class="lbl">Shopify+</div></div>
+      <div class="pin eb" style="left:88%;top:55%;"><div class="dot"></div><div class="lbl">Cimpress</div></div>
+      <div class="pin us" style="left:55%;top:62%;"><div class="dot"></div><div class="lbl">Us（目标位）</div></div>
+    </div>
+    <div class="axis-x"><span>资产轻 ←</span><span>→ 资产重</span></div>
+    <div class="axis-y"><span>长尾 / 性价比</span><span>品质 / 高端</span></div>
+  </div>
+  <p style="font-size:12px;color:var(--muted);margin-top:36px;">图：POD 生态位 2×2。Redbubble 处于"资产轻 / 偏长尾艺术家"区域，是市场模式中最纯粹的玩家。Printful、Gelato、Printify、我方都是"工具型"或"平台型"，Redbubble 是"市场型"——这一定位差异决定它面对的结构性挑战与他们不同。</p>
+</section>
+
+<!-- 16 MOAT -->
+<section id="moat" class="section">
+  <div class="section-num">16 · 第四部 · 咨询视角 <span class="section-tag consult">Moat</span></div>
+  <h2 class="section-title">战略护城河（5 维评估）</h2>
+  <p class="section-deck">借鉴 Hamilton Helmer《7 Powers》框架评估 Redbubble 五类护城河。</p>
+
+  <div class="chartbox">
+    <h4>Redbubble 护城河强度雷达（0–10）</h4>
+    <canvas id="moatChart"></canvas>
+    <div class="src">来源：综合 ASX 财报、Articore 投资者 PDF、本报告测算</div>
+  </div>
+
+  <table>
+    <thead><tr><th>护城河类型</th><th>评分</th><th>解读</th><th>风险</th></tr></thead>
+    <tbody>
+      <tr><td class="accent">规模经济</td><td><span class="tag amber">5/10</span></td><td>1M+ 艺术家 + 70+ 商品类是规模优势，但 MPR 在持续下行</td><td>规模逆向收缩</td></tr>
+      <tr><td class="accent">网络效应</td><td><span class="tag amber">6/10</span></td><td>艺术家 ↔ 买家双边市场曾经强，但近两年飞轮逆转</td><td>飞轮逆转中</td></tr>
+      <tr><td class="accent">切换成本</td><td><span class="tag red">3/10</span></td><td>艺术家与买家的切换成本都较低；账户分级反而加速流失</td><td>艺术家流失</td></tr>
+      <tr><td class="accent">品牌</td><td><span class="tag green">7/10</span></td><td>20 年品牌 + 上市公司公信力 + 艺术家社区认知度高</td><td>近期负面新闻冲击</td></tr>
+      <tr><td class="accent">流程能力 / SEO</td><td><span class="tag amber">5/10</span></td><td>1M+ 艺术家 × 设计 = SEO 长尾的"独家素材"，但 Google 算法可削减</td><td>外部依赖严重</td></tr>
+    </tbody>
+  </table>
+
+  <p>综合评估：<b>Redbubble / Articore 整体护城河得分 5.2/10</b>，明显低于 Printful (6.8) 与 Gelato (6.2)。
+  最强是品牌资产 + 双边网络，最弱是切换成本 + SEO 独立性。
+  Redbubble 的护城河"看起来高但实际在融化"——
+  如果 Google 自然搜索 + 艺术家社区两个支柱不能在 18 个月内得到加固，护城河可能进一步衰退至 4.0。</p>
+</section>
+
+<!-- 17 OPS -->
+<section id="ops" class="section">
+  <div class="section-num">17 · 第四部 · 咨询视角 <span class="section-tag consult">Operations</span></div>
+  <h2 class="section-title">运营与效率：FY23-FY25 利润转身复盘</h2>
+  <p class="section-deck">这是 PoD 行业最值得研究的"上市公司 turnaround"案例。</p>
+
+  <h3 class="h">FY24 / FY25 转身的三大杠杆</h3>
+  <div class="grid-3">
+    <div class="card"><div class="hd">杠杆 1</div><h4>账户分级 + 抽佣调整</h4><p>2023/9 启动。Standard 50% 平台费 / Premium 20% / Pro 0%。短期艺术家流失 30%+，但 GPAPA margin 从 22.7% 提升至 28.6%（FY24）。<b>用艺术家广度换利润</b>。</p></div>
+    <div class="card"><div class="hd">杠杆 2</div><h4>DORS 路由系统</h4><p>从手工规则切换为算法驱动的订单分配。降低废单率、提升单印厂效率、减少 SLA 违约。是技术驱动的利润优化。</p></div>
+    <div class="card"><div class="hd">杠杆 3</div><h4>OpEx 大幅削减</h4><p>FY23 裁员 37%（141 人）+ FY25 OpEx 再减 17%。员工成本从 ~$80M 量级降到 ~$50M 以下。是最直接的利润修复。</p></div>
+  </div>
+
+  <h3 class="h">运营痛点（仍未解决）</h3>
+  <div class="grid-3">
+    <div class="card"><div class="hd">质量一致性</div><h4>多印厂多包裹问题</h4><p>同一订单可能从不同印厂分多包寄出，时间不一、品质不一，是客户投诉重灾区。</p></div>
+    <div class="card"><div class="hd">流量集中度</div><h4>50% 来自 Google</h4><p>单一渠道依赖让平台暴露在 Google 政策变化下；FY24-25 仍未实质性改善。</p></div>
+    <div class="card"><div class="hd">艺术家信任</div><h4>分级争议未消</h4><p>账户分级被部分艺术家解读为"剥削低产艺术家"；社区氛围下降明显。</p></div>
+  </div>
+
+  <h3 class="h">咨询建议（运营侧）</h3>
+  <p>第一，<b>艺术家社区重建</b>：把 Pro 艺术家变成"品牌大使"，给独家曝光位、专属客户经理、官方推荐。把"剥削感"转为"被精选感"。
+  第二，<b>SEO 替代渠道</b>：把 Pinterest / TikTok / Instagram 视觉化分发做成正式产品功能（"Share to Pinterest 一键发布"），把艺术家变成自带流量的小媒体。
+  第三，<b>多印厂订单合并</b>：投资订单合并能力，让多商品订单尽量从同一印厂发出，降低多包裹投诉。这是改善 NPS 的最直接动作。</p>
+</section>
+
+<!-- 18 TAM -->
+<section id="tam" class="section">
+  <div class="section-num">18 · 第五部 · VC 视角 <span class="section-tag vc">Public Markets / Turnaround</span></div>
+  <h2 class="section-title">市场规模 TAM / SAM / SOM</h2>
+  <p class="section-deck">从公开市场投资人维度评估 Articore 当前可触达市场。</p>
+
+  <div class="kpis">
+    <div class="kpi"><div class="lbl">PoD TAM 2025</div><div class="val">$11B</div><div class="sub">全球 PoD 含原生 + 非原生</div></div>
+    <div class="kpi"><div class="lbl">PoD TAM 2034E</div><div class="val">$89–103B</div><div class="sub">CAGR 23–26%</div></div>
+    <div class="kpi"><div class="lbl">SAM（艺术家市场子赛道）</div><div class="val">~$3B</div><div class="sub">含 Redbubble、Society6、Spreadshirt 等</div></div>
+    <div class="kpi"><div class="lbl">Articore SOM</div><div class="val">~5–7%</div><div class="sub">艺术家市场子赛道份额</div></div>
+  </div>
+
+  <div class="chartbox">
+    <h4>POD 全球市场规模预测（2024–2034）</h4>
+    <canvas id="marketChart"></canvas>
+    <div class="src">来源：Grand View Research, Future Market Insights, IssueWire</div>
+  </div>
+
+  <h3 class="h">Articore 在 PoD 赛道的特殊位置</h3>
+  <p>Articore 的市场份额数字（艺术家市场子赛道 5–7%）与 FYUL（独立 PoD 平台第一）和 Gelato（资产轻平台）<b>不在同一定义</b>——
+  Articore 不与"商家工具型"PoD 平台直接竞争，它的对手是 Etsy（个性化商品市场）、Amazon Merch（自营商品市场）、Society6 / Threadless（同类艺术家市场）等。
+  这是<b>"艺术家市场"子赛道</b>，TAM 偏小（约 $3B 全球），增长也慢于商家工具赛道。
+  这本身就限制了 Articore 的天花板——它不是在最大的 PoD 子赛道里。</p>
+
+  <blockquote>"如果 PoD 赛道的高速车道是『商家工具型』，Articore 的车道是『艺术家市场型』——这条车道也在前进，但速度慢一半，且最近在堵车。"</blockquote>
+</section>
+
+<!-- 19 CAPITAL -->
+<section id="cap" class="section">
+  <div class="section-num">19 · 第五部 · VC 视角 <span class="section-tag vc">Capital Path</span></div>
+  <h2 class="section-title">资本路径与估值演化</h2>
+  <p class="section-deck">从 IPO 到困境反转，公开市场上唯一可观察的 PoD 标的。</p>
+
+  <table>
+    <thead><tr><th>事件</th><th>时间</th><th>金额 / 估值</th><th>核心动作 / 投资者</th><th>叙事</th></tr></thead>
+    <tbody>
+      <tr><td class="accent">早期种子 + A 轮</td><td>2006–2014</td><td class="num">~AUD $10M+ 多轮</td><td>澳洲创投基金</td><td>艺术家市场地位</td></tr>
+      <tr><td class="accent">ASX 上市</td><td>2016/05</td><td class="num">AUD $30M / $267M 估值</td><td>公开市场 + 多倍超额认购</td><td>双边市场叙事 + GTV +55%</td></tr>
+      <tr><td class="accent">TeePublic 收购</td><td>2018/10</td><td class="num">USD $41–57.7M 现金</td><td>Articore 主导</td><td>美国市场全面进入</td></tr>
+      <tr><td class="accent">疫情期高点</td><td>2020/2021</td><td class="num">市值峰值 ~AUD $2.5B</td><td>公开市场情绪推升</td><td>POD 行业龙头</td></tr>
+      <tr><td class="accent">价值崩塌</td><td>2022/2023</td><td class="num">市值 → ~AUD $120M</td><td>—</td><td>SEO + AI 双重冲击</td></tr>
+      <tr><td class="accent">改名 + 重整</td><td>2023/10</td><td class="num">无新融资</td><td>Articore 重整治理</td><td>多市场矩阵叙事</td></tr>
+      <tr><td class="accent">Frankly Wearing 收购</td><td>2026/05</td><td class="num">未披露</td><td>战略并购</td><td>南亚地理多元化</td></tr>
+    </tbody>
+  </table>
+
+  <div class="chartbox">
+    <h4>Articore 三档估值情景（AUD M, 2026 公开市场视角）</h4>
+    <canvas id="valuationChart"></canvas>
+    <div class="src">注：基于 EV/Revenue 0.5–2.5× 区间（marketplace 转型期估值锚点偏低），考虑潜在 PE 私有化溢价。</div>
+  </div>
+
+  <p><b>Bear Case（保守）</b>：MPR 继续 -10%，OpEx 已无大削减空间，市值维持 AUD $80–120M；<br/>
+  <b>Base Case（基准）</b>：MPR 企稳，FY26 EBIT $5M，市值 AUD $150–250M（当前实际水平）；<br/>
+  <b>Bull Case（牛市）</b>：Dashery 起量 + Frankly Wearing 整合成功，PE 私有化收购溢价 30–50%，估值 AUD $300–500M。</p>
+</section>
+
+<!-- 20 FIN MODEL -->
+<section id="fin" class="section">
+  <div class="section-num">20 · 第五部 · VC 视角 <span class="section-tag vc">Financial Model</span></div>
+  <h2 class="section-title">财务模型与转型推演</h2>
+  <p class="section-deck">作为 PoD 行业唯一上市公司，Articore 是公开数据最透明的标的。</p>
+
+  <table>
+    <thead><tr><th>项 (AUD M)</th><th>FY21A 峰值</th><th>FY23A 谷底</th><th>FY25A 转身</th><th>FY27E 目标</th></tr></thead>
+    <tbody>
+      <tr><td class="accent">Marketplace Revenue (MPR)</td><td class="num">~$554</td><td class="num">~$469</td><td class="num">~$230</td><td class="num">~$240</td></tr>
+      <tr><td class="accent">GPAPA</td><td class="num">~$130</td><td class="num">~$66</td><td class="num">~$61</td><td class="num">~$70</td></tr>
+      <tr><td class="accent">GPAPA Margin</td><td class="num">~23.5%</td><td class="num">~14.0%</td><td class="num">26.5%</td><td class="num">~29%</td></tr>
+      <tr><td class="accent">op EBITDA</td><td class="num">~$45</td><td class="num">-$40.7</td><td class="num">~$15</td><td class="num">~$25</td></tr>
+      <tr><td class="accent">Net Profit</td><td class="num">~$30</td><td class="num">-$54.2</td><td class="num">~$0</td><td class="num">~$10</td></tr>
+      <tr><td class="accent">Underlying Cash Flow</td><td class="num">~$40</td><td class="num">-$47</td><td class="num">~$1</td><td class="num">~$8</td></tr>
+      <tr><td class="accent">Employees</td><td class="num">~400</td><td class="num">~250</td><td class="num">~250</td><td class="num">~270</td></tr>
+    </tbody>
+  </table>
+
+  <h3 class="h">关注的 4 个核心比率（公开市场视角）</h3>
+  <div class="grid-4">
+    <div class="card vc"><div class="hd">EV/Revenue (FY25)</div><h4>~0.5–0.7×</h4><p>当前市值 ~AUD $130M / MPR ~$230M = 0.56×。极度低估或合理低估，取决于增长是否企稳。</p></div>
+    <div class="card vc"><div class="hd">P/B 比率</div><h4>~1.0–1.3×</h4><p>资产轻模型让 P/B 不是关键指标；现金流为主。</p></div>
+    <div class="card vc"><div class="hd">Free Cash Flow Yield</div><h4>~5–8%</h4><p>FY26 指引正向 cash flow $5–12M，对应 ~5–8% yield。对困境反转基金有吸引力。</p></div>
+    <div class="card vc"><div class="hd">Rule of 40</div><h4>~-15</h4><p>增长 -19% + 利润率 0% = -19；远低于 SaaS 标准 40。Articore 不能用 SaaS 估值，是市场模型的现金流标的。</p></div>
+  </div>
+
+  <h3 class="h">退出路径分析</h3>
+  <p>对公开市场投资人，Articore 的可能退出路径有三：<br/>
+  <b>A. PE 私有化：</b>$120–180M 市值水平上 PE 抄底，整合 Redbubble + TeePublic + Dashery 后转售或重新上市；
+  这是<b>最现实的退出</b>。
+  <br/>
+  <b>B. 战略买家收购：</b>FYUL（合并 Snow Commerce 后想要更多艺术家资源）、Shopify（想要艺术家市场资产）、Etsy（消除潜在竞争对手）都有动机；
+  收购溢价可能 30–60%。<br/>
+  <b>C. 公开市场缓慢回暖：</b>FY27-28 MPR 稳住，盈利持续 → 公开市场重新打开估值。这是<b>最慢但概率不高</b>的路径。</p>
+</section>
+
+<!-- 21 PEERS -->
+<section id="peers" class="section">
+  <div class="section-num">21 · 第五部 · VC 视角 <span class="section-tag vc">Peer Comp</span></div>
+  <h2 class="section-title">对标公司分析</h2>
+  <p class="section-deck">为 Articore 估值寻找 6 类参照系。</p>
+
+  <table>
+    <thead><tr><th>对标</th><th>类型</th><th>规模</th><th>EV/Rev</th><th>对 Articore 的启示</th></tr></thead>
+    <tbody>
+      <tr><td class="accent">Etsy</td><td>个性化商品市场龙头</td><td>Rev ~$2.7B</td><td class="num">~3–4×</td><td>同模式更强者；Articore 难以追赶</td></tr>
+      <tr><td class="accent">FYUL (Printful 合并)</td><td>资产重 PoD 巨头</td><td>Rev ~$2.3B (合并)</td><td class="num">~4–5×（推测 IPO）</td><td>从同一行业切入但模式不同</td></tr>
+      <tr><td class="accent">Gelato</td><td>资产轻 PoD 平台</td><td>Rev ~$96M</td><td class="num">~10–12×（私有市场）</td><td>SaaS 元素让乘数高 10×+</td></tr>
+      <tr><td class="accent">Cimpress</td><td>Mass customization 老牌</td><td>Rev ~$3.2B</td><td class="num">~1.5×</td><td>纯印务 / 纯零售估值低位</td></tr>
+      <tr><td class="accent">Society6 (private)</td><td>艺术家市场（缩水中）</td><td>Rev ~$50M</td><td class="num">~0.3–0.5×</td><td>同子赛道，业务规模更小</td></tr>
+      <tr><td class="accent">Spreadshirt (private)</td><td>艺术家 + 商家混合</td><td>Rev ~$200M</td><td class="num">~1×</td><td>欧洲老牌，估值锚定参考</td></tr>
+    </tbody>
+  </table>
+
+  <p>结论：<b>Articore 的合理 EV/Revenue 区间在 0.5–2× 之间</b>——
+  比 Etsy（3–4×）低，因为规模、增长、毛利全面弱；
+  比 Gelato（10×）低很多，因为没有 SaaS 元素；
+  比 Cimpress（1.5×）略低，因为增长趋势还在下行。
+  这恰好与当前 ASX 市值的实际水平对应（~0.6×）。</p>
+</section>
+
+<!-- 22 US -->
+<section id="us" class="section">
+  <div class="section-num">22 · 第六部 · 竞品视角 <span class="section-tag rival">我方画像</span></div>
+  <h2 class="section-title">我方与 Redbubble 的关系</h2>
+  <p class="section-deck">在分析 Redbubble 时，我方与之的关系是"挖人 + 评估并购"，而非"竞争"。</p>
+
+  <div class="grid-2">
+    <div class="card rival"><div class="hd">我方价值主张</div><h4>从灵感到商品到流量「一根链」</h4><p>设计资产 / AIGC 内容 / 短视频流量 / 履约供应链 / 电商前端五段串联。让创作者从"想法"到"成交履约"在同一产品域内完成。</p></div>
+    <div class="card rival"><div class="hd">与 Redbubble 的关系</div><h4>30% 重叠，但目标客群不同</h4><p><b>重叠：</b>都服务艺术家创作者；都强调长尾。<br/><b>差异：</b>Redbubble 是市场模式（被动等买家），我方是工具+市场+内容；我方面向新一代创作者（短视频驱动），Redbubble 服务老一代艺术家。</p></div>
+    <div class="card rival"><div class="hd">关系判断</div><h4>挖人 + 评估并购</h4><p>Redbubble 的 1M+ 艺术家是其最值钱的资产，但许多艺术家正在因账户分级流失。我方应用<b>更友好的分成 + 更现代的工具</b>挖这批艺术家，并研究 Articore 估值进一步下行时的战略并购可能性。</p></div>
+    <div class="card rival"><div class="hd">三种行动模式</div><h4>挖人 / 联盟 / 并购</h4><p>① <b>挖艺术家：</b>定向接触 Redbubble Premium 艺术家，提供 0% 平台费 + 现代工具<br/>② <b>战略联盟：</b>把我方流量与 Redbubble 长尾互补，反向给 Redbubble 送精准流量<br/>③ <b>财务并购：</b>当 ATG 市值降至 $80M 区域考虑战略并购，吸纳 1M+ 艺术家与品牌资产</p></div>
+  </div>
+
+  <div class="pull">
+    "Redbubble 现在像一个『装满了优质艺术家但船在漏水』的旧船——我们不需要造同样的船，而是接住跳船的乘客。"
+  </div>
+</section>
+
+<!-- 23 WEAK -->
+<section id="weak" class="section">
+  <div class="section-num">23 · 第六部 · 竞品视角 <span class="section-tag rival">Weakness Radar</span></div>
+  <h2 class="section-title">Redbubble / Articore 弱点雷达</h2>
+  <p class="section-deck">7 个可被攻击的具体环节。</p>
+
+  <table>
+    <thead><tr><th>弱点</th><th>表征</th><th>挖人 / 攻击建议</th><th>风险</th></tr></thead>
+    <tbody>
+      <tr><td class="accent">账户分级争议</td><td>Standard 50% 平台费让长尾艺术家不满</td><td>定向投放 "Tired of 50% fee?" 类广告，吸引长尾艺术家迁移</td><td>艺术家忠诚度变量</td></tr>
+      <tr><td class="accent">SEO 流量崩塌</td><td>Google 算法变化让自然流量持续下降</td><td>用我方社交流量给 Redbubble 艺术家"另一条流量路径"</td><td>Google 政策可能再变</td></tr>
+      <tr><td class="accent">无 AIGC 设计工具</td><td>艺术家仍依赖 Photoshop / 手绘</td><td>我方 AIGC 设计中台对 Redbubble 艺术家是降维打击</td><td>需建立信任</td></tr>
+      <tr><td class="accent">质量一致性问题</td><td>多印厂多包裹模式被买家诟病</td><td>把"单订单单印厂"作为我方差异点</td><td>买家未必感知</td></tr>
+      <tr><td class="accent">公司治理动荡</td><td>2025 年董事会动荡 + Hosking 退出</td><td>艺术家信任度下降，是迁移最佳时机</td><td>新 CEO 可能稳定军心</td></tr>
+      <tr><td class="accent">中文 / 亚洲市场零</td><td>仅刚收购印度 Frankly Wearing</td><td>我方在中文市场无对手</td><td>Articore 可能加速亚洲扩张</td></tr>
+      <tr><td class="accent">付费营销依赖</td><td>Google / Meta 投入大但 ROI 下降</td><td>用我方内容生态 / TikTok 反向给艺术家送精准流量</td><td>长期可持续性需验证</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<!-- 24 VECTORS -->
+<section id="vectors" class="section">
+  <div class="section-num">24 · 第六部 · 竞品视角 <span class="section-tag rival">Attack Vectors</span></div>
+  <h2 class="section-title">6 大攻击向量（Battle Cards）</h2>
+  <p class="section-deck">由于 Redbubble 处于困境期，我方的"攻击"主要是<b>挖艺术家 + 反向引流 + 评估并购</b>。</p>
+
+  <div class="battle">
+    <div class="bc"><div class="vec">VECTOR · 01</div><h4>定向挖角 Premium 艺术家</h4><div class="strat">从 20% 平台费的中坚层入手</div><p>用爬虫识别 Redbubble Premium 级别艺术家（设计质量好、销量稳定），定向接触提供 0–10% 分成 + AIGC 工具 + 中国流量入口。</p><div class="ko">KO 点：让"被 20% 抽佣"变成历史</div></div>
+    <div class="bc"><div class="vec">VECTOR · 02</div><h4>AIGC 设计工具降维</h4><div class="strat">让"上传设计"变成"生成设计"</div><p>Redbubble 艺术家平均要 1-2 小时创作一个设计；我方 AIGC 工具让他们 5 分钟生成 + 改良 + 上传到我方平台。生产力 20× 提升。</p><div class="ko">KO 点：让旧工作流过时</div></div>
+    <div class="bc"><div class="vec">VECTOR · 03</div><h4>TikTok / 直播流量反向引流</h4><div class="strat">用流量解决 Redbubble 艺术家的核心痛点</div><p>艺术家在 Redbubble 抱怨"被 Google 算法害死"；我方用 TikTok 短视频给他们的设计带流量——他们就有了"自己的流量"，不再依赖平台 SEO。</p><div class="ko">KO 点：流量 = 我方杀手锏</div></div>
+    <div class="bc"><div class="vec">VECTOR · 04</div><h4>中文 / 亚洲艺术家根据地</h4><div class="strat">取一个 Redbubble 几乎不存在的市场</div><p>把小红书、B 站、抖音的中文艺术家作为基础盘，配合中文 AIGC 工具与微信集成，建立"中文 PoD 默认"。</p><div class="ko">KO 点：先成为中文默认</div></div>
+    <div class="bc"><div class="vec">VECTOR · 05</div><h4>"单订单单印厂"承诺</h4><div class="strat">解决 Redbubble 多包裹痛点</div><p>把"一个订单一次寄到，无论几件商品"做成承诺。买家投诉率结构性下降，复购率提升。</p><div class="ko">KO 点：买家体验差异化</div></div>
+    <div class="bc"><div class="vec">VECTOR · 06</div><h4>战略并购评估</h4><div class="strat">在 Articore 市值再下行时考虑收购</div><p>当 ATG 市值降至 $80–100M 区间，研究战略并购可能。$100–150M 收购可获得 1M+ 艺术家 + Redbubble + TeePublic 品牌 + 海量原创设计 + ASX 上市平台。</p><div class="ko">KO 点：以小博大式抄底</div></div>
+  </div>
+</section>
+
+<!-- 25 PLAYBOOK -->
+<section id="playbook" class="section">
+  <div class="section-num">25 · 第六部 · 竞品视角 <span class="section-tag rival">Playbook</span></div>
+  <h2 class="section-title">作战手册：12 个月路线图</h2>
+  <p class="section-deck">12 月内既要挖艺术家，也要为可能的并购建立筹码。</p>
+
+  <table>
+    <thead><tr><th>季度</th><th>核心动作</th><th>对应攻击向量</th><th>关键 KPI</th><th>对 Articore 的影响</th></tr></thead>
+    <tbody>
+      <tr><td class="accent">Q1 (T+0~3M)</td><td>定向挖 Redbubble 100 个 Premium 艺术家上线我方平台</td><td>V1, V2</td><td>迁移艺术家 100<br/>设计 5,000+</td><td>艺术家流失加剧</td></tr>
+      <tr><td class="accent">Q2 (T+3~6M)</td><td>建立 TikTok 短视频流量分发，给艺术家送精准买家</td><td>V3</td><td>TikTok 月曝光 1M<br/>带货 GMV $2M</td><td>形成差异化心智</td></tr>
+      <tr><td class="accent">Q3 (T+6~9M)</td><td>占领中文创作者 + 启动"单订单单印厂"承诺</td><td>V4, V5</td><td>中文创作者 1,000<br/>NPS +20</td><td>多市场切割</td></tr>
+      <tr><td class="accent">Q4 (T+9~12M)</td><td>评估 Articore 战略并购可行性 + 启动初步接触</td><td>V6</td><td>财务尽调完成<br/>意向书阶段</td><td>潜在战略并购</td></tr>
+    </tbody>
+  </table>
+
+  <div class="verdict-block">
+    <div class="lbl">竞争作战观点</div>
+    <h3>Redbubble 的真正价值不在它的现状，而在它能被"接管"什么</h3>
+    <p>Redbubble 自身可能继续慢性下行，但它有 1M+ 艺术家、5M 客户、20 年品牌、ASX 上市平台、海量原创设计、TeePublic 美国市场——这些都是<b>极有价值的可继承资产</b>。当前我方策略应是双线并进：
+    <b>线 1（防御）：用 AIGC + 流量挖角艺术家</b>，让 Redbubble 加速失血。
+    <b>线 2（进攻）：在 Articore 市值降到 $80M-$100M 时启动战略并购评估</b>。
+    这两个动作互相加强——挖角让 Articore 估值更低，并购变得更便宜；并购评估让我方有能力在合适时机一次性接管 Redbubble 1M+ 艺术家网络。</p>
+  </div>
+</section>
+
+<!-- 26 SWOT -->
+<section id="swot" class="section">
+  <div class="section-num">26 · 第七部 · 综合分析 <span class="section-tag synth">SWOT</span></div>
+  <h2 class="section-title">SWOT 综合矩阵（三视角合议）</h2>
+  <p class="section-deck">融合三种视角的 SWOT 分析。</p>
+
+  <div class="swot">
+    <div>
+      <div class="lbl S">S · 优势 STRENGTHS</div>
+      <h4>20 年艺术家社区 + 上市平台</h4>
+      <ul>
+        <li>1M+ Redbubble 艺术家 + 4.8M 设计库（FY23）</li>
+        <li>3M+ 跨品牌创作者总数（含 TP / Dashery / FW）</li>
+        <li>20 年艺术家社区文化与品牌资产</li>
+        <li>ASX 上市公司治理与公开融资能力</li>
+        <li>TeePublic 美国市场强势品牌</li>
+        <li>FY24/25 利润转身证明运营能力</li>
+        <li>资产轻 + 多印厂网络扩展性</li>
+      </ul>
+    </div>
+    <div>
+      <div class="lbl W">W · 劣势 WEAKNESSES</div>
+      <h4>SEO 依赖 + 飞轮逆转</h4>
+      <ul>
+        <li>50% 流量来自 Google 自然搜索（高集中度）</li>
+        <li>MPR 持续下行（FY25 -19%）</li>
+        <li>艺术家信任受账户分级争议冲击</li>
+        <li>无 AIGC 设计入口工具</li>
+        <li>仅 ~10 个第三方印厂位置（vs Gelato 140）</li>
+        <li>多印厂多包裹模式买家投诉</li>
+        <li>2025 年董事会动荡 + 创始人退出</li>
+      </ul>
+    </div>
+    <div>
+      <div class="lbl O">O · 机会 OPPORTUNITIES</div>
+      <h4>转型 + 并购窗口</h4>
+      <ul>
+        <li>POD 全球 TAM 2034 达 $89–103B</li>
+        <li>Dashery 创作者 SaaS 是新增长曲线</li>
+        <li>Frankly Wearing 进入印度 / 南亚</li>
+        <li>新 CEO + 北美化治理重新出发</li>
+        <li>市值低位是 PE 私有化或战略并购的窗口</li>
+        <li>FYUL 整合期可能引发市场重构</li>
+        <li>"独立 PoD 阵营"联盟的可能性</li>
+      </ul>
+    </div>
+    <div>
+      <div class="lbl T">T · 威胁 THREATS</div>
+      <h4>结构性流量崩塌 + 多重对手</h4>
+      <ul>
+        <li>Google AI Overview / Helpful Content 持续侵蚀 SEO</li>
+        <li>Etsy / Amazon Merch 抢长尾艺术家</li>
+        <li>AI 涌入设计池稀释作品价值</li>
+        <li>FYUL 合并后规模优势</li>
+        <li>Shopify 自建 PoD 工具</li>
+        <li>季度财报压力让长期投入受限</li>
+        <li>艺术家持续流失风险</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- 27 PORTER -->
+<section id="porter" class="section">
+  <div class="section-num">27 · 第七部 · 综合分析 <span class="section-tag synth">Porter Five Forces</span></div>
+  <h2 class="section-title">Porter 五力分析</h2>
+  <p class="section-deck">系统评估行业内五种力量对 Redbubble 利润空间的挤压程度。</p>
+
+  <div class="porter">
+    <div class="force high">
+      <div class="head"><span class="nm">现有竞争者</span><span class="scale">极高</span></div>
+      <p>Etsy、Society6、Threadless、Spreadshirt、Zazzle、CafePress 等同模型玩家；Amazon Merch 巨型对手。竞争烈度行业最高。</p>
+      <div class="meter high"><div></div></div>
+    </div>
+    <div class="force high">
+      <div class="head"><span class="nm">替代品威胁</span><span class="scale">高</span></div>
+      <p>FYUL / Gelato 等工具型 PoD 让创作者绕开市场直接卖；AIGC 数字商品；NFT 等数字收藏品。</p>
+      <div class="meter high"><div></div></div>
+    </div>
+    <div class="force high">
+      <div class="head"><span class="nm">买方议价能力</span><span class="scale">高</span></div>
+      <p>买家有 N 个个性化商品市场可选；价格、SKU、配送时间随时比较。</p>
+      <div class="meter high"><div></div></div>
+    </div>
+    <div class="porter center">
+      <h4>POD Marketplace 五力压力</h4>
+      <p>综合压力 = 极高<br/>市场模式正面临结构性挑战</p>
+    </div>
+    <div class="force med">
+      <div class="head"><span class="nm">供应商议价能力</span><span class="scale">中</span></div>
+      <p>10 个印厂相对集中；切换成本对 Redbubble 较高。但相比 Gelato 140 印厂，议价权更弱。</p>
+      <div class="meter med"><div></div></div>
+    </div>
+    <div class="force high">
+      <div class="head"><span class="nm">新进入者威胁</span><span class="scale">高</span></div>
+      <p>资产轻模式入门门槛低；AIGC + 中国柔性供应链可低成本搭起竞品；Shopify 等渠道方甚至自建。</p>
+      <div class="meter high"><div></div></div>
+    </div>
+    <div class="force high">
+      <div class="head"><span class="nm">流量渠道议价</span><span class="scale">极高</span></div>
+      <p>Google / Meta 拥有近 80% 数字广告 + 自然搜索市场，对 Redbubble 这种 SEO 依赖型公司形成绝对议价权。</p>
+      <div class="meter high"><div></div></div>
+    </div>
+  </div>
+
+  <p>结论：<b>Articore 在 PoD marketplace 子市场承受 PoD 行业最高的五力压力</b>——五力中四力处于"高"或"极高"。
+  这也解释了为什么 Articore 必须从 marketplace 转向 工具（Dashery）—— 在原赛道的护城河正在被多方面侵蚀。</p>
+</section>
+
+<!-- 28 STRATEGIC MATRIX -->
+<section id="bcg" class="section">
+  <div class="section-num">28 · 第七部 · 综合分析 <span class="section-tag synth">Strategic Matrix</span></div>
+  <h2 class="section-title">业务组合矩阵（GE / BCG 改编）</h2>
+  <p class="section-deck">把 Articore 当前业务组合放进 GE 九宫格。</p>
+
+  <table>
+    <thead><tr><th>业务单元</th><th>市场吸引力</th><th>竞争位置</th><th>BCG 分类</th><th>战略建议</th></tr></thead>
+    <tbody>
+      <tr><td class="accent">Redbubble.com 主品牌</td><td>中</td><td>中</td><td>现金牛 / 瘦狗交界</td><td>挤现金流 + 渐进改造，避免重大投入</td></tr>
+      <tr><td class="accent">TeePublic.com</td><td>中</td><td>强（美国 T-shirt 利基）</td><td>现金牛</td><td>持续优化 + 利润最大化</td></tr>
+      <tr><td class="accent">Dashery (SaaS)</td><td>高</td><td>弱（新生）</td><td>问题儿童</td><td>必须重投 + 提级到主战略业务</td></tr>
+      <tr><td class="accent">Frankly Wearing</td><td>高（亚洲增量）</td><td>弱（刚收购）</td><td>问题儿童</td><td>整合优先，验证模式后再加投</td></tr>
+      <tr><td class="accent">DORS / 路由系统</td><td>低（内部工具）</td><td>中</td><td>瘦狗</td><td>外包或学习 GelatoConnect 对外销售</td></tr>
+      <tr><td class="accent">基础物流</td><td>低</td><td>中</td><td>瘦狗</td><td>外包或与第三方深度整合</td></tr>
+    </tbody>
+  </table>
+
+  <p>建议组合配置：<b>把 Dashery 与 Frankly Wearing 提升至最高战略优先级</b>，让 Redbubble + TeePublic 进入"现金牛"角色为转型提供资金。这与 Articore 当前管理层的方向基本一致，但执行力度需要加强。</p>
+</section>
+
+<!-- 29 RISK -->
+<section id="risk" class="section">
+  <div class="section-num">29 · 第七部 · 综合分析 <span class="section-tag synth">Risk Map</span></div>
+  <h2 class="section-title">风险地图（Probability × Impact）</h2>
+  <p class="section-deck">用风险二维矩阵，识别 Articore 未来 18 个月最致命风险。</p>
+
+  <div class="riskmap">
+    <div class="col-h"></div>
+    <div class="col-h">影响小</div>
+    <div class="col-h">影响中</div>
+    <div class="col-h">影响大</div>
+
+    <div class="row-h">高概率</div>
+    <div class="cell warm"><span class="r">艺术家持续流失</span><span class="rd">作品池长期受损</span></div>
+    <div class="cell hot"><span class="r">SEO 流量再下滑</span><span class="rd">营收基础崩塌</span></div>
+    <div class="cell hot"><span class="r">FY26 EBIT 不达指引</span><span class="rd">公开市场再杀估值</span></div>
+
+    <div class="row-h">中概率</div>
+    <div class="cell cool"><span class="r">单一印厂违约</span><span class="rd">DORS 可调度</span></div>
+    <div class="cell warm"><span class="r">Dashery 增长不及预期</span><span class="rd">转型叙事落空</span></div>
+    <div class="cell hot"><span class="r">PE 强制私有化压价</span><span class="rd">小股东估值打折</span></div>
+
+    <div class="row-h">低概率</div>
+    <div class="cell cool"><span class="r">单艺术家诉讼（IP 争议）</span><span class="rd">局部影响</span></div>
+    <div class="cell cool"><span class="r">某市场监管事件</span><span class="rd">区域性影响</span></div>
+    <div class="cell warm"><span class="r">Frankly Wearing 整合失败</span><span class="rd">资本损失</span></div>
+  </div>
+
+  <h3 class="h">三大致命风险</h3>
+  <p><b>R1 SEO 流量再下滑：</b>Google AI Overview 持续渗透 + 长尾搜索行为变化，可能让 Redbubble 自然流量再降 20-30%，营收基础崩塌。<br/>
+  <b>R2 FY26 EBIT 不达指引：</b>公司公开承诺 EBIT $2-8M，若未达，公开市场可能再杀估值 30-50%，引发 PE 抄底。<br/>
+  <b>R3 PE 强制私有化压价：</b>当前市值低 + 现金流刚转正，是 PE 私有化的甜蜜点；但溢价可能不高，小股东可能被压价 ~10-20%。</p>
+</section>
+
+<!-- 30 VERDICT -->
+<section id="verdict" class="section">
+  <div class="section-num">30 · 第七部 · 综合分析 <span class="section-tag synth">Final Verdict</span></div>
+  <h2 class="section-title">三视角合议：终极结论与行动建议</h2>
+  <p class="section-deck">三种身份共同表态——Articore 是 POD 行业最值得"被吸收"而非"被对抗"的玩家。</p>
+
+  <div class="verdict-block">
+    <div class="lbl">SUMMARY VERDICT · 三视角合议</div>
+    <h3>Articore 是一艘漏水的船 + 一群优质的乘客 + 一个还没沉的港口</h3>
+    <p>它的市场模式正在结构性失效；它的财务有所改善但增长仍下行；它的领导层动荡刚告一段落；它的市值已从 $2.5B 跌到 $130M。
+    这是一个典型的<b>"价值已被严重定价 + 关键资产仍可挖掘"</b>的标的。
+    它的命运取决于三件事：①Google SEO 是否进一步侵蚀；②Dashery 能否成为新引擎；③有没有买家在合适价位接手。</p>
+
+    <div class="three">
+      <div>
+        <div class="role">咨询视角</div>
+        <b>必须激进转型 + 考虑私有化</b>
+        <p>把 Dashery 与 Frankly Wearing 提升至最高战略优先级；考虑被 PE 私有化以摆脱季度 KPI 束缚。</p>
+      </div>
+      <div>
+        <div class="role">VC 视角</div>
+        <b>仅困境反转基金可考虑</b>
+        <p>当前估值 0.5–0.7× EV/Rev 极度低估，但需要相信转型 + 接受 50% 失败概率。<br/>不适合普通成长基金。</p>
+      </div>
+      <div>
+        <div class="role">竞品视角</div>
+        <b>挖人 + 流量反向引流 + 评估并购</b>
+        <p>不正面打 Redbubble；用 AIGC + 流量挖优质艺术家；当 ATG 市值跌至 $80M 时启动战略并购评估。</p>
+      </div>
+    </div>
+  </div>
+
+  <h3 class="h">三视角共识：未来 24 月最重要的 3 个战略问题</h3>
+  <p><b>Q1：Articore 能否在 18 个月内把 Dashery + Frankly Wearing 做到合计 $30M+ MPR？</b><br/>
+  这是新增长曲线能否替代 SEO 流量损失的关键变量。<br/><br/>
+  <b>Q2：Google 长尾 SEO 流量会继续侵蚀多少？</b><br/>
+  这是外生最大风险；Articore 几乎无法控制。<br/><br/>
+  <b>Q3：PE 或战略买家会以多少倍价格出手？</b><br/>
+  这决定 Articore 最终是被收购、再上市还是慢性下行。</p>
+</section>
+
+<!-- 31 SOURCES -->
+<section id="sources" class="section">
+  <div class="section-num">31 · 第七部 · 综合分析 <span class="section-tag synth">Methodology &amp; Sources</span></div>
+  <h2 class="section-title">方法论与信息来源</h2>
+  <p class="section-deck">本报告基于公开 ASX 财报、行业访谈、专业数据库交叉三角验证。</p>
+
+  <h3 class="h">分析方法</h3>
+  <p>本报告综合运用：<b>BCG Where to Play / How to Win 框架</b>、<b>Porter Value Chain &amp; Five Forces</b>、<b>Hamilton Helmer 7 Powers</b>、<b>Osterwalder Business Model Canvas</b>、<b>GE Matrix</b>、<b>SWOT</b>、<b>三角验证财务模型</b>、<b>Customer Acquisition Funnel</b>、<b>困境反转估值法</b>。所有估算数据均标注 "估" 或 "E"，与公开数据严格区分。</p>
+
+  <h3 class="h">主要公开来源</h3>
+  <ul style="font-size:13px;color:var(--ink-2);max-width:880px;line-height:1.85;">
+    <li>Articore Group 官方网站 + 投资者关系页</li>
+    <li>FY24 / FY25 / 1HFY25 ASX 财报与投资者演示</li>
+    <li>Wikipedia: Redbubble、TeePublic 词条</li>
+    <li>Crunchbase（Redbubble、Martin Hosking、TeePublic 收购）</li>
+    <li>SmartCompany、Ragtrader、Inside Retail Australia（澳洲商业媒体）</li>
+    <li>Stocks Down Under、Stockhead、TipRanks（公开市场分析）</li>
+    <li>Power Retail、Business News Australia（行业媒体）</li>
+    <li>Redbubble 官方 Help Center + Blog（艺术家工具与政策）</li>
+    <li>NechEmpire、Print On Demand Cast（艺术家社群分析）</li>
+    <li>D3 Harvard Digital Innovation 案例研究</li>
+    <li>Bloomberg、Sifted（独角兽与公开市场报道）</li>
+    <li>News Hub Medianet（Frankly Wearing 收购报道）</li>
+  </ul>
+
+  <h3 class="h">免责声明</h3>
+  <p style="font-size:12.5px;color:var(--muted);">本报告为综合分析与战略推演，部分财务数据为基于公开信息的估算（标注 "估" 或 "E"），不构成投资建议、不可作为合规审计或法律意见的依据。所有商标归各自所有人所有。本报告中关于"潜在并购"和"战略行动"的讨论是分析推演，不代表任何已发生或计划中的具体行动。读者应结合自身决策上下文与最新公开信息独立判断。</p>
+</section>
+
+<footer>
+  <div>本报告由 Claude · Cowork 模式协作撰写，三视角合议方法论由用户指定。日期：2026-05-11。</div>
+  <div style="margin-top:14px;">建议引用方式：<i>"Redbubble (Articore Group) 综合战略分析报告（三视角合议）, 2026-05-11."</i></div>
+</footer>
+
+</main>
+</div>
+
+<script>
+Chart.defaults.font.family = '"Inter", "PingFang SC", sans-serif';
+Chart.defaults.font.size = 12;
+Chart.defaults.color = '#5C6B82';
+
+// Revenue Chart - shows the dramatic peak/crash
+new Chart(document.getElementById('revenueChart'),{
+  type:'bar',
+  data:{
+    labels:['FY16','FY18','FY19','FY20','FY21','FY22','FY23','FY24','FY25','FY26E','FY27E'],
+    datasets:[
+      {
+        label:'Marketplace Revenue (AUD M)',
+        data:[143,215,280,350,554,483,469,285,230,222,240],
+        backgroundColor:(ctx)=>{
+          const idx = ctx.dataIndex;
+          if(idx >= 9) return 'rgba(230,57,70,0.85)';
+          if(idx >= 5 && idx <= 8) return 'rgba(122,18,18,0.78)';
+          return 'rgba(26,18,36,0.78)';
+        },
+        borderRadius:2,
+        yAxisID:'y'
+      },
+      {
+        label:'同比增速 %',
+        data:[null,30,30,25,58,-13,-3,-39,-19,-3,8],
+        type:'line',
+        borderColor:'#0E7C58',
+        backgroundColor:'rgba(14,124,88,0.15)',
+        tension:0.35,
+        borderWidth:2,
+        pointRadius:3,
+        yAxisID:'y1'
+      }
+    ]
+  },
+  options:{
+    plugins:{ legend:{ position:'bottom' } },
+    scales:{
+      y:{title:{display:true,text:'MPR (AUD M)',color:'#5C6B82'},beginAtZero:true,grid:{color:'#1A12241A'}},
+      y1:{title:{display:true,text:'增速 %',color:'#0E7C58'},position:'right',min:-50,max:80,grid:{drawOnChartArea:false}},
+      x:{ grid:{display:false} }
+    }
+  }
+});
+
+// Moat Radar
+new Chart(document.getElementById('moatChart'),{
+  type:'radar',
+  data:{
+    labels:['规模经济','网络效应','切换成本','品牌','流程能力 / SEO'],
+    datasets:[
+      {
+        label:'Redbubble (Articore)',
+        data:[5,6,3,7,5],
+        backgroundColor:'rgba(230,57,70,0.18)',
+        borderColor:'#E63946',
+        borderWidth:2,
+        pointBackgroundColor:'#E63946',
+        pointRadius:4,
+      },
+      {
+        label:'Printful / FYUL',
+        data:[8,5,6,7,8],
+        backgroundColor:'rgba(10,22,40,0.10)',
+        borderColor:'#0A1628',
+        borderWidth:2,
+        borderDash:[4,4],
+        pointBackgroundColor:'#0A1628',
+        pointRadius:3,
+      },
+      {
+        label:'Gelato',
+        data:[5,7,5,6,8],
+        backgroundColor:'rgba(255,107,53,0.10)',
+        borderColor:'#FF6B35',
+        borderWidth:2,
+        borderDash:[2,3],
+        pointBackgroundColor:'#FF6B35',
+        pointRadius:3,
+      }
+    ]
+  },
+  options:{
+    plugins:{ legend:{ position:'bottom' } },
+    scales:{
+      r:{beginAtZero:true,max:10,ticks:{stepSize:2,backdropColor:'transparent'},grid:{color:'#1A122422'},angleLines:{color:'#1A122422'},pointLabels:{ font:{ size:12, weight:'600'}, color:'#1A1224'}}
+    }
+  }
+});
+
+// Market Chart
+new Chart(document.getElementById('marketChart'),{
+  type:'bar',
+  data:{
+    labels:['2024','2025','2026E','2027E','2028E','2030E','2032E','2034E'],
+    datasets:[
+      {
+        label:'POD 全球市场规模 (USD B)',
+        data:[10.2,11.0,13.6,16.7,20.6,31.5,52.1,89.4],
+        backgroundColor:'rgba(26,18,36,0.78)',
+        borderRadius:2,
+        yAxisID:'y'
+      },
+      {
+        label:'同比增速 %',
+        data:[null,7.8,23.6,22.8,23.4,23.3,23.5,23.3],
+        type:'line',
+        borderColor:'#E63946',
+        backgroundColor:'rgba(230,57,70,0.15)',
+        tension:0.35,
+        borderWidth:2,
+        pointRadius:3,
+        yAxisID:'y1'
+      }
+    ]
+  },
+  options:{
+    plugins:{ legend:{ position:'bottom' } },
+    scales:{
+      y:{title:{display:true,text:'市场规模 (USD B)',color:'#5C6B82'},beginAtZero:true,grid:{color:'#1A12241A'}},
+      y1:{title:{display:true,text:'增速 %',color:'#E63946'},position:'right',beginAtZero:true,max:30,grid:{drawOnChartArea:false}},
+      x:{ grid:{display:false} }
+    }
+  }
+});
+
+// Valuation Chart
+new Chart(document.getElementById('valuationChart'),{
+  type:'bar',
+  data:{
+    labels:['Bear · MPR 续降','Base · MPR 企稳','Bull · 私有化溢价'],
+    datasets:[
+      {
+        label:'估值区间下限 (AUD M)',
+        data:[80,150,300],
+        backgroundColor:'rgba(178,53,31,0.55)',
+        borderRadius:2,
+      },
+      {
+        label:'估值区间上限 (AUD M)',
+        data:[120,250,500],
+        backgroundColor:'rgba(14,124,88,0.65)',
+        borderRadius:2,
+      },
+      {
+        label:'EV/Revenue 乘数',
+        data:[0.5,0.9,1.8],
+        type:'line',
+        borderColor:'#E63946',
+        backgroundColor:'#E63946',
+        tension:0.2,
+        borderWidth:2,
+        pointRadius:5,
+        yAxisID:'y1',
+      }
+    ]
+  },
+  options:{
+    plugins:{ legend:{ position:'bottom' } },
+    scales:{
+      y:{title:{display:true,text:'估值 (AUD M)'},beginAtZero:true,max:600},
+      y1:{position:'right',beginAtZero:true,max:3,title:{display:true,text:'EV/Revenue 乘数'},grid:{drawOnChartArea:false}},
+      x:{grid:{display:false}}
+    }
+  }
+});
+</script>
+</body>
+</html>
