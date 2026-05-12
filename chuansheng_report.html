@@ -1,0 +1,1174 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>深圳市传盛科技有限公司 · 商业分析报告</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;700;900&family=DM+Serif+Display&family=JetBrains+Mono:wght@400;500;700&family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --ink: #14110F;
+  --paper: #F3EFE6;
+  --paper-deep: #E8E1D2;
+  --crimson: #A8201A;
+  --ochre: #C58A3B;
+  --olive: #4A5532;
+  --teal: #1F4E5F;
+  --rule: rgba(20, 17, 15, 0.15);
+  --serif: 'Noto Serif SC', 'DM Serif Display', serif;
+  --sans: 'Noto Sans SC', sans-serif;
+  --mono: 'JetBrains Mono', monospace;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--serif);
+  font-weight: 400;
+  line-height: 1.7;
+  font-size: 16px;
+  background-image:
+    radial-gradient(circle at 20% 30%, rgba(197, 138, 59, 0.04) 0%, transparent 50%),
+    radial-gradient(circle at 80% 70%, rgba(168, 32, 26, 0.03) 0%, transparent 50%);
+  min-height: 100vh;
+}
+
+/* Subtle grain texture */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' /%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.4'/%3E%3C/svg%3E");
+  opacity: 0.06;
+  z-index: 1;
+  mix-blend-mode: multiply;
+}
+
+.container {
+  max-width: 1180px;
+  margin: 0 auto;
+  padding: 0 48px;
+  position: relative;
+  z-index: 2;
+}
+
+/* === HERO === */
+.hero {
+  padding: 80px 0 40px;
+  border-bottom: 1px solid var(--rule);
+  position: relative;
+}
+
+.hero-meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--ink);
+  opacity: 0.7;
+  margin-bottom: 60px;
+  border-bottom: 1px solid var(--ink);
+  padding-bottom: 12px;
+}
+
+.hero-meta span:last-child::before {
+  content: '◆ ';
+  color: var(--crimson);
+}
+
+.hero h1 {
+  font-family: var(--serif);
+  font-weight: 900;
+  font-size: clamp(48px, 7vw, 96px);
+  line-height: 0.95;
+  letter-spacing: -0.02em;
+  margin-bottom: 24px;
+}
+
+.hero h1 .accent {
+  color: var(--crimson);
+  font-style: italic;
+  font-weight: 400;
+  font-family: var(--serif);
+}
+
+.hero-sub {
+  font-family: var(--sans);
+  font-size: 18px;
+  font-weight: 300;
+  line-height: 1.6;
+  max-width: 720px;
+  color: var(--ink);
+  opacity: 0.85;
+  margin-bottom: 50px;
+}
+
+.hero-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0;
+  border-top: 2px solid var(--ink);
+  border-bottom: 2px solid var(--ink);
+  margin-top: 40px;
+}
+
+.hero-grid .cell {
+  padding: 28px 24px;
+  border-right: 1px solid var(--rule);
+}
+.hero-grid .cell:last-child { border-right: none; }
+
+.cell-label {
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  opacity: 0.6;
+  margin-bottom: 12px;
+}
+
+.cell-value {
+  font-family: var(--serif);
+  font-size: 36px;
+  font-weight: 700;
+  line-height: 1;
+  color: var(--ink);
+}
+.cell-value .unit {
+  font-size: 14px;
+  font-weight: 400;
+  margin-left: 4px;
+  opacity: 0.7;
+}
+
+/* === SECTION === */
+section { padding: 80px 0; border-bottom: 1px solid var(--rule); }
+
+.section-header {
+  display: grid;
+  grid-template-columns: 100px 1fr;
+  gap: 40px;
+  align-items: baseline;
+  margin-bottom: 56px;
+}
+
+.section-num {
+  font-family: var(--mono);
+  font-size: 14px;
+  letter-spacing: 0.2em;
+  color: var(--crimson);
+  border-top: 2px solid var(--crimson);
+  padding-top: 8px;
+}
+
+.section-title {
+  font-family: var(--serif);
+  font-weight: 700;
+  font-size: clamp(32px, 4vw, 52px);
+  line-height: 1.05;
+  letter-spacing: -0.01em;
+}
+
+.section-title em {
+  font-style: italic;
+  font-weight: 400;
+  color: var(--ochre);
+}
+
+/* === PROSE === */
+.prose {
+  font-size: 17px;
+  line-height: 1.85;
+  max-width: 780px;
+  margin: 0 auto;
+}
+.prose p { margin-bottom: 22px; }
+.prose p.lead {
+  font-size: 22px;
+  font-weight: 500;
+  line-height: 1.55;
+  color: var(--ink);
+  border-left: 3px solid var(--crimson);
+  padding-left: 24px;
+  margin-bottom: 36px;
+}
+.prose strong { font-weight: 700; color: var(--crimson); }
+
+/* === TWO-COL === */
+.twocol {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 60px;
+}
+.twocol h3 {
+  font-family: var(--serif);
+  font-size: 24px;
+  font-weight: 700;
+  margin-bottom: 18px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--ink);
+}
+.twocol h3 .roman {
+  font-family: var(--mono);
+  font-size: 13px;
+  color: var(--ochre);
+  margin-right: 12px;
+  letter-spacing: 0.1em;
+}
+.twocol p {
+  font-family: var(--sans);
+  font-size: 15px;
+  line-height: 1.75;
+  margin-bottom: 14px;
+}
+
+/* === PRODUCT GALLERY === */
+.product-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+  margin-top: 32px;
+}
+.product-card {
+  border: 1px solid var(--ink);
+  padding: 28px 24px;
+  background: var(--paper);
+  position: relative;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.product-card:hover {
+  transform: translate(-3px, -3px);
+  box-shadow: 6px 6px 0 var(--ink);
+}
+.product-card .pc-tag {
+  position: absolute;
+  top: -10px;
+  left: 24px;
+  background: var(--crimson);
+  color: var(--paper);
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.15em;
+  padding: 3px 10px;
+  text-transform: uppercase;
+}
+.product-card h4 {
+  font-family: var(--serif);
+  font-size: 22px;
+  font-weight: 700;
+  margin-bottom: 8px;
+  margin-top: 8px;
+}
+.product-card .price {
+  font-family: var(--mono);
+  font-size: 13px;
+  color: var(--olive);
+  margin-bottom: 12px;
+}
+.product-card p {
+  font-family: var(--sans);
+  font-size: 13px;
+  line-height: 1.65;
+  color: var(--ink);
+  opacity: 0.85;
+}
+
+/* === TIMELINE === */
+.timeline {
+  position: relative;
+  margin: 40px 0;
+  padding-left: 40px;
+}
+.timeline::before {
+  content: '';
+  position: absolute;
+  left: 11px;
+  top: 8px;
+  bottom: 8px;
+  width: 2px;
+  background: var(--ink);
+}
+.tl-item {
+  position: relative;
+  margin-bottom: 40px;
+}
+.tl-item::before {
+  content: '';
+  position: absolute;
+  left: -35px;
+  top: 6px;
+  width: 16px;
+  height: 16px;
+  background: var(--paper);
+  border: 3px solid var(--crimson);
+  border-radius: 50%;
+  z-index: 2;
+}
+.tl-year {
+  font-family: var(--mono);
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--crimson);
+  letter-spacing: 0.1em;
+  margin-bottom: 8px;
+}
+.tl-title {
+  font-family: var(--serif);
+  font-size: 22px;
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+.tl-desc {
+  font-family: var(--sans);
+  font-size: 15px;
+  line-height: 1.7;
+  color: var(--ink);
+  opacity: 0.85;
+}
+
+/* === BUSINESS FLOW === */
+.flow {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 12px;
+  margin-top: 40px;
+}
+.flow-step {
+  background: var(--paper);
+  border: 1px solid var(--ink);
+  padding: 24px 18px;
+  position: relative;
+}
+.flow-step::after {
+  content: '→';
+  position: absolute;
+  right: -18px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 24px;
+  color: var(--crimson);
+  font-weight: 700;
+  z-index: 3;
+}
+.flow-step:last-child::after { display: none; }
+.flow-step .fs-num {
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--ochre);
+  letter-spacing: 0.2em;
+  margin-bottom: 10px;
+}
+.flow-step h5 {
+  font-family: var(--serif);
+  font-size: 17px;
+  font-weight: 700;
+  margin-bottom: 8px;
+  line-height: 1.3;
+}
+.flow-step p {
+  font-family: var(--sans);
+  font-size: 12px;
+  line-height: 1.6;
+  color: var(--ink);
+  opacity: 0.8;
+}
+
+/* === MARKETING LIST === */
+.marketing-block {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 36px;
+  margin-top: 32px;
+}
+.m-card {
+  border-top: 3px solid var(--ink);
+  padding-top: 18px;
+}
+.m-card h4 {
+  font-family: var(--serif);
+  font-size: 22px;
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+.m-card .m-num {
+  font-family: var(--mono);
+  font-size: 12px;
+  color: var(--crimson);
+  letter-spacing: 0.2em;
+  margin-bottom: 8px;
+}
+.m-card ul {
+  list-style: none;
+  margin-top: 14px;
+}
+.m-card ul li {
+  font-family: var(--sans);
+  font-size: 14px;
+  line-height: 1.7;
+  padding: 8px 0 8px 22px;
+  position: relative;
+  border-bottom: 1px dashed var(--rule);
+}
+.m-card ul li::before {
+  content: '▸';
+  position: absolute;
+  left: 0;
+  color: var(--ochre);
+  font-weight: 700;
+}
+.m-card ul li:last-child { border-bottom: none; }
+
+/* === PULLQUOTE === */
+.pullquote {
+  margin: 48px 0;
+  padding: 36px 48px;
+  border-left: 4px solid var(--crimson);
+  border-right: 4px solid var(--crimson);
+  background: rgba(168, 32, 26, 0.04);
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: 24px;
+  line-height: 1.5;
+  font-weight: 500;
+  text-align: center;
+  color: var(--ink);
+}
+.pullquote::before { content: '“ '; color: var(--crimson); font-size: 1.5em; }
+.pullquote::after { content: ' ”'; color: var(--crimson); font-size: 1.5em; }
+
+/* === DATA TABLE === */
+.data-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 32px 0;
+  font-family: var(--sans);
+}
+.data-table thead {
+  background: var(--ink);
+  color: var(--paper);
+}
+.data-table th {
+  text-align: left;
+  padding: 14px 18px;
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  font-weight: 500;
+}
+.data-table td {
+  padding: 14px 18px;
+  border-bottom: 1px solid var(--rule);
+  font-size: 14px;
+}
+.data-table tbody tr:hover { background: rgba(197, 138, 59, 0.06); }
+.data-table td:first-child {
+  font-family: var(--mono);
+  font-weight: 700;
+  color: var(--crimson);
+}
+
+/* === STATS ROW === */
+.stats {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 24px;
+  margin: 40px 0;
+}
+.stat {
+  text-align: center;
+  padding: 24px 12px;
+}
+.stat-num {
+  font-family: var(--serif);
+  font-size: 56px;
+  font-weight: 900;
+  color: var(--crimson);
+  line-height: 1;
+  margin-bottom: 8px;
+}
+.stat-num .small { font-size: 24px; vertical-align: super; opacity: 0.7; }
+.stat-label {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--ink);
+  opacity: 0.7;
+}
+
+/* === RISK BOX === */
+.swot {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0;
+  border: 1px solid var(--ink);
+  margin-top: 32px;
+}
+.swot > div {
+  padding: 28px;
+  border-right: 1px solid var(--ink);
+  border-bottom: 1px solid var(--ink);
+}
+.swot > div:nth-child(even) { border-right: none; }
+.swot > div:nth-child(n+3) { border-bottom: none; }
+.swot h4 {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  padding-bottom: 10px;
+  margin-bottom: 14px;
+  border-bottom: 1px solid var(--rule);
+}
+.swot .strengths h4 { color: var(--olive); }
+.swot .weaknesses h4 { color: var(--crimson); }
+.swot .opportunities h4 { color: var(--teal); }
+.swot .threats h4 { color: var(--ochre); }
+.swot ul {
+  list-style: none;
+  font-family: var(--sans);
+}
+.swot ul li {
+  font-size: 14px;
+  line-height: 1.6;
+  padding: 6px 0 6px 16px;
+  position: relative;
+}
+.swot ul li::before {
+  content: '·';
+  position: absolute;
+  left: 0;
+  font-weight: 900;
+  font-size: 20px;
+  line-height: 1;
+}
+
+/* === FOOTER === */
+footer {
+  padding: 60px 0 40px;
+  text-align: center;
+  border-top: 2px solid var(--ink);
+}
+footer .ftr-mark {
+  font-family: var(--serif);
+  font-size: 32px;
+  font-weight: 900;
+  letter-spacing: -0.02em;
+  margin-bottom: 12px;
+}
+footer .ftr-mark span { color: var(--crimson); font-style: italic; }
+footer p {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  opacity: 0.6;
+  margin-top: 8px;
+}
+
+/* === NAV (sticky chips) === */
+.tocnav {
+  position: sticky;
+  top: 0;
+  background: var(--paper);
+  border-bottom: 1px solid var(--rule);
+  padding: 14px 0;
+  z-index: 10;
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.15em;
+}
+.tocnav .container {
+  display: flex;
+  gap: 28px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+.tocnav a {
+  color: var(--ink);
+  text-decoration: none;
+  opacity: 0.65;
+  transition: opacity 0.2s, color 0.2s;
+  text-transform: uppercase;
+}
+.tocnav a:hover { opacity: 1; color: var(--crimson); }
+
+/* Responsive */
+@media (max-width: 900px) {
+  .container { padding: 0 24px; }
+  .hero { padding: 50px 0 30px; }
+  .hero-grid { grid-template-columns: repeat(2, 1fr); }
+  .hero-grid .cell:nth-child(2) { border-right: none; }
+  .hero-grid .cell:nth-child(-n+2) { border-bottom: 1px solid var(--rule); }
+  .twocol { grid-template-columns: 1fr; gap: 40px; }
+  .product-grid { grid-template-columns: 1fr; }
+  .flow { grid-template-columns: 1fr; }
+  .flow-step::after { display: none; }
+  .marketing-block { grid-template-columns: 1fr; }
+  .stats { grid-template-columns: repeat(2, 1fr); }
+  .swot { grid-template-columns: 1fr; }
+  .swot > div { border-right: none !important; border-bottom: 1px solid var(--ink) !important; }
+  .swot > div:last-child { border-bottom: none !important; }
+  .section-header { grid-template-columns: 1fr; gap: 16px; }
+  .pullquote { padding: 24px 20px; font-size: 18px; }
+}
+</style>
+</head>
+<body>
+
+<!-- Sticky nav -->
+<nav class="tocnav">
+  <div class="container">
+    <a href="#overview">概览</a>
+    <a href="#products">产品业务</a>
+    <a href="#team">团队组织</a>
+    <a href="#timeline">发展历程</a>
+    <a href="#growth">从零成长</a>
+    <a href="#marketing">营销获客</a>
+    <a href="#financials">财务表现</a>
+    <a href="#analysis">分析展望</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<header class="hero">
+  <div class="container">
+    <div class="hero-meta">
+      <span>Confidential · Company Profile</span>
+      <span>2026年商业分析</span>
+    </div>
+
+    <h1>深圳市<br>传盛科技<span class="accent">·</span> 解析</h1>
+    <p class="hero-sub">一家"业绩破百亿、员工超2000人"的低调跨境电商大卖。本文从产品、组织、获客、营销与发展全链路，拆解其10年从坂田到全球200国的扩张路径与方法论。</p>
+
+    <div class="hero-grid">
+      <div class="cell">
+        <div class="cell-label">成立时间</div>
+        <div class="cell-value">2015</div>
+      </div>
+      <div class="cell">
+        <div class="cell-label">员工规模</div>
+        <div class="cell-value">2000<span class="unit">+人</span></div>
+      </div>
+      <div class="cell">
+        <div class="cell-label">业务覆盖</div>
+        <div class="cell-value">200<span class="unit">国家/地区</span></div>
+      </div>
+      <div class="cell">
+        <div class="cell-label">业绩量级</div>
+        <div class="cell-value">百<span class="unit">亿级</span></div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- OVERVIEW -->
+<section id="overview">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-num">01 / OVERVIEW</div>
+      <h2 class="section-title">一家典型的<em>深圳"铺货系"大卖</em>：低调、巨大、隐形</h2>
+    </div>
+
+    <div class="prose">
+      <p class="lead">深圳市传盛科技有限公司（Kingsold，官网 kingsold.com）成立于2015年，是一家专注跨境电商出口的国家高新技术企业。它没有上市，没有融资新闻，几乎不见诸主流财经媒体——但官方校招资料明确披露："人员规模2000+；业绩突破百亿"。</p>
+
+      <p>传盛科技定位为<strong>"互联网 + 跨境贸易 + 品牌化 + 全渠道"</strong>的运营模式，是国内为数不多在亚马逊、eBay、Wish、AliExpress、Lazada、Shopee、Walmart 等几乎所有主流跨境平台同时大规模运作的"全平台、全品类"卖家之一。商品涵盖服饰、家居、美妆、3C电子、户外、玩具、安防监控、汽车配件等数十个品类，SKU 数以万计，配有自主研发的 ERP 系统，<strong>日订单处理量数十万</strong>。</p>
+
+      <p>从结构上看，传盛科技呈现典型的"华南城/坂田系"大卖特征：依托深圳的供应链与制造业带，以"多账号、多店铺、多平台、铺货 + 精铺并行"为打法；前端是数千名亚马逊运营组成的"销售流水线"，后端是 ERP、东莞/海外仓与供应链支撑的"工业化体系"。在跨境电商行业，它属于<strong>"中腰部以上、未上市、隐形冠军"</strong>这一档。</p>
+    </div>
+
+    <div class="stats">
+      <div class="stat">
+        <div class="stat-num">10<span class="small">年</span></div>
+        <div class="stat-label">励精图治</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num">10<span class="small">+</span></div>
+        <div class="stat-label">产品大类</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num">数万</div>
+        <div class="stat-label">商品 SKU</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num">数十万</div>
+        <div class="stat-label">日订单量</div>
+      </div>
+    </div>
+
+    <div class="pullquote">让更多的中国商品服务世界，助力更多的员工实现梦想。</div>
+  </div>
+</section>
+
+<!-- PRODUCTS -->
+<section id="products">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-num">02 / PRODUCTS</div>
+      <h2 class="section-title">产品与<em>业务模式</em>：全品类、全平台、半精品</h2>
+    </div>
+
+    <div class="prose" style="margin-bottom: 50px;">
+      <p>传盛的业务架构可以拆解为三层："<strong>跨境电商 B2C + 传统外贸 + 研发生产制造</strong>"。前端是直接面向海外消费者的平台店铺，中端是供应链与品牌孵化（含与外部品牌合作分销），后端是东莞/深圳的研发与采购体系。</p>
+      <p>它的核心打法是<strong>"半精品 + 多账号铺货"</strong>：在 Bagotte、Sricam 等成熟品牌的爆款（如扫地机器人、车载吸尘器、空气炸锅、WiFi 摄像头等）上做规模化精铺；在服饰、家居、玩具等长尾品类上则保持铺货上新节奏，靠 ERP 自动化吃量。</p>
+    </div>
+
+    <h3 style="font-family: var(--serif); font-size: 22px; margin-bottom: 16px; padding-bottom: 8px; border-bottom: 1px solid var(--ink);">官网展示的代表产品（合作 / 自营）</h3>
+    <div class="product-grid">
+      <div class="product-card">
+        <span class="pc-tag">小家电</span>
+        <h4>无线吸尘器 KN1609</h4>
+        <div class="price">¥840 – ¥1,683</div>
+        <p>Bagotte 2合1无线吸尘器，可拆卸式锂离子电池设计，主打欧美中产家庭。</p>
+      </div>
+      <div class="product-card">
+        <span class="pc-tag">车载</span>
+        <h4>车载吸尘器 6601</h4>
+        <div class="price">¥210 – ¥420</div>
+        <p>Bagotte 干湿两用便携车载吸尘器，16.4FT 电源线，12V/120W，配 LED 灯与手提袋。</p>
+      </div>
+      <div class="product-card">
+        <span class="pc-tag">智能家居</span>
+        <h4>扫地机器人 BL509</h4>
+        <div class="price">¥1,052 – ¥2,455</div>
+        <p>Bagotte 三合一带擦拭功能扫地机器人，是公司最具代表性的爆款大类之一。</p>
+      </div>
+      <div class="product-card">
+        <span class="pc-tag">小家电</span>
+        <h4>空气炸锅 5QT</h4>
+        <div class="price">¥560 – ¥1,052</div>
+        <p>Bagotte 5夸脱无油电热空气炸锅，1500W 功率，全触摸屏，带自动断电与记忆功能。</p>
+      </div>
+      <div class="product-card">
+        <span class="pc-tag">安防</span>
+        <h4>Wifi IP 摄像头 SP017</h4>
+        <div class="price">¥210 – ¥420</div>
+        <p>Sricam 1080P 无线室内监控摄像头，红外夜视 + 移动侦测，主打家庭/婴儿/宠物安防。</p>
+      </div>
+      <div class="product-card">
+        <span class="pc-tag">智能家居</span>
+        <h4>扫地机器人 BG600</h4>
+        <div class="price">¥1,052 – ¥2,104</div>
+        <p>1500Pa 超强吸力，2.7 寸超薄机身，专门针对宠物毛发清理场景设计。</p>
+      </div>
+    </div>
+
+    <div style="margin-top: 56px;">
+      <h3 style="font-family: var(--serif); font-size: 22px; margin-bottom: 16px; padding-bottom: 8px; border-bottom: 1px solid var(--ink);">业务模式四象限</h3>
+      <table class="data-table">
+        <thead>
+          <tr>
+            <th width="20%">维度</th>
+            <th width="40%">具体打法</th>
+            <th>说明</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>渠道</td>
+            <td>Amazon · eBay · Wish · AliExpress · Lazada · Shopee · Walmart · 速卖通</td>
+            <td>多平台、多店铺并行；亚马逊是主战场（占运营岗多数）</td>
+          </tr>
+          <tr>
+            <td>选品</td>
+            <td>10+ 大类，数万 SKU</td>
+            <td>服饰、家居、美妆、3C、户外、玩具、安防监控、汽车配件等</td>
+          </tr>
+          <tr>
+            <td>模式</td>
+            <td>"半精品 + 精铺 + 长尾铺货"</td>
+            <td>自有/合作品牌（Bagotte、Sricam 等）做精品，长尾品类做铺货</td>
+          </tr>
+          <tr>
+            <td>履约</td>
+            <td>美国、欧洲海外仓 + 深圳/东莞国内仓</td>
+            <td>FBA + 海外仓 + 自发货组合，日订单数十万级</td>
+          </tr>
+          <tr>
+            <td>系统</td>
+            <td>自主研发 ERP 系统</td>
+            <td>支撑选品、上品、订单、库存、采购、对账的工业化运营</td>
+          </tr>
+          <tr>
+            <td>产品来源</td>
+            <td>制造 + 研发 + 销售一体</td>
+            <td>自定义"科技型 + 销售型"企业，部分品类自有工厂支撑</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- TEAM -->
+<section id="team">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-num">03 / ORGANIZATION</div>
+      <h2 class="section-title">团队与组织：<em>"销售流水线"</em>式的运营工厂</h2>
+    </div>
+
+    <div class="prose">
+      <p>传盛科技的组织结构，本质上是把"亚马逊店铺运营"工业化、流水线化。员工规模2000+人，超过千人分布在深圳总部（宝安区），其余分布在东莞、美国、欧洲的仓储与子公司。从招聘画像看，前线运营占据绝大多数岗位。</p>
+    </div>
+
+    <div class="twocol" style="margin-top: 40px;">
+      <div>
+        <h3><span class="roman">i.</span>核心岗位结构</h3>
+        <p><strong>跨境电商运营</strong> · 主力岗位，本科起步，英语CET-4+，负责亚马逊/eBay/速卖通/Wish/Walmart 店铺日常管理：上品、定价、订单处理、数据分析、广告投放、竞品分析。</p>
+        <p><strong>采购专员</strong> · 根据 ERP 推送的订单完成采购下单、改价、催货；与服饰、家居、3C 供应商做询价、比价、议价、对账。</p>
+        <p><strong>产品开发 / 选品</strong> · 紧贴海外市场趋势挖掘潜力品类，对接供应链，搭配运营做测款。</p>
+        <p><strong>客服 / 售后</strong> · 招聘类别中"客户服务类"占比最高（约31%），与多语言订单量挂钩。</p>
+        <p><strong>支撑职能</strong> · HR、招聘、行政、ERP开发、仓储物流、广告投手、海外仓运营等。</p>
+      </div>
+      <div>
+        <h3><span class="roman">ii.</span>晋升与激励体系</h3>
+        <p>传盛把激励做得极其结构化，是典型"靠业绩晋升 + 高底薪低提成"的运营公司：</p>
+        <p><strong>双通道晋升</strong> · 精英通道：试用期→初级→中级→高级→银牌→金牌→皇冠，共 <strong>15 个等级</strong>，按业绩考核，每月一次晋升机会。</p>
+        <p><strong>管理通道</strong> · 试用期→初级→组长→主管→经理，晋升公开透明。</p>
+        <p><strong>培训体系</strong> · 一对一带教 90 天育成计划、部门爆款分析会、各业务部门讲师团统一授课。</p>
+        <p><strong>福利</strong> · 五险一金（深户一档）、带薪年假、年度体检、节日礼包、月度生日会、年会、年度带薪旅游、女员工每月半天"女生假"、提供 800-1500 元/月公司附近房源。</p>
+      </div>
+    </div>
+
+    <div style="margin-top: 56px;">
+      <h3 style="font-family: var(--serif); font-size: 22px; margin-bottom: 16px; padding-bottom: 8px; border-bottom: 1px solid var(--ink);">分支与基础设施分布</h3>
+      <table class="data-table">
+        <thead>
+          <tr><th>地点</th><th>定位</th><th>主要职能</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>深圳宝安区</td><td>总部</td><td>运营总部、ERP研发、招聘、采购、产品开发、财务</td></tr>
+          <tr><td>东莞</td><td>仓储 / 制造</td><td>国内仓储、部分品类研发与生产支持</td></tr>
+          <tr><td>美国</td><td>海外仓 / 子公司</td><td>北美市场履约、本地化运营</td></tr>
+          <tr><td>欧洲</td><td>海外仓 / 子公司</td><td>欧洲市场履约、VAT 合规、本地化客服</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- TIMELINE -->
+<section id="timeline">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-num">04 / TIMELINE</div>
+      <h2 class="section-title">发展历程：<em>10年</em>从200人到2000+，从0到百亿</h2>
+    </div>
+
+    <div class="prose" style="margin-bottom: 24px;">
+      <p>传盛的成长曲线，几乎与"中国跨境电商红利期"同频。2015年是中国跨境电商的关键拐点（亚马逊中国大幅扩张、Wish 兴起、本土化中文服务铺开），传盛踩在浪潮起点，用了不到10年时间把规模做到行业中上游。</p>
+    </div>
+
+    <div class="timeline">
+      <div class="tl-item">
+        <div class="tl-year">2015 – 2016 · 创业期</div>
+        <div class="tl-title">公司成立，员工 200 人</div>
+        <div class="tl-desc">公司于2015年正式注册成立，搭建第一批亚马逊、eBay、Wish 店铺，初始团队约 200 人，集中在深圳宝安。这一阶段以铺货模式快速跑通"产品-平台-资金"循环，奠定了"多平台、多账号、多 SKU"的底色。</div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-year">2017 – 2018 · 扩张期</div>
+        <div class="tl-title">团队人数突破 600 人</div>
+        <div class="tl-desc">借助亚马逊全球开店红利与中国制造的供应链优势，团队规模在两年内翻 3 倍。开始重点投入自有 ERP 系统研发，加速选品-上品-发货的流水线化。这一阶段也开始尝试"精铺"，孵化代表品类如智能清洁、安防摄像头、车载用品。</div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-year">2019 – 2020 · 千人规模</div>
+        <div class="tl-title">团队总人数突破 1,000 人</div>
+        <div class="tl-desc">疫情催化的全球宅经济红利下，传盛业务量级跃迁。海外仓体系（美国、欧洲）开始成型，日订单冲到数十万级。此阶段确立"互联网+跨境贸易+品牌化+全渠道"战略，获国家高新技术企业认定。</div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-year">2021 – 2023 · 翻倍期</div>
+        <div class="tl-title">团队人数再翻倍，全国增设办公区</div>
+        <div class="tl-desc">在亚马逊"封号潮"、平台政策收紧、欧美通胀的多重冲击下，传盛逆势扩张，团队人数再翻倍。一方面拓展更多平台（Walmart、TikTok Shop 等），另一方面在全国范围内增设办公区域，开始分散运营风险。</div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-year">2023 – 2026 · 体系化期</div>
+        <div class="tl-title">业绩突破百亿，覆盖全球更多国家和地区</div>
+        <div class="tl-desc">公司高层管理人数翻倍，员工总数迈过 2000+；业绩量级公开披露为"百亿级"。2023年招聘量较2022年增长90%，反映业务持续上行。覆盖国家从 100+ 拓展到 200+，进入精品化、品牌化、合规化的新阶段。</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- GROWTH PATH -->
+<section id="growth">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-num">05 / GROWTH</div>
+      <h2 class="section-title">从零到百亿：<em>一步步</em>如何获得第一批客户？</h2>
+    </div>
+
+    <div class="prose">
+      <p class="lead">传盛科技的客户从来不是"谈下来的"，而是"被平台搜索结果送上门"的。它的所有"获客"动作，本质都是围绕<strong>"在亚马逊等平台买到一个搜索排名"</strong>这件事展开。</p>
+
+      <p>这与传统 B2B 公司的销售逻辑完全不同。传盛的客户是全球 200 多个国家的零售消费者，他们不知道有"传盛科技"这家公司——他们只是在 Amazon 上搜了一个 "robot vacuum"，看到 Bagotte，下单了。所以传盛的"客户获取"实际是<strong>"在平台上抢流量 + 把流量变成订单"</strong>这件事的工业化复制。</p>
+    </div>
+
+    <div class="flow">
+      <div class="flow-step">
+        <div class="fs-num">STAGE 01</div>
+        <h5>跑通单店铺单 SKU</h5>
+        <p>2015–2016 年，先在亚马逊/eBay/Wish 注册多个店铺，少量选品，跑通"上品→出单→收款→采购→发货"完整链路。</p>
+      </div>
+      <div class="flow-step">
+        <div class="fs-num">STAGE 02</div>
+        <h5>多账号铺货</h5>
+        <p>用 ERP 系统把"上品"自动化，单运营手里几十、几百个 SKU；以"量"换"中奖概率"，让平台流量自己筛选爆款。</p>
+      </div>
+      <div class="flow-step">
+        <div class="fs-num">STAGE 03</div>
+        <h5>识别爆款 → 精铺</h5>
+        <p>对铺货中跑出来的"潜力品"（如扫地机器人、车载吸尘器）单独建团队、单独囤 FBA、做 listing 优化和 PPC 广告投放。</p>
+      </div>
+      <div class="flow-step">
+        <div class="fs-num">STAGE 04</div>
+        <h5>品牌孵化 / 合作</h5>
+        <p>围绕爆款品类沉淀品牌（如与 Bagotte、Sricam 合作），做品牌备案、注册商标、申请 Transparency 防跟卖，提高利润率与壁垒。</p>
+      </div>
+      <div class="flow-step">
+        <div class="fs-num">STAGE 05</div>
+        <h5>全平台 + 全球化扩张</h5>
+        <p>把同一品类同步搬到 Walmart、Lazada、Shopee、AliExpress；同步建美国、欧洲海外仓，缩短交付时间，进入 200+ 国家。</p>
+      </div>
+    </div>
+
+    <div class="pullquote">铺货是"过渡"，精品是"方向"，全平台是"安全垫"——这三句话，是过去10年传盛模式的全部秘密。</div>
+  </div>
+</section>
+
+<!-- MARKETING / 获客 -->
+<section id="marketing">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-num">06 / MARKETING</div>
+      <h2 class="section-title">营销方式与<em>获客打法</em>：站内 PPC + 站外红人 + 海外仓</h2>
+    </div>
+
+    <div class="prose" style="margin-bottom: 36px;">
+      <p>跨境电商大卖的"营销"和传统理解的"广告投放"差异很大。传盛科技这一类卖家的获客是<strong>"四层漏斗"</strong>：平台站内自然搜索流量 → 平台付费广告（PPC）→ 站外红人/Deal/Coupon 引流 → 品牌词回搜与复购。下面是它实际用到的获客方法：</p>
+    </div>
+
+    <div class="marketing-block">
+      <div class="m-card">
+        <div class="m-num">METHOD 01</div>
+        <h4>站内运营 · 自然流量</h4>
+        <ul>
+          <li><strong>ERP 自动化上品</strong>：日均上新数百-上千 SKU，让平台流量自己筛爆款</li>
+          <li><strong>Listing 精细化</strong>：标题、五点描述、A+ 页面、视频、关键词全方位优化</li>
+          <li><strong>差异化选品</strong>：在红海里找细分蓝海，避开纯红海正面竞争</li>
+          <li><strong>新品流量期</strong>：利用亚马逊新品 90 天扶持期密集上新</li>
+          <li><strong>多账号矩阵</strong>：分散账号风险 + 抢更多搜索位</li>
+        </ul>
+      </div>
+      <div class="m-card">
+        <div class="m-num">METHOD 02</div>
+        <h4>站内付费 · PPC 广告</h4>
+        <ul>
+          <li><strong>Amazon Sponsored Products</strong>：核心关键词竞价</li>
+          <li><strong>Sponsored Brands</strong>：品牌词推广（Bagotte/Sricam 等）</li>
+          <li><strong>Sponsored Display</strong>：再营销与竞品截流</li>
+          <li><strong>Coupon / Deal</strong>：参加 Best Deal、Lightning Deal、Prime Day、Black Friday</li>
+          <li><strong>广告投手专岗</strong>：与运营独立配置，按 ACoS、ROAS 考核</li>
+        </ul>
+      </div>
+      <div class="m-card">
+        <div class="m-num">METHOD 03</div>
+        <h4>站外引流 · 红人与社交</h4>
+        <ul>
+          <li><strong>YouTube 测评红人</strong>：与 3C、家居、家庭类红人合作开箱视频与教程</li>
+          <li><strong>TikTok / Instagram</strong>：网红短视频种草，导流到亚马逊 listing</li>
+          <li><strong>Facebook 群组 + Deal 站</strong>：通过 Slickdeals、Dealnews 等折扣站推爆款</li>
+          <li><strong>联盟营销</strong>：Affiliate 链接分佣模式</li>
+          <li><strong>Reddit / 论坛</strong>：参与垂直社区话题（如家居清洁、宠物毛发问题）</li>
+        </ul>
+      </div>
+      <div class="m-card">
+        <div class="m-num">METHOD 04</div>
+        <h4>履约与复购 · 体验即营销</h4>
+        <ul>
+          <li><strong>FBA + 美欧海外仓</strong>：3-5天达，对标本地零售商体验</li>
+          <li><strong>多语言客服</strong>：英、德、法、意、西、日等小语种支持</li>
+          <li><strong>包装与说明书本地化</strong>：每个市场单独定制</li>
+          <li><strong>品牌备案 + Transparency</strong>：防跟卖、保护链接</li>
+          <li><strong>退换货政策与差评干预</strong>：提升 Listing 评分、形成复购</li>
+        </ul>
+      </div>
+    </div>
+
+    <div style="margin-top: 56px;">
+      <h3 style="font-family: var(--serif); font-size: 22px; margin-bottom: 16px; padding-bottom: 8px; border-bottom: 1px solid var(--ink);">"获取一个客户"的完整链路（典型路径）</h3>
+      <div class="flow">
+        <div class="flow-step">
+          <div class="fs-num">T+0</div>
+          <h5>站外种草</h5>
+          <p>美国家庭主妇在 YouTube 上刷到 Bagotte 扫地机器人开箱视频，红人提到"宠物毛发清理神器"。</p>
+        </div>
+        <div class="flow-step">
+          <div class="fs-num">T+1</div>
+          <h5>搜索回流</h5>
+          <p>用户在 Amazon 搜 "Bagotte robot vacuum" 或 "pet hair vacuum"。</p>
+        </div>
+        <div class="flow-step">
+          <div class="fs-num">T+2</div>
+          <h5>PPC 拦截</h5>
+          <p>传盛的 PPC 广告卡在搜索结果首位，配合 Coupon、Prime 标识、4 星以上评分。</p>
+        </div>
+        <div class="flow-step">
+          <div class="fs-num">T+3</div>
+          <h5>下单履约</h5>
+          <p>下单后通过 FBA 仓 2-3 天送达；多语言售后兜底。</p>
+        </div>
+        <div class="flow-step">
+          <div class="fs-num">T+30</div>
+          <h5>评价与复购</h5>
+          <p>用户留下 5 星评价；推荐给亲友；下次买配件直接搜品牌词，形成品牌资产。</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FINANCIALS -->
+<section id="financials">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-num">07 / FINANCIALS</div>
+      <h2 class="section-title">融资、营收与利润：<em>未融资的"百亿级"现金牛</em></h2>
+    </div>
+
+    <div class="prose">
+      <p class="lead">传盛科技至今<strong>没有任何公开融资记录</strong>，未上市、未挂牌新三板、也未参与对赌或并购。它是典型的"现金流驱动 + 自我滚雪球"的跨境大卖。</p>
+
+      <p>这一点和它的同行很不一样：同期成立的安克创新、傲基科技、赛维时代、千岸科技都走了上市路；而当年与跨境通、有棵树同等量级的一批大卖也都因对赌或合规问题受挫。传盛选择"闷头做生意"，反而避开了2021-2022年亚马逊封号潮中最惨烈的资本踩踏。</p>
+    </div>
+
+    <table class="data-table">
+      <thead>
+        <tr><th>指标</th><th>已披露/可推测数据</th><th>信息来源</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>融资</td><td>无公开融资记录</td><td>公开渠道</td></tr>
+        <tr><td>上市状态</td><td>未上市、未挂牌</td><td>公开渠道</td></tr>
+        <tr><td>营收量级</td><td>"业绩突破百亿"（人民币）</td><td>2025/2026 校招资料</td></tr>
+        <tr><td>员工数</td><td>2000+（公司官方）/ 千人级（招聘平台100-499/100-999 不等）</td><td>官网 + 校招 + 猎聘</td></tr>
+        <tr><td>增长速度</td><td>2023 年招聘量较 2022 年增长 90%</td><td>职友集统计</td></tr>
+        <tr><td>利润情况</td><td>未披露</td><td>—</td></tr>
+        <tr><td>日订单量</td><td>数十万级</td><td>官网</td></tr>
+        <tr><td>商品 SKU</td><td>数万种，10+ 大类</td><td>官网</td></tr>
+        <tr><td>资质</td><td>国家高新技术企业</td><td>官网</td></tr>
+      </tbody>
+    </table>
+
+    <div class="prose" style="margin-top: 36px;">
+      <p style="font-family: var(--sans); font-size: 14px; opacity: 0.7; border-left: 3px solid var(--ochre); padding-left: 16px;"><strong style="color: var(--ochre);">注</strong>：因传盛非上市公司、未公开年报，本部分的"百亿级"系公司自身在2025/2026年校招宣讲中披露的口径，未经第三方审计。利润率参考行业可比公司：纯铺货模式毛利率通常 25-35%、净利率 3-8%；半精品模式净利率可上升到 8-15%。按此推算，传盛年净利润大概率在<strong style="color: var(--crimson);">5-15亿元区间</strong>，但这只是基于行业可比的合理推测，不构成精确数据。</p>
+    </div>
+  </div>
+</section>
+
+<!-- ANALYSIS -->
+<section id="analysis">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-num">08 / OUTLOOK</div>
+      <h2 class="section-title">分析展望：<em>下半场的</em>三道考题</h2>
+    </div>
+
+    <div class="prose" style="margin-bottom: 24px;">
+      <p>跨境电商进入"下半场"。安克、影石、绿联、赛维上岸（上市），传盛这种"百亿未上市大卖"必须面对三道考题：<strong>关税与合规压力、平台流量分化、铺货模式的天花板</strong>。下面是 SWOT 分析：</p>
+    </div>
+
+    <div class="swot">
+      <div class="strengths">
+        <h4>S · 优势 Strengths</h4>
+        <ul>
+          <li>规模化优势：年销百亿级 + 2000+ 员工 + 自研 ERP</li>
+          <li>全平台覆盖：单一平台风险低，回款能力强</li>
+          <li>美欧仓 + 国内仓两条腿，履约时效有保障</li>
+          <li>未融资 → 不受对赌业绩压力 → 现金流自主</li>
+          <li>"半精品 + 长尾铺货"组合，抗周期能力强</li>
+        </ul>
+      </div>
+      <div class="weaknesses">
+        <h4>W · 劣势 Weaknesses</h4>
+        <ul>
+          <li>缺乏强势自有品牌（核心爆款多为合作品牌）</li>
+          <li>研发投入相对头部品牌（如安克、石头）偏弱</li>
+          <li>对亚马逊单一平台依赖度较高</li>
+          <li>组织高度依赖运营人海战术，自动化/AI 程度待验证</li>
+          <li>资本市场曝光低，对人才吸引力弱于上市同行</li>
+        </ul>
+      </div>
+      <div class="opportunities">
+        <h4>O · 机会 Opportunities</h4>
+        <ul>
+          <li>TikTok Shop、Temu、SHEIN 等新渠道带来的流量再分配</li>
+          <li>"中国品牌出海"政策红利与跨境电商扶持资金</li>
+          <li>东南亚、拉美、中东市场仍有较大渗透空间</li>
+          <li>AI 在选品、Listing 优化、客服上的降本机会</li>
+          <li>具备转型品牌化的规模与现金流基础</li>
+        </ul>
+      </div>
+      <div class="threats">
+        <h4>T · 威胁 Threats</h4>
+        <ul>
+          <li>美国关税与 T86 豁免取消，毛利受压</li>
+          <li>亚马逊 Coupon/广告规则调整、封号潮反复</li>
+          <li>Temu/TikTok Shop 抢走铺货流量与卖家</li>
+          <li>物流成本上行（2025年近九成卖家成本上涨）</li>
+          <li>头部品牌降维打击 + 工厂直接出海挤压利润</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="pullquote" style="margin-top: 56px;">传盛要做的，不是再多做一个亚马逊店铺；而是怎么把"过去10年沉淀下的供应链、品类知识、运营人海"，重新打包成"品牌"或"全球化能力"——这是它在下半场必须回答的问题。</div>
+
+    <div class="prose" style="margin-top: 40px;">
+      <p><strong>结语 ·</strong> 深圳传盛科技是中国跨境电商"隐形大卖"群体的典型样本：低调、巨大、未融资、未上市。它过去10年的成长，是中国跨境红利 + 深圳供应链 + 工业化运营组织三者叠加的产物。它没有故事、没有融资发布会、没有创始人IP——但它真实地在用一套可复制的方法论，每天把数十万件中国商品送到全球用户手里。</p>
+      <p>在跨境电商进入"品牌出海、技术出海"的新阶段，传盛是否能跨过那道从"百亿大卖"到"百亿品牌"的门，将是观察整个深圳"坂田系/华南城系"大卖未来5年命运的重要窗口。</p>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="container">
+    <div class="ftr-mark">传盛 · <span>Kingsold</span></div>
+    <p>Report Compiled · 2026 · Confidential Analysis</p>
+    <p style="margin-top: 16px;">本报告基于公开资料整理 · 数据口径以企业披露为准 · 仅供参考</p>
+  </div>
+</footer>
+
+<script>
+// Staggered fade-in on load
+document.addEventListener('DOMContentLoaded', () => {
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.style.opacity = '1';
+        entry.target.style.transform = 'translateY(0)';
+      }
+    });
+  }, { threshold: 0.1 });
+
+  document.querySelectorAll('section, .product-card, .tl-item, .flow-step').forEach(el => {
+    el.style.opacity = '0';
+    el.style.transform = 'translateY(20px)';
+    el.style.transition = 'opacity 0.7s ease, transform 0.7s ease';
+    observer.observe(el);
+  });
+});
+</script>
+
+</body>
+</html>
