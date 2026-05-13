@@ -1,0 +1,79 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 960" role="img" aria-label="印前处理">
+  <defs>
+    <linearGradient id="bg" x1="0" x2="1" y1="0" y2="1">
+      <stop offset="0" stop-color="#f8fafc"/>
+      <stop offset="1" stop-color="#eef2f7"/>
+    </linearGradient>
+    <filter id="shadow" x="-15%" y="-15%" width="130%" height="130%">
+      <feDropShadow dx="0" dy="14" stdDeviation="18" flood-color="#0f172a" flood-opacity="0.14"/>
+    </filter>
+    <pattern id="grid" width="36" height="36" patternUnits="userSpaceOnUse">
+      <path d="M36 0H0V36" fill="none" stroke="#60a5fa" stroke-width="1" opacity="0.16"/>
+    </pattern>
+  </defs>
+  <rect width="1600" height="960" fill="url(#bg)"/>
+  <rect width="1600" height="960" fill="url(#grid)"/>
+  <circle cx="1370" cy="155" r="155" fill="#60a5fa" opacity="0.14"/>
+  <circle cx="124" cy="820" r="120" fill="#60a5fa" opacity="0.1"/>
+  <rect x="70" y="62" width="1460" height="836" rx="34" fill="#ffffff" filter="url(#shadow)"/>
+  <rect x="70" y="62" width="1460" height="150" rx="34" fill="#2563eb"/>
+  <path d="M70 178h1460v34H70z" fill="#2563eb"/>
+  <text x="112" y="132" font-size="56" font-weight="900" fill="#ffffff" font-family="Arial, 'PingFang SC', 'Microsoft YaHei', sans-serif">印前处理</text>
+  <text x="112" y="178" font-size="25" font-weight="500" fill="#e8fffb" font-family="Arial, 'PingFang SC', 'Microsoft YaHei', sans-serif">把用户图稿转成可生产文件，是自动化、避错和省料的关键层</text>
+  <g transform="translate(112 258)">
+    <rect x="0" y="0" width="410" height="560" rx="24" fill="#f8fafc" stroke="#d9dee8"/>
+    <rect x="28" y="28" width="72" height="72" rx="22" fill="#2563eb" opacity="0.95"/>
+    <text x="52" y="77" font-size="38" font-weight="900" fill="#fff" font-family="Arial, 'PingFang SC', 'Microsoft YaHei', sans-serif">层</text>
+    <text x="118" y="72" font-size="32" font-weight="850" fill="#111827" font-family="Arial, 'PingFang SC', 'Microsoft YaHei', sans-serif">结构定位</text>
+    <text x="34" y="150" font-size="28" font-weight="650" fill="#334155" font-family="Arial, 'PingFang SC', 'Microsoft YaHei', sans-serif">工艺字典第 3 层</text>
+<text x="34" y="196" font-size="28" font-weight="650" fill="#334155" font-family="Arial, 'PingFang SC', 'Microsoft YaHei', sans-serif">回答“生产前文件怎么准备”</text>
+<text x="34" y="242" font-size="28" font-weight="650" fill="#334155" font-family="Arial, 'PingFang SC', 'Microsoft YaHei', sans-serif">连接设计稿、RIP、版型和设备参数</text>
+    <path d="M52 386h286" stroke="#60a5fa" stroke-width="8" stroke-linecap="round" opacity="0.7"/>
+    <path d="M52 434h220" stroke="#60a5fa" stroke-width="8" stroke-linecap="round" opacity="0.42"/>
+    <path d="M52 482h160" stroke="#60a5fa" stroke-width="8" stroke-linecap="round" opacity="0.26"/>
+  </g>
+  <g transform="translate(560 258)">
+    <rect x="0" y="0" width="500" height="560" rx="24" fill="#ffffff" stroke="#d9dee8"/>
+    <text x="30" y="54" font-size="32" font-weight="850" fill="#111827" font-family="Arial, 'PingFang SC', 'Microsoft YaHei', sans-serif">组成示例</text>
+    <text x="30" y="92" font-size="21" fill="#64748b" font-family="Arial, 'PingFang SC', 'Microsoft YaHei', sans-serif">可作为 ERP 字典值、工序标签或路线配置项</text>
+    <rect x="30" y="126" width="146" height="40" rx="20" fill="#60a5fa" opacity="0.14" stroke="#60a5fa" stroke-width="1.5"/>
+<text x="47" y="153" font-size="22" font-weight="700" fill="#2563eb" font-family="Arial, 'PingFang SC', 'Microsoft YaHei', sans-serif">图片检查</text>
+<rect x="190" y="126" width="96" height="40" rx="20" fill="#60a5fa" opacity="0.14" stroke="#60a5fa" stroke-width="1.5"/>
+<text x="207" y="153" font-size="22" font-weight="700" fill="#2563eb" font-family="Arial, 'PingFang SC', 'Microsoft YaHei', sans-serif">抠图</text>
+<rect x="300" y="126" width="96" height="40" rx="20" fill="#60a5fa" opacity="0.14" stroke="#60a5fa" stroke-width="1.5"/>
+<text x="317" y="153" font-size="22" font-weight="700" fill="#2563eb" font-family="Arial, 'PingFang SC', 'Microsoft YaHei', sans-serif">扩图</text>
+<rect x="30" y="184" width="96" height="40" rx="20" fill="#60a5fa" opacity="0.14" stroke="#60a5fa" stroke-width="1.5"/>
+<text x="47" y="211" font-size="22" font-weight="700" fill="#2563eb" font-family="Arial, 'PingFang SC', 'Microsoft YaHei', sans-serif">套图</text>
+<rect x="140" y="184" width="96" height="40" rx="20" fill="#60a5fa" opacity="0.14" stroke="#60a5fa" stroke-width="1.5"/>
+<text x="157" y="211" font-size="22" font-weight="700" fill="#2563eb" font-family="Arial, 'PingFang SC', 'Microsoft YaHei', sans-serif">拼版</text>
+<rect x="250" y="184" width="96" height="40" rx="20" fill="#60a5fa" opacity="0.14" stroke="#60a5fa" stroke-width="1.5"/>
+<text x="267" y="211" font-size="22" font-weight="700" fill="#2563eb" font-family="Arial, 'PingFang SC', 'Microsoft YaHei', sans-serif">分色</text>
+<rect x="30" y="242" width="174" height="40" rx="20" fill="#60a5fa" opacity="0.14" stroke="#60a5fa" stroke-width="1.5"/>
+<text x="47" y="269" font-size="22" font-weight="700" fill="#2563eb" font-family="Arial, 'PingFang SC', 'Microsoft YaHei', sans-serif">白墨层生成</text>
+<rect x="218" y="242" width="174" height="40" rx="20" fill="#60a5fa" opacity="0.14" stroke="#60a5fa" stroke-width="1.5"/>
+<text x="235" y="269" font-size="22" font-weight="700" fill="#2563eb" font-family="Arial, 'PingFang SC', 'Microsoft YaHei', sans-serif">光油层生成</text>
+<rect x="30" y="300" width="174" height="40" rx="20" fill="#60a5fa" opacity="0.14" stroke="#60a5fa" stroke-width="1.5"/>
+<text x="47" y="327" font-size="22" font-weight="700" fill="#2563eb" font-family="Arial, 'PingFang SC', 'Microsoft YaHei', sans-serif">ICC转换</text>
+<rect x="218" y="300" width="118" height="40" rx="20" fill="#60a5fa" opacity="0.14" stroke="#60a5fa" stroke-width="1.5"/>
+<text x="235" y="327" font-size="22" font-weight="700" fill="#2563eb" font-family="Arial, 'PingFang SC', 'Microsoft YaHei', sans-serif">RIP</text>
+<rect x="30" y="358" width="146" height="40" rx="20" fill="#60a5fa" opacity="0.14" stroke="#60a5fa" stroke-width="1.5"/>
+<text x="47" y="385" font-size="22" font-weight="700" fill="#2563eb" font-family="Arial, 'PingFang SC', 'Microsoft YaHei', sans-serif">排版省料</text>
+<rect x="190" y="358" width="146" height="40" rx="20" fill="#60a5fa" opacity="0.14" stroke="#60a5fa" stroke-width="1.5"/>
+<text x="207" y="385" font-size="22" font-weight="700" fill="#2563eb" font-family="Arial, 'PingFang SC', 'Microsoft YaHei', sans-serif">出血处理</text>
+<rect x="30" y="416" width="174" height="40" rx="20" fill="#60a5fa" opacity="0.14" stroke="#60a5fa" stroke-width="1.5"/>
+<text x="47" y="443" font-size="22" font-weight="700" fill="#2563eb" font-family="Arial, 'PingFang SC', 'Microsoft YaHei', sans-serif">切割线生成</text>
+<rect x="218" y="416" width="174" height="40" rx="20" fill="#60a5fa" opacity="0.14" stroke="#60a5fa" stroke-width="1.5"/>
+<text x="235" y="443" font-size="22" font-weight="700" fill="#2563eb" font-family="Arial, 'PingFang SC', 'Microsoft YaHei', sans-serif">定位点生成</text>
+<rect x="30" y="474" width="146" height="40" rx="20" fill="#60a5fa" opacity="0.14" stroke="#60a5fa" stroke-width="1.5"/>
+<text x="47" y="501" font-size="22" font-weight="700" fill="#2563eb" font-family="Arial, 'PingFang SC', 'Microsoft YaHei', sans-serif">版型适配</text>
+  </g>
+  <g transform="translate(1100 258)">
+    <rect x="0" y="0" width="370" height="560" rx="24" fill="#f8fafc" stroke="#d9dee8"/>
+    <text x="30" y="54" font-size="32" font-weight="850" fill="#111827" font-family="Arial, 'PingFang SC', 'Microsoft YaHei', sans-serif">特性与用途</text>
+    <text x="34" y="124" font-size="25" font-weight="650" fill="#334155" font-family="Arial, 'PingFang SC', 'Microsoft YaHei', sans-serif">• 决定图案是否能准确定位和稳定复现</text>
+<text x="34" y="166" font-size="25" font-weight="650" fill="#334155" font-family="Arial, 'PingFang SC', 'Microsoft YaHei', sans-serif">• 支持自动审图、自动套版与批量拼版</text>
+<text x="34" y="208" font-size="25" font-weight="650" fill="#334155" font-family="Arial, 'PingFang SC', 'Microsoft YaHei', sans-serif">• 是 POD 大规模个性化生产的核心数据层</text>
+    <rect x="34" y="430" width="302" height="78" rx="22" fill="#2563eb" opacity="0.92"/>
+    <text x="66" y="480" font-size="28" font-weight="850" fill="#fff" font-family="Arial, 'PingFang SC', 'Microsoft YaHei', sans-serif">ERP 六层工艺字典</text>
+  </g>
+</svg>

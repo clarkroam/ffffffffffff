@@ -1,0 +1,1236 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>POD 工艺图片字典</title>
+  <style>
+    :root {
+      color-scheme: light;
+      --ink: #1d2430;
+      --muted: #667085;
+      --line: #d9dee8;
+      --soft: #f5f7fb;
+      --panel: #ffffff;
+      --accent: #0f766e;
+      --accent-2: #b45309;
+      --shadow: 0 10px 30px rgba(29, 36, 48, 0.08);
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
+      background: #f7f8fb;
+      color: var(--ink);
+    }
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 5;
+      background: rgba(247, 248, 251, 0.96);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--line);
+    }
+    .topbar {
+      max-width: 1440px;
+      margin: 0 auto;
+      padding: 18px 24px 14px;
+      display: grid;
+      gap: 14px;
+    }
+    h1 {
+      margin: 0;
+      font-size: clamp(24px, 3vw, 38px);
+      line-height: 1.12;
+      letter-spacing: 0;
+    }
+    .subtitle {
+      margin: 6px 0 0;
+      color: var(--muted);
+      font-size: 14px;
+    }
+    .controls {
+      display: grid;
+      grid-template-columns: minmax(180px, 1fr) minmax(160px, 280px) auto;
+      gap: 10px;
+      align-items: center;
+    }
+    input, select, button {
+      height: 42px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: #fff;
+      color: var(--ink);
+      font: inherit;
+      padding: 0 12px;
+    }
+    button {
+      cursor: pointer;
+      background: var(--accent);
+      color: #fff;
+      border-color: var(--accent);
+      font-weight: 650;
+    }
+    main {
+      max-width: 1440px;
+      margin: 0 auto;
+      padding: 24px;
+    }
+    .stats {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-bottom: 18px;
+      color: var(--muted);
+      font-size: 13px;
+    }
+    .pill {
+      border: 1px solid var(--line);
+      background: #fff;
+      border-radius: 999px;
+      padding: 6px 10px;
+    }
+    section {
+      margin: 0 0 30px;
+      scroll-margin-top: 138px;
+    }
+    .section-head {
+      display: flex;
+      align-items: end;
+      justify-content: space-between;
+      gap: 16px;
+      margin: 0 0 12px;
+      border-bottom: 2px solid #263445;
+      padding-bottom: 8px;
+    }
+    h2 {
+      margin: 0;
+      font-size: 21px;
+      letter-spacing: 0;
+    }
+    .count {
+      color: var(--muted);
+      font-size: 13px;
+      white-space: nowrap;
+    }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+      gap: 14px;
+    }
+    .erp-section .grid {
+      grid-template-columns: repeat(auto-fit, minmax(520px, 1fr));
+      gap: 18px;
+    }
+    .card {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: var(--shadow);
+      min-width: 0;
+    }
+    .card img {
+      width: 100%;
+      aspect-ratio: 4 / 3;
+      display: block;
+      background: #edf1f6;
+      object-fit: cover;
+    }
+    .erp-card img {
+      aspect-ratio: 16 / 9;
+      object-fit: contain;
+      background: #f8fafc;
+    }
+    .erp-card .body {
+      padding: 16px 18px 18px;
+    }
+    .erp-card h3 {
+      font-size: 19px;
+    }
+    .erp-card .meta {
+      font-size: 13px;
+    }
+    .body {
+      padding: 12px;
+      display: grid;
+      gap: 8px;
+    }
+    h3 {
+      margin: 0;
+      font-size: 16px;
+      line-height: 1.28;
+      letter-spacing: 0;
+    }
+    .meta {
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.45;
+    }
+    .tagrow {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+    .tag {
+      color: #164e63;
+      background: #e9f7fb;
+      border: 1px solid #c8e8f0;
+      border-radius: 999px;
+      padding: 3px 8px;
+      font-size: 11px;
+      max-width: 100%;
+      overflow-wrap: anywhere;
+    }
+    .empty {
+      padding: 28px;
+      border: 1px dashed var(--line);
+      border-radius: 8px;
+      background: #fff;
+      color: var(--muted);
+    }
+    @media (max-width: 720px) {
+      .controls { grid-template-columns: 1fr; }
+      main, .topbar { padding-left: 14px; padding-right: 14px; }
+      section { scroll-margin-top: 214px; }
+      .erp-section .grid { grid-template-columns: 1fr; }
+    }
+    @media print {
+      header { position: static; }
+      .controls { display: none; }
+      .card { break-inside: avoid; box-shadow: none; }
+      main { max-width: none; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="topbar">
+      <div>
+        <h1>POD / 定制生产工艺图片字典</h1>
+        <p class="subtitle">每一个工艺匹配一张可视化工艺示意图，适合 ERP 工艺字典、培训资料、选品页面和工厂沟通使用。</p>
+      </div>
+      <div class="controls">
+        <input id="search" type="search" placeholder="搜索工艺、品类、特点，例如：UV、烫画、亚克力、夜光" />
+        <select id="category"></select>
+        <button id="reset" type="button">重置</button>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <div class="stats" id="stats"></div>
+    <div id="gallery"></div>
+  </main>
+
+  <script>
+    const catalog = [
+      {
+        category: "一、服装纺织类工艺 / 数码直喷类",
+        items: [
+          ["DTG 数码直喷", "T恤、卫衣、帆布袋", "小单、彩色图案、棉类面料"],
+          ["白墨直喷", "深色T恤、黑色卫衣", "白墨打底，颜色更鲜艳"],
+          ["活性数码印花", "棉、麻、真丝、人棉", "手感好，天然纤维"],
+          ["酸性数码印花", "真丝、羊毛、锦纶", "高端服装、丝巾常用"],
+          ["分散数码直喷", "涤纶面料", "适合化纤服装"],
+          ["涂料数码印花", "棉、涤、混纺", "通用性强，流程较短"],
+          ["成衣直喷", "成品T恤、卫衣", "适合一件代发"],
+          ["裁片直喷", "服装裁片", "先印后缝"],
+          ["卷布数码印花", "布匹、家纺、服装面料", "批量或半批量"]
+        ]
+      },
+      {
+        category: "一、服装纺织类工艺 / 热转印类",
+        items: [
+          ["热升华转印", "涤纶T恤、运动服、抱枕、鼠标垫", "色彩鲜艳，适合满版"],
+          ["滚筒热升华", "布匹、裁片", "满印服装、家纺"],
+          ["平板热升华", "小件布料、礼品", "小批量"],
+          ["烫画 DTF", "T恤、卫衣、帽子、帆布袋", "POD服装主流"],
+          ["白墨烫画", "深浅色服装、箱包", "图案适应性强"],
+          ["热转印纸", "T恤、小礼品", "入门级工艺"],
+          ["热转印膜", "杯子、金属、塑料、木板", "需要对应涂层"],
+          ["柯式烫画", "服装、箱包", "复杂彩色图案"],
+          ["植绒烫画", "服装、帽子", "绒感"],
+          ["反光烫画", "运动服、户外服", "夜间反光"],
+          ["硅胶烫画", "服装、鞋帽", "立体、有弹性"],
+          ["厚板烫画", "潮牌服装", "有厚度、立体感"],
+          ["镭射烫画", "潮牌、礼品", "炫彩效果"],
+          ["夜光烫画", "T恤、童装", "夜间发光"],
+          ["金银烫画", "服装、礼品", "金属光泽"],
+          ["变色烫画", "服装、创意品", "温变/光变效果"]
+        ]
+      },
+      {
+        category: "一、服装纺织类工艺 / 丝网印刷类",
+        items: [
+          ["普通丝网印刷", "T恤、帆布袋、纸品、塑料", "大批量成本低"],
+          ["水浆印花", "浅色棉T", "手感柔软"],
+          ["胶浆印花", "深浅色服装", "覆盖力强"],
+          ["厚板浆印花", "潮牌服装", "立体厚感"],
+          ["发泡印花", "服装、童装", "加热后膨胀"],
+          ["植绒印花", "服装、家纺", "绒面效果"],
+          ["拔染印花", "深色棉布", "手感好，工艺复杂"],
+          ["防染印花", "布料", "控制染色区域"],
+          ["烫金印花", "服装、礼盒、纸品", "金属质感"],
+          ["烫银印花", "服装、礼品", "银色金属感"],
+          ["反光印花", "运动服、工装", "反光效果"],
+          ["夜光印花", "T恤、玩具、礼品", "夜光效果"],
+          ["硅胶印花", "服装、手套、鞋材", "弹性好、立体"],
+          ["防滑硅胶印花", "袜子、瑜伽垫、手套", "防滑"],
+          ["金葱印花", "服装、礼品", "闪粉效果"],
+          ["裂纹印花", "潮牌服装", "复古裂纹"],
+          ["仿烫画印花", "T恤", "介于丝印和烫画效果"]
+        ]
+      },
+      {
+        category: "一、服装纺织类工艺 / 刺绣类",
+        items: [
+          ["平绣", "POLO衫、帽子、工服", "最常见"],
+          ["立体绣", "帽子、卫衣", "凸起效果"],
+          ["贴布绣", "服装、箱包", "先贴布再绣边"],
+          ["毛巾绣", "卫衣、童装", "毛圈质感"],
+          ["亮片绣", "女装、礼品", "装饰性强"],
+          ["珠片绣", "女装、舞台服", "高装饰性"],
+          ["链式绣", "复古服装", "线迹特殊"],
+          ["章仔绣", "臂章、徽章", "单独生产再缝/烫"],
+          ["激光切割绣", "服装、鞋帽", "切割与刺绣结合"],
+          ["混合绣", "服装、帽子", "多种绣法组合"]
+        ]
+      },
+      {
+        category: "一、服装纺织类工艺 / 满印服装相关工艺",
+        items: [
+          ["裁片印花", "服装裁片", "先裁片后印花"],
+          ["匹布印花", "整卷布", "先印整卷布再裁剪"],
+          ["成衣满印", "成衣", "整体印，边角容易有瑕疵"],
+          ["多裁片对位印花", "前片、后片、袖片、帽片、口袋", "图案连续"],
+          ["裁片热升华", "满印服装", "主流工艺"],
+          ["裁片数码直喷", "部分面料", "裁片阶段打印"],
+          ["裁片定位打印", "独立裁片", "每个裁片对应独立图案"],
+          ["自动套版", "POD满印", "图案自动适配版型"],
+          ["自动生成生产裁片图", "POD满印服装", "核心能力"],
+          ["对花/对格/对位", "跨裁片图案", "连续匹配"],
+          ["缝制成衣", "印后裁片", "印后缝制"],
+          ["吊挂生产", "服装工厂", "自动化生产流程"],
+          ["计件报工", "缝制、质检、包装", "工序计件"]
+        ]
+      },
+      {
+        category: "一、服装纺织类工艺 / 服装后整理工艺",
+        items: "裁剪|服装、家纺;缝制|服装、包袋、家纺;拷边|T恤、卫衣、家纺;包边|地垫、毯子、服装;锁边|布艺类;锁眼|衬衫、外套;钉扣|衬衫、外套;上拉链|外套、包袋;上帽绳|卫衣;上吊牌|服装;洗水|牛仔、成衣;酵素洗|服装;石磨洗|牛仔;砂洗|服装;水洗做旧|服装;蒸化|活性/酸性印花后处理;水洗固色|纺织印花;定型|服装、家纺;熨烫|成衣;验针|服装、童装;质检|全品类;折叠|服装;入袋|服装;贴码|服装、电商发货;扫码发货|POD一件代发"
+      },
+      {
+        category: "二、杯壶陶瓷类工艺 / 杯子常见工艺",
+        items: [
+          ["热升华烤杯", "马克杯、变色杯", "POD最常见"],
+          ["烤盘转印", "陶瓷盘", "礼品"],
+          ["水转印", "陶瓷、玻璃、金属", "可适配曲面"],
+          ["UV打印", "杯身、杯盖", "局部图案"],
+          ["丝网印刷", "批量杯子", "大批量成本低"],
+          ["贴花烧制", "陶瓷杯、骨瓷", "更耐久"],
+          ["釉上彩", "陶瓷", "表面装饰"],
+          ["釉中彩", "陶瓷", "耐磨性较好"],
+          ["釉下彩", "陶瓷", "高端、耐久"],
+          ["激光雕刻", "保温杯、金属杯", "不掉色"],
+          ["镭雕", "不锈钢杯", "金属定制常用"],
+          ["喷砂雕刻", "玻璃杯", "磨砂效果"],
+          ["移印", "小面积logo", "曲面小图案"],
+          ["环绕打印", "杯身整圈图案", "全包围设计"],
+          ["变色涂层", "变色杯", "遇热显图"],
+          ["夜光涂层", "创意杯", "夜光效果"]
+        ]
+      },
+      {
+        category: "三、手机壳/3C数码类工艺",
+        items: "UV平板打印|手机壳、耳机壳、平板壳|POD主流;UV浮雕打印|手机壳|立体纹理;UV光油|手机壳|局部亮光;UV哑光|手机壳|哑面质感;UV彩白彩|透明壳|遮盖和层次;热升华转印|2D/3D热转印手机壳|色彩好;3D真空热转印|包边手机壳|覆盖边缘;水转印|手机壳、手柄壳|曲面覆盖;IMD/IML|手机壳、电子外壳|图案夹在膜内，耐磨;丝网印刷|手机壳批量logo|成本低;移印|小图案、小logo|小面积;喷涂|手机壳底色|前处理;电镀|手机壳、配件|金属效果;镭雕|金属手机壳|精细耐久;贴皮|手机壳|皮革纹理;滴胶|手机壳、支架|透明立体保护;贴钻|手机壳|装饰;磁吸件组装|MagSafe壳|功能组装;支架组装|手机壳|功能件;挂绳孔加工|手机壳|配件加工"
+      },
+      {
+        category: "四、亚克力/有机玻璃类工艺",
+        items: "UV打印|亚克力牌、立牌、钥匙扣|主流;反打UV|透明亚克力|背面看图案;彩白彩打印|透明亚克力|层次好;彩白光油|亚克力摆件|高质感;激光切割|亚克力钥匙扣、立牌|精准切形;CNC雕刻|厚亚克力|高精度;倒角|亚克力板|边缘处理;抛光|亚克力边缘|提升透明度;火焰抛光|亚克力|边缘亮;钻孔|钥匙扣、吊牌|安装配件;热弯|亚克力架子|成型;粘接|展示架|结构组装;滴胶|钥匙扣、徽章|保护和立体感;贴膜|亚克力|防刮;覆膜|亚克力图案保护|耐磨;配件组装|钥匙圈、底座、链条|一件代发常见"
+      },
+      {
+        category: "五、金属类工艺",
+        items: "UV打印|铁皮画、铝板画、金属牌|POD常见;热升华金属板|铝板画、奖牌|色彩好;丝网印刷|金属标牌|批量;移印|小金属件|小面积;激光雕刻|金属杯、铭牌、刀具、钥匙扣|精细耐久;光纤激光打标|不锈钢、铝合金|工业常用;蚀刻|金属铭牌|精细凹凸;冲压|徽章、金属牌|成型;压铸|徽章、纪念币|立体感强;电镀|徽章、饰品|金/银/古铜效果;烤漆|徽章、金属件|色块填充;珐琅|徽章、纪念章|高级质感;滴胶|徽章、金属牌|保护图案;拉丝|金属表面|金属纹理;喷砂|金属表面|哑光;抛光|金属表面|亮面;折弯|金属牌、支架|成型;打孔|铁皮画、铭牌|安装;包边|铁皮画|防割手;磁吸组装|冰箱贴|功能组装"
+      },
+      {
+        category: "六、木制品/竹制品类工艺",
+        items: "UV打印|木板画、木牌、相框|彩色图案;激光雕刻|木牌、砧板、笔、礼盒|质感好;激光切割|木片、拼图、摆件|异形切割;丝网印刷|木盒、木牌|批量;热转印|木板、木质礼品|需要涂层;烫印|木盒、礼品盒|金银效果;喷漆|木制品|底色/保护;清漆|木制品|防护;打磨|木制品|表面平整;倒角|木牌、木盒|边缘处理;开槽|相框、底座|结构加工;拼接|木制品|成型;榫卯/组装|木盒、家具小件|结构件;上蜡|木制品|表面保护"
+      },
+      {
+        category: "七、纸品/包装/文创类工艺 / 印刷工艺",
+        items: "数码印刷|小批量卡片、画册、贴纸;喷墨印刷|海报、艺术纸品;激光打印|文件、标签;胶印|画册、包装盒、纸袋;凹印|包装、薄膜;柔印|标签、瓦楞纸、包装;丝网印刷|特种纸、礼品纸;移印|小物件、小卡片特殊区域;热转印|特种纸品;可变数据印刷|个性化贺卡、证书、标签;防伪印刷|票据、防伪标签;条码/二维码打印|电商标签、产品标签"
+      },
+      {
+        category: "七、纸品/包装/文创类工艺 / 纸品后道工艺",
+        items: "覆膜|画册、包装盒;光膜|纸品表面亮面;哑膜|高级哑光;触感膜|高端包装;防刮膜|包装、卡片;烫金|礼盒、卡片;烫银|礼盒、卡片;镭射烫|防伪、装饰;击凸|包装、名片;压凹|包装、卡片;UV光油|局部亮光;局部UV|名片、包装;磨砂UV|包装;逆向UV|高端包装;模切|贴纸、包装盒;半穿切|贴纸;全穿切|异形卡片;压痕|包装盒、贺卡;折页|宣传册;骑马钉|画册;胶装|书籍;精装|相册、书籍;锁线装|高端书籍;裱纸|包装盒;糊盒|包装盒;开窗|包装盒;打孔|吊牌、卡片;穿绳|吊牌;圆角|卡片、吊牌;分切|纸品;覆背胶|贴纸;排废|贴纸;卷装|标签;单张裁切|卡片、海报"
+      },
+      {
+        category: "八、贴纸/标签类工艺",
+        items: "数码打印贴纸|小批量定制;UV贴纸打印|耐候贴纸;弱溶剂写真|户外贴纸;Latex打印|环保贴纸;热敏标签打印|面单、仓储标签;热转印碳带打印|条码标签;铜版纸标签|普通标签;合成纸标签|防水标签;PET标签|耐磨标签;PVC贴纸|户外贴纸;静电贴|玻璃贴;透明贴纸|透明包装;镭射贴纸|装饰、防伪;反光贴纸|交通、户外;夜光贴纸|创意品;可移贴|墙贴、车贴;车贴写真|车身贴;模切贴纸|异形贴;Kiss Cut 半切|贴纸常见;Die Cut 全切|单张异形贴;覆膜|防水耐磨;滴胶贴|立体贴纸;排废|标签生产;卷标分切|标签卷"
+      },
+      {
+        category: "九、玻璃/水晶类工艺",
+        items: "UV打印|玻璃画、玻璃杯、相框|彩色;丝网印刷|玻璃杯、瓶子|批量;水转印|玻璃杯、异形瓶|曲面;喷砂|玻璃杯、奖杯|磨砂图案;激光内雕|水晶摆件|立体内雕;激光雕刻|玻璃表面|精细;烤花|玻璃杯、酒瓶|耐久;贴花|玻璃陶瓷|装饰;彩绘|玻璃制品|艺术品;镀膜|玻璃表面|特殊效果;切割|玻璃板|成型;磨边|玻璃板|安全;钢化|玻璃板|强度提升;热弯|玻璃|曲面成型;胶合|玻璃制品|结构"
+      },
+      {
+        category: "十、皮革/PU类工艺",
+        items: "UV打印|皮革卡包、手机壳、钱包;皮革数码打印|真皮、PU;热转印|PU皮革;丝网印刷|皮具;烫金|钱包、笔记本;烫银|皮具;压印|真皮、PU;凹印|皮具logo;激光雕刻|真皮、PU;激光切割|皮革裁片;油边|皮具边缘;缝线|钱包、包袋;打孔|表带、皮带;铆钉|皮具;五金安装|包袋、钥匙扣;贴合|皮具;裁断|皮革裁片;压纹|皮革纹理;上色|真皮;抛光|皮具"
+      },
+      {
+        category: "十一、箱包/鞋帽类工艺",
+        items: "DTF烫画|帆布袋、背包、帽子;热升华|涤纶包、帽片、鞋面;UV打印|鞋面、箱包配件;丝网印刷|帆布袋、箱包;刺绣|帽子、包袋;立体绣|棒球帽;贴布绣|包袋、帽子;激光雕刻|皮革鞋面、包牌;激光切割|鞋面、包料;高周波压花|箱包、鞋材;TPU热压|鞋服配件;硅胶章|包袋、帽子;PVC软胶章|包袋、服饰;滴胶章|包袋、鞋帽;缝标|包袋、帽子;织唛|帽子、箱包;皮标|牛仔、帽子、包;铆钉安装|鞋帽箱包;拉链安装|包袋;肩带组装|包袋;鞋面缝制|鞋类;鞋底粘合|鞋类;压底|鞋类;定型|鞋帽;整烫|帽子、包袋"
+      },
+      {
+        category: "十二、家纺/软装类工艺",
+        items: "热升华转印|抱枕、毯子、窗帘、床品;数码直喷|棉麻家纺;活性印花|棉质床品;分散印花|涤纶家纺;涂料印花|混纺家纺;丝网印花|批量家纺;刺绣|抱枕、毛巾、床品;提花|毛巾、毯子;割绒|毛巾、地垫;压花|毯子、靠垫;绗缝|被子、垫子;包边|地垫、毯子;锁边|毛巾、布料;缝制|抱枕、床品;装拉链|抱枕套;填充|抱枕、玩偶;真空压缩|枕头、被子;定型|家纺;水洗|家纺;柔软处理|家纺;防水处理|户外布艺;阻燃处理|窗帘、工程布;抗菌处理|毛巾、床品"
+      },
+      {
+        category: "十三、地垫/鼠标垫/瑜伽垫类工艺",
+        items: "热升华|鼠标垫、地垫;UV打印|硬质垫、PVC垫;数码喷印|地垫;丝网印刷|地垫、瑜伽垫;热压贴合|鼠标垫、地垫;橡胶发泡|鼠标垫、瑜伽垫;PVC发泡|地垫;TPE成型|瑜伽垫;裁切|垫类;模切|异形鼠标垫;包边|地垫;锁边|鼠标垫、地垫;防滑背胶|地垫;压纹|瑜伽垫;滴胶防滑|袜子、垫类;卷装包装|瑜伽垫"
+      },
+      {
+        category: "十四、塑料/PVC/硅胶类工艺",
+        items: "UV打印|塑料牌、PVC卡、玩具;丝网印刷|塑料件;移印|玩具、小塑料件;热转印|塑料杯、塑料壳;水转印|曲面塑料件;喷涂|塑料外壳;电镀|塑料件金属效果;注塑|塑料产品成型;吸塑|包装、塑料壳;挤出|塑料型材;吹塑|瓶类;滚塑|大型塑料件;搪胶|玩具、公仔;硅胶滴塑|硅胶章、钥匙扣;PVC软胶滴塑|冰箱贴、钥匙扣;微量射出|软胶商标;高周波|PVC袋、服装压章;热压成型|硅胶/PVC;模切|塑料片材;激光切割|塑料片材;超声波焊接|塑料件组装;胶粘组装|塑料制品;五金嵌件|塑料产品"
+      },
+      {
+        category: "十五、礼品饰品类工艺",
+        items: "UV打印|钥匙扣、徽章、摆件;滴胶|徽章、钥匙扣;激光雕刻|金属/木制/皮革礼品;热升华|拼图、挂件、纪念品;丝网印刷|礼品批量logo;移印|笔、小礼品;烫金|礼盒、笔记本;压印|皮革礼品;电镀|饰品、徽章;烤漆|徽章;珐琅|徽章、纪念章;压铸|金属徽章;冲压|金属牌;CNC|金属/亚克力饰品;激光切割|木片、亚克力、皮革;拼图切割|纸质/木质拼图;磁铁组装|冰箱贴;钥匙圈组装|钥匙扣;链条组装|吊饰;底座组装|摆件;包装入盒|礼品"
+      },
+      {
+        category: "十六、相框/相册/照片类工艺",
+        items: "银盐冲印|照片;喷墨照片打印|照片、艺术微喷;热升华照片打印|证件照、相纸;数码印刷|相册内页;艺术微喷|高端装饰画;冷裱|照片、海报;热裱|照片、画面;覆膜|相册、照片;装裱|装饰画;卡纸装裱|相框;木框装裱|相框;铝框装裱|相框;无框画装裱|装饰画;晶瓷画|装饰画;冰晶画|装饰画;油画布打印|装饰画;拉框|油画布;背板安装|相框;挂钩安装|相框;玻璃安装|相框;亚克力面板安装|相框;精装相册|相册;蝴蝶装|高端相册;对裱|相册;锁线装|相册/书籍"
+      },
+      {
+        category: "十七、厨房用品类工艺",
+        items: "UV打印|砧板、餐垫、托盘;激光雕刻|木砧板、竹制品;热升华|围裙、隔热垫、杯垫;丝网印刷|餐具、厨房用品;水转印|异形厨房件;烤花|陶瓷餐具;贴花|盘子、碗;不锈钢镭雕|刀具、杯具;喷砂|玻璃餐具;压印|皮革餐垫;模切|硅胶垫;缝制|围裙、隔热手套;包边|餐垫;防水处理|围裙;食品级涂层处理|餐具相关"
+      },
+      {
+        category: "十八、户外/车品类工艺",
+        items: "UV打印|车牌框、户外牌;弱溶剂写真|车贴、户外广告;Latex打印|车贴、墙贴;丝网印刷|户外用品;热升华|旗帜、户外围巾、运动用品;反光印刷|车贴、户外标识;夜光印刷|户外标识;防水涂层|户外布艺;防紫外处理|户外产品;旗帜热转印|旗帜;缝边|旗帜;打鸡眼|横幅、旗帜;穿绳|旗帜、户外布;贴膜|车贴;覆膜|户外画面;模切|车贴;安装背胶|车贴、墙贴"
+      },
+      {
+        category: "十九、广告展示类工艺",
+        items: "写真喷绘|海报、展板;UV卷材打印|软膜、灯片;UV平板打印|KT板、PVC板、亚克力;喷绘布打印|户外广告;灯片打印|灯箱;背胶写真|海报、墙贴;车贴写真|车贴;PP纸写真|海报;相纸写真|展示画面;软膜打印|软膜灯箱;刀刮布喷绘|户外广告;黑白布喷绘|高遮光;网格布喷绘|户外大幅面;KT板裱画|展板;PVC板裱画|展板;亚克力夹画|展示牌;冷裱膜|画面保护;覆膜|画面保护;裁切|广告画面;雕刻|PVC/亚克力;折弯|展架;打孔|展牌;装扣眼|横幅;安装画轴|易拉宝、挂画;易拉宝装配|展示物料;X展架装配|展示物料"
+      },
+      {
+        category: "二十、常见特殊效果工艺",
+        items: "亮面|光油、亮膜、抛光;哑面|哑膜、哑油、喷砂;立体|浮雕UV、厚板浆、滴胶、压凸;金属感|烫金、电镀、金属油墨、镭射膜;反光|反光膜、反光浆、反光烫画;夜光|夜光油墨、夜光烫画、夜光贴纸;温变|温变油墨、变色杯;光变|光变油墨;镭射|镭射膜、镭射烫;透明|亚克力、透明贴、透明UV;磨砂|磨砂膜、喷砂、磨砂UV;防水|覆膜、防水涂层、合成纸;防刮|防刮膜、UV保护层;防晒|户外墨水、UV涂层;防滑|硅胶印花、防滑底;亲肤|水浆、活性印花、柔软处理;厚重|厚板、发泡、硅胶;复古|裂纹浆、水洗、做旧;高弹|弹性胶浆、硅胶、DTF弹力膜;可移除|可移背胶;可降解|环保纸、环保膜、环保墨水"
+      },
+      {
+        category: "二十一、ERP 工艺字典 / 六层结构",
+        items: "成像工艺|UV打印、DTF烫画、热升华、DTG直喷、丝网印刷、刺绣、激光雕刻、水转印、移印、胶印、数码印刷|第一层分类;材料/底材|棉、涤纶、混纺、亚克力、金属、陶瓷、玻璃、木、纸、PVC、硅胶、皮革、TPU、PU、不锈钢、铝板|第二层分类;印前处理|图片检查、抠图、扩图、套图、拼版、分色、白墨层生成、光油层生成、ICC转换、RIP、排版省料、出血处理、切割线生成、定位点生成、版型适配|第三层分类;主生产工艺|打印、转印、烫压、雕刻、切割、刺绣、丝印、喷涂、烤制、缝制、组装|第四层分类;后处理工艺|固色、蒸化、水洗、烘干、覆膜、滴胶、抛光、倒角、打孔、模切、包边、熨烫、质检|第五层分类;包装发货工艺|配件组装、贴标、吊牌、入袋、装盒、称重、扫码、打单、分拣、分包、发货|第六层分类"
+      }
+    ];
+
+    const normalized = catalog.map(group => ({
+      category: group.category,
+      items: Array.isArray(group.items)
+        ? group.items.map(row => ({ name: row[0], applies: row[1] || "", feature: row[2] || "" }))
+        : group.items.split(";").filter(Boolean).map(row => {
+            const parts = row.split("|");
+            return { name: parts[0], applies: parts[1] || "", feature: parts[2] || "" };
+          })
+    }));
+
+    const textilePhotoAssets = {
+      "DTG 数码直喷": "assets/textile-ai-photos/dtg-digital-direct.jpg",
+      "白墨直喷": "assets/textile-ai-photos/white-ink-direct.jpg",
+      "活性数码印花": "assets/textile-ai-photos/reactive-digital-print.jpg",
+      "酸性数码印花": "assets/textile-ai-photos/acid-digital-print.jpg",
+      "分散数码直喷": "assets/textile-ai-photos/disperse-digital-direct.jpg",
+      "涂料数码印花": "assets/textile-ai-photos/pigment-digital-print.jpg",
+      "成衣直喷": "assets/textile-ai-photos/garment-direct-print.jpg",
+      "裁片直喷": "assets/textile-ai-photos/cut-panel-direct-print.jpg",
+      "卷布数码印花": "assets/textile-ai-photos/roll-to-roll-digital-print.jpg",
+      "热升华转印": "assets/textile-ai-photos/sublimation-transfer.jpg",
+      "滚筒热升华": "assets/textile-ai-photos/rotary-drum-sublimation.jpg",
+      "平板热升华": "assets/textile-ai-photos/flatbed-sublimation.jpg",
+      "烫画 DTF": "assets/textile-ai-photos/dtf-heat-transfer.jpg",
+      "白墨烫画": "assets/textile-ai-photos/white-ink-heat-transfer.jpg",
+      "热转印纸": "assets/textile-ai-photos/heat-transfer-paper.jpg",
+      "热转印膜": "assets/textile-ai-photos/heat-transfer-film.jpg",
+      "柯式烫画": "assets/textile-ai-photos/offset-heat-transfer.jpg",
+      "植绒烫画": "assets/textile-ai-photos/flock-heat-transfer.jpg",
+      "反光烫画": "assets/textile-ai-photos/reflective-heat-transfer.jpg",
+      "硅胶烫画": "assets/textile-ai-photos/silicone-heat-transfer.jpg",
+      "厚板烫画": "assets/textile-ai-photos/thick-plate-heat-transfer.jpg",
+      "镭射烫画": "assets/textile-ai-photos/holographic-heat-transfer.jpg",
+      "夜光烫画": "assets/textile-ai-photos/glow-heat-transfer.jpg",
+      "金银烫画": "assets/textile-ai-photos/gold-silver-heat-transfer.jpg",
+      "变色烫画": "assets/textile-ai-photos/color-change-heat-transfer.jpg",
+      "普通丝网印刷": "assets/textile-ai-photos/standard-screen-print.jpg",
+      "水浆印花": "assets/textile-ai-photos/water-based-print.jpg",
+      "胶浆印花": "assets/textile-ai-photos/rubber-ink-print.jpg",
+      "厚板浆印花": "assets/textile-ai-photos/high-density-print.jpg",
+      "发泡印花": "assets/textile-ai-photos/puff-print.jpg",
+      "植绒印花": "assets/textile-ai-photos/flock-screen-print.jpg",
+      "拔染印花": "assets/textile-ai-photos/discharge-print.jpg",
+      "防染印花": "assets/textile-ai-photos/resist-print.jpg",
+      "烫金印花": "assets/textile-ai-photos/gold-foil-print.jpg",
+      "烫银印花": "assets/textile-ai-photos/silver-foil-print.jpg",
+      "反光印花": "assets/textile-ai-photos/reflective-screen-print.jpg",
+      "夜光印花": "assets/textile-ai-photos/glow-screen-print.jpg",
+      "硅胶印花": "assets/textile-ai-photos/silicone-screen-print.jpg",
+      "防滑硅胶印花": "assets/textile-ai-photos/anti-slip-silicone-print.jpg",
+      "金葱印花": "assets/textile-ai-photos/glitter-print.jpg",
+      "裂纹印花": "assets/textile-ai-photos/crackle-print.jpg",
+      "仿烫画印花": "assets/textile-ai-photos/transfer-like-screen-print.jpg",
+      "平绣": "assets/textile-ai-photos/flat-embroidery.jpg",
+      "立体绣": "assets/textile-ai-photos/3d-embroidery.jpg",
+      "贴布绣": "assets/textile-ai-photos/applique-embroidery.jpg",
+      "毛巾绣": "assets/textile-ai-photos/chenille-embroidery.jpg",
+      "亮片绣": "assets/textile-ai-photos/sequin-embroidery.jpg",
+      "珠片绣": "assets/textile-ai-photos/bead-embroidery.jpg",
+      "链式绣": "assets/textile-ai-photos/chain-stitch-embroidery.jpg",
+      "章仔绣": "assets/textile-ai-photos/patch-embroidery.jpg",
+      "激光切割绣": "assets/textile-ai-photos/laser-cut-embroidery.jpg",
+      "混合绣": "assets/textile-ai-photos/mixed-embroidery.jpg",
+      "裁片印花": "assets/textile-ai-photos/cut-panel-printing.jpg",
+      "匹布印花": "assets/textile-ai-photos/piece-goods-printing.jpg",
+      "成衣满印": "assets/textile-ai-photos/finished-garment-all-over-print.jpg",
+      "多裁片对位印花": "assets/textile-ai-photos/multi-panel-registration-printing.jpg",
+      "裁片热升华": "assets/textile-ai-photos/cut-panel-sublimation.jpg",
+      "裁片数码直喷": "assets/textile-ai-photos/cut-panel-digital-direct.jpg",
+      "裁片定位打印": "assets/textile-ai-photos/cut-panel-position-printing.jpg",
+      "自动套版": "assets/textile-ai-photos/automatic-nesting.jpg",
+      "自动生成生产裁片图": "assets/textile-ai-photos/auto-production-panel-artwork.jpg",
+      "对花/对格/对位": "assets/textile-ai-photos/pattern-matching-registration.jpg",
+      "缝制成衣": "assets/textile-ai-photos/sew-finished-garment.jpg",
+      "吊挂生产": "assets/textile-ai-photos/hanging-production.jpg",
+      "计件报工": "assets/textile-ai-photos/piece-rate-reporting.jpg",
+      "裁剪": "assets/textile-ai-photos/garment-cutting.jpg",
+      "缝制": "assets/textile-ai-photos/garment-sewing.jpg",
+      "拷边": "assets/textile-ai-photos/overlock-serging.jpg",
+      "包边": "assets/textile-ai-photos/edge-binding.jpg",
+      "锁边": "assets/textile-ai-photos/edge-locking.jpg",
+      "锁眼": "assets/textile-ai-photos/buttonhole-sewing.jpg",
+      "钉扣": "assets/textile-ai-photos/button-attaching.jpg",
+      "上拉链": "assets/textile-ai-photos/zipper-installation.jpg",
+      "上帽绳": "assets/textile-ai-photos/hoodie-drawcord-installation.jpg",
+      "上吊牌": "assets/textile-ai-photos/hangtag-attaching.jpg",
+      "洗水": "assets/textile-ai-photos/garment-washing.jpg",
+      "酵素洗": "assets/textile-ai-photos/enzyme-wash.jpg",
+      "石磨洗": "assets/textile-ai-photos/stone-wash.jpg",
+      "砂洗": "assets/textile-ai-photos/sand-wash.jpg",
+      "水洗做旧": "assets/textile-ai-photos/vintage-water-wash.jpg",
+      "蒸化": "assets/textile-ai-photos/steaming-after-print.jpg",
+      "水洗固色": "assets/textile-ai-photos/wash-color-fixing.jpg",
+      "定型": "assets/textile-ai-photos/heat-setting.jpg",
+      "熨烫": "assets/textile-ai-photos/garment-ironing.jpg",
+      "验针": "assets/textile-ai-photos/needle-inspection.jpg",
+      "质检": "assets/textile-ai-photos/quality-inspection.jpg",
+      "折叠": "assets/textile-ai-photos/garment-folding.jpg",
+      "入袋": "assets/textile-ai-photos/polybagging.jpg",
+      "贴码": "assets/textile-ai-photos/barcode-labeling.jpg",
+      "扫码发货": "assets/textile-ai-photos/scan-and-ship.jpg",
+    };
+
+    const hardgoodsPhotoAssets = {
+      "热升华烤杯": "assets/hardgoods-ai-photos/mug-sublimation-heat-press.jpg",
+      "烤盘转印": "assets/hardgoods-ai-photos/plate-heat-transfer.jpg",
+      "水转印": "assets/hardgoods-ai-photos/cup-water-transfer.jpg",
+      "UV打印": "assets/hardgoods-ai-photos/cup-uv-printing.jpg",
+      "丝网印刷": "assets/hardgoods-ai-photos/cup-screen-printing.jpg",
+      "贴花烧制": "assets/hardgoods-ai-photos/ceramic-decal-firing.jpg",
+      "釉上彩": "assets/hardgoods-ai-photos/overglaze-decoration.jpg",
+      "釉中彩": "assets/hardgoods-ai-photos/in-glaze-decoration.jpg",
+      "釉下彩": "assets/hardgoods-ai-photos/underglaze-decoration.jpg",
+      "激光雕刻": "assets/hardgoods-ai-photos/metal-cup-laser-engraving.jpg",
+      "镭雕": "assets/hardgoods-ai-photos/stainless-cup-laser-marking.jpg",
+      "喷砂雕刻": "assets/hardgoods-ai-photos/glass-sandblast-engraving.jpg",
+      "移印": "assets/hardgoods-ai-photos/cup-pad-printing.jpg",
+      "环绕打印": "assets/hardgoods-ai-photos/cup-wraparound-printing.jpg",
+      "变色涂层": "assets/hardgoods-ai-photos/heat-changing-coating.jpg",
+      "夜光涂层": "assets/hardgoods-ai-photos/glow-coating-cup.jpg",
+      "UV平板打印": "assets/hardgoods-ai-photos/phone-case-uv-flatbed.jpg",
+      "UV浮雕打印": "assets/hardgoods-ai-photos/phone-case-uv-embossed.jpg",
+      "UV光油": "assets/hardgoods-ai-photos/phone-case-uv-gloss.jpg",
+      "UV哑光": "assets/hardgoods-ai-photos/phone-case-uv-matte.jpg",
+      "UV彩白彩": "assets/hardgoods-ai-photos/phone-case-color-white-color.jpg",
+      "热升华转印": "assets/hardgoods-ai-photos/phone-case-sublimation.jpg",
+      "3D真空热转印": "assets/hardgoods-ai-photos/phone-case-3d-vacuum-transfer.jpg",
+      "IMD/IML": "assets/hardgoods-ai-photos/phone-case-imd-iml.jpg",
+      "喷涂": "assets/hardgoods-ai-photos/phone-case-spray-coating.jpg",
+      "电镀": "assets/hardgoods-ai-photos/phone-case-electroplating.jpg",
+      "贴皮": "assets/hardgoods-ai-photos/phone-case-leather-skin.jpg",
+      "滴胶": "assets/hardgoods-ai-photos/phone-case-resin-doming.jpg",
+      "贴钻": "assets/hardgoods-ai-photos/phone-case-rhinestone.jpg",
+      "磁吸件组装": "assets/hardgoods-ai-photos/phone-case-magnetic-assembly.jpg",
+      "支架组装": "assets/hardgoods-ai-photos/phone-case-stand-assembly.jpg",
+      "挂绳孔加工": "assets/hardgoods-ai-photos/phone-case-lanyard-hole.jpg",
+      "反打UV": "assets/hardgoods-ai-photos/acrylic-reverse-uv.jpg",
+      "彩白彩打印": "assets/hardgoods-ai-photos/acrylic-color-white-color.jpg",
+      "彩白光油": "assets/hardgoods-ai-photos/acrylic-color-white-varnish.jpg",
+      "激光切割": "assets/hardgoods-ai-photos/acrylic-laser-cutting.jpg",
+      "CNC雕刻": "assets/hardgoods-ai-photos/acrylic-cnc-engraving.jpg",
+      "倒角": "assets/hardgoods-ai-photos/acrylic-beveling.jpg",
+      "抛光": "assets/hardgoods-ai-photos/acrylic-polishing.jpg",
+      "火焰抛光": "assets/hardgoods-ai-photos/acrylic-flame-polishing.jpg",
+      "钻孔": "assets/hardgoods-ai-photos/acrylic-drilling.jpg",
+      "热弯": "assets/hardgoods-ai-photos/acrylic-heat-bending.jpg",
+      "粘接": "assets/hardgoods-ai-photos/acrylic-bonding.jpg",
+      "贴膜": "assets/hardgoods-ai-photos/acrylic-protective-film.jpg",
+      "覆膜": "assets/hardgoods-ai-photos/acrylic-laminating.jpg",
+      "配件组装": "assets/hardgoods-ai-photos/acrylic-accessory-assembly.jpg",
+      "热升华金属板": "assets/hardgoods-ai-photos/metal-sublimation-panel.jpg",
+      "光纤激光打标": "assets/hardgoods-ai-photos/fiber-laser-marking.jpg",
+      "蚀刻": "assets/hardgoods-ai-photos/metal-etching.jpg",
+      "冲压": "assets/hardgoods-ai-photos/metal-stamping.jpg",
+      "压铸": "assets/hardgoods-ai-photos/metal-die-casting.jpg",
+      "烤漆": "assets/hardgoods-ai-photos/metal-baked-enamel.jpg",
+      "珐琅": "assets/hardgoods-ai-photos/metal-cloisonne-enamel.jpg",
+      "拉丝": "assets/hardgoods-ai-photos/metal-brushing.jpg",
+      "喷砂": "assets/hardgoods-ai-photos/metal-sandblasting.jpg",
+      "折弯": "assets/hardgoods-ai-photos/metal-bending.jpg",
+      "打孔": "assets/hardgoods-ai-photos/metal-drilling.jpg",
+      "包边": "assets/hardgoods-ai-photos/metal-edge-wrapping.jpg",
+      "磁吸组装": "assets/hardgoods-ai-photos/metal-magnetic-assembly.jpg",
+    };
+
+    const scopedHardgoodsPhotoAssets = {
+      "三、手机壳/3C数码类工艺::水转印": "assets/hardgoods-ai-photos/phone-case-water-transfer.jpg",
+      "三、手机壳/3C数码类工艺::丝网印刷": "assets/hardgoods-ai-photos/phone-case-screen-printing.jpg",
+      "三、手机壳/3C数码类工艺::移印": "assets/hardgoods-ai-photos/small-accessory-pad-printing.jpg",
+      "三、手机壳/3C数码类工艺::镭雕": "assets/hardgoods-ai-photos/metal-phone-case-laser-engraving.jpg",
+      "四、亚克力/有机玻璃类工艺::UV打印": "assets/hardgoods-ai-photos/acrylic-uv-printing.jpg",
+      "四、亚克力/有机玻璃类工艺::滴胶": "assets/hardgoods-ai-photos/acrylic-resin-doming.jpg",
+      "五、金属类工艺::UV打印": "assets/hardgoods-ai-photos/metal-uv-printing.jpg",
+      "五、金属类工艺::丝网印刷": "assets/hardgoods-ai-photos/metal-screen-printing.jpg",
+      "五、金属类工艺::移印": "assets/hardgoods-ai-photos/metal-pad-printing.jpg",
+      "五、金属类工艺::激光雕刻": "assets/hardgoods-ai-photos/metal-laser-engraving.jpg",
+      "五、金属类工艺::电镀": "assets/hardgoods-ai-photos/metal-electroplating.jpg",
+      "五、金属类工艺::滴胶": "assets/hardgoods-ai-photos/metal-resin-doming.jpg",
+      "五、金属类工艺::抛光": "assets/hardgoods-ai-photos/metal-polishing.jpg",
+    };
+
+    const materialPhotoAssets = {
+      "六、木制品/竹制品类工艺::UV打印": "assets/material-ai-photos/wood-uv-printing.jpg",
+      "六、木制品/竹制品类工艺::激光雕刻": "assets/material-ai-photos/wood-laser-engraving.jpg",
+      "六、木制品/竹制品类工艺::激光切割": "assets/material-ai-photos/wood-laser-cutting.jpg",
+      "六、木制品/竹制品类工艺::丝网印刷": "assets/material-ai-photos/wood-screen-printing.jpg",
+      "六、木制品/竹制品类工艺::热转印": "assets/material-ai-photos/wood-heat-transfer.jpg",
+      "六、木制品/竹制品类工艺::烫印": "assets/material-ai-photos/wood-foil-stamping.jpg",
+      "六、木制品/竹制品类工艺::喷漆": "assets/material-ai-photos/wood-spray-painting.jpg",
+      "六、木制品/竹制品类工艺::清漆": "assets/material-ai-photos/wood-clear-varnish.jpg",
+      "六、木制品/竹制品类工艺::打磨": "assets/material-ai-photos/wood-sanding.jpg",
+      "六、木制品/竹制品类工艺::倒角": "assets/material-ai-photos/wood-beveling.jpg",
+      "六、木制品/竹制品类工艺::开槽": "assets/material-ai-photos/wood-grooving.jpg",
+      "六、木制品/竹制品类工艺::拼接": "assets/material-ai-photos/wood-splicing.jpg",
+      "六、木制品/竹制品类工艺::榫卯/组装": "assets/material-ai-photos/wood-mortise-assembly.jpg",
+      "六、木制品/竹制品类工艺::上蜡": "assets/material-ai-photos/wood-wax-finishing.jpg",
+      "七、纸品/包装/文创类工艺 / 印刷工艺::数码印刷": "assets/material-ai-photos/paper-digital-printing.jpg",
+      "七、纸品/包装/文创类工艺 / 印刷工艺::喷墨印刷": "assets/material-ai-photos/paper-inkjet-printing.jpg",
+      "七、纸品/包装/文创类工艺 / 印刷工艺::激光打印": "assets/material-ai-photos/paper-laser-printing.jpg",
+      "七、纸品/包装/文创类工艺 / 印刷工艺::胶印": "assets/material-ai-photos/paper-offset-printing.jpg",
+      "七、纸品/包装/文创类工艺 / 印刷工艺::凹印": "assets/material-ai-photos/paper-gravure-printing.jpg",
+      "七、纸品/包装/文创类工艺 / 印刷工艺::柔印": "assets/material-ai-photos/paper-flexo-printing.jpg",
+      "七、纸品/包装/文创类工艺 / 印刷工艺::丝网印刷": "assets/material-ai-photos/paper-screen-printing.jpg",
+      "七、纸品/包装/文创类工艺 / 印刷工艺::移印": "assets/material-ai-photos/paper-pad-printing.jpg",
+      "七、纸品/包装/文创类工艺 / 印刷工艺::热转印": "assets/material-ai-photos/paper-heat-transfer.jpg",
+      "七、纸品/包装/文创类工艺 / 印刷工艺::可变数据印刷": "assets/material-ai-photos/paper-variable-data-printing.jpg",
+      "七、纸品/包装/文创类工艺 / 印刷工艺::防伪印刷": "assets/material-ai-photos/paper-security-printing.jpg",
+      "七、纸品/包装/文创类工艺 / 印刷工艺::条码/二维码打印": "assets/material-ai-photos/paper-barcode-qr-printing.jpg",
+      "七、纸品/包装/文创类工艺 / 纸品后道工艺::覆膜": "assets/material-ai-photos/paper-lamination.jpg",
+      "七、纸品/包装/文创类工艺 / 纸品后道工艺::光膜": "assets/material-ai-photos/paper-gloss-film.jpg",
+      "七、纸品/包装/文创类工艺 / 纸品后道工艺::哑膜": "assets/material-ai-photos/paper-matte-film.jpg",
+      "七、纸品/包装/文创类工艺 / 纸品后道工艺::触感膜": "assets/material-ai-photos/paper-soft-touch-film.jpg",
+      "七、纸品/包装/文创类工艺 / 纸品后道工艺::防刮膜": "assets/material-ai-photos/paper-anti-scratch-film.jpg",
+      "七、纸品/包装/文创类工艺 / 纸品后道工艺::烫金": "assets/material-ai-photos/paper-gold-foil.jpg",
+      "七、纸品/包装/文创类工艺 / 纸品后道工艺::烫银": "assets/material-ai-photos/paper-silver-foil.jpg",
+      "七、纸品/包装/文创类工艺 / 纸品后道工艺::镭射烫": "assets/material-ai-photos/paper-holographic-foil.jpg",
+      "七、纸品/包装/文创类工艺 / 纸品后道工艺::击凸": "assets/material-ai-photos/paper-embossing.jpg",
+      "七、纸品/包装/文创类工艺 / 纸品后道工艺::压凹": "assets/material-ai-photos/paper-debossing.jpg",
+      "七、纸品/包装/文创类工艺 / 纸品后道工艺::UV光油": "assets/material-ai-photos/paper-uv-varnish.jpg",
+      "七、纸品/包装/文创类工艺 / 纸品后道工艺::局部UV": "assets/material-ai-photos/paper-spot-uv.jpg",
+      "七、纸品/包装/文创类工艺 / 纸品后道工艺::磨砂UV": "assets/material-ai-photos/paper-frosted-uv.jpg",
+      "七、纸品/包装/文创类工艺 / 纸品后道工艺::逆向UV": "assets/material-ai-photos/paper-reverse-uv.jpg",
+      "七、纸品/包装/文创类工艺 / 纸品后道工艺::模切": "assets/material-ai-photos/paper-die-cutting.jpg",
+      "七、纸品/包装/文创类工艺 / 纸品后道工艺::半穿切": "assets/material-ai-photos/paper-kiss-cut.jpg",
+      "七、纸品/包装/文创类工艺 / 纸品后道工艺::全穿切": "assets/material-ai-photos/paper-through-cut.jpg",
+      "七、纸品/包装/文创类工艺 / 纸品后道工艺::压痕": "assets/material-ai-photos/paper-creasing.jpg",
+      "七、纸品/包装/文创类工艺 / 纸品后道工艺::折页": "assets/material-ai-photos/paper-folding.jpg",
+      "七、纸品/包装/文创类工艺 / 纸品后道工艺::骑马钉": "assets/material-ai-photos/paper-saddle-stitching.jpg",
+      "七、纸品/包装/文创类工艺 / 纸品后道工艺::胶装": "assets/material-ai-photos/paper-perfect-binding.jpg",
+      "七、纸品/包装/文创类工艺 / 纸品后道工艺::精装": "assets/material-ai-photos/paper-hardcover-binding.jpg",
+      "七、纸品/包装/文创类工艺 / 纸品后道工艺::锁线装": "assets/material-ai-photos/paper-smyth-sewn-binding.jpg",
+      "七、纸品/包装/文创类工艺 / 纸品后道工艺::裱纸": "assets/material-ai-photos/paper-mounting-board.jpg",
+      "七、纸品/包装/文创类工艺 / 纸品后道工艺::糊盒": "assets/material-ai-photos/paper-box-gluing.jpg",
+      "七、纸品/包装/文创类工艺 / 纸品后道工艺::开窗": "assets/material-ai-photos/paper-window-patching.jpg",
+      "七、纸品/包装/文创类工艺 / 纸品后道工艺::打孔": "assets/material-ai-photos/paper-hole-punching.jpg",
+      "七、纸品/包装/文创类工艺 / 纸品后道工艺::穿绳": "assets/material-ai-photos/paper-string-threading.jpg",
+      "七、纸品/包装/文创类工艺 / 纸品后道工艺::圆角": "assets/material-ai-photos/paper-corner-rounding.jpg",
+      "七、纸品/包装/文创类工艺 / 纸品后道工艺::分切": "assets/material-ai-photos/paper-slitting.jpg",
+      "七、纸品/包装/文创类工艺 / 纸品后道工艺::覆背胶": "assets/material-ai-photos/paper-adhesive-backing.jpg",
+      "七、纸品/包装/文创类工艺 / 纸品后道工艺::排废": "assets/material-ai-photos/paper-waste-matrix-removal.jpg",
+      "七、纸品/包装/文创类工艺 / 纸品后道工艺::卷装": "assets/material-ai-photos/paper-roll-label-finishing.jpg",
+      "七、纸品/包装/文创类工艺 / 纸品后道工艺::单张裁切": "assets/material-ai-photos/paper-single-sheet-cutting.jpg",
+      "八、贴纸/标签类工艺::数码打印贴纸": "assets/material-ai-photos/sticker-digital-printing.jpg",
+      "八、贴纸/标签类工艺::UV贴纸打印": "assets/material-ai-photos/sticker-uv-printing.jpg",
+      "八、贴纸/标签类工艺::弱溶剂写真": "assets/material-ai-photos/sticker-eco-solvent-printing.jpg",
+      "八、贴纸/标签类工艺::Latex打印": "assets/material-ai-photos/sticker-latex-printing.jpg",
+      "八、贴纸/标签类工艺::热敏标签打印": "assets/material-ai-photos/sticker-thermal-label-printing.jpg",
+      "八、贴纸/标签类工艺::热转印碳带打印": "assets/material-ai-photos/sticker-thermal-transfer-ribbon.jpg",
+      "八、贴纸/标签类工艺::铜版纸标签": "assets/material-ai-photos/sticker-coated-paper-label.jpg",
+      "八、贴纸/标签类工艺::合成纸标签": "assets/material-ai-photos/sticker-synthetic-paper-label.jpg",
+      "八、贴纸/标签类工艺::PET标签": "assets/material-ai-photos/sticker-pet-label.jpg",
+      "八、贴纸/标签类工艺::PVC贴纸": "assets/material-ai-photos/sticker-pvc-sticker.jpg",
+      "八、贴纸/标签类工艺::静电贴": "assets/material-ai-photos/sticker-static-cling.jpg",
+      "八、贴纸/标签类工艺::透明贴纸": "assets/material-ai-photos/sticker-transparent.jpg",
+      "八、贴纸/标签类工艺::镭射贴纸": "assets/material-ai-photos/sticker-holographic.jpg",
+      "八、贴纸/标签类工艺::反光贴纸": "assets/material-ai-photos/sticker-reflective.jpg",
+      "八、贴纸/标签类工艺::夜光贴纸": "assets/material-ai-photos/sticker-glow.jpg",
+      "八、贴纸/标签类工艺::可移贴": "assets/material-ai-photos/sticker-removable.jpg",
+      "八、贴纸/标签类工艺::车贴写真": "assets/material-ai-photos/sticker-vehicle-wrap.jpg",
+      "八、贴纸/标签类工艺::模切贴纸": "assets/material-ai-photos/sticker-die-cut.jpg",
+      "八、贴纸/标签类工艺::Kiss Cut 半切": "assets/material-ai-photos/sticker-kiss-cut.jpg",
+      "八、贴纸/标签类工艺::Die Cut 全切": "assets/material-ai-photos/sticker-full-die-cut.jpg",
+      "八、贴纸/标签类工艺::覆膜": "assets/material-ai-photos/sticker-lamination.jpg",
+      "八、贴纸/标签类工艺::滴胶贴": "assets/material-ai-photos/sticker-resin-dome.jpg",
+      "八、贴纸/标签类工艺::排废": "assets/material-ai-photos/sticker-waste-matrix.jpg",
+      "八、贴纸/标签类工艺::卷标分切": "assets/material-ai-photos/sticker-roll-slitting.jpg",
+      "九、玻璃/水晶类工艺::UV打印": "assets/material-ai-photos/glass-uv-printing.jpg",
+      "九、玻璃/水晶类工艺::丝网印刷": "assets/material-ai-photos/glass-screen-printing.jpg",
+      "九、玻璃/水晶类工艺::水转印": "assets/material-ai-photos/glass-water-transfer.jpg",
+      "九、玻璃/水晶类工艺::喷砂": "assets/material-ai-photos/glass-sandblasting.jpg",
+      "九、玻璃/水晶类工艺::激光内雕": "assets/material-ai-photos/crystal-inner-laser.jpg",
+      "九、玻璃/水晶类工艺::激光雕刻": "assets/material-ai-photos/glass-laser-engraving.jpg",
+      "九、玻璃/水晶类工艺::烤花": "assets/material-ai-photos/glass-baked-decoration.jpg",
+      "九、玻璃/水晶类工艺::贴花": "assets/material-ai-photos/glass-decal-application.jpg",
+      "九、玻璃/水晶类工艺::彩绘": "assets/material-ai-photos/glass-hand-painting.jpg",
+      "九、玻璃/水晶类工艺::镀膜": "assets/material-ai-photos/glass-coating.jpg",
+      "九、玻璃/水晶类工艺::切割": "assets/material-ai-photos/glass-cutting.jpg",
+      "九、玻璃/水晶类工艺::磨边": "assets/material-ai-photos/glass-edge-grinding.jpg",
+      "九、玻璃/水晶类工艺::钢化": "assets/material-ai-photos/glass-tempering.jpg",
+      "九、玻璃/水晶类工艺::热弯": "assets/material-ai-photos/glass-heat-bending.jpg",
+      "九、玻璃/水晶类工艺::胶合": "assets/material-ai-photos/glass-laminating-bonding.jpg",
+    };
+
+    const softgoodsPlasticPhotoAssets = {
+      "十、皮革/PU类工艺::UV打印": "assets/softgoods-plastic-ai-photos/leather-uv-printing.jpg",
+      "十、皮革/PU类工艺::皮革数码打印": "assets/softgoods-plastic-ai-photos/leather-digital-printing.jpg",
+      "十、皮革/PU类工艺::热转印": "assets/softgoods-plastic-ai-photos/pu-leather-heat-transfer.jpg",
+      "十、皮革/PU类工艺::丝网印刷": "assets/softgoods-plastic-ai-photos/leather-screen-printing.jpg",
+      "十、皮革/PU类工艺::烫金": "assets/softgoods-plastic-ai-photos/leather-gold-foil.jpg",
+      "十、皮革/PU类工艺::烫银": "assets/softgoods-plastic-ai-photos/leather-silver-foil.jpg",
+      "十、皮革/PU类工艺::压印": "assets/softgoods-plastic-ai-photos/leather-embossing.jpg",
+      "十、皮革/PU类工艺::凹印": "assets/softgoods-plastic-ai-photos/leather-debossing.jpg",
+      "十、皮革/PU类工艺::激光雕刻": "assets/softgoods-plastic-ai-photos/leather-laser-engraving.jpg",
+      "十、皮革/PU类工艺::激光切割": "assets/softgoods-plastic-ai-photos/leather-laser-cutting.jpg",
+      "十、皮革/PU类工艺::油边": "assets/softgoods-plastic-ai-photos/leather-edge-painting.jpg",
+      "十、皮革/PU类工艺::缝线": "assets/softgoods-plastic-ai-photos/leather-stitching.jpg",
+      "十、皮革/PU类工艺::打孔": "assets/softgoods-plastic-ai-photos/leather-hole-punching.jpg",
+      "十、皮革/PU类工艺::铆钉": "assets/softgoods-plastic-ai-photos/leather-rivet-installation.jpg",
+      "十、皮革/PU类工艺::五金安装": "assets/softgoods-plastic-ai-photos/leather-hardware-installation.jpg",
+      "十、皮革/PU类工艺::贴合": "assets/softgoods-plastic-ai-photos/leather-laminating-bonding.jpg",
+      "十、皮革/PU类工艺::裁断": "assets/softgoods-plastic-ai-photos/leather-die-cutting.jpg",
+      "十、皮革/PU类工艺::压纹": "assets/softgoods-plastic-ai-photos/leather-texture-embossing.jpg",
+      "十、皮革/PU类工艺::上色": "assets/softgoods-plastic-ai-photos/leather-coloring.jpg",
+      "十、皮革/PU类工艺::抛光": "assets/softgoods-plastic-ai-photos/leather-polishing.jpg",
+      "十一、箱包/鞋帽类工艺::DTF烫画": "assets/softgoods-plastic-ai-photos/bag-hat-dtf-transfer.jpg",
+      "十一、箱包/鞋帽类工艺::热升华": "assets/softgoods-plastic-ai-photos/bag-hat-sublimation.jpg",
+      "十一、箱包/鞋帽类工艺::UV打印": "assets/softgoods-plastic-ai-photos/shoe-bag-uv-printing.jpg",
+      "十一、箱包/鞋帽类工艺::丝网印刷": "assets/softgoods-plastic-ai-photos/canvas-bag-screen-printing.jpg",
+      "十一、箱包/鞋帽类工艺::刺绣": "assets/softgoods-plastic-ai-photos/hat-bag-embroidery.jpg",
+      "十一、箱包/鞋帽类工艺::立体绣": "assets/softgoods-plastic-ai-photos/baseball-cap-3d-embroidery.jpg",
+      "十一、箱包/鞋帽类工艺::贴布绣": "assets/softgoods-plastic-ai-photos/bag-hat-applique-embroidery.jpg",
+      "十一、箱包/鞋帽类工艺::激光雕刻": "assets/softgoods-plastic-ai-photos/leather-shoe-bag-laser-engraving.jpg",
+      "十一、箱包/鞋帽类工艺::激光切割": "assets/softgoods-plastic-ai-photos/shoe-bag-laser-cutting.jpg",
+      "十一、箱包/鞋帽类工艺::高周波压花": "assets/softgoods-plastic-ai-photos/high-frequency-embossing.jpg",
+      "十一、箱包/鞋帽类工艺::TPU热压": "assets/softgoods-plastic-ai-photos/tpu-heat-press.jpg",
+      "十一、箱包/鞋帽类工艺::硅胶章": "assets/softgoods-plastic-ai-photos/silicone-badge.jpg",
+      "十一、箱包/鞋帽类工艺::PVC软胶章": "assets/softgoods-plastic-ai-photos/pvc-soft-rubber-badge.jpg",
+      "十一、箱包/鞋帽类工艺::滴胶章": "assets/softgoods-plastic-ai-photos/resin-dome-badge.jpg",
+      "十一、箱包/鞋帽类工艺::缝标": "assets/softgoods-plastic-ai-photos/sewn-label.jpg",
+      "十一、箱包/鞋帽类工艺::织唛": "assets/softgoods-plastic-ai-photos/woven-label.jpg",
+      "十一、箱包/鞋帽类工艺::皮标": "assets/softgoods-plastic-ai-photos/leather-patch-label.jpg",
+      "十一、箱包/鞋帽类工艺::铆钉安装": "assets/softgoods-plastic-ai-photos/rivet-installation-bag-shoe.jpg",
+      "十一、箱包/鞋帽类工艺::拉链安装": "assets/softgoods-plastic-ai-photos/zipper-installation-bag.jpg",
+      "十一、箱包/鞋帽类工艺::肩带组装": "assets/softgoods-plastic-ai-photos/shoulder-strap-assembly.jpg",
+      "十一、箱包/鞋帽类工艺::鞋面缝制": "assets/softgoods-plastic-ai-photos/shoe-upper-sewing.jpg",
+      "十一、箱包/鞋帽类工艺::鞋底粘合": "assets/softgoods-plastic-ai-photos/shoe-sole-bonding.jpg",
+      "十一、箱包/鞋帽类工艺::压底": "assets/softgoods-plastic-ai-photos/sole-pressing.jpg",
+      "十一、箱包/鞋帽类工艺::定型": "assets/softgoods-plastic-ai-photos/shoe-hat-shaping.jpg",
+      "十一、箱包/鞋帽类工艺::整烫": "assets/softgoods-plastic-ai-photos/hat-bag-final-pressing.jpg",
+      "十二、家纺/软装类工艺::热升华转印": "assets/softgoods-plastic-ai-photos/home-textile-sublimation.jpg",
+      "十二、家纺/软装类工艺::数码直喷": "assets/softgoods-plastic-ai-photos/home-textile-digital-direct.jpg",
+      "十二、家纺/软装类工艺::活性印花": "assets/softgoods-plastic-ai-photos/home-textile-reactive-print.jpg",
+      "十二、家纺/软装类工艺::分散印花": "assets/softgoods-plastic-ai-photos/home-textile-disperse-print.jpg",
+      "十二、家纺/软装类工艺::涂料印花": "assets/softgoods-plastic-ai-photos/home-textile-pigment-print.jpg",
+      "十二、家纺/软装类工艺::丝网印花": "assets/softgoods-plastic-ai-photos/home-textile-screen-print.jpg",
+      "十二、家纺/软装类工艺::刺绣": "assets/softgoods-plastic-ai-photos/home-textile-embroidery.jpg",
+      "十二、家纺/软装类工艺::提花": "assets/softgoods-plastic-ai-photos/home-textile-jacquard.jpg",
+      "十二、家纺/软装类工艺::割绒": "assets/softgoods-plastic-ai-photos/home-textile-velour-cutting.jpg",
+      "十二、家纺/软装类工艺::压花": "assets/softgoods-plastic-ai-photos/home-textile-embossing.jpg",
+      "十二、家纺/软装类工艺::绗缝": "assets/softgoods-plastic-ai-photos/home-textile-quilting.jpg",
+      "十二、家纺/软装类工艺::包边": "assets/softgoods-plastic-ai-photos/home-textile-edge-binding.jpg",
+      "十二、家纺/软装类工艺::锁边": "assets/softgoods-plastic-ai-photos/home-textile-overlock-hemming.jpg",
+      "十二、家纺/软装类工艺::缝制": "assets/softgoods-plastic-ai-photos/home-textile-sewing.jpg",
+      "十二、家纺/软装类工艺::装拉链": "assets/softgoods-plastic-ai-photos/pillow-cover-zipper-installation.jpg",
+      "十二、家纺/软装类工艺::填充": "assets/softgoods-plastic-ai-photos/pillow-filling.jpg",
+      "十二、家纺/软装类工艺::真空压缩": "assets/softgoods-plastic-ai-photos/vacuum-compression-packaging.jpg",
+      "十二、家纺/软装类工艺::定型": "assets/softgoods-plastic-ai-photos/home-textile-heat-setting.jpg",
+      "十二、家纺/软装类工艺::水洗": "assets/softgoods-plastic-ai-photos/home-textile-washing.jpg",
+      "十二、家纺/软装类工艺::柔软处理": "assets/softgoods-plastic-ai-photos/home-textile-softening.jpg",
+      "十二、家纺/软装类工艺::防水处理": "assets/softgoods-plastic-ai-photos/outdoor-fabric-waterproof-treatment.jpg",
+      "十二、家纺/软装类工艺::阻燃处理": "assets/softgoods-plastic-ai-photos/curtain-flame-retardant-treatment.jpg",
+      "十二、家纺/软装类工艺::抗菌处理": "assets/softgoods-plastic-ai-photos/towel-bedding-antibacterial-treatment.jpg",
+      "十三、地垫/鼠标垫/瑜伽垫类工艺::热升华": "assets/softgoods-plastic-ai-photos/mat-sublimation-printing.jpg",
+      "十三、地垫/鼠标垫/瑜伽垫类工艺::UV打印": "assets/softgoods-plastic-ai-photos/mat-uv-printing.jpg",
+      "十三、地垫/鼠标垫/瑜伽垫类工艺::数码喷印": "assets/softgoods-plastic-ai-photos/mat-digital-spray-printing.jpg",
+      "十三、地垫/鼠标垫/瑜伽垫类工艺::丝网印刷": "assets/softgoods-plastic-ai-photos/mat-screen-printing.jpg",
+      "十三、地垫/鼠标垫/瑜伽垫类工艺::热压贴合": "assets/softgoods-plastic-ai-photos/mat-heat-lamination.jpg",
+      "十三、地垫/鼠标垫/瑜伽垫类工艺::橡胶发泡": "assets/softgoods-plastic-ai-photos/rubber-foaming.jpg",
+      "十三、地垫/鼠标垫/瑜伽垫类工艺::PVC发泡": "assets/softgoods-plastic-ai-photos/pvc-foaming.jpg",
+      "十三、地垫/鼠标垫/瑜伽垫类工艺::TPE成型": "assets/softgoods-plastic-ai-photos/tpe-yoga-mat-forming.jpg",
+      "十三、地垫/鼠标垫/瑜伽垫类工艺::裁切": "assets/softgoods-plastic-ai-photos/mat-cutting.jpg",
+      "十三、地垫/鼠标垫/瑜伽垫类工艺::模切": "assets/softgoods-plastic-ai-photos/mousepad-die-cutting.jpg",
+      "十三、地垫/鼠标垫/瑜伽垫类工艺::包边": "assets/softgoods-plastic-ai-photos/mat-edge-binding.jpg",
+      "十三、地垫/鼠标垫/瑜伽垫类工艺::锁边": "assets/softgoods-plastic-ai-photos/mat-overlock-edge-stitching.jpg",
+      "十三、地垫/鼠标垫/瑜伽垫类工艺::防滑背胶": "assets/softgoods-plastic-ai-photos/mat-anti-slip-backing.jpg",
+      "十三、地垫/鼠标垫/瑜伽垫类工艺::压纹": "assets/softgoods-plastic-ai-photos/yoga-mat-embossing.jpg",
+      "十三、地垫/鼠标垫/瑜伽垫类工艺::滴胶防滑": "assets/softgoods-plastic-ai-photos/silicone-anti-slip-dotting.jpg",
+      "十三、地垫/鼠标垫/瑜伽垫类工艺::卷装包装": "assets/softgoods-plastic-ai-photos/yoga-mat-roll-packaging.jpg",
+      "十四、塑料/PVC/硅胶类工艺::UV打印": "assets/softgoods-plastic-ai-photos/plastic-uv-printing.jpg",
+      "十四、塑料/PVC/硅胶类工艺::丝网印刷": "assets/softgoods-plastic-ai-photos/plastic-screen-printing.jpg",
+      "十四、塑料/PVC/硅胶类工艺::移印": "assets/softgoods-plastic-ai-photos/plastic-pad-printing.jpg",
+      "十四、塑料/PVC/硅胶类工艺::热转印": "assets/softgoods-plastic-ai-photos/plastic-heat-transfer.jpg",
+      "十四、塑料/PVC/硅胶类工艺::水转印": "assets/softgoods-plastic-ai-photos/plastic-water-transfer.jpg",
+      "十四、塑料/PVC/硅胶类工艺::喷涂": "assets/softgoods-plastic-ai-photos/plastic-spray-coating.jpg",
+      "十四、塑料/PVC/硅胶类工艺::电镀": "assets/softgoods-plastic-ai-photos/plastic-electroplating.jpg",
+      "十四、塑料/PVC/硅胶类工艺::注塑": "assets/softgoods-plastic-ai-photos/plastic-injection-molding.jpg",
+      "十四、塑料/PVC/硅胶类工艺::吸塑": "assets/softgoods-plastic-ai-photos/plastic-vacuum-forming.jpg",
+      "十四、塑料/PVC/硅胶类工艺::挤出": "assets/softgoods-plastic-ai-photos/plastic-extrusion.jpg",
+      "十四、塑料/PVC/硅胶类工艺::吹塑": "assets/softgoods-plastic-ai-photos/plastic-blow-molding.jpg",
+      "十四、塑料/PVC/硅胶类工艺::滚塑": "assets/softgoods-plastic-ai-photos/plastic-rotational-molding.jpg",
+      "十四、塑料/PVC/硅胶类工艺::搪胶": "assets/softgoods-plastic-ai-photos/vinyl-slush-molding.jpg",
+      "十四、塑料/PVC/硅胶类工艺::硅胶滴塑": "assets/softgoods-plastic-ai-photos/silicone-drip-molding.jpg",
+      "十四、塑料/PVC/硅胶类工艺::PVC软胶滴塑": "assets/softgoods-plastic-ai-photos/pvc-soft-rubber-drip-molding.jpg",
+      "十四、塑料/PVC/硅胶类工艺::微量射出": "assets/softgoods-plastic-ai-photos/micro-injection-rubber-label.jpg",
+      "十四、塑料/PVC/硅胶类工艺::高周波": "assets/softgoods-plastic-ai-photos/high-frequency-pvc-welding.jpg",
+      "十四、塑料/PVC/硅胶类工艺::热压成型": "assets/softgoods-plastic-ai-photos/silicone-pvc-heat-forming.jpg",
+      "十四、塑料/PVC/硅胶类工艺::模切": "assets/softgoods-plastic-ai-photos/plastic-die-cutting.jpg",
+      "十四、塑料/PVC/硅胶类工艺::激光切割": "assets/softgoods-plastic-ai-photos/plastic-laser-cutting.jpg",
+      "十四、塑料/PVC/硅胶类工艺::超声波焊接": "assets/softgoods-plastic-ai-photos/plastic-ultrasonic-welding.jpg",
+      "十四、塑料/PVC/硅胶类工艺::胶粘组装": "assets/softgoods-plastic-ai-photos/plastic-glue-bonding.jpg",
+      "十四、塑料/PVC/硅胶类工艺::五金嵌件": "assets/softgoods-plastic-ai-photos/plastic-metal-insert-embedding.jpg",
+    };
+
+    const giftPhotoKitchenPhotoAssets = {
+      "十五、礼品饰品类工艺::UV打印": "assets/gifts-photo-kitchen-ai-photos/gift-uv-printing.jpg",
+      "十五、礼品饰品类工艺::滴胶": "assets/gifts-photo-kitchen-ai-photos/gift-resin-doming.jpg",
+      "十五、礼品饰品类工艺::激光雕刻": "assets/gifts-photo-kitchen-ai-photos/gift-laser-engraving.jpg",
+      "十五、礼品饰品类工艺::热升华": "assets/gifts-photo-kitchen-ai-photos/gift-sublimation.jpg",
+      "十五、礼品饰品类工艺::丝网印刷": "assets/gifts-photo-kitchen-ai-photos/gift-screen-printing.jpg",
+      "十五、礼品饰品类工艺::移印": "assets/gifts-photo-kitchen-ai-photos/gift-pad-printing.jpg",
+      "十五、礼品饰品类工艺::烫金": "assets/gifts-photo-kitchen-ai-photos/gift-gold-foil.jpg",
+      "十五、礼品饰品类工艺::压印": "assets/gifts-photo-kitchen-ai-photos/gift-leather-embossing.jpg",
+      "十五、礼品饰品类工艺::电镀": "assets/gifts-photo-kitchen-ai-photos/gift-electroplating.jpg",
+      "十五、礼品饰品类工艺::烤漆": "assets/gifts-photo-kitchen-ai-photos/gift-baked-enamel.jpg",
+      "十五、礼品饰品类工艺::珐琅": "assets/gifts-photo-kitchen-ai-photos/gift-cloisonne-enamel.jpg",
+      "十五、礼品饰品类工艺::压铸": "assets/gifts-photo-kitchen-ai-photos/gift-die-casting.jpg",
+      "十五、礼品饰品类工艺::冲压": "assets/gifts-photo-kitchen-ai-photos/gift-metal-stamping.jpg",
+      "十五、礼品饰品类工艺::CNC": "assets/gifts-photo-kitchen-ai-photos/gift-cnc-machining.jpg",
+      "十五、礼品饰品类工艺::激光切割": "assets/gifts-photo-kitchen-ai-photos/gift-laser-cutting.jpg",
+      "十五、礼品饰品类工艺::拼图切割": "assets/gifts-photo-kitchen-ai-photos/gift-puzzle-cutting.jpg",
+      "十五、礼品饰品类工艺::磁铁组装": "assets/gifts-photo-kitchen-ai-photos/gift-magnet-assembly.jpg",
+      "十五、礼品饰品类工艺::钥匙圈组装": "assets/gifts-photo-kitchen-ai-photos/gift-keyring-assembly.jpg",
+      "十五、礼品饰品类工艺::链条组装": "assets/gifts-photo-kitchen-ai-photos/gift-chain-assembly.jpg",
+      "十五、礼品饰品类工艺::底座组装": "assets/gifts-photo-kitchen-ai-photos/gift-base-assembly.jpg",
+      "十五、礼品饰品类工艺::包装入盒": "assets/gifts-photo-kitchen-ai-photos/gift-box-packaging.jpg",
+      "十六、相框/相册/照片类工艺::银盐冲印": "assets/gifts-photo-kitchen-ai-photos/photo-silver-halide-printing.jpg",
+      "十六、相框/相册/照片类工艺::喷墨照片打印": "assets/gifts-photo-kitchen-ai-photos/photo-inkjet-printing.jpg",
+      "十六、相框/相册/照片类工艺::热升华照片打印": "assets/gifts-photo-kitchen-ai-photos/photo-dye-sublimation-printing.jpg",
+      "十六、相框/相册/照片类工艺::数码印刷": "assets/gifts-photo-kitchen-ai-photos/album-digital-inner-page-printing.jpg",
+      "十六、相框/相册/照片类工艺::艺术微喷": "assets/gifts-photo-kitchen-ai-photos/fine-art-giclee-printing.jpg",
+      "十六、相框/相册/照片类工艺::冷裱": "assets/gifts-photo-kitchen-ai-photos/photo-cold-mounting.jpg",
+      "十六、相框/相册/照片类工艺::热裱": "assets/gifts-photo-kitchen-ai-photos/photo-hot-mounting.jpg",
+      "十六、相框/相册/照片类工艺::覆膜": "assets/gifts-photo-kitchen-ai-photos/photo-film-lamination.jpg",
+      "十六、相框/相册/照片类工艺::装裱": "assets/gifts-photo-kitchen-ai-photos/wall-art-framing.jpg",
+      "十六、相框/相册/照片类工艺::卡纸装裱": "assets/gifts-photo-kitchen-ai-photos/mat-board-mounting.jpg",
+      "十六、相框/相册/照片类工艺::木框装裱": "assets/gifts-photo-kitchen-ai-photos/wood-frame-assembly.jpg",
+      "十六、相框/相册/照片类工艺::铝框装裱": "assets/gifts-photo-kitchen-ai-photos/aluminum-frame-assembly.jpg",
+      "十六、相框/相册/照片类工艺::无框画装裱": "assets/gifts-photo-kitchen-ai-photos/frameless-art-mounting.jpg",
+      "十六、相框/相册/照片类工艺::晶瓷画": "assets/gifts-photo-kitchen-ai-photos/crystal-porcelain-wall-art.jpg",
+      "十六、相框/相册/照片类工艺::冰晶画": "assets/gifts-photo-kitchen-ai-photos/ice-crystal-photo-panel.jpg",
+      "十六、相框/相册/照片类工艺::油画布打印": "assets/gifts-photo-kitchen-ai-photos/canvas-printing.jpg",
+      "十六、相框/相册/照片类工艺::拉框": "assets/gifts-photo-kitchen-ai-photos/canvas-stretching.jpg",
+      "十六、相框/相册/照片类工艺::背板安装": "assets/gifts-photo-kitchen-ai-photos/frame-back-board-installation.jpg",
+      "十六、相框/相册/照片类工艺::挂钩安装": "assets/gifts-photo-kitchen-ai-photos/frame-hook-installation.jpg",
+      "十六、相框/相册/照片类工艺::玻璃安装": "assets/gifts-photo-kitchen-ai-photos/frame-glass-installation.jpg",
+      "十六、相框/相册/照片类工艺::亚克力面板安装": "assets/gifts-photo-kitchen-ai-photos/frame-acrylic-panel-installation.jpg",
+      "十六、相框/相册/照片类工艺::精装相册": "assets/gifts-photo-kitchen-ai-photos/hardcover-photo-album.jpg",
+      "十六、相框/相册/照片类工艺::蝴蝶装": "assets/gifts-photo-kitchen-ai-photos/layflat-butterfly-binding.jpg",
+      "十六、相框/相册/照片类工艺::对裱": "assets/gifts-photo-kitchen-ai-photos/album-board-mounting.jpg",
+      "十六、相框/相册/照片类工艺::锁线装": "assets/gifts-photo-kitchen-ai-photos/album-smyth-sewn-binding.jpg",
+      "十七、厨房用品类工艺::UV打印": "assets/gifts-photo-kitchen-ai-photos/kitchen-uv-printing.jpg",
+      "十七、厨房用品类工艺::激光雕刻": "assets/gifts-photo-kitchen-ai-photos/kitchen-laser-engraving.jpg",
+      "十七、厨房用品类工艺::热升华": "assets/gifts-photo-kitchen-ai-photos/kitchen-sublimation.jpg",
+      "十七、厨房用品类工艺::丝网印刷": "assets/gifts-photo-kitchen-ai-photos/kitchen-screen-printing.jpg",
+      "十七、厨房用品类工艺::水转印": "assets/gifts-photo-kitchen-ai-photos/kitchen-water-transfer.jpg",
+      "十七、厨房用品类工艺::烤花": "assets/gifts-photo-kitchen-ai-photos/kitchen-ceramic-firing.jpg",
+      "十七、厨房用品类工艺::贴花": "assets/gifts-photo-kitchen-ai-photos/kitchen-decal-application.jpg",
+      "十七、厨房用品类工艺::不锈钢镭雕": "assets/gifts-photo-kitchen-ai-photos/kitchen-stainless-laser-engraving.jpg",
+      "十七、厨房用品类工艺::喷砂": "assets/gifts-photo-kitchen-ai-photos/kitchen-glass-sandblasting.jpg",
+      "十七、厨房用品类工艺::压印": "assets/gifts-photo-kitchen-ai-photos/kitchen-leather-placemat-embossing.jpg",
+      "十七、厨房用品类工艺::模切": "assets/gifts-photo-kitchen-ai-photos/kitchen-silicone-die-cutting.jpg",
+      "十七、厨房用品类工艺::缝制": "assets/gifts-photo-kitchen-ai-photos/kitchen-apron-sewing.jpg",
+      "十七、厨房用品类工艺::包边": "assets/gifts-photo-kitchen-ai-photos/kitchen-placemat-edge-binding.jpg",
+      "十七、厨房用品类工艺::防水处理": "assets/gifts-photo-kitchen-ai-photos/kitchen-apron-waterproof-treatment.jpg",
+      "十七、厨房用品类工艺::食品级涂层处理": "assets/gifts-photo-kitchen-ai-photos/kitchen-food-grade-coating.jpg",
+    };
+
+    const outdoorAdEffectsPhotoAssets = {
+      "十八、户外/车品类工艺::UV打印": "assets/outdoor-ad-effects-ai-photos/outdoor-uv-printing.jpg",
+      "十八、户外/车品类工艺::弱溶剂写真": "assets/outdoor-ad-effects-ai-photos/outdoor-eco-solvent-printing.jpg",
+      "十八、户外/车品类工艺::Latex打印": "assets/outdoor-ad-effects-ai-photos/outdoor-latex-printing.jpg",
+      "十八、户外/车品类工艺::丝网印刷": "assets/outdoor-ad-effects-ai-photos/outdoor-screen-printing.jpg",
+      "十八、户外/车品类工艺::热升华": "assets/outdoor-ad-effects-ai-photos/outdoor-sublimation.jpg",
+      "十八、户外/车品类工艺::反光印刷": "assets/outdoor-ad-effects-ai-photos/outdoor-reflective-printing.jpg",
+      "十八、户外/车品类工艺::夜光印刷": "assets/outdoor-ad-effects-ai-photos/outdoor-glow-printing.jpg",
+      "十八、户外/车品类工艺::防水涂层": "assets/outdoor-ad-effects-ai-photos/outdoor-waterproof-coating.jpg",
+      "十八、户外/车品类工艺::防紫外处理": "assets/outdoor-ad-effects-ai-photos/outdoor-uv-resistant-treatment.jpg",
+      "十八、户外/车品类工艺::旗帜热转印": "assets/outdoor-ad-effects-ai-photos/flag-heat-transfer.jpg",
+      "十八、户外/车品类工艺::缝边": "assets/outdoor-ad-effects-ai-photos/flag-hemming.jpg",
+      "十八、户外/车品类工艺::打鸡眼": "assets/outdoor-ad-effects-ai-photos/banner-eyelet-installation.jpg",
+      "十八、户外/车品类工艺::穿绳": "assets/outdoor-ad-effects-ai-photos/flag-rope-threading.jpg",
+      "十八、户外/车品类工艺::贴膜": "assets/outdoor-ad-effects-ai-photos/car-decal-film-application.jpg",
+      "十八、户外/车品类工艺::覆膜": "assets/outdoor-ad-effects-ai-photos/outdoor-graphic-lamination.jpg",
+      "十八、户外/车品类工艺::模切": "assets/outdoor-ad-effects-ai-photos/car-decal-die-cutting.jpg",
+      "十八、户外/车品类工艺::安装背胶": "assets/outdoor-ad-effects-ai-photos/adhesive-backing-installation.jpg",
+      "十九、广告展示类工艺::写真喷绘": "assets/outdoor-ad-effects-ai-photos/ad-photo-inkjet-printing.jpg",
+      "十九、广告展示类工艺::UV卷材打印": "assets/outdoor-ad-effects-ai-photos/ad-uv-roll-printing.jpg",
+      "十九、广告展示类工艺::UV平板打印": "assets/outdoor-ad-effects-ai-photos/ad-uv-flatbed-printing.jpg",
+      "十九、广告展示类工艺::喷绘布打印": "assets/outdoor-ad-effects-ai-photos/ad-banner-fabric-printing.jpg",
+      "十九、广告展示类工艺::灯片打印": "assets/outdoor-ad-effects-ai-photos/ad-backlit-film-printing.jpg",
+      "十九、广告展示类工艺::背胶写真": "assets/outdoor-ad-effects-ai-photos/ad-self-adhesive-photo-print.jpg",
+      "十九、广告展示类工艺::车贴写真": "assets/outdoor-ad-effects-ai-photos/ad-vehicle-wrap-print.jpg",
+      "十九、广告展示类工艺::PP纸写真": "assets/outdoor-ad-effects-ai-photos/ad-pp-paper-print.jpg",
+      "十九、广告展示类工艺::相纸写真": "assets/outdoor-ad-effects-ai-photos/ad-photo-paper-print.jpg",
+      "十九、广告展示类工艺::软膜打印": "assets/outdoor-ad-effects-ai-photos/ad-soft-film-printing.jpg",
+      "十九、广告展示类工艺::刀刮布喷绘": "assets/outdoor-ad-effects-ai-photos/ad-tarpaulin-printing.jpg",
+      "十九、广告展示类工艺::黑白布喷绘": "assets/outdoor-ad-effects-ai-photos/ad-blockout-fabric-printing.jpg",
+      "十九、广告展示类工艺::网格布喷绘": "assets/outdoor-ad-effects-ai-photos/ad-mesh-fabric-printing.jpg",
+      "十九、广告展示类工艺::KT板裱画": "assets/outdoor-ad-effects-ai-photos/ad-kt-board-mounting.jpg",
+      "十九、广告展示类工艺::PVC板裱画": "assets/outdoor-ad-effects-ai-photos/ad-pvc-board-mounting.jpg",
+      "十九、广告展示类工艺::亚克力夹画": "assets/outdoor-ad-effects-ai-photos/ad-acrylic-sandwich-display.jpg",
+      "十九、广告展示类工艺::冷裱膜": "assets/outdoor-ad-effects-ai-photos/ad-cold-lamination.jpg",
+      "十九、广告展示类工艺::覆膜": "assets/outdoor-ad-effects-ai-photos/ad-protective-lamination.jpg",
+      "十九、广告展示类工艺::裁切": "assets/outdoor-ad-effects-ai-photos/ad-graphic-cutting.jpg",
+      "十九、广告展示类工艺::雕刻": "assets/outdoor-ad-effects-ai-photos/ad-cnc-engraving.jpg",
+      "十九、广告展示类工艺::折弯": "assets/outdoor-ad-effects-ai-photos/ad-display-bending.jpg",
+      "十九、广告展示类工艺::打孔": "assets/outdoor-ad-effects-ai-photos/ad-sign-drilling.jpg",
+      "十九、广告展示类工艺::装扣眼": "assets/outdoor-ad-effects-ai-photos/ad-banner-eyelet-installation.jpg",
+      "十九、广告展示类工艺::安装画轴": "assets/outdoor-ad-effects-ai-photos/ad-poster-rod-installation.jpg",
+      "十九、广告展示类工艺::易拉宝装配": "assets/outdoor-ad-effects-ai-photos/ad-roll-up-assembly.jpg",
+      "十九、广告展示类工艺::X展架装配": "assets/outdoor-ad-effects-ai-photos/ad-x-banner-assembly.jpg",
+      "二十、常见特殊效果工艺::亮面": "assets/outdoor-ad-effects-ai-photos/effect-glossy.jpg",
+      "二十、常见特殊效果工艺::哑面": "assets/outdoor-ad-effects-ai-photos/effect-matte.jpg",
+      "二十、常见特殊效果工艺::立体": "assets/outdoor-ad-effects-ai-photos/effect-dimensional.jpg",
+      "二十、常见特殊效果工艺::金属感": "assets/outdoor-ad-effects-ai-photos/effect-metallic.jpg",
+      "二十、常见特殊效果工艺::反光": "assets/outdoor-ad-effects-ai-photos/effect-reflective.jpg",
+      "二十、常见特殊效果工艺::夜光": "assets/outdoor-ad-effects-ai-photos/effect-glow.jpg",
+      "二十、常见特殊效果工艺::温变": "assets/outdoor-ad-effects-ai-photos/effect-thermochromic.jpg",
+      "二十、常见特殊效果工艺::光变": "assets/outdoor-ad-effects-ai-photos/effect-photochromic.jpg",
+      "二十、常见特殊效果工艺::镭射": "assets/outdoor-ad-effects-ai-photos/effect-holographic.jpg",
+      "二十、常见特殊效果工艺::透明": "assets/outdoor-ad-effects-ai-photos/effect-transparent.jpg",
+      "二十、常见特殊效果工艺::磨砂": "assets/outdoor-ad-effects-ai-photos/effect-frosted.jpg",
+      "二十、常见特殊效果工艺::防水": "assets/outdoor-ad-effects-ai-photos/effect-waterproof.jpg",
+      "二十、常见特殊效果工艺::防刮": "assets/outdoor-ad-effects-ai-photos/effect-scratch-resistant.jpg",
+      "二十、常见特殊效果工艺::防晒": "assets/outdoor-ad-effects-ai-photos/effect-sun-resistant.jpg",
+      "二十、常见特殊效果工艺::防滑": "assets/outdoor-ad-effects-ai-photos/effect-anti-slip.jpg",
+      "二十、常见特殊效果工艺::亲肤": "assets/outdoor-ad-effects-ai-photos/effect-skin-friendly.jpg",
+      "二十、常见特殊效果工艺::厚重": "assets/outdoor-ad-effects-ai-photos/effect-thick-heavy.jpg",
+      "二十、常见特殊效果工艺::复古": "assets/outdoor-ad-effects-ai-photos/effect-vintage.jpg",
+      "二十、常见特殊效果工艺::高弹": "assets/outdoor-ad-effects-ai-photos/effect-high-elastic.jpg",
+      "二十、常见特殊效果工艺::可移除": "assets/outdoor-ad-effects-ai-photos/effect-removable-adhesive.jpg",
+      "二十、常见特殊效果工艺::可降解": "assets/outdoor-ad-effects-ai-photos/effect-biodegradable.jpg",
+    };
+
+    const erpDiagramAssets = {
+      "二十一、ERP 工艺字典 / 六层结构::成像工艺": "assets/erp-dictionary-diagrams/imaging-process.svg",
+      "二十一、ERP 工艺字典 / 六层结构::材料/底材": "assets/erp-dictionary-diagrams/substrate-material.svg",
+      "二十一、ERP 工艺字典 / 六层结构::印前处理": "assets/erp-dictionary-diagrams/prepress-process.svg",
+      "二十一、ERP 工艺字典 / 六层结构::主生产工艺": "assets/erp-dictionary-diagrams/main-production.svg",
+      "二十一、ERP 工艺字典 / 六层结构::后处理工艺": "assets/erp-dictionary-diagrams/post-processing.svg",
+      "二十一、ERP 工艺字典 / 六层结构::包装发货工艺": "assets/erp-dictionary-diagrams/packing-shipping.svg",
+    };
+
+    const categorySelect = document.querySelector("#category");
+    const search = document.querySelector("#search");
+    const gallery = document.querySelector("#gallery");
+    const stats = document.querySelector("#stats");
+    const reset = document.querySelector("#reset");
+    const imageAssetVersion = "20260513-paper-home-recrops";
+
+    const allCount = normalized.reduce((sum, group) => sum + group.items.length, 0);
+    categorySelect.innerHTML = `<option value="">全部分类</option>` + normalized
+      .map((group, index) => `<option value="${index}">${escapeHtml(group.category)}</option>`)
+      .join("");
+
+    function paletteFor(text) {
+      if (/金|银|镭射|电镀|金属|珐琅|拉丝|抛光|钢|铝|铁|铜/.test(text)) return ["#f8fafc", "#d7dde8", "#b7791f", "#334155"];
+      if (/木|竹|清漆|上蜡|打磨|砧板/.test(text)) return ["#fff7ed", "#d97706", "#92400e", "#431407"];
+      if (/皮|PU|真皮|压印|油边/.test(text)) return ["#fff7ed", "#7c2d12", "#b45309", "#451a03"];
+      if (/玻璃|水晶|透明|亚克力/.test(text)) return ["#ecfeff", "#22d3ee", "#0e7490", "#155e75"];
+      if (/纸|包装|标签|贴纸|画册|卡片|书|相册/.test(text)) return ["#f8fafc", "#e11d48", "#0f766e", "#1f2937"];
+      if (/服装|T恤|卫衣|刺绣|缝|布|纺|家纺|帽|包|鞋/.test(text)) return ["#f0fdf4", "#0f766e", "#2563eb", "#1f2937"];
+      if (/杯|陶瓷|釉|烤花/.test(text)) return ["#fffbeb", "#0891b2", "#d97706", "#1f2937"];
+      if (/塑料|PVC|硅胶|注塑|吸塑/.test(text)) return ["#f5f3ff", "#7c3aed", "#db2777", "#1f2937"];
+      return ["#f8fafc", "#0f766e", "#b45309", "#1f2937"];
+    }
+
+    function iconType(text) {
+      if (/刺绣|绣|织唛|缝线|锁线/.test(text)) return "stitch";
+      if (/热升华|转印|烫|热压|压底|高周波/.test(text)) return "heat";
+      if (/丝网|水浆|胶浆|印花|胶印|柔印|凹印/.test(text)) return "screen";
+      if (/激光|镭雕|内雕|雕刻|切割|CNC|打标/.test(text)) return "laser";
+      if (/模切|裁切|裁剪|裁断|分切|半切|全切|Die Cut|Kiss Cut/.test(text)) return "cut";
+      if (/杯|陶瓷|玻璃|水晶|釉|烤花|盘|碗/.test(text)) return "cup";
+      if (/手机壳|耳机壳|MagSafe|支架|挂绳/.test(text)) return "phone";
+      if (/亚克力|立牌|钥匙扣|徽章|摆件|滴胶|软胶/.test(text)) return "acrylic";
+      if (/纸|包装|标签|贴纸|画册|卡片|书|相册|照片/.test(text)) return "paper";
+      if (/缝制|拷边|包边|锁边|锁眼|钉扣|拉链|帽绳|整烫|熨烫/.test(text)) return "sew";
+      if (/组装|安装|入盒|入袋|扫码|发货|贴码|吊牌|分拣/.test(text)) return "assembly";
+      if (/水洗|洗水|酵素|石磨|砂洗|固色|蒸化|定型|柔软|阻燃|抗菌|防水/.test(text)) return "finish";
+      return "print";
+    }
+
+    function processSvg(item, category) {
+      const text = `${item.name} ${item.applies} ${item.feature} ${category}`;
+      const [bg, a, b, ink] = paletteFor(text);
+      const type = iconType(text);
+      const title = safeSvgText(item.name);
+      const sub = safeSvgText(item.applies || item.feature || category.replace(/^.*?、/, ""));
+      const motif = motifSvg(type, a, b, ink, text);
+      const effects = effectSvg(text);
+      const svg = `
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600" role="img" aria-label="${title}">
+          <defs>
+            <linearGradient id="g" x1="0" x2="1" y1="0" y2="1">
+              <stop offset="0" stop-color="${bg}"/>
+              <stop offset="1" stop-color="#ffffff"/>
+            </linearGradient>
+            <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
+              <feDropShadow dx="0" dy="14" stdDeviation="16" flood-color="#0f172a" flood-opacity=".18"/>
+            </filter>
+            <pattern id="dots" width="34" height="34" patternUnits="userSpaceOnUse">
+              <circle cx="4" cy="4" r="2" fill="${a}" opacity=".16"/>
+            </pattern>
+          </defs>
+          <rect width="800" height="600" fill="url(#g)"/>
+          <rect width="800" height="600" fill="url(#dots)"/>
+          ${effects}
+          ${motif}
+          <rect x="42" y="438" width="716" height="112" rx="20" fill="#ffffff" opacity=".92" filter="url(#shadow)"/>
+          <text x="70" y="486" font-size="38" font-weight="800" fill="${ink}" font-family="Arial, 'Microsoft YaHei', sans-serif">${title}</text>
+          <text x="70" y="526" font-size="22" fill="#475569" font-family="Arial, 'Microsoft YaHei', sans-serif">${sub}</text>
+        </svg>`;
+      return `data:image/svg+xml;charset=UTF-8,${encodeURIComponent(svg)}`;
+    }
+
+    function motifSvg(type, a, b, ink, text) {
+      const shine = /亮|光油|光膜|镭射|反光|金|银/.test(text) ? `<path d="M575 86l18 38 40 8-32 27 5 41-35-22-38 18 10-41-29-31 41-4z" fill="${b}" opacity=".65"/>` : "";
+      if (type === "stitch") return `
+        <rect x="150" y="110" width="500" height="290" rx="34" fill="#fff" filter="url(#shadow)"/>
+        <path d="M220 306c70-120 160-120 230 0s160 120 230 0" fill="none" stroke="${a}" stroke-width="18" stroke-linecap="round"/>
+        <path d="M210 180h390" stroke="${ink}" stroke-width="8" stroke-dasharray="4 22" stroke-linecap="round"/>
+        <circle cx="520" cy="238" r="58" fill="${b}" opacity=".22"/><text x="492" y="253" font-size="48" fill="${b}">针</text>${shine}`;
+      if (type === "heat") return `
+        <rect x="160" y="160" width="480" height="64" rx="14" fill="${ink}" opacity=".9"/>
+        <rect x="206" y="236" width="388" height="110" rx="22" fill="#fff" filter="url(#shadow)"/>
+        <path d="M250 318h300" stroke="${a}" stroke-width="20" stroke-linecap="round"/>
+        <path d="M286 120c-30 34 30 45 0 78M400 120c-30 34 30 45 0 78M514 120c-30 34 30 45 0 78" fill="none" stroke="${b}" stroke-width="14" stroke-linecap="round"/>
+        <rect x="250" y="346" width="300" height="26" rx="13" fill="${a}" opacity=".3"/>${shine}`;
+      if (type === "screen") return `
+        <rect x="128" y="116" width="544" height="310" rx="24" fill="#fff" filter="url(#shadow)"/>
+        <rect x="184" y="160" width="432" height="178" rx="10" fill="none" stroke="${ink}" stroke-width="14"/>
+        <path d="M210 348h380" stroke="${a}" stroke-width="30" stroke-linecap="round"/>
+        <path d="M250 230h300" stroke="${b}" stroke-width="22" stroke-linecap="round"/>
+        <path d="M300 190l180 126" stroke="${ink}" stroke-width="12" opacity=".3"/>${shine}`;
+      if (type === "laser") return `
+        <rect x="160" y="300" width="480" height="74" rx="16" fill="#fff" filter="url(#shadow)"/>
+        <path d="M145 126h260v76H145z" fill="${ink}"/><circle cx="526" cy="164" r="72" fill="${b}" opacity=".18"/>
+        <path d="M405 164L548 310" stroke="${b}" stroke-width="10"/><path d="M548 310l-46 56" stroke="${a}" stroke-width="16" stroke-linecap="round"/>
+        <path d="M250 338h300" stroke="${a}" stroke-width="7" stroke-dasharray="10 12"/>${shine}`;
+      if (type === "cut") return `
+        <rect x="190" y="118" width="420" height="300" rx="24" fill="#fff" filter="url(#shadow)"/>
+        <path d="M260 210h280M260 300h280" stroke="${a}" stroke-width="12" stroke-dasharray="16 14"/>
+        <path d="M500 150l80 80-80 80-80-80z" fill="${b}" opacity=".18" stroke="${b}" stroke-width="8"/>
+        <path d="M220 370l360-210" stroke="${ink}" stroke-width="10" stroke-linecap="round"/>${shine}`;
+      if (type === "cup") return `
+        <path d="M270 132h230v230c0 48-39 87-87 87h-56c-48 0-87-39-87-87z" fill="#fff" filter="url(#shadow)"/>
+        <path d="M500 196h42c54 0 54 110 0 110h-42" fill="none" stroke="${ink}" stroke-width="20"/>
+        <rect x="304" y="210" width="154" height="92" rx="18" fill="${a}" opacity=".82"/>
+        <path d="M320 254c42-44 78 42 120-2" fill="none" stroke="#fff" stroke-width="10" stroke-linecap="round"/>${shine}`;
+      if (type === "phone") return `
+        <rect x="286" y="92" width="228" height="360" rx="40" fill="${ink}" filter="url(#shadow)"/>
+        <rect x="310" y="130" width="180" height="280" rx="24" fill="#fff"/>
+        <circle cx="360" cy="170" r="26" fill="${a}"/><path d="M334 306h132" stroke="${b}" stroke-width="28" stroke-linecap="round"/>
+        <path d="M348 248h104" stroke="${a}" stroke-width="18" stroke-linecap="round"/>${shine}`;
+      if (type === "acrylic") return `
+        <path d="M250 112h260l80 80v196H250z" fill="#fff" opacity=".78" filter="url(#shadow)" stroke="${a}" stroke-width="10"/>
+        <path d="M510 112v80h80" fill="none" stroke="${a}" stroke-width="10"/>
+        <circle cx="400" cy="278" r="82" fill="${a}" opacity=".18" stroke="${b}" stroke-width="14"/>
+        <path d="M342 290h116" stroke="${b}" stroke-width="22" stroke-linecap="round"/>${shine}`;
+      if (type === "paper") return `
+        <rect x="210" y="92" width="330" height="380" rx="18" fill="#fff" filter="url(#shadow)"/>
+        <path d="M260 170h230M260 222h160M260 366h230" stroke="${ink}" stroke-width="13" stroke-linecap="round" opacity=".55"/>
+        <rect x="260" y="260" width="180" height="74" rx="12" fill="${a}" opacity=".78"/>
+        <circle cx="496" cy="392" r="42" fill="${b}" opacity=".28"/>${shine}`;
+      if (type === "sew") return `
+        <path d="M192 178h294c78 0 122 42 122 112v64H192z" fill="#fff" filter="url(#shadow)"/>
+        <path d="M280 180v-54h118v54" fill="none" stroke="${ink}" stroke-width="18"/>
+        <path d="M470 250v130" stroke="${ink}" stroke-width="10"/><path d="M430 386h120" stroke="${a}" stroke-width="12" stroke-linecap="round"/>
+        <path d="M230 308h210" stroke="${b}" stroke-width="12" stroke-dasharray="5 16" stroke-linecap="round"/>${shine}`;
+      if (type === "assembly") return `
+        <rect x="154" y="150" width="200" height="160" rx="24" fill="#fff" filter="url(#shadow)"/>
+        <rect x="446" y="150" width="200" height="160" rx="24" fill="#fff" filter="url(#shadow)"/>
+        <path d="M354 230h92" stroke="${a}" stroke-width="18" stroke-linecap="round"/><path d="M418 202l32 28-32 28" fill="none" stroke="${a}" stroke-width="18" stroke-linecap="round" stroke-linejoin="round"/>
+        <circle cx="254" cy="230" r="48" fill="${b}" opacity=".24"/><path d="M502 230h88M546 186v88" stroke="${b}" stroke-width="16" stroke-linecap="round"/>${shine}`;
+      if (type === "finish") return `
+        <rect x="176" y="132" width="448" height="282" rx="34" fill="#fff" filter="url(#shadow)"/>
+        <path d="M220 286c54-44 104 44 158 0s104 44 158 0" fill="none" stroke="${a}" stroke-width="18" stroke-linecap="round"/>
+        <circle cx="306" cy="220" r="42" fill="${b}" opacity=".26"/><circle cx="438" cy="218" r="32" fill="${a}" opacity=".2"/>
+        <path d="M250 356h300" stroke="${ink}" stroke-width="12" stroke-linecap="round" opacity=".34"/>${shine}`;
+      return `
+        <rect x="132" y="126" width="536" height="288" rx="30" fill="#fff" filter="url(#shadow)"/>
+        <rect x="190" y="170" width="210" height="152" rx="18" fill="${a}" opacity=".82"/>
+        <path d="M430 186h130M430 238h178M430 290h94" stroke="${ink}" stroke-width="16" stroke-linecap="round" opacity=".5"/>
+        <path d="M212 252l54-48 92 94" fill="none" stroke="#fff" stroke-width="16" stroke-linecap="round" stroke-linejoin="round"/>${shine}`;
+    }
+
+    function effectSvg(text) {
+      let out = "";
+      if (/夜光|光变|温变|变色/.test(text)) {
+        out += `<circle cx="650" cy="120" r="78" fill="#bef264" opacity=".35"/><circle cx="650" cy="120" r="42" fill="#84cc16" opacity=".44"/>`;
+      }
+      if (/反光|镭射|金葱|闪|金属感/.test(text)) {
+        out += `<path d="M66 116h170M90 164h96M620 366h120" stroke="#f59e0b" stroke-width="12" stroke-linecap="round" opacity=".55"/>`;
+      }
+      if (/防水|水洗|洗水|喷砂/.test(text)) {
+        out += `<path d="M112 92c24 46 72 46 96 0 24 46 72 46 96 0" fill="none" stroke="#38bdf8" stroke-width="10" stroke-linecap="round" opacity=".45"/>`;
+      }
+      return out;
+    }
+
+    function render() {
+      const q = search.value.trim().toLowerCase();
+      const selected = categorySelect.value;
+      gallery.innerHTML = "";
+      let visibleCount = 0;
+      let sectionCount = 0;
+
+      normalized.forEach((group, index) => {
+        if (selected !== "" && Number(selected) !== index) return;
+        const items = group.items.filter(item => {
+          const haystack = `${group.category} ${item.name} ${item.applies} ${item.feature}`.toLowerCase();
+          return !q || haystack.includes(q);
+        });
+        if (!items.length) return;
+        visibleCount += items.length;
+        sectionCount += 1;
+
+        const section = document.createElement("section");
+        const id = `cat-${index}`;
+        section.id = id;
+        const isErpSection = group.category.startsWith("二十一、ERP 工艺字典");
+        if (isErpSection) section.className = "erp-section";
+        section.innerHTML = `
+          <div class="section-head">
+            <h2>${escapeHtml(group.category)}</h2>
+            <span class="count">${items.length} 项</span>
+          </div>
+          <div class="grid"></div>
+        `;
+        const grid = section.querySelector(".grid");
+        items.forEach(item => {
+          const card = document.createElement("article");
+          card.className = isErpSection ? "card erp-card" : "card";
+          const scopedKey = `${group.category}::${item.name}`;
+          const isTextileCategory = group.category.startsWith("一、服装纺织类工艺");
+          const isHardgoodsCategory = /^二、|^三、|^四、|^五、/.test(group.category);
+          const isMaterialCategory = /^六、|^七、|^八、|^九、/.test(group.category);
+          const isSoftgoodsPlasticCategory = /^十、|^十一、|^十二、|^十三、|^十四、/.test(group.category);
+          const isGiftPhotoKitchenCategory = /^十五、|^十六、|^十七、/.test(group.category);
+          const isOutdoorAdEffectsCategory = /^十八、|^十九、|^二十、/.test(group.category);
+          const isErpCategory = group.category.startsWith("二十一、ERP 工艺字典");
+          const img = isTextileCategory
+            ? textilePhotoAssets[item.name] || processSvg(item, group.category)
+            : isHardgoodsCategory
+              ? scopedHardgoodsPhotoAssets[scopedKey] || hardgoodsPhotoAssets[item.name] || processSvg(item, group.category)
+              : isMaterialCategory
+                ? materialPhotoAssets[scopedKey] || processSvg(item, group.category)
+                : isSoftgoodsPlasticCategory
+                  ? softgoodsPlasticPhotoAssets[scopedKey] || processSvg(item, group.category)
+                  : isGiftPhotoKitchenCategory
+                    ? giftPhotoKitchenPhotoAssets[scopedKey] || processSvg(item, group.category)
+                    : isOutdoorAdEffectsCategory
+                      ? outdoorAdEffectsPhotoAssets[scopedKey] || processSvg(item, group.category)
+                      : isErpCategory
+                        ? erpDiagramAssets[scopedKey] || processSvg(item, group.category)
+                        : processSvg(item, group.category);
+          const imgSrc = img.startsWith("assets/") ? `${img}?v=${imageAssetVersion}` : img;
+          const meta = [item.applies && `适用：${item.applies}`, item.feature && `特点：${item.feature}`].filter(Boolean).join("<br>");
+          card.innerHTML = `
+            <img src="${imgSrc}" alt="${escapeHtml(item.name)} 工艺示意图" loading="lazy">
+            <div class="body">
+              <h3>${escapeHtml(item.name)}</h3>
+              <div class="meta">${meta || "工艺节点 / ERP字典项"}</div>
+              <div class="tagrow">
+                ${tagsFor(item, group.category).map(tag => `<span class="tag">${escapeHtml(tag)}</span>`).join("")}
+              </div>
+            </div>
+          `;
+          grid.appendChild(card);
+        });
+        gallery.appendChild(section);
+      });
+
+      stats.innerHTML = `
+        <span class="pill">总工艺图卡：${allCount}</span>
+        <span class="pill">当前显示：${visibleCount}</span>
+        <span class="pill">分类：${sectionCount}</span>
+        <span class="pill">图片模式：一至二十类 AI 实拍图，ERP 字典为内嵌 SVG 示意图</span>
+      `;
+      if (!visibleCount) gallery.innerHTML = `<div class="empty">没有匹配结果。换一个关键词试试。</div>`;
+    }
+
+    function tagsFor(item, category) {
+      const text = `${item.name} ${item.applies} ${item.feature} ${category}`;
+      const tags = [];
+      const pairs = [
+        [/UV|数码|喷墨|直喷|打印|写真/, "打印"],
+        [/热升华|转印|烫画|烫压/, "热转印"],
+        [/丝网|丝印|胶印|柔印|凹印|移印/, "印刷"],
+        [/刺绣|绣|缝|锁边|包边/, "纺织"],
+        [/激光|镭雕|雕刻|切割|CNC/, "雕刻切割"],
+        [/覆膜|光油|滴胶|抛光|喷砂|电镀|烤漆|珐琅/, "后处理"],
+        [/组装|安装|入袋|发货|贴标|吊牌/, "组装包装"],
+        [/金|银|反光|夜光|变色|透明|磨砂|立体|防水|防刮/, "特殊效果"]
+      ];
+      pairs.forEach(([re, tag]) => { if (re.test(text)) tags.push(tag); });
+      return tags.slice(0, 3);
+    }
+
+    function escapeHtml(value) {
+      return String(value).replace(/[&<>"']/g, char => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[char]));
+    }
+
+    function safeSvgText(value) {
+      const str = String(value || "").replace(/[&<>"']/g, char => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&apos;" }[char]));
+      return str.length > 28 ? str.slice(0, 27) + "…" : str;
+    }
+
+    search.addEventListener("input", render);
+    categorySelect.addEventListener("change", render);
+    reset.addEventListener("click", () => {
+      search.value = "";
+      categorySelect.value = "";
+      render();
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    });
+
+    render();
+  </script>
+</body>
+</html>
