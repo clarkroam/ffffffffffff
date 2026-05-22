@@ -1,0 +1,1045 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>EPROLO 与 InkedJoy 调研整理报告</title>
+<style>
+  :root {
+    --primary: #1F3864;
+    --primary-light: #2E5597;
+    --accent: #f0a020;
+    --text: #1d1d1f;
+    --text-secondary: #595959;
+    --text-muted: #808080;
+    --bg: #ffffff;
+    --bg-soft: #f5f7fb;
+    --bg-card: #f7f8fb;
+    --border: #d0d4dc;
+    --border-soft: #e8ecf3;
+    --highlight: #fff8d6;
+    --max-width: 760px;
+  }
+
+  * { box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue",
+                 "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei",
+                 "Source Han Sans CN", sans-serif;
+    font-size: 16px;
+    line-height: 1.75;
+    color: var(--text);
+    background: var(--bg);
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* 阅读进度条 */
+  #progress {
+    position: fixed;
+    top: 0; left: 0;
+    height: 3px;
+    width: 0%;
+    background: linear-gradient(90deg, var(--primary) 0%, var(--accent) 100%);
+    z-index: 1000;
+    transition: width 0.1s linear;
+  }
+
+  /* 顶部固定栏 */
+  .topbar {
+    position: sticky;
+    top: 0;
+    background: rgba(255,255,255,0.92);
+    backdrop-filter: saturate(180%) blur(12px);
+    -webkit-backdrop-filter: saturate(180%) blur(12px);
+    border-bottom: 1px solid var(--border-soft);
+    padding: 12px 20px;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 14px;
+  }
+  .topbar .brand {
+    font-weight: 700;
+    color: var(--primary);
+  }
+  .topbar .meta {
+    color: var(--text-muted);
+    font-size: 12px;
+  }
+  .menu-btn {
+    background: none;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 5px 10px;
+    cursor: pointer;
+    font-size: 13px;
+    color: var(--text);
+  }
+  .menu-btn:active { background: var(--bg-soft); }
+
+  /* 容器 */
+  .container {
+    max-width: var(--max-width);
+    margin: 0 auto;
+    padding: 0 20px 80px;
+  }
+
+  /* 封面 */
+  .cover {
+    text-align: center;
+    padding: 60px 20px 50px;
+    border-bottom: 1px solid var(--border-soft);
+    margin-bottom: 30px;
+  }
+  .cover h1 {
+    font-size: 36px;
+    color: var(--primary);
+    margin: 0 0 12px;
+    line-height: 1.2;
+    border: none;
+    padding: 0;
+  }
+  .cover .subtitle {
+    font-size: 17px;
+    color: var(--text-secondary);
+    font-style: italic;
+    margin-bottom: 30px;
+    line-height: 1.5;
+  }
+  .cover .tag {
+    font-size: 13px;
+    color: var(--text-muted);
+    letter-spacing: 0.05em;
+  }
+  .cover .date {
+    margin-top: 40px;
+    font-size: 13px;
+    color: var(--text-secondary);
+  }
+
+  /* 标题 */
+  h1, h2, h3 {
+    color: var(--primary);
+    line-height: 1.35;
+    scroll-margin-top: 80px;
+  }
+  h1 {
+    font-size: 28px;
+    margin: 60px 0 20px;
+    padding-bottom: 12px;
+    border-bottom: 2px solid var(--primary);
+  }
+  h2 {
+    font-size: 21px;
+    color: var(--primary-light);
+    margin: 36px 0 14px;
+  }
+  h3 {
+    font-size: 17px;
+    color: #404040;
+    margin: 26px 0 10px;
+  }
+
+  /* 段落与列表 */
+  p { margin: 0.8em 0; }
+  ul, ol { padding-left: 24px; margin: 0.8em 0; }
+  li { margin: 6px 0; }
+
+  /* 强调标记 */
+  .highlight {
+    background: linear-gradient(180deg, transparent 60%, var(--highlight) 60%);
+    padding: 0 2px;
+  }
+
+  /* 引用 */
+  blockquote {
+    margin: 1.2em 0;
+    padding: 14px 18px;
+    border-left: 4px solid var(--primary);
+    background: var(--bg-card);
+    color: #404040;
+    font-style: italic;
+    border-radius: 0 6px 6px 0;
+  }
+  blockquote .src {
+    display: block;
+    margin-top: 8px;
+    font-size: 13px;
+    color: var(--text-muted);
+    font-style: normal;
+  }
+
+  /* 表格 - 桌面 */
+  .table-wrap { overflow-x: auto; margin: 1em 0; }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 14px;
+  }
+  th, td {
+    border: 1px solid var(--border);
+    padding: 10px 12px;
+    vertical-align: top;
+    text-align: left;
+  }
+  th {
+    background: var(--primary);
+    color: #fff;
+    font-weight: 600;
+  }
+  tr:nth-child(even) td { background: var(--bg-card); }
+
+  /* 表格 - 手机优化：超过 600px 屏宽用普通表格，小屏改成卡片式 */
+  @media (max-width: 600px) {
+    table.responsive thead { display: none; }
+    table.responsive, table.responsive tbody, table.responsive tr, table.responsive td {
+      display: block; width: 100%;
+    }
+    table.responsive tr {
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      margin-bottom: 14px;
+      padding: 4px 0;
+      background: #fff !important;
+      overflow: hidden;
+      box-shadow: 0 1px 2px rgba(0,0,0,0.04);
+    }
+    table.responsive tr:nth-child(even) { background: var(--bg-card) !important; }
+    table.responsive td {
+      border: none;
+      border-bottom: 1px solid var(--border-soft);
+      padding: 10px 14px;
+    }
+    table.responsive td:last-child { border-bottom: none; }
+    /* 显示 data-label 作为字段名（仅非首列） */
+    table.responsive td[data-label]:not(:first-child):before {
+      content: attr(data-label);
+      display: block;
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--primary);
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      margin-bottom: 4px;
+      opacity: 0.75;
+    }
+    /* 两列表格的第二列不显示 data-label（避免冗余的「信息」标签） */
+    table.responsive tr td:first-child:nth-last-child(2) ~ td:before {
+      display: none;
+    }
+    /* 第一格（通常是「项目名」「年份」等主键）样式更突出 */
+    table.responsive td:first-child {
+      background: rgba(31, 56, 100, 0.06);
+      font-weight: 600;
+      color: var(--primary);
+      font-size: 15px;
+    }
+  }
+
+  /* 飞轮 */
+  .flow {
+    text-align: center;
+    margin: 24px 0;
+    padding: 20px 14px;
+    background: var(--bg-soft);
+    border-radius: 12px;
+  }
+  .flow .step {
+    display: inline-block;
+    background: #fff;
+    border: 1.5px solid var(--primary);
+    border-radius: 8px;
+    padding: 10px 18px;
+    margin: 4px 0;
+    font-weight: 600;
+    color: var(--primary);
+    font-size: 14px;
+    max-width: 100%;
+    box-shadow: 0 1px 3px rgba(31,56,100,0.08);
+  }
+  .flow .arrow {
+    font-size: 18px;
+    color: var(--primary);
+    margin: 2px 0;
+    line-height: 1;
+  }
+
+  /* 速读卡片 */
+  .info-card {
+    background: linear-gradient(135deg, var(--bg-soft) 0%, #fff 100%);
+    border: 1px solid var(--border-soft);
+    border-left: 4px solid var(--primary);
+    border-radius: 8px;
+    padding: 14px 18px;
+    margin: 12px 0;
+  }
+  .info-card .label {
+    font-size: 12px;
+    color: var(--primary);
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    margin-bottom: 4px;
+  }
+
+  /* 章节卡片 */
+  .section-intro {
+    background: var(--bg-card);
+    padding: 14px 18px;
+    border-radius: 8px;
+    margin: 18px 0;
+    font-size: 15px;
+    color: var(--text-secondary);
+  }
+
+  /* 目录 */
+  .toc-card {
+    background: var(--bg-soft);
+    border-radius: 10px;
+    padding: 20px 24px;
+    margin: 20px 0;
+  }
+  .toc-card ol { padding-left: 24px; }
+  .toc-card li {
+    margin: 10px 0;
+    font-size: 15px;
+  }
+  .toc-card a {
+    color: var(--primary);
+    text-decoration: none;
+    border-bottom: 1px dotted var(--primary-light);
+  }
+  .toc-card a:hover { border-bottom-style: solid; }
+
+  /* 悬浮抽屉式目录 */
+  #sidebar {
+    position: fixed;
+    top: 0; right: -320px;
+    width: 300px;
+    height: 100vh;
+    background: #fff;
+    box-shadow: -4px 0 20px rgba(0,0,0,0.1);
+    transition: right 0.3s ease;
+    z-index: 200;
+    overflow-y: auto;
+    padding: 70px 20px 30px;
+  }
+  #sidebar.open { right: 0; }
+  #sidebar h3 {
+    color: var(--primary);
+    margin: 0 0 16px;
+    font-size: 16px;
+  }
+  #sidebar ol { padding-left: 22px; margin: 0; }
+  #sidebar li {
+    margin: 8px 0;
+    font-size: 14px;
+  }
+  #sidebar a {
+    color: var(--text);
+    text-decoration: none;
+    line-height: 1.4;
+    display: block;
+    padding: 4px 0;
+  }
+  #sidebar a:hover { color: var(--primary); }
+  #sidebar .close-btn {
+    position: absolute;
+    top: 14px; right: 14px;
+    background: none;
+    border: none;
+    font-size: 22px;
+    color: var(--text-muted);
+    cursor: pointer;
+  }
+
+  #backdrop {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.3);
+    z-index: 150;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+  }
+  #backdrop.show { opacity: 1; pointer-events: auto; }
+
+  /* 回到顶部 */
+  #back-top {
+    position: fixed;
+    bottom: 24px; right: 24px;
+    width: 44px; height: 44px;
+    border-radius: 50%;
+    background: var(--primary);
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    box-shadow: 0 4px 12px rgba(31,56,100,0.3);
+    font-size: 18px;
+    opacity: 0;
+    transform: translateY(20px);
+    pointer-events: none;
+    transition: all 0.3s ease;
+    z-index: 90;
+  }
+  #back-top.show {
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
+  }
+
+  /* 章节结束分隔 */
+  .section-end {
+    text-align: center;
+    margin: 50px 0 20px;
+    color: var(--border);
+    letter-spacing: 1em;
+  }
+
+  /* 报告结束 */
+  .report-end {
+    text-align: center;
+    margin: 80px 0 40px;
+    padding-top: 30px;
+    border-top: 2px solid var(--primary);
+    color: var(--text-muted);
+  }
+  .report-end .small {
+    font-size: 13px;
+    margin-top: 12px;
+    color: var(--text-muted);
+  }
+
+  /* 链接 */
+  a { color: var(--primary-light); text-decoration: none; }
+  a:hover { text-decoration: underline; }
+
+  /* 移动端调整 */
+  @media (max-width: 600px) {
+    body { font-size: 15px; line-height: 1.7; }
+    .container { padding: 0 16px 60px; }
+    .cover { padding: 40px 16px 30px; }
+    .cover h1 { font-size: 28px; }
+    .cover .subtitle { font-size: 15px; }
+    h1 { font-size: 22px; margin: 40px 0 16px; }
+    h2 { font-size: 18px; }
+    h3 { font-size: 16px; }
+    blockquote { padding: 12px 14px; font-size: 14px; }
+    .flow .step { font-size: 13px; padding: 8px 14px; }
+    .topbar { padding: 10px 14px; }
+    #back-top { bottom: 16px; right: 16px; }
+  }
+</style>
+</head>
+<body>
+
+<div id="progress"></div>
+
+<div class="topbar">
+  <span class="brand">EPROLO &amp; InkedJoy</span>
+  <span class="meta">调研报告</span>
+  <button class="menu-btn" onclick="toggleSidebar()">☰ 目录</button>
+</div>
+
+<div id="backdrop" onclick="toggleSidebar()"></div>
+
+<aside id="sidebar">
+  <button class="close-btn" onclick="toggleSidebar()">×</button>
+  <h3>报告目录</h3>
+  <ol>
+    <li><a href="#part-1" onclick="toggleSidebar()">创始人画像：Paul Yu</a></li>
+    <li><a href="#part-2" onclick="toggleSidebar()">公司主体与关联实体</a></li>
+    <li><a href="#part-3" onclick="toggleSidebar()">双品牌定位</a></li>
+    <li><a href="#part-4" onclick="toggleSidebar()">EPROLO 获客路径</a></li>
+    <li><a href="#part-5" onclick="toggleSidebar()">InkedJoy 发展路径</a></li>
+    <li><a href="#part-6" onclick="toggleSidebar()">共通的获客飞轮</a></li>
+    <li><a href="#part-7" onclick="toggleSidebar()">趋势与挑战</a></li>
+    <li><a href="#part-8" onclick="toggleSidebar()">关键信息速读</a></li>
+    <li><a href="#part-9" onclick="toggleSidebar()">参考资料</a></li>
+  </ol>
+</aside>
+
+<div class="container">
+
+  <!-- 封面 -->
+  <div class="cover">
+    <h1>EPROLO 与 InkedJoy</h1>
+    <div class="subtitle">从零起步、获客逻辑与<br>发展轨迹的系统性剖析</div>
+    <div class="tag">—— 创始人 · 母公司 · 双品牌矩阵 · 增长飞轮 ——</div>
+    <div class="date">调研整理报告 · 2026 年</div>
+  </div>
+
+  <!-- 摘要 -->
+  <h1 id="abstract">内容摘要</h1>
+  <p>本报告系统整理了围绕 EPROLO（深圳市大浩电子商务有限公司）及其按需印刷子品牌 InkedJoy 的完整调研材料，统一呈现以下五个层面的内容：</p>
+  <ul>
+    <li>创始人 Paul Yu（俞宏浩）的个人背景、商业观点与对外发声方式；</li>
+    <li>EPROLO 在中国与海外的法人主体演变、融资与团队规模；</li>
+    <li>EPROLO 与 InkedJoy 的商业模式、产品定位及差异化策略；</li>
+    <li>两个品牌从零到 160 万卖家的获客与营销路径拆解；</li>
+    <li>可复用的「从零到百万」打法与潜在增长挑战。</li>
+  </ul>
+
+  <div class="info-card">
+    <div class="label">关键洞察</div>
+    <p style="margin:0;"><span class="highlight">InkedJoy 并非独立公司，而是 EPROLO 旗下的 POD 业务线</span>。EPROLO 的成功本质上是「永久免费 + Shopify 平台红利 + 联盟与 KOL 矩阵 + 自营供应链」四件事的复合结果；创始人 Paul Yu 走的是典型的「低调中国创始人」路线，把曝光让给品牌本身。</p>
+  </div>
+
+  <!-- 报告结构 -->
+  <h1 id="structure">报告结构</h1>
+  <div class="toc-card">
+    <ol>
+      <li><a href="#part-1">第一部分　创始人画像：Paul Yu（俞宏浩）</a></li>
+      <li><a href="#part-2">第二部分　公司主体：深圳市大浩电子商务及关联实体</a></li>
+      <li><a href="#part-3">第三部分　双品牌定位：EPROLO 与 InkedJoy 的关系与差异</a></li>
+      <li><a href="#part-4">第四部分　EPROLO 的发展轨迹与获客路径</a></li>
+      <li><a href="#part-5">第五部分　InkedJoy 作为 POD 子品牌的发展路径</a></li>
+      <li><a href="#part-6">第六部分　共通的「获客飞轮」与可复用打法</a></li>
+      <li><a href="#part-7">第七部分　业务发展趋势与潜在挑战</a></li>
+      <li><a href="#part-8">第八部分　关键信息速读表</a></li>
+      <li><a href="#part-9">第九部分　参考资料</a></li>
+    </ol>
+  </div>
+
+  <!-- 第一部分 -->
+  <h1 id="part-1">第一部分　创始人画像：Paul Yu（俞宏浩）</h1>
+
+  <h2>1.1　基本身份信息</h2>
+  <div class="table-wrap">
+  <table class="responsive">
+    <thead><tr><th>项目</th><th>信息</th></tr></thead>
+    <tbody>
+      <tr><td data-label="项目">中文名</td><td data-label="信息">俞宏浩</td></tr>
+      <tr><td data-label="项目">英文名</td><td data-label="信息">Paul Yu（部分播客中读作 Paul Lu，应为口音差异）</td></tr>
+      <tr><td data-label="项目">现任职务</td><td data-label="信息">EPROLO 创始人兼 CEO</td></tr>
+      <tr><td data-label="项目">常驻地</td><td data-label="信息">中国深圳</td></tr>
+      <tr><td data-label="项目">法人代表身份</td><td data-label="信息">深圳市大浩电子商务有限公司、深圳市大浩进出口贸易有限公司、香港大浩實業有限公司</td></tr>
+    </tbody>
+  </table>
+  </div>
+
+  <h2>1.2　创业前的工作背景</h2>
+  <p>根据 Paul Yu 在 Ecommerce Coffee Break 播客中的亲口陈述，他的电商经历可以追溯到 2010 年前后，最早是在 AliExpress、eBay 等 C2C 跨境电商平台做卖家。</p>
+  <blockquote>
+    I was doing e-commerce like back into 2010, fifteen years ago, I was selling on AliExpress, on eBay.
+    <span class="src">— Paul Yu, Ecommerce Coffee Break Podcast</span>
+  </blockquote>
+  <p>这段一线卖家经验让他理解了海外买家的痛点和供应链的低效，奠定了后来 EPROLO 平台化转型的基础。公开渠道中尚未发现其具体毕业院校与早期任职公司——他不是典型的「高调创始人」，而更接近于「<span class="highlight">从 eBay 卖家做大的实战派</span>」。</p>
+
+  <h2>1.3　创业历程时间轴</h2>
+  <div class="table-wrap">
+  <table class="responsive">
+    <thead><tr><th>年份</th><th>事件</th></tr></thead>
+    <tbody>
+      <tr><td data-label="年份">2010 年前后</td><td data-label="事件">在 AliExpress / eBay 做电子产品卖家</td></tr>
+      <tr><td data-label="年份">2015 年 4 月</td><td data-label="事件">创立 EPROLO 品牌</td></tr>
+      <tr><td data-label="年份">2018 年 4 月</td><td data-label="事件">成立深圳市大浩进出口贸易有限公司</td></tr>
+      <tr><td data-label="年份">2018 年</td><td data-label="事件">获坚果资本天使轮 235.29 万元；Shopify App 上架</td></tr>
+      <tr><td data-label="年份">2019 年</td><td data-label="事件">在英国注册 HETECHI LTD</td></tr>
+      <tr><td data-label="年份">2020 年 1 月</td><td data-label="事件">完成 A 轮融资（金额未披露）</td></tr>
+      <tr><td data-label="年份">2020 年 8 月</td><td data-label="事件">成立深圳市大浩电子商务有限公司</td></tr>
+      <tr><td data-label="年份">2020 年 12 月</td><td data-label="事件">InkedJoy 子品牌上线</td></tr>
+      <tr><td data-label="年份">2023 年 7 月</td><td data-label="事件">注册香港大浩實業有限公司</td></tr>
+      <tr><td data-label="年份">2025 年</td><td data-label="事件">推出环保包装项目与 Worry-Free Influencer Branding Program</td></tr>
+      <tr><td data-label="年份">2026 年 1 月</td><td data-label="事件">做客 Ecommerce Coffee Break 播客系统输出商业观点</td></tr>
+    </tbody>
+  </table>
+  </div>
+
+  <h2>1.4　核心商业观点</h2>
+  <p>Paul Yu 在 2026 年 1 月与 Claus Lauter 的播客对话中，系统阐述了对跨境电商的几个关键判断。</p>
+
+  <h3>观点一：MOQ 是新品牌的「沉默杀手」</h3>
+  <blockquote>
+    MOQ&#8217;s force founders to gamble before they have proof. Cash gets locked into inventory, inventory trends move on, boxes sit unsold.
+  </blockquote>
+
+  <h3>观点二：聚焦时尚是「主动选择最难的赛道」</h3>
+  <blockquote>
+    We chose the most difficult one — fashion. Because so many SKUs, sizes, colors, suppliers, and it changes all the time. If you want to focus, pick the hard part, not the easy part.
+  </blockquote>
+
+  <h3>观点三：新人入局必须「小而美」</h3>
+  <p>他举了纽约一个团队的真实案例——从专做「瑜伽女性的袜子」切入，2 个月做到 10 至 20 单，再扩展到瑜伽鞋，最终拥有 4 个女性细分品牌。</p>
+  <blockquote>
+    You can&#8217;t want everything. You need to find a really, really small niche because you are a beginner and you don&#8217;t have that much chance to make a mistake.
+  </blockquote>
+
+  <h3>观点四：「品牌化」是 dropshipping 的唯一出路</h3>
+  <blockquote>
+    Dropshipping is not a Brand? Think Again. Stop building a store. Start building a legacy.
+    <span class="src">— EPROLO 官方 LinkedIn</span>
+  </blockquote>
+
+  <h3>观点五：可持续电商是品牌护城河</h3>
+  <blockquote>
+    True progress means building solutions that care for both people and the planet.
+    <span class="src">— 2025 年 9 月环保包装发布会</span>
+  </blockquote>
+
+  <h3>观点六：稳定的供应商即是稳定的业务</h3>
+  <p>Paul Yu 反复强调 stable suppliers reduce business risk，认为只服务一个垂直类目（女装/快时尚）让 EPROLO 的供应链管理变得简单且可控。</p>
+
+  <h2>1.5　社交媒体活跃度</h2>
+  <p>Paul Yu 个人几乎没有高频运营的社媒账号，对外发声主要通过 EPROLO 公司账号矩阵完成：</p>
+  <div class="table-wrap">
+  <table class="responsive">
+    <thead><tr><th>平台</th><th>类型</th><th>活跃度</th></tr></thead>
+    <tbody>
+      <tr><td data-label="平台">LinkedIn</td><td data-label="类型">EPROLO 公司号</td><td data-label="活跃度">🟢 高频</td></tr>
+      <tr><td data-label="平台">YouTube</td><td data-label="类型">@eprolo 官方频道</td><td data-label="活跃度">🟢 持续</td></tr>
+      <tr><td data-label="平台">Facebook</td><td data-label="类型">facebook.com/Eprolo/</td><td data-label="活跃度">🟡 中频</td></tr>
+      <tr><td data-label="平台">Instagram</td><td data-label="类型">EPROLO 官方账号</td><td data-label="活跃度">🟡 中频</td></tr>
+      <tr><td data-label="平台">播客 / 演讲</td><td data-label="类型">Coffee Break / AffiliateWorld</td><td data-label="活跃度">🟢 主要</td></tr>
+      <tr><td data-label="平台">个人 LinkedIn</td><td data-label="类型">未公开</td><td data-label="活跃度">⚪ 不可见</td></tr>
+      <tr><td data-label="平台">Twitter / X</td><td data-label="类型">无可验证账号</td><td data-label="活跃度">⚪ 无</td></tr>
+    </tbody>
+  </table>
+  </div>
+  <p>可以说 Paul Yu 的个人 IP 策略走的是「<span class="highlight">幕后 CEO</span>」路线——把品牌曝光让给 EPROLO 公司本身，自己仅在播客、行业演讲等高质量渠道露出。</p>
+
+  <div class="section-end">···</div>
+
+  <!-- 第二部分 -->
+  <h1 id="part-2">第二部分　公司主体：深圳市大浩电子商务及关联实体</h1>
+
+  <h2>2.1　工商基础信息</h2>
+  <div class="table-wrap">
+  <table class="responsive">
+    <thead><tr><th>项目</th><th>信息</th></tr></thead>
+    <tbody>
+      <tr><td data-label="项目">公司全称</td><td data-label="信息">深圳市大浩电子商务有限公司</td></tr>
+      <tr><td data-label="项目">成立日期</td><td data-label="信息">2020 年 8 月 23 日</td></tr>
+      <tr><td data-label="项目">法定代表人</td><td data-label="信息">俞宏浩（执行董事 / 总经理）</td></tr>
+      <tr><td data-label="项目">监事</td><td data-label="信息">许春荣</td></tr>
+      <tr><td data-label="项目">注册资本</td><td data-label="信息">500 万人民币</td></tr>
+      <tr><td data-label="项目">统一社会信用代码</td><td data-label="信息">91440300MA5GC0FX1W</td></tr>
+      <tr><td data-label="项目">企业类型</td><td data-label="信息">有限责任公司（自然人独资）</td></tr>
+      <tr><td data-label="项目">国标行业</td><td data-label="信息">零售业</td></tr>
+      <tr><td data-label="项目">注册地址</td><td data-label="信息">深圳市龙岗区坂田街道万科城社区居里夫人大道神舟电脑大厦 6F B 区 05 室</td></tr>
+      <tr><td data-label="项目">办公地址</td><td data-label="信息">深圳市龙岗区坂田街道马安堂社区中兴路 10 号顺兴工业区 B 栋厂房 501</td></tr>
+      <tr><td data-label="项目">官网</td><td data-label="信息"><a href="http://eprolo.cn">eprolo.cn</a></td></tr>
+      <tr><td data-label="项目">经营状态</td><td data-label="信息">存续</td></tr>
+    </tbody>
+  </table>
+  </div>
+
+  <h2>2.2　法人主体演变史</h2>
+  <p>EPROLO 这家「全球 160 万卖家」使用的平台，背后并非一家公司，而是<span class="highlight">多家关联法人主体接力运营</span>——这是中国跨境电商企业为合规出海而采取的典型架构。</p>
+
+  <h3>主体一：深圳市大浩进出口贸易有限公司（创业初代主体）</h3>
+  <ul>
+    <li>成立日期：2018 年 4 月 18 日</li>
+    <li>法人代表：俞宏浩</li>
+    <li>股权融资：成立时即获得 235.29 万元，投资方坚果资本，估值 1584.47 万元，出让 14.85%</li>
+    <li>A 轮：2020 年 1 月 17 日完成（金额未披露）</li>
+    <li>现状：2021 年 7 月 12 日更名为厦门市百创达网络科技有限公司，迁址至厦门</li>
+  </ul>
+
+  <h3>主体二：深圳市大浩电子商务有限公司（现核心主体）</h3>
+  <ul>
+    <li>成立日期：2020 年 8 月 23 日</li>
+    <li>法人：俞宏浩，注册资本 500 万元</li>
+    <li>商标布局：核心品牌 EPROLO，新近申请 PURRINI、VURTMO 等子品牌商标</li>
+    <li>对外投资：3 家关联企业，含珠海大浩电子商务有限公司</li>
+  </ul>
+
+  <h3>主体三：Hong Kong Eprolo Technology Limited</h3>
+  <ul>
+    <li>成立日期：2023 年 7 月 19 日</li>
+    <li>用途：跨境收款、海外业务结算</li>
+  </ul>
+
+  <h3>主体四：HETECHI LTD（英国实体）</h3>
+  <ul>
+    <li>成立日期：2019 年 3 月 8 日</li>
+    <li>注册地址：UNIT 1G FELIX BUSINESS PARK, STOKE-ON-TRENT, ST4 3NX</li>
+    <li>用途：英国及欧盟仓储、本土履约</li>
+  </ul>
+
+  <h2>2.3　创始团队</h2>
+  <div class="table-wrap">
+  <table class="responsive">
+    <thead><tr><th>姓名</th><th>职务</th></tr></thead>
+    <tbody>
+      <tr><td data-label="姓名">俞宏浩 Paul Yu</td><td data-label="职务">创始人 / CEO / 执行董事</td></tr>
+      <tr><td data-label="姓名">许春荣</td><td data-label="职务">监事（深圳大浩主体）</td></tr>
+      <tr><td data-label="姓名">Carry Lam</td><td data-label="职务">CMO，2025 年代表公司在 AffiliateWorld Bangkok 主题演讲</td></tr>
+    </tbody>
+  </table>
+  </div>
+
+  <h2>2.4　融资规模</h2>
+  <p>与海外 Tracxn 数据库标注的 EPROLO Unfunded 不同，真实融资记录通过中国工商档案可考：</p>
+  <div class="table-wrap">
+  <table class="responsive">
+    <thead><tr><th>时间</th><th>轮次</th><th>金额</th><th>投资方</th></tr></thead>
+    <tbody>
+      <tr><td data-label="时间">2018.04.18</td><td data-label="轮次">天使轮</td><td data-label="金额">235.29 万元</td><td data-label="投资方">坚果资本</td></tr>
+      <tr><td data-label="时间">2020.01.17</td><td data-label="轮次">A 轮</td><td data-label="金额">未披露</td><td data-label="投资方">未披露</td></tr>
+      <tr><td data-label="时间">2020 至今</td><td data-label="轮次">—</td><td data-label="金额">无新融资</td><td data-label="投资方">—</td></tr>
+    </tbody>
+  </table>
+  </div>
+
+  <div class="info-card">
+    <div class="label">融资规模评估</div>
+    <p style="margin:0;">相对于其 160 万以上的用户体量与 1 亿以上的订单履约成绩，EPROLO 的融资规模异常「克制」——这印证了其「永久免费」商业模式实际是<span class="highlight">自我造血、靠商品差价盈利</span>的生意，而非烧钱平台。</p>
+  </div>
+
+  <h2>2.5　营收、利润与员工规模</h2>
+  <p>由于深圳大浩是自然人独资有限责任公司，未公开发布财务报告。可推知数据如下：</p>
+
+  <h3>员工规模</h3>
+  <ul>
+    <li>猎聘平台显示：100 至 499 人</li>
+    <li>LinkedIn 自报：51 至 200 人</li>
+    <li>实际推估：约 200 至 400 人</li>
+  </ul>
+
+  <h3>业务规模指标</h3>
+  <ul>
+    <li>平台累计卖家：1,600,000+</li>
+    <li>累计履约订单：100,000,000+</li>
+    <li>全球仓库：26+ 个（中、美、英、欧）</li>
+    <li>合作品牌商家：2,700+ Shopify 时尚品牌</li>
+    <li>Shopify App 评分：4.8 / 5（2,543 条评论）</li>
+  </ul>
+
+  <h3>营收推算（非官方）</h3>
+  <ul>
+    <li>商业模式赚商品差价 + 物流差价，每单毛利率 15% 至 30%</li>
+    <li>百万级订单 × 客单价 25 至 35 美元，年 GMV 在数亿美元量级</li>
+    <li>以 8% 至 15% 的净利率推算应已实现盈利——这也是为什么 2020 年 A 轮后再无大额融资</li>
+  </ul>
+
+  <div class="section-end">···</div>
+
+  <!-- 第三部分 -->
+  <h1 id="part-3">第三部分　双品牌定位：EPROLO 与 InkedJoy 的关系与差异</h1>
+
+  <h2>3.1　核心关系：母品牌与子品牌</h2>
+  <div class="info-card">
+    <div class="label">关键事实</div>
+    <p style="margin:0;"><span class="highlight">InkedJoy 实际上是 EPROLO 旗下的 Print-on-Demand 品牌业务线，并非独立公司</span>。EPROLO 在官网 FAQ 明确写道：Yes, we offer Print on Demand services through Inkedjoy。两者共享同一总部（深圳龙岗）、同一供应链体系、相同的运营团队。</p>
+  </div>
+
+  <h2>3.2　品牌名称的含义</h2>
+  <p>EPROLO 这个名称本身就体现了其创业初心：</p>
+  <ul>
+    <li><strong>E</strong>：Ecommerce without barriers，无壁垒的电商</li>
+    <li><strong>POLO</strong>：来自希腊语 polloi，意为「普通大众 / the people」</li>
+  </ul>
+
+  <h2>3.3　切入市场的关键时机</h2>
+  <p>2015 年正是 Shopify 官方插件 Oberlo 把重心放在 AliExpress 集成上的时候，Paul Yu 团队发现一个市场空白——「为什么好工具只能给有大预算的人？」于是 EPROLO 选择了一条与 Oberlo 截然不同的路：<span class="highlight">自建供应链 + 永久免费</span>。</p>
+
+  <h2>3.4　为什么要做独立子品牌</h2>
+  <p>原因在于 POD 与传统 dropshipping 是两套受众：</p>
+  <ul>
+    <li>EPROLO 服务「找货卖货」的卖家</li>
+    <li>InkedJoy 服务「有设计 / 创作能力」的设计师、艺术家、KOL、Etsy 卖家</li>
+  </ul>
+  <p>InkedJoy 把 Etsy 平台作为重要切入口，并支持 Etsy、Shopify、WooCommerce 三大渠道。</p>
+
+  <h2>3.5　EPROLO 商业模式</h2>
+  <div class="table-wrap">
+  <table class="responsive">
+    <thead><tr><th>维度</th><th>EPROLO 策略</th></tr></thead>
+    <tbody>
+      <tr><td data-label="维度">收费模式</td><td data-label="EPROLO 策略">Forever Free 永久免费</td></tr>
+      <tr><td data-label="维度">收入来源</td><td data-label="EPROLO 策略">商品差价和运费</td></tr>
+      <tr><td data-label="维度">起步门槛</td><td data-label="EPROLO 策略">零库存、零预付款</td></tr>
+      <tr><td data-label="维度">品牌定制</td><td data-label="EPROLO 策略">无 MOQ 的私有品牌服务</td></tr>
+      <tr><td data-label="维度">履约能力</td><td data-label="EPROLO 策略">全球 26+ 海外仓</td></tr>
+      <tr><td data-label="维度">运送承诺</td><td data-label="EPROLO 策略">6 小时发货、5 至 15 天送达</td></tr>
+    </tbody>
+  </table>
+  </div>
+
+  <h2>3.6　InkedJoy 产品定位</h2>
+  <div class="table-wrap">
+  <table class="responsive">
+    <thead><tr><th>维度</th><th>InkedJoy 策略</th></tr></thead>
+    <tbody>
+      <tr><td data-label="维度">产品数量</td><td data-label="InkedJoy 策略">1,500+ SKU</td></tr>
+      <tr><td data-label="维度">起订量</td><td data-label="InkedJoy 策略">No MOQ 无最低订量</td></tr>
+      <tr><td data-label="维度">收费</td><td data-label="InkedJoy 策略">免费（品牌项目年费 19.90 美元）</td></tr>
+      <tr><td data-label="维度">制作时效</td><td data-label="InkedJoy 策略">同步后最快 2 小时投产</td></tr>
+      <tr><td data-label="维度">设计工具</td><td data-label="InkedJoy 策略">内置批量设计器</td></tr>
+      <tr><td data-label="维度">品牌服务</td><td data-label="InkedJoy 策略">自定义包装、礼品卡、产品标签</td></tr>
+    </tbody>
+  </table>
+  </div>
+
+  <div class="section-end">···</div>
+
+  <!-- 第四部分 -->
+  <h1 id="part-4">第四部分　EPROLO 的发展轨迹与获客路径</h1>
+  <div class="section-intro">EPROLO 从零到 160 万卖家的过程可以拆解为六个连续阶段。</div>
+
+  <h2>阶段一：免费工具入口（2015 至 2018）</h2>
+  <ul>
+    <li>把 EPROLO 包装成 Shopify App 上架（2018 年 9 月 26 日 launched），主打 Free to Install 标签</li>
+    <li>免费策略让早期 Shopify 卖家可以零成本试用，是冷启动最关键的一招</li>
+    <li>Shopify App Store 自然流量起步：现已有 2,543 条评论、4.8 / 5 分、92% 五星好评</li>
+  </ul>
+
+  <h2>阶段二：内容营销与 SEO（2018 至今）</h2>
+  <p>EPROLO 官网相关栏目积累上千篇 SEO 长文，覆盖：</p>
+  <ul>
+    <li>How to start dropshipping</li>
+    <li>How to market your dropshipping business</li>
+    <li>Best dropshipping niches（107 个细分品类指南）</li>
+    <li>Branded dropshipping、Custom packaging</li>
+    <li>Dropshipping in 2026: Is It Still Profitable</li>
+  </ul>
+  <p>这些内容采用典型的 TOFU + MOFU 教育型 SEO 打法，每篇文章末尾自然嵌入 EPROLO 与 InkedJoy 的注册入口。</p>
+
+  <h2>阶段三：联盟营销 Affiliate Program</h2>
+  <p>EPROLO 推出 2% 订单佣金的联盟计划，零门槛加入：</p>
+  <ul>
+    <li>注册即获专属链接</li>
+    <li>推荐用户下单可拿 12 个月内订单的 2% 佣金</li>
+    <li>推荐 Shopify 店铺安装 App 额外送 200 E-Coins（约 2 美元）</li>
+    <li>案例：Nina 月入 1,500 美元以上，Taylor 月入 850 美元以上</li>
+  </ul>
+
+  <h2>阶段四：YouTube KOL 矩阵</h2>
+  <p>EPROLO 与大量 YouTube 中小创作者合作，使用专属短链 eprolo.short.gy/xxx 进行追踪，让博主在评测视频里获得佣金。这种「<span class="highlight">网红测评 + 专属短链</span>」的组合在 dropshipping 圈病毒式扩散。</p>
+
+  <h2>阶段五：线下行业展会</h2>
+  <p>2025 年公司 CMO Carry Lam 在 AffiliateWorld Bangkok 主题演讲《The Evolution of Dropshipping: From Fulfillment to Full-Service Ecosystem》，并参展 ECOM World 等亚洲电商峰会。</p>
+
+  <h2>阶段六：CEO 个人 IP 与公关</h2>
+  <ul>
+    <li>CEO Paul Yu 上 Ecommerce Coffee Break 等播客</li>
+    <li>2025 年 9 月推出 180 天可降解包装抢占 ESG 话题</li>
+    <li>推出 Worry-Free Influencer Branding Program，让网红零风险打造自有时尚品牌</li>
+  </ul>
+
+  <h2>4.7　EPROLO 增长成绩单</h2>
+  <ul>
+    <li>1.6M+ 全球卖家</li>
+    <li>100M+ 订单履约</li>
+    <li>26+ 全球仓库</li>
+    <li>Shopify 端 2,543 条评论 / 4.8 星</li>
+    <li>服务 2,700+ 时尚品牌零售商</li>
+  </ul>
+
+  <div class="section-end">···</div>
+
+  <!-- 第五部分 -->
+  <h1 id="part-5">第五部分　InkedJoy 作为 POD 子品牌的发展路径</h1>
+
+  <h2>5.1　起源（2020 年 12 月）</h2>
+  <p>InkedJoy 在 2020 年 12 月 1 日作为独立 Shopify App 上架，由 EPROLO 团队孵化，定位是专注于 Print-on-Demand 的垂直子品牌。注册地深圳龙岗（与 EPROLO 同地址），美国办公室在 Omaha（用于本土发货优化）。</p>
+
+  <h2>5.2　InkedJoy 的获客路径</h2>
+
+  <h3>路径一：借力 EPROLO 母品牌冷启动</h3>
+  <p>InkedJoy 上线后第一波用户来自 EPROLO 160 万以上的现成用户池：EPROLO 官网首页、博客和 FAQ 处处给 InkedJoy 引流——<span class="highlight">这是任何独立 POD 平台无法复制的优势</span>。</p>
+
+  <h3>路径二：Shopify App Store 双品牌矩阵</h3>
+  <p>InkedJoy 在 Shopify 上独立运营 App（开发者名 inkedjoy），目前 123 条评论 / 4.7 星 / 93% 五星，App 正式 launched 于 2020 年 12 月。</p>
+
+  <h3>路径三：内容营销与 Niche SEO</h3>
+  <p>InkedJoy 博客围绕 POD 创业垂直长尾词布局：</p>
+  <ul>
+    <li>Print on Demand T-shirt Business</li>
+    <li>Cheapest Print-On-Demand Companies</li>
+    <li>Inkedjoy vs Printful（直接对标头部品牌引争议流量）</li>
+    <li>Print on Demand Side Hustle Tips</li>
+  </ul>
+
+  <h3>路径四:YouTube 影响力打法</h3>
+  <ul>
+    <li>自营官方频道 @inkedjoyofficial（Instagram + YouTube）</li>
+    <li>通过 inkedjoy.short.gy/xxx 专属短链与博主分成</li>
+    <li>大量教学型视频，如 How to Start a POD Store with InkedJoy</li>
+  </ul>
+
+  <h3>路径五:Etsy 卖家社群渗透</h3>
+  <p>InkedJoy 把 SEO 重点压在 Etsy Print on Demand、best Etsy dropshipping suppliers，针对 Etsy 数百万独立创作者群体精准触达——这是 Printful、Printify 这些老牌 POD 没有重点深耕的细分市场。</p>
+
+  <h3>路径六：Trustpilot 信任建设</h3>
+  <p>InkedJoy 在 Trustpilot 已经积累 560+ 条评价、5 星评级，并主动在 Facebook 上转发好评打造社交证明。</p>
+
+  <h3>路径七:Reddit / 社区原生口碑</h3>
+  <p>Reddit r/printondemand 上有用户写出长篇 Yoycol vs InkedJoy vs Merchize 评测，InkedJoy 借助这种「创作者间口碑传播」实现免费曝光。</p>
+
+  <div class="section-end">···</div>
+
+  <!-- 第六部分 -->
+  <h1 id="part-6">第六部分　共通的「获客飞轮」与可复用打法</h1>
+
+  <h2>6.1　获客飞轮逻辑</h2>
+  <p>EPROLO 与 InkedJoy 共享同一套增长循环：</p>
+
+  <div class="flow">
+    <div class="step">免费工具入口（Shopify App / 网站）</div>
+    <div class="arrow">↓</div>
+    <div class="step">App Store 自然搜索 + SEO 长文流量</div>
+    <div class="arrow">↓</div>
+    <div class="step">新用户零门槛注册（永久免费）</div>
+    <div class="arrow">↓</div>
+    <div class="step">首批订单 → 4.8 / 4.7 星好评</div>
+    <div class="arrow">↓</div>
+    <div class="step">高评分推升排名 + Trustpilot 社交证明</div>
+    <div class="arrow">↓</div>
+    <div class="step">2% 联盟 + YouTube 短链矩阵</div>
+    <div class="arrow">↓</div>
+    <div class="step">KOL / Etsy / Shopify 群体扩散</div>
+    <div class="arrow">↓</div>
+    <div class="step">反哺供应链 → 价格 + 时效双优势</div>
+    <div class="arrow">↓</div>
+    <div class="step">继续吸引下一批新卖家</div>
+  </div>
+
+  <h2>6.2　五条可复用的「从零到百万」打法</h2>
+
+  <h3>第一　把「免费」做成最锋利的获客武器</h3>
+  <p>EPROLO 与 InkedJoy 在永远收费的赛道里逆势打出 Forever Free 与 No MOQ，把竞争对手 Oberlo / Printful 的付费门槛变成自身的获客缝隙。</p>
+
+  <h3>第二　先吃 Shopify App Store 的「平台红利」</h3>
+  <p>2018 年 EPROLO Shopify App、2020 年 InkedJoy App，两次都踩在平台流量红利期，靠免费安装 + 高分评价获得算法推荐。</p>
+
+  <h3>第三　SEO 内容矩阵作为「复利资产」</h3>
+  <p>官网博客覆盖从入门到精通的 1000+ 篇 dropshipping 与 POD 教程，每篇都是常年带来免费流量的入口。</p>
+
+  <h3>第四　2% 联盟 + YouTube 短链构建去中心化销售军团</h3>
+  <p>不靠自己投放广告，而是让数千 YouTube 与博客创作者带着佣金诱因为自己卖货，形成自传播。</p>
+
+  <h3>第五　子品牌切割不同人群</h3>
+  <p>EPROLO 服务「卖家」，InkedJoy 服务「创作者」，避免一个品牌被定位稀释，又共享同一供应链与用户池——这是中国出海 SaaS 罕见的「双品牌打法」。</p>
+
+  <div class="section-end">···</div>
+
+  <!-- 第七部分 -->
+  <h1 id="part-7">第七部分　业务发展趋势与潜在挑战</h1>
+
+  <h2>7.1　持续向上的八个信号</h2>
+  <ol>
+    <li>从「通用 dropshipping」聚焦到「时尚品牌化」——砍掉非垂直品类，全力投入服装时尚 + 私有品牌</li>
+    <li>多品牌矩阵铺开——申请 PURRINI、VURTMO 等新商标</li>
+    <li>POD 子品牌 InkedJoy 独立成长——切入 Etsy 创作者市场</li>
+    <li>ESG 概念升级——2025 年推出 100% 可降解包装方案</li>
+    <li>Influencer 经济布局——Worry-Free Influencer Branding Program 把网红变 CEO</li>
+    <li>官网全面升级（2025 年 9 月）——从工具品牌升级为「全服务生态」</li>
+    <li>线下国际化——AffiliateWorld、ECOM World 曼谷峰会建立 B 端合作</li>
+    <li>区域扩张——设立香港主体、扩大欧美仓</li>
+  </ol>
+
+  <h2>7.2　潜在挑战</h2>
+  <ol>
+    <li>dropshipping 行业整体进入红海——Paul Yu 自己也承认「现在比 2015 年难太多了」</li>
+    <li>关税与地缘政治不确定性——美国 De Minimis 800 美元免税门槛收紧冲击商业模式</li>
+    <li>同行竞争白热化——CJ Dropshipping、HyperSKU、Spocket、Zendrop 同样定位中小卖家</li>
+    <li>Tracxn 排名仅第 111——在国际投资界品牌力仍有提升空间</li>
+    <li>创始人 IP 露出不足——Paul Yu 个人影响力远低于公司体量，可能错失「创始人即营销」红利</li>
+  </ol>
+
+  <div class="section-end">···</div>
+
+  <!-- 第八部分 -->
+  <h1 id="part-8">第八部分　关键信息速读表</h1>
+  <div class="table-wrap">
+  <table class="responsive">
+    <thead><tr><th>维度</th><th>关键数据</th></tr></thead>
+    <tbody>
+      <tr><td data-label="维度">创始人</td><td data-label="关键数据">俞宏浩 Paul Yu</td></tr>
+      <tr><td data-label="维度">电商经验起点</td><td data-label="关键数据">约 2010 年（AliExpress / eBay）</td></tr>
+      <tr><td data-label="维度">EPROLO 创立</td><td data-label="关键数据">2015 年 4 月</td></tr>
+      <tr><td data-label="维度">InkedJoy 创立</td><td data-label="关键数据">2020 年 12 月</td></tr>
+      <tr><td data-label="维度">初代法人</td><td data-label="关键数据">深圳大浩进出口贸易（2018.04）</td></tr>
+      <tr><td data-label="维度">当前核心法人</td><td data-label="关键数据">深圳大浩电子商务（2020.08）</td></tr>
+      <tr><td data-label="维度">注册资本</td><td data-label="关键数据">500 万人民币</td></tr>
+      <tr><td data-label="维度">天使轮投资方</td><td data-label="关键数据">坚果资本（235.29 万元）</td></tr>
+      <tr><td data-label="维度">A 轮</td><td data-label="关键数据">2020.01.17（金额未披露）</td></tr>
+      <tr><td data-label="维度">全球用户数</td><td data-label="关键数据">1,600,000+</td></tr>
+      <tr><td data-label="维度">累计订单</td><td data-label="关键数据">100,000,000+</td></tr>
+      <tr><td data-label="维度">全球仓库</td><td data-label="关键数据">26+</td></tr>
+      <tr><td data-label="维度">员工规模</td><td data-label="关键数据">100 至 499 人</td></tr>
+      <tr><td data-label="维度">海外法人</td><td data-label="关键数据">英国 HETECHI（2019）、香港 Eprolo Tech（2023）</td></tr>
+      <tr><td data-label="维度">EPROLO 评分</td><td data-label="关键数据">4.8 / 5（2,543 评论）</td></tr>
+      <tr><td data-label="维度">InkedJoy 评分</td><td data-label="关键数据">4.7 / 5（123 评论）</td></tr>
+      <tr><td data-label="维度">Paul Yu 个人社媒</td><td data-label="关键数据">几乎不公开运营</td></tr>
+      <tr><td data-label="维度">最新公开演讲</td><td data-label="关键数据">2026.01 Coffee Break 播客；2025.12 AffiliateWorld Bangkok</td></tr>
+    </tbody>
+  </table>
+  </div>
+
+  <div class="section-end">···</div>
+
+  <!-- 第九部分 -->
+  <h1 id="part-9">第九部分　参考资料</h1>
+
+  <h2>9.1　公司与平台资料</h2>
+  <ul>
+    <li><a href="https://eprolo.com/about-us" target="_blank" rel="noopener">EPROLO About Us</a></li>
+    <li><a href="https://eprolo.com/" target="_blank" rel="noopener">EPROLO 官网</a></li>
+    <li><a href="https://eprolo.com/how-to-market-your-dropshipping-business" target="_blank" rel="noopener">EPROLO Marketing Guide</a></li>
+    <li><a href="https://eprolo.com/affiliates/" target="_blank" rel="noopener">EPROLO Affiliate Program</a></li>
+    <li><a href="https://apps.shopify.com/eprolo" target="_blank" rel="noopener">EPROLO Shopify App</a></li>
+    <li><a href="https://inkedjoy.com/" target="_blank" rel="noopener">InkedJoy 官网</a></li>
+    <li><a href="https://apps.shopify.com/eprolo-pod" target="_blank" rel="noopener">InkedJoy Shopify App</a></li>
+    <li><a href="https://inkedjoy.com/blog/print-on-demand-side-hustle" target="_blank" rel="noopener">InkedJoy 博客</a></li>
+  </ul>
+
+  <h2>9.2　工商与融资资料</h2>
+  <ul>
+    <li><a href="https://www.tianyancha.com/company/3467913282" target="_blank" rel="noopener">天眼查 - 深圳大浩电子商务</a></li>
+    <li><a href="https://www.qixin.com/financing/adc591bf-7f4e-426c-9c47-5a6f444666d1" target="_blank" rel="noopener">启信宝 - 投融资记录</a></li>
+    <li>百度百科：深圳市大浩进出口贸易有限公司</li>
+    <li><a href="https://tracxn.com/d/companies/eprolo/" target="_blank" rel="noopener">Tracxn 公司档案</a></li>
+    <li><a href="https://m.liepin.com/company/13545927/" target="_blank" rel="noopener">猎聘 - 招聘信息</a></li>
+    <li>香港公司注册处公告（2023.07）</li>
+  </ul>
+
+  <h2>9.3　创始人发声与媒体</h2>
+  <ul>
+    <li><a href="https://www.linkedin.com/company/eprolo" target="_blank" rel="noopener">EPROLO 官方 LinkedIn</a></li>
+    <li><a href="https://cn.linkedin.com/in/carry-lam-138b31a1" target="_blank" rel="noopener">Carry Lam（CMO）LinkedIn</a></li>
+    <li><a href="https://ecommercecoffeebreak.com/eprolo-start-fashion-brand-without-inventory/" target="_blank" rel="noopener">Ecommerce Coffee Break - Paul Yu 专访</a></li>
+    <li><a href="https://finance.yahoo.com/news/eprolo-reimagines-dropshipping-initiative-aligns-070400399.html" target="_blank" rel="noopener">Yahoo Finance - 环保项目发布</a></li>
+    <li><a href="https://www.trustpilot.com/review/inkedjoy.com" target="_blank" rel="noopener">InkedJoy Trustpilot</a></li>
+  </ul>
+
+  <div class="report-end">
+    <div>—— 报告完 ——</div>
+    <div class="small">本报告由公开资料整理而成，仅供参考。</div>
+  </div>
+</div>
+
+<button id="back-top" onclick="window.scrollTo({top:0,behavior:'smooth'})" aria-label="回到顶部">↑</button>
+
+<script>
+  // 阅读进度条
+  function updateProgress() {
+    const h = document.documentElement;
+    const b = document.body;
+    const scrolled = (h.scrollTop || b.scrollTop) /
+                     ((h.scrollHeight || b.scrollHeight) - h.clientHeight);
+    document.getElementById('progress').style.width = (scrolled * 100) + '%';
+    document.getElementById('back-top').classList.toggle('show',
+      (h.scrollTop || b.scrollTop) > 400);
+  }
+  window.addEventListener('scroll', updateProgress, { passive: true });
+  updateProgress();
+
+  // 侧栏抽屉
+  function toggleSidebar() {
+    document.getElementById('sidebar').classList.toggle('open');
+    document.getElementById('backdrop').classList.toggle('show');
+  }
+</script>
+
+</body>
+</html>
