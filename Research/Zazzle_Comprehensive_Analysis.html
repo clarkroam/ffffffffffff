@@ -1,0 +1,1723 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Zazzle 综合战略分析报告 · 三视角合议 | 2026</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+<style>
+  :root{
+    --ink:#2D1538;
+    --ink-2:#3F2249;
+    --bg:#FAF7FA;
+    --bg-2:#F2EAF1;
+    --paper:#FFFFFF;
+    --line:#2D153822;
+    --line-strong:#2D153855;
+    --muted:#5C6B82;
+
+    --consult:#2D1538;
+    --consult-bg:#EEE6F0;
+    --vc:#0E7C58;
+    --vc-bg:#E3F1EA;
+    --rival:#B2351F;
+    --rival-bg:#F6E8E2;
+    --warn:#C77B19;
+    --zz:#DC2867;
+    --zz-bg:#FCE2EC;
+    --zz-deep:#A91D52;
+    --gold:#C49C49;
+
+    --serif: "Source Serif Pro", "Noto Serif SC", Georgia, "Songti SC", serif;
+    --sans:  "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+    --mono:  "JetBrains Mono", "SF Mono", Menlo, Consolas, monospace;
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{font-family:var(--sans);color:var(--ink);background:var(--bg);font-size:15px;line-height:1.7;-webkit-font-smoothing:antialiased;}
+
+  .wrap{display:grid;grid-template-columns:280px 1fr;max-width:1400px;margin:0 auto;}
+  nav.toc{position:sticky;top:0;align-self:start;height:100vh;overflow-y:auto;background:var(--ink);color:#D8DDE6;padding:32px 24px 60px;border-right:1px solid var(--ink-2);}
+  nav.toc h2{font-family:var(--serif);font-weight:600;font-size:18px;letter-spacing:.02em;color:#fff;margin:0 0 4px;}
+  nav.toc h2::after{content:" ";display:inline-block;width:8px;height:8px;background:var(--zz);border-radius:50%;margin-left:6px;vertical-align:middle;}
+  nav.toc .sub{font-size:11px;color:#A89BAE;letter-spacing:.18em;text-transform:uppercase;margin-bottom:24px;border-bottom:1px solid #4D3258;padding-bottom:14px;}
+  nav.toc .group{margin-top:18px;}
+  nav.toc .group-title{font-size:10px;letter-spacing:.2em;color:#A89BAE;text-transform:uppercase;margin-bottom:8px;display:flex;align-items:center;gap:8px;}
+  nav.toc .group-title .dot{width:6px;height:6px;border-radius:50%;background:var(--zz);}
+  nav.toc .group.consult .dot{background:#B4A6C0;}
+  nav.toc .group.vc .dot{background:#52C19A;}
+  nav.toc .group.rival .dot{background:#E68A6E;}
+  nav.toc .group.growth .dot{background:#F0B056;}
+  nav.toc a{display:block;color:#C5BACC;text-decoration:none;font-size:13px;padding:5px 0 5px 14px;border-left:1px solid #4D3258;line-height:1.45;transition:all .15s;}
+  nav.toc a:hover{color:#fff;border-left-color:var(--zz);}
+  nav.toc a .num{font-family:var(--mono);font-size:11px;color:#A89BAE;margin-right:6px;}
+
+  main{padding:0 56px 80px;background:var(--bg);}
+
+  .hero{padding:72px 0 56px;border-bottom:1px solid var(--line);}
+  .hero .eyebrow{font-size:11px;letter-spacing:.28em;text-transform:uppercase;color:var(--zz-deep);margin-bottom:18px;font-weight:700;}
+  .hero h1{font-family:var(--serif);font-weight:600;font-size:48px;line-height:1.12;letter-spacing:-.01em;margin:0 0 18px;}
+  .hero .lead{font-size:18px;line-height:1.6;color:var(--ink-2);max-width:880px;margin:0 0 28px;}
+  .hero .meta{display:flex;gap:32px;flex-wrap:wrap;font-size:13px;color:var(--muted);padding-top:20px;border-top:1px solid var(--line);}
+  .hero .meta b{color:var(--ink);font-weight:600;display:block;font-size:11px;letter-spacing:.2em;text-transform:uppercase;margin-bottom:4px;}
+
+  .three-views{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin:48px 0 0;}
+  .pv-card{border:1px solid var(--line);background:var(--paper);padding:28px;border-radius:2px;position:relative;overflow:hidden;}
+  .pv-card::before{content:"";position:absolute;top:0;left:0;right:0;height:4px;}
+  .pv-card.consult::before{background:var(--consult);}
+  .pv-card.vc::before{background:var(--vc);}
+  .pv-card.rival::before{background:var(--rival);}
+  .pv-card .role{font-size:11px;letter-spacing:.2em;text-transform:uppercase;font-weight:600;}
+  .pv-card.consult .role{color:var(--consult);}
+  .pv-card.vc .role{color:var(--vc);}
+  .pv-card.rival .role{color:var(--rival);}
+  .pv-card h3{font-family:var(--serif);font-weight:600;font-size:22px;line-height:1.25;margin:6px 0 12px;}
+  .pv-card .verdict{font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);margin:14px 0 6px;font-weight:600;}
+  .pv-card p{margin:0;font-size:14px;color:var(--ink-2);}
+  .pv-card .stamp{margin-top:16px;display:inline-block;font-family:var(--mono);font-size:11px;padding:4px 10px;border-radius:2px;}
+  .pv-card.consult .stamp{background:var(--consult-bg);color:var(--consult);}
+  .pv-card.vc .stamp{background:var(--vc-bg);color:var(--vc);}
+  .pv-card.rival .stamp{background:var(--rival-bg);color:var(--rival);}
+
+  section{padding:72px 0 0;scroll-margin-top:24px;}
+  section.section{border-top:1px solid var(--line);margin-top:60px;}
+  .section-num{font-family:var(--mono);font-size:12px;color:var(--muted);letter-spacing:.18em;}
+  .section-tag{display:inline-block;font-size:10px;letter-spacing:.22em;text-transform:uppercase;font-weight:700;padding:4px 10px;border-radius:2px;margin-left:10px;vertical-align:middle;}
+  .section-tag.consult{background:var(--consult-bg);color:var(--consult);}
+  .section-tag.vc{background:var(--vc-bg);color:var(--vc);}
+  .section-tag.rival{background:var(--rival-bg);color:var(--rival);}
+  .section-tag.synth{background:#F2EDDF;color:var(--gold);}
+  .section-tag.growth{background:var(--zz-bg);color:var(--zz-deep);}
+  h2.section-title{font-family:var(--serif);font-weight:600;font-size:32px;line-height:1.18;margin:8px 0 6px;letter-spacing:-.005em;}
+  .section-deck{font-size:16px;color:var(--muted);max-width:880px;margin:0 0 32px;}
+
+  p{font-size:15px;line-height:1.75;color:var(--ink-2);margin:0 0 14px;}
+  h3.h{font-family:var(--serif);font-weight:600;font-size:21px;margin:32px 0 12px;letter-spacing:-.005em;}
+  h4.h{font-family:var(--sans);font-weight:700;font-size:13px;letter-spacing:.06em;text-transform:uppercase;margin:24px 0 10px;color:var(--ink);}
+  blockquote{border-left:3px solid var(--zz);margin:20px 0;padding:6px 0 6px 20px;font-style:italic;color:var(--ink-2);max-width:820px;}
+  .pull{font-family:var(--serif);font-size:22px;line-height:1.45;color:var(--ink);max-width:820px;margin:28px 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding:22px 0;}
+
+  .kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--line-strong);border:1px solid var(--line-strong);margin:24px 0;}
+  .kpi{background:var(--paper);padding:20px 18px;}
+  .kpi .lbl{font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);margin-bottom:6px;}
+  .kpi .val{font-family:var(--serif);font-size:28px;font-weight:600;color:var(--ink);line-height:1;}
+  .kpi .sub{font-size:12px;color:var(--muted);margin-top:4px;}
+
+  table{width:100%;border-collapse:collapse;margin:18px 0 28px;font-size:13px;}
+  table th,table td{padding:10px 12px;text-align:left;border-bottom:1px solid var(--line);vertical-align:top;}
+  table th{font-size:10px;letter-spacing:.18em;text-transform:uppercase;font-weight:700;color:var(--muted);background:transparent;border-bottom:1.5px solid var(--ink);}
+  table tr:hover{background:var(--bg-2);}
+  table .accent{font-weight:600;color:var(--ink);}
+  table .num{font-family:var(--mono);text-align:right;}
+  .tag{display:inline-block;font-size:10px;letter-spacing:.1em;text-transform:uppercase;font-weight:700;padding:2px 7px;border-radius:2px;}
+  .tag.green{background:var(--vc-bg);color:var(--vc);}
+  .tag.red{background:var(--rival-bg);color:var(--rival);}
+  .tag.amber{background:#F5E8C8;color:#8B6913;}
+  .tag.blue{background:#E5ECF6;color:#1E3A6F;}
+  .tag.gray{background:#E5E7EB;color:#4B5563;}
+  .tag.zz{background:var(--zz-bg);color:var(--zz-deep);}
+
+  .grid-2{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin:18px 0;}
+  .grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin:18px 0;}
+  .grid-4{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin:18px 0;}
+  .card{background:var(--paper);border:1px solid var(--line);padding:22px;border-radius:2px;}
+  .card .hd{font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);margin-bottom:6px;font-weight:700;}
+  .card h4{margin:0 0 8px;font-family:var(--serif);font-size:17px;font-weight:600;}
+  .card p{font-size:13.5px;line-height:1.65;margin:0;color:var(--ink-2);}
+  .card.consult{border-top:3px solid var(--consult);}
+  .card.vc{border-top:3px solid var(--vc);}
+  .card.rival{border-top:3px solid var(--rival);}
+  .card.zz{border-top:3px solid var(--zz);}
+
+  .timeline{position:relative;margin:30px 0;padding-left:30px;border-left:2px solid var(--ink);}
+  .tl-item{position:relative;margin-bottom:26px;padding-left:18px;}
+  .tl-item::before{content:"";position:absolute;left:-39px;top:6px;width:14px;height:14px;background:var(--paper);border:2px solid var(--ink);border-radius:50%;}
+  .tl-item.major::before{background:var(--zz);border-color:var(--zz);}
+  .tl-item .yr{font-family:var(--mono);font-size:12px;color:var(--muted);font-weight:700;}
+  .tl-item .ev{font-family:var(--serif);font-size:17px;font-weight:600;margin:2px 0 4px;}
+  .tl-item p{margin:0;font-size:13.5px;color:var(--ink-2);}
+
+  .swot{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--ink);border:1px solid var(--ink);margin:20px 0;}
+  .swot > div{background:var(--paper);padding:24px;}
+  .swot h4{font-family:var(--serif);font-size:18px;margin:0 0 4px;font-weight:600;}
+  .swot .lbl{font-size:10px;letter-spacing:.22em;text-transform:uppercase;font-weight:700;margin-bottom:10px;}
+  .swot .S{color:var(--vc);} .swot .W{color:var(--rival);} .swot .O{color:#1E3A6F;} .swot .T{color:var(--warn);}
+  .swot ul{margin:8px 0 0;padding-left:18px;font-size:13px;color:var(--ink-2);}
+  .swot li{margin-bottom:6px;}
+
+  .porter{display:grid;grid-template-columns:1fr 1fr 1fr;grid-template-rows:auto auto auto;gap:16px;margin:20px 0;}
+  .porter .force{background:var(--paper);border:1px solid var(--line);padding:18px;border-radius:2px;}
+  .porter .force .head{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;}
+  .porter .force .nm{font-family:var(--serif);font-size:16px;font-weight:600;}
+  .porter .force .scale{font-family:var(--mono);font-size:11px;}
+  .porter .center{grid-column:2;grid-row:2;background:var(--ink);color:#fff;padding:24px;text-align:center;display:flex;flex-direction:column;justify-content:center;}
+  .porter .center h4{font-family:var(--serif);margin:0 0 6px;font-size:20px;font-weight:600;color:#fff;}
+  .porter .center p{font-size:12px;color:#C5BACC;margin:0;}
+  .force.high{border-top:3px solid var(--rival);}
+  .force.med{border-top:3px solid var(--warn);}
+  .force.low{border-top:3px solid var(--vc);}
+  .meter{height:5px;background:#E5E7EB;border-radius:2px;overflow:hidden;margin-top:10px;}
+  .meter > div{height:100%;}
+  .meter.high > div{width:80%;background:var(--rival);}
+  .meter.med > div{width:55%;background:var(--warn);}
+  .meter.low > div{width:30%;background:var(--vc);}
+
+  .chartbox{background:var(--paper);border:1px solid var(--line);padding:24px;margin:20px 0;border-radius:2px;}
+  .chartbox h4{margin:0 0 4px;font-family:var(--serif);font-size:18px;font-weight:600;}
+  .chartbox .src{font-size:11px;color:var(--muted);margin-top:6px;letter-spacing:.04em;}
+  .chartbox canvas{max-height:360px;}
+
+  .worldmap{background:var(--paper);border:1px solid var(--line);padding:30px;border-radius:2px;margin:20px 0;}
+  .worldmap svg{width:100%;height:auto;display:block;}
+  .worldmap .legend{display:flex;gap:24px;margin-top:14px;font-size:12px;color:var(--muted);flex-wrap:wrap;}
+  .worldmap .legend .ll{display:flex;align-items:center;gap:6px;}
+  .worldmap .legend .dot{width:10px;height:10px;border-radius:50%;background:var(--zz);}
+  .worldmap .legend .dot.hub{background:var(--ink);}
+
+  .matrix{position:relative;background:var(--paper);border:1px solid var(--line);padding:30px 30px 30px 60px;margin:20px 0;border-radius:2px;}
+  .matrix .grid{position:relative;height:380px;border:1px solid var(--ink);}
+  .matrix .grid::before,.matrix .grid::after{content:"";position:absolute;background:var(--line);}
+  .matrix .grid::before{top:0;bottom:0;left:50%;width:1px;}
+  .matrix .grid::after{left:0;right:0;top:50%;height:1px;}
+  .matrix .axis-x{position:absolute;bottom:-26px;left:0;right:0;display:flex;justify-content:space-between;font-size:11px;color:var(--muted);letter-spacing:.15em;text-transform:uppercase;}
+  .matrix .axis-y{position:absolute;left:-50px;top:0;bottom:0;writing-mode:vertical-rl;transform:rotate(180deg);display:flex;justify-content:space-between;font-size:11px;color:var(--muted);letter-spacing:.15em;text-transform:uppercase;}
+  .matrix .pin{position:absolute;transform:translate(-50%,-50%);}
+  .matrix .pin .dot{width:14px;height:14px;border-radius:50%;border:2px solid var(--ink);background:var(--zz);box-shadow:0 0 0 4px rgba(255,255,255,.8);}
+  .matrix .pin.us .dot{background:var(--rival);}
+  .matrix .pin.print .dot{background:#0A1628;}
+  .matrix .pin.gel .dot{background:#FF6B35;}
+  .matrix .pin.rb .dot{background:#E63946;}
+  .matrix .pin.pf .dot{background:#7CB342;}
+  .matrix .pin.cm .dot{background:#FFA500;}
+  .matrix .pin .lbl{position:absolute;top:18px;left:50%;transform:translateX(-50%);white-space:nowrap;font-family:var(--serif);font-weight:600;font-size:13px;background:var(--paper);padding:2px 6px;}
+  .matrix .quad-lbl{position:absolute;font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:#9CA3AF;font-weight:700;}
+
+  .battle{display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px;margin:16px 0;}
+  .bc{background:var(--paper);border:1px solid var(--line);padding:18px;}
+  .bc .vec{font-family:var(--mono);font-size:11px;color:var(--rival);letter-spacing:.16em;font-weight:700;}
+  .bc h4{font-family:var(--serif);font-size:17px;margin:8px 0 6px;font-weight:600;}
+  .bc .strat{font-size:12px;color:var(--muted);margin-bottom:8px;font-style:italic;}
+  .bc p{font-size:13px;margin:0;}
+  .bc .ko{margin-top:10px;font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--rival);font-weight:700;}
+
+  .riskmap{display:grid;grid-template-columns:80px repeat(3,1fr);gap:6px;margin:20px 0;}
+  .riskmap .col-h{font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);text-align:center;font-weight:700;padding:6px;}
+  .riskmap .row-h{font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);font-weight:700;display:flex;align-items:center;justify-content:flex-end;padding:6px;}
+  .riskmap .cell{background:var(--paper);border:1px solid var(--line);padding:12px;min-height:90px;}
+  .riskmap .cell.hot{background:#FBE2DA;}
+  .riskmap .cell.warm{background:#FBEFD8;}
+  .riskmap .cell.cool{background:#E3F1EA;}
+  .riskmap .cell .r{display:block;font-size:12px;font-weight:600;margin-bottom:3px;}
+  .riskmap .cell .rd{font-size:11px;color:var(--muted);}
+
+  .verdict-block{background:var(--ink);color:#fff;padding:36px 40px;margin:32px 0;border-radius:4px;position:relative;overflow:hidden;}
+  .verdict-block::before{content:"";position:absolute;top:0;right:0;width:140px;height:140px;background:var(--zz);opacity:.15;border-bottom-left-radius:140px;}
+  .verdict-block .lbl{font-family:var(--mono);font-size:11px;letter-spacing:.2em;color:var(--zz);margin-bottom:12px;}
+  .verdict-block h3{font-family:var(--serif);font-weight:600;font-size:24px;margin:0 0 14px;color:#fff;}
+  .verdict-block p{color:#C5BACC;font-size:14px;margin:0 0 8px;max-width:none;}
+  .verdict-block .three{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:22px;border-top:1px solid #4D3258;padding-top:22px;}
+  .verdict-block .three .role{font-size:10px;letter-spacing:.22em;color:var(--zz);font-weight:700;text-transform:uppercase;margin-bottom:4px;}
+  .verdict-block .three b{display:block;font-family:var(--serif);font-size:16px;color:#fff;font-weight:600;margin-bottom:4px;}
+  .verdict-block .three p{font-size:12.5px;color:#C5BACC;}
+
+  .org{margin:20px 0;display:flex;flex-direction:column;align-items:center;gap:18px;}
+  .org .level{display:flex;justify-content:center;gap:14px;flex-wrap:wrap;width:100%;}
+  .org .node{background:var(--paper);border:1px solid var(--line);padding:14px 18px;text-align:center;min-width:160px;border-radius:2px;}
+  .org .node.exec{background:var(--ink);color:#fff;border-color:var(--ink);}
+  .org .node.exec .role{color:#C5BACC;}
+  .org .node .role{font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);font-weight:700;}
+  .org .node .nm{font-family:var(--serif);font-weight:600;font-size:14px;margin-top:4px;}
+  .org .node.dept{background:var(--bg-2);border-style:dashed;}
+  .org .conn{height:14px;width:1px;background:var(--ink);}
+
+  .funnel{display:flex;flex-direction:column;gap:6px;margin:18px 0;}
+  .funnel .stage{background:var(--paper);border:1px solid var(--line);padding:14px 22px;display:grid;grid-template-columns:90px 1fr 130px;gap:16px;align-items:center;border-left:5px solid var(--gold);}
+  .funnel .stage .ph{font-family:var(--mono);font-size:11px;font-weight:700;color:var(--zz-deep);letter-spacing:.16em;}
+  .funnel .stage h4{margin:0 0 4px;font-family:var(--serif);font-size:16px;font-weight:600;}
+  .funnel .stage p{margin:0;font-size:13px;color:var(--ink-2);}
+  .funnel .stage .res{font-family:var(--mono);font-size:11px;color:var(--muted);text-align:right;}
+  .funnel .stage:nth-child(1){border-left-color:#2D1538;}
+  .funnel .stage:nth-child(2){border-left-color:#5A6580;}
+  .funnel .stage:nth-child(3){border-left-color:#DC2867;}
+  .funnel .stage:nth-child(4){border-left-color:#0E7C58;}
+  .funnel .stage:nth-child(5){border-left-color:#C49C49;}
+
+  .tactic-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;margin:16px 0;}
+  .tac{background:var(--paper);border:1px solid var(--line);padding:18px;display:grid;grid-template-columns:50px 1fr;gap:14px;}
+  .tac .nm{font-family:var(--serif);font-size:34px;color:var(--zz);font-weight:600;line-height:1;}
+  .tac h4{margin:0 0 6px;font-family:var(--serif);font-size:16px;font-weight:600;}
+  .tac p{margin:0;font-size:13px;color:var(--ink-2);}
+  .tac .res{margin-top:8px;font-family:var(--mono);font-size:10.5px;color:var(--vc);letter-spacing:.1em;text-transform:uppercase;font-weight:700;}
+
+  footer{margin-top:90px;padding:36px 0;border-top:1px solid var(--line);font-size:12px;color:var(--muted);}
+
+  @media (max-width:1100px){
+    .wrap{grid-template-columns:1fr;}
+    nav.toc{position:relative;height:auto;}
+    main{padding:0 28px 60px;}
+    .three-views,.grid-3,.grid-4,.battle,.kpis,.tactic-grid{grid-template-columns:1fr 1fr;}
+    .porter{grid-template-columns:1fr;}
+    .porter .center{grid-column:auto;grid-row:auto;}
+    .funnel .stage{grid-template-columns:80px 1fr;}
+    .funnel .stage .res{grid-column:1/-1;text-align:left;}
+  }
+  @media print{
+    nav.toc{display:none;}
+    .wrap{grid-template-columns:1fr;}
+    main{padding:0;}
+  }
+</style>
+</head>
+<body>
+
+<div class="wrap">
+
+<nav class="toc">
+  <h2>Zazzle</h2>
+  <div class="sub">综合战略分析 · 2026 Q2</div>
+
+  <div class="group">
+    <div class="group-title"><span class="dot"></span>第一部 · 公司全景</div>
+    <a href="#hero"><span class="num">00</span>封面与三视角速览</a>
+    <a href="#exec"><span class="num">01</span>执行摘要</a>
+    <a href="#overview"><span class="num">02</span>发展概况</a>
+    <a href="#snapshot"><span class="num">03</span>公司画像 Snapshot</a>
+    <a href="#timeline"><span class="num">04</span>发展历程时间线</a>
+  </div>
+
+  <div class="group">
+    <div class="group-title"><span class="dot"></span>第二部 · 业务运营</div>
+    <a href="#bizmodel"><span class="num">05</span>业务模式 BMC</a>
+    <a href="#network"><span class="num">06</span>全球履约网络</a>
+    <a href="#org"><span class="num">07</span>团队与组织</a>
+    <a href="#revenue"><span class="num">08</span>营收 20 年走势</a>
+    <a href="#profit"><span class="num">09</span>利润与单位经济</a>
+    <a href="#trends"><span class="num">10</span>发展趋势 8 大方向</a>
+  </div>
+
+  <div class="group growth">
+    <div class="group-title"><span class="dot"></span>第三部 · 增长引擎</div>
+    <a href="#zerotoone"><span class="num">11</span>0→1 客户获取之路</a>
+    <a href="#growthstack"><span class="num">12</span>用户增长手段全栈</a>
+    <a href="#channel"><span class="num">13</span>营销渠道矩阵</a>
+  </div>
+
+  <div class="group consult">
+    <div class="group-title"><span class="dot"></span>第四部 · 咨询视角</div>
+    <a href="#strategy"><span class="num">14</span>战略定位</a>
+    <a href="#valuechain"><span class="num">15</span>价值链与生态</a>
+    <a href="#moat"><span class="num">16</span>战略护城河</a>
+    <a href="#ops"><span class="num">17</span>运营与效率</a>
+  </div>
+
+  <div class="group vc">
+    <div class="group-title"><span class="dot"></span>第五部 · VC 视角</div>
+    <a href="#tam"><span class="num">18</span>市场规模 TAM</a>
+    <a href="#cap"><span class="num">19</span>资本路径与估值</a>
+    <a href="#fin"><span class="num">20</span>财务模型</a>
+    <a href="#peers"><span class="num">21</span>对标公司</a>
+  </div>
+
+  <div class="group rival">
+    <div class="group-title"><span class="dot"></span>第六部 · 竞品视角</div>
+    <a href="#us"><span class="num">22</span>我方画像</a>
+    <a href="#weak"><span class="num">23</span>对手弱点雷达</a>
+    <a href="#vectors"><span class="num">24</span>6 大攻击向量</a>
+    <a href="#playbook"><span class="num">25</span>作战手册</a>
+  </div>
+
+  <div class="group">
+    <div class="group-title"><span class="dot"></span>第七部 · 综合分析</div>
+    <a href="#swot"><span class="num">26</span>SWOT 综合</a>
+    <a href="#porter"><span class="num">27</span>Porter 五力</a>
+    <a href="#bcg"><span class="num">28</span>战略矩阵</a>
+    <a href="#risk"><span class="num">29</span>风险地图</a>
+    <a href="#verdict"><span class="num">30</span>三视角合议</a>
+    <a href="#sources"><span class="num">31</span>来源与方法</a>
+  </div>
+</nav>
+
+<main>
+
+<!-- HERO -->
+<section id="hero" class="hero">
+  <div class="eyebrow">Zazzle Inc. · Marketplace + Manufacturing · Stanford 兄弟创业 · 2026 Q2 · 三视角合议</div>
+  <h1>21 年从 Stanford 车库到 30M+ 用户：<br/>Zazzle 的"婚礼定制 + 设计师市场 + 自营工厂"三位一体战略</h1>
+  <p class="lead">
+    本报告以三种身份——<b>顶级管理咨询顾问</b>、<b>头部成长型 VC</b>、<b>定位为「整合 POD 供应链 + 电商 + 内容」的竞争对手</b>——对 zazzle.com 进行综合诊断。
+    Zazzle 是 POD 行业里<b>最早把"消费者个性化定制"做出规模化的玩家</b>——1999 年由 Stanford 学生 Bobby Beaver 与他的父亲 Robert、哥哥 Jeff 在硅谷创立，
+    2005 年正式上线运营，2005 年获得 John Doerr（Kleiner Perkins）+ Ram Shriram（前 Google 投资人）的 $16M Series A，2007 年再融 $30M。
+    与 Redbubble（艺术家展示市场）、Printful（资产重 POD 工具）、Cimpress（SMB 印刷品）都不同——Zazzle 的核心是<b>"婚礼 + 个性化礼物 + 设计师市场"</b>，
+    建立了 POD 行业最强的<b>"消费者深度定制"</b>能力：买家可在每个商品上添加自己的文字、照片、艺术作品，
+    形成<b>30M+ 累计用户 / 142 项专利 / 17M 月访问 / Reno 209,000 平方英尺自营工厂</b>的独特定位。
+    2025 年与 Picsart 达成 AI 创作者合作，2024 年起接入 AI 生成内容标签，向 AIGC + 创作者经济新阶段演进。
+  </p>
+  <div class="meta">
+    <div><b>Subject</b>Zazzle Inc. (private)</div>
+    <div><b>Founded</b>1999 (private testing) → 2005 (launch) · Redwood City, CA</div>
+    <div><b>Founders</b>Robert Beaver (CEO) + Bobby Beaver (CTO) + Jeff Beaver (CSO)</div>
+    <div><b>HQ</b>Redwood City / Menlo Park, CA (湾区)</div>
+    <div><b>Annual Revenue</b>$200–413M（估算，未公开）</div>
+    <div><b>Customers</b>30M+ 累计 / 17M 月访问</div>
+    <div><b>Patents</b>142+ 项</div>
+    <div><b>Manufacturing</b>Reno, NV · 209,000 sqft 自营</div>
+    <div><b>Report Date</b>2026-05-29</div>
+  </div>
+
+  <div class="three-views">
+    <div class="pv-card consult">
+      <div class="role">视角 1 · 顶级咨询</div>
+      <h3>婚礼定制护城河 + 资产中等模式</h3>
+      <div class="verdict">核心判断</div>
+      <p>Zazzle 占据 POD 行业最高 LTV 的细分——<b>婚礼 / 礼物 / 个性化纪念品</b>。配合 Reno 自营工厂 + 142 专利 + Zazzle Create 实时协同设计工具，构建了"消费者个性化定制"独家心智。但近年增长放缓 + Redbubble/Etsy 双向夹击。</p>
+      <span class="stamp">建议：婚礼 + AIGC 双战场</span>
+    </div>
+    <div class="pv-card vc">
+      <div class="role">视角 2 · 成长型 VC</div>
+      <h3>"长期未 IPO 的硅谷老兵"</h3>
+      <div class="verdict">投资观点</div>
+      <p>2005-2007 两轮共融 $46M 后基本未再公开融资 19 年——属罕见。营收稳定但年增长 0-5%。EquityZen 等二级市场可买 pre-IPO。私募估值预估 $400-800M（基于营收 1-2× 乘数）。</p>
+      <span class="stamp">建议：仅二级市场 / 战略并购买家</span>
+    </div>
+    <div class="pv-card rival">
+      <div class="role">视角 3 · 我方（竞品）</div>
+      <h3>"婚礼场景几乎无对手"</h3>
+      <div class="verdict">作战判断</div>
+      <p>Zazzle 在婚礼 / 个性化礼物场景几乎被忽视 —— FYUL/Gelato/Printify 不做这个细分。我方应<b>避开婚礼正面战</b>，但可借鉴其"消费者深度定制 + 设计师市场 + AIGC 内容"组合，在创作者经济场景错位发力。</p>
+      <span class="stamp">建议：错位 + 借鉴 AIGC 路线</span>
+    </div>
+  </div>
+</section>
+
+<!-- 01 EXEC SUMMARY -->
+<section id="exec" class="section">
+  <div class="section-num">01 · 第一部 · 公司全景</div>
+  <h2 class="section-title">执行摘要：三视角合议核心结论</h2>
+  <p class="section-deck">三种视角对 Zazzle 的诊断、共识与分歧。</p>
+
+  <div class="kpis">
+    <div class="kpi"><div class="lbl">年营收（估）</div><div class="val">$200–413M</div><div class="sub">私有公司未公开</div></div>
+    <div class="kpi"><div class="lbl">累计用户</div><div class="val">30M+</div><div class="sub">服务用户总数</div></div>
+    <div class="kpi"><div class="lbl">月活访问</div><div class="val">17M</div><div class="sub">SimilarWeb 数据</div></div>
+    <div class="kpi"><div class="lbl">专利</div><div class="val">142+</div><div class="sub">POD 行业最多</div></div>
+  </div>
+
+  <h3 class="h">三方共识（高置信度）</h3>
+  <p>共识五点：①Zazzle 是 POD 行业<b>最长寿且持续盈利的私营玩家</b>之一——2005 上线至今 21 年，营收稳定在 $200-400M 区间；②创始三人 Beaver 兄弟（Bobby/Jeff）+ 父亲（Robert）家族治理结构罕见，CEO Robert Beaver 在位 21 年；③产品定位<b>"消费者个性化定制 + 婚礼礼物市场"</b>是其他 POD 玩家未深耕的高 LTV 细分；④Reno 自营 209,000 sqft 工厂是 POD 行业资产中等模式样本（介于 Cimpress 重资产和 Printify 纯第三方之间）；⑤142 项专利 + Zazzle Create 实时协同设计工具是技术护城河，但相比新一代 AIGC 工具显得"老式"。</p>
+
+  <h3 class="h">三方分歧（决策关键）</h3>
+  <table>
+    <thead><tr><th>分歧议题</th><th>咨询观点</th><th>VC 观点</th><th>我方（竞品）观点</th></tr></thead>
+    <tbody>
+      <tr><td class="accent">19 年未再融资意味什么</td><td>稳健盈利不需要新钱</td><td>缺乏故事让 VC 难入场</td><td>大规模扩张乏力</td></tr>
+      <tr><td class="accent">婚礼场景天花板</td><td>仍有 30% 增长空间</td><td>结构性放缓</td><td>我方不应进入</td></tr>
+      <tr><td class="accent">AIGC 战略</td><td>必须立即加大投入</td><td>是估值乘数的关键</td><td>这是我方的强项</td></tr>
+      <tr><td class="accent">私有 vs IPO</td><td>不应该 IPO（私有更灵活）</td><td>EquityZen 等二级市场会持续活跃</td><td>不影响竞争格局</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<!-- 02 OVERVIEW -->
+<section id="overview" class="section">
+  <div class="section-num">02 · 第一部 · 公司全景</div>
+  <h2 class="section-title">发展概况：从 Stanford 车库到 30M 用户</h2>
+  <p class="section-deck">用六个维度浓缩 Zazzle 21 年发展轨迹。</p>
+
+  <div class="grid-2">
+    <div class="card">
+      <div class="hd">起源</div>
+      <h4>父子三人的"消费者定制"洞察</h4>
+      <p>1999 年，Robert Beaver 与他两个 Stanford 学生儿子 Bobby Beaver、Jeff Beaver 开始私下测试一个想法：<b>"让普通消费者能像专业设计师一样定制商品"</b>。
+        当时市场没有任何工具能让买家在浏览器中给 T 恤、马克杯等商品加上自己的照片、文字、艺术作品。
+        Beaver 兄弟用 4 年时间（1999-2003）开发原型，2005 年正式上线 Zazzle.com——
+        从加州 Redwood City 一个改造的车库开始，第一周就有 100,000 次访问，证明<b>"消费者定制 + POD"</b>是一个真实需求。</p>
+    </div>
+    <div class="card">
+      <div class="hd">独特创业基因</div>
+      <h4>家族治理 + 硅谷投资人组合</h4>
+      <p>Zazzle 的<b>家族治理结构</b>在硅谷创业公司中极罕见——
+        Robert Beaver（父亲）任 CEO 至今 21 年；
+        Bobby Beaver（小儿子）任 CTO；
+        Jeff Beaver（大儿子）任 CSO；
+        Peggy Beaver（家族成员）任 HR 总监。
+        但同时它的投资人都是硅谷顶级 —— 2005 年 $16M Series A 来自 <b>John Doerr（Kleiner Perkins，Netscape/Google 早期投资人）和 Ram Shriram（Google 早期投资人）</b>。
+        "家族治理 + 顶级 VC"组合让 Zazzle 既保持长期主义，又有规模化能力。</p>
+    </div>
+    <div class="card">
+      <div class="hd">USPS 历史合作</div>
+      <h4>2005-2018：定制邮票的传奇</h4>
+      <p>2005 年 Zazzle 与<b>美国邮政（USPS）</b>达成合作——成为第一家允许用户在浏览器中自定义美国邮票的公司。
+        13 年间该业务成为 Zazzle 的招牌产品 —— 用户可以把自己孩子的照片印在合法邮票上。
+        2018 年 5 月 USPS 因新规取消，业务被迫终止 —— 但这 13 年合作让 Zazzle 建立了"<b>消费者深度定制</b>"的强心智，奠定了婚礼场景的早期成功。</p>
+    </div>
+    <div class="card">
+      <div class="hd">规模化拐点</div>
+      <h4>2008 商业模式奖 + 2017 Reno 工厂</h4>
+      <p>2008 年 1 月 Zazzle 获 <b>Crunchies "Best New Business Model"奖</b>；
+        同年 12 月 catalog 突破 100 亿 SKU；推出 ProSeller Program 鼓励 top 设计师。
+        2009 年扩张到澳大利亚和加拿大。
+        2017 年 1 月做出<b>关键决策</b>：将分散的三个生产基地合并到 Reno, NV 的 <b>209,000 sqft 单一工厂</b>，带来 250 个就业岗位，让生产规模与效率显著提升。</p>
+    </div>
+    <div class="card">
+      <div class="hd">设计工具创新</div>
+      <h4>2019 Zazzle Create</h4>
+      <p>2019 年 12 月推出 <b>Zazzle Create</b> —— 世界上第一个支持<b>"实时协同"</b>的设计工具（类似 Figma 但用于产品设计）。
+        多人可以同时编辑一个商品设计；提供 3,000+ 空白商品画布；嵌入 templates + icons + shapes 库。
+        这一动作让 Zazzle 在 Canva 崛起前保持了一定的"设计入口"竞争力。</p>
+    </div>
+    <div class="card">
+      <div class="hd">AIGC 转身</div>
+      <h4>2024-2025：与 Picsart 合作 + AI 内容标准</h4>
+      <p>2024 年 Zazzle 制定了<b>"AI in Action"内容政策</b>——要求 AI 生成内容必须标 #generativecontent 标签。
+        2025 年 12 月与 <b>Picsart</b> 达成战略合作，让 1.5 亿+ Picsart 用户能直接将 AI 生成的内容打印到 Zazzle 商品上。
+        这是 Zazzle 从"传统创作者市场"向"AIGC + 创作者经济"转身的关键动作。
+        Zazzle Top Selling 2025 数据显示<b>AI 生成设计 + 优化封面图</b>显著提升了转化率。</p>
+    </div>
+  </div>
+
+  <div class="pull">
+    "Zazzle 是 POD 行业的『时间胶囊』——一个 21 年前就把『消费者定制』做对的公司，至今仍以家族治理 + 创始 CEO 在位的方式运营，是硅谷少有的『慢而稳健』样本。"
+  </div>
+</section>
+
+<!-- 03 SNAPSHOT -->
+<section id="snapshot" class="section">
+  <div class="section-num">03 · 第一部 · 公司全景</div>
+  <h2 class="section-title">公司画像 Snapshot</h2>
+  <p class="section-deck">一张表读懂 Zazzle 的边界、能力与外延。</p>
+
+  <div class="grid-2">
+    <div class="card">
+      <div class="hd">主体识别</div>
+      <h4>Zazzle Inc.（私有公司）</h4>
+      <p><b>类型：</b>消费者个性化定制 Marketplace + 自营工厂混合模式<br/>
+        <b>HQ：</b>Redwood City / Menlo Park, CA<br/>
+        <b>生产基地：</b>Reno, NV · 209,000 sqft 自营 + Zazzle Ireland<br/>
+        <b>员工（估）：</b>252（公司公开） vs 7（Latka 数据，仅核心）<br/>
+        <b>累计用户：</b>30M+<br/>
+        <b>月活：</b>17M（SimilarWeb）<br/>
+        <b>专利：</b>142+
+      </p>
+    </div>
+    <div class="card">
+      <div class="hd">业务模式核心</div>
+      <h4>"消费者深度定制 + 设计师市场"双引擎</h4>
+      <p><b>核心收入：</b>商品销售（含底价 + 设计师 royalty）<br/>
+        <b>设计师 royalty：</b>5-15% 可自选（vs Redbubble 任意 / Society6 固定 10%）<br/>
+        <b>消费者定制：</b>买家可在每个商品上加自定义文字 + 照片 + 艺术作品<br/>
+        <b>Affiliate Program：</b>15% 推广佣金<br/>
+        <b>核心场景：</b>婚礼 / 节日礼物 / 个性化纪念品 / 商业名片<br/>
+        <b>不抽佣 vs Etsy：</b>Etsy 6.5% 佣金 + 上架费，Zazzle 仅 royalty 模式</p>
+    </div>
+    <div class="card">
+      <div class="hd">核心品类</div>
+      <h4>50,000+ SKU · 婚礼为王</h4>
+      <p><b>婚礼场景（核心）：</b>邀请函 / 婚礼贺卡 / 谢卡 / 纪念礼物（占营收 30%+ 估算）<br/>
+        <b>节日礼物：</b>圣诞贺卡 / 节日卡片 / 周年纪念<br/>
+        <b>商业品：</b>名片 / 信封 / 桌面用品<br/>
+        <b>家居：</b>墙艺 / 抱枕 / 马克杯 / 毛毯<br/>
+        <b>服装：</b>T 恤 / 婴儿服 / 围裙<br/>
+        <b>独家品类：</b>定制邮票（2005-2018 USPS 合作历史，业内独家）</p>
+    </div>
+    <div class="card">
+      <div class="hd">技术资产</div>
+      <h4>Zazzle Create + 142 专利</h4>
+      <p><b>Zazzle Create（2019）：</b>世界第一个支持实时协同的产品设计工具；3,000+ 空白商品画布；嵌入 templates + icons + shapes 库<br/>
+        <b>142+ 专利：</b>POD 行业最多专利数；涵盖个性化制造工艺、订单处理、设计工具<br/>
+        <b>Picsart 集成（2025）：</b>"vibe-design-to-print" - AIGC 内容直达 POD 商品<br/>
+        <b>24h 履约：</b>从设计提交到商品发货可在 24 小时内完成（行业领先）</p>
+    </div>
+  </div>
+</section>
+
+<!-- 04 TIMELINE -->
+<section id="timeline" class="section">
+  <div class="section-num">04 · 第一部 · 公司全景</div>
+  <h2 class="section-title">发展历程时间线（27 年完整版）</h2>
+  <p class="section-deck">从 1999 私下测试到 2025 Picsart 合作。</p>
+  <div class="timeline">
+    <div class="tl-item major"><div class="yr">1999</div><div class="ev">Robert Beaver + Bobby Beaver + Jeff Beaver 开始私下测试 Zazzle 原型</div><p>父子三人在 Stanford 期间合作；4 年时间打磨产品。</p></div>
+    <div class="tl-item major"><div class="yr">2005</div><div class="ev">Zazzle.com 正式上线 · $16M Series A</div><p>Kleiner Perkins 的 John Doerr 与 Ram Shriram 共同领投；从车库起步。</p></div>
+    <div class="tl-item"><div class="yr">2005</div><div class="ev">与 USPS 达成合作 · 定制邮票业务上线</div><p>成为第一家允许用户在浏览器中自定义美国邮票的公司。</p></div>
+    <div class="tl-item"><div class="yr">2007</div><div class="ev">$30M 后续融资</div><p>2005-2007 共获 ~$46M 融资。</p></div>
+    <div class="tl-item major"><div class="yr">2008 · 01</div><div class="ev">获 Crunchies "Best New Business Model" 奖</div></div>
+    <div class="tl-item"><div class="yr">2008 · 12</div><div class="ev">商品 catalog 突破 100 亿 SKU; 推出 ProSeller Program</div></div>
+    <div class="tl-item"><div class="yr">2009 · 02</div><div class="ev">ProSeller 增长至 223 个顶级设计师</div></div>
+    <div class="tl-item"><div class="yr">2009 · 05</div><div class="ev">国际扩张：澳大利亚 + 加拿大网站上线</div></div>
+    <div class="tl-item"><div class="yr">2010-2016</div><div class="ev">稳健运营阶段：营收持续增长 + 设计师社区扩大</div></div>
+    <div class="tl-item major"><div class="yr">2017 · 01</div><div class="ev">关键决策：制造中心搬到 Reno, NV</div><p>209,000 sqft 单一工厂合并原有 3 个生产基地；250 个就业岗位；与 Tectonics Design Group 合作建设。</p></div>
+    <div class="tl-item"><div class="yr">2018 · 05</div><div class="ev">USPS 定制邮票业务因新规终止</div><p>13 年合作画上句号；业务回归婚礼 + 礼物核心。</p></div>
+    <div class="tl-item major"><div class="yr">2019 · 12</div><div class="ev">推出 Zazzle Create · 世界第一个实时协同设计工具</div><p>类似 Figma 但用于产品设计；3,000+ 空白商品画布。</p></div>
+    <div class="tl-item"><div class="yr">2020-2022</div><div class="ev">疫情期间稳健运营 · 礼物业务受益于消费者居家</div></div>
+    <div class="tl-item"><div class="yr">2024</div><div class="ev">"AI in Action" 内容政策上线</div><p>要求 AI 生成内容标 #generativecontent 标签。</p></div>
+    <div class="tl-item major"><div class="yr">2025 · 12</div><div class="ev">与 Picsart 达成战略合作 · "vibe-design-to-print"</div><p>1.5 亿+ Picsart 用户可直接将 AI 生成内容打印到 Zazzle 商品。</p></div>
+    <div class="tl-item"><div class="yr">2026</div><div class="ev">AIGC + Picsart 集成上线 · 营收预期 +10-20%</div><p>从"传统创作者市场"向"AIGC + 创作者经济"转身。</p></div>
+  </div>
+</section>
+
+<!-- 05 BUSINESS MODEL -->
+<section id="bizmodel" class="section">
+  <div class="section-num">05 · 第二部 · 业务运营</div>
+  <h2 class="section-title">业务模式：BMC + 双引擎深度</h2>
+  <p class="section-deck">用 Osterwalder 9 块画布呈现 Zazzle 的现金流和价值交换闭环。</p>
+
+  <div class="grid-3">
+    <div class="card consult"><div class="hd">关键合作</div><p>USPS（2005-2018 邮票合作）；Picsart（2025 AIGC 合作）；纸张、面料、油墨等供应商；UPS / FedEx / USPS 物流；John Doerr / Ram Shriram 等长期投资人；Stanford 大学校友网络（早期人才来源）。</p></div>
+    <div class="card consult"><div class="hd">关键活动</div><p>Reno 工厂 209,000 sqft 自营生产；订单聚合自动化；设计师社区运营（ProSeller 等）；婚礼 + 节日营销季节性激活；Zazzle Create 工具迭代；142 专利持续申请；24 小时 sla 履约保障。</p></div>
+    <div class="card consult"><div class="hd">关键资源</div><p>Reno 工厂 + 自营产能；30M+ 累计用户 + 海量自定义数据；142+ 专利组合；Beaver 兄弟 21 年沉淀的产品判断；Stanford 校友网络（包括 COO Charles）；2005 投资人长期关系；Picsart AIGC 流量入口。</p></div>
+
+    <div class="card consult"><div class="hd">价值主张</div><p><b>对消费者：</b>"婚礼最个性化的邀请函 + 每个商品都是独一无二的"<br/><b>对设计师：</b>"5-15% 自选 royalty + 不抽佣 + 30M 用户曝光"<br/><b>对礼物送礼人：</b>"添加你想要的文字 / 照片 / 艺术"<br/>核心：消费者深度定制 + 设计师市场双向匹配</p></div>
+    <div class="card consult"><div class="hd">客户关系</div><p>自助下单（核心）+ Zazzle Create 设计辅助 + ProSeller 社区运营 + 婚礼咨询 + Affiliate 推广员关系 + 客服支持。</p></div>
+    <div class="card consult"><div class="hd">渠道</div><p>Zazzle.com 主站（核心）+ 国家化子站（AU/CA/UK 等）+ Affiliate Program（15% 佣金）+ SEO 长尾 + Pinterest（婚礼场景核心）+ Email marketing。</p></div>
+
+    <div class="card consult"><div class="hd">客户细分</div><p>① 婚礼消费者（30%+ 营收，最高 LTV）<br/>② 节日 / 周年纪念礼物购买者<br/>③ 商业用户（名片、办公品）<br/>④ 个性化纪念品消费者<br/>⑤ Pro 设计师 + 长尾设计师（B 端）<br/>⑥ AIGC 内容创作者（新，via Picsart）</p></div>
+    <div class="card consult"><div class="hd">成本结构</div><p>Reno 工厂运营 + 设备折旧；原材料（纸张、油墨、面料）；约 250 员工人力；UPS/USPS 物流；Zazzle Create 与平台开发；Pinterest + Google + Email 营销支出；ProSeller 与设计师生态运营成本。</p></div>
+    <div class="card consult"><div class="hd">收入流</div><p>① 商品销售（核心，含底价毛利）<br/>② Affiliate 推广佣金收入<br/>③ 高级品类溢价（婚礼定制版邀请函）<br/>④ Zazzle Ireland 跨境收入<br/>⑤ Picsart 合作分账（新）</p></div>
+  </div>
+
+  <div class="pull">
+    "Zazzle 的真正商业模式不是 POD，而是『把人生重要时刻（婚礼 / 周年 / 礼物）变成可定制的纪念品』——这是高 LTV、高情感价值的细分市场，竞争者反而很少。"
+  </div>
+</section>
+
+<!-- 06 NETWORK -->
+<section id="network" class="section">
+  <div class="section-num">06 · 第二部 · 业务运营</div>
+  <h2 class="section-title">全球履约网络</h2>
+  <p class="section-deck">单一 Reno 自营工厂 + Zazzle Ireland —— "资产中等"模式样本。</p>
+
+  <div class="worldmap">
+    <svg viewBox="0 0 1000 500" xmlns="http://www.w3.org/2000/svg">
+      <rect width="1000" height="500" fill="#FAF7FA"/>
+      <g fill="#EEE6F0" stroke="#2D153822" stroke-width="0.7">
+        <path d="M 100 120 Q 80 100 130 90 L 250 80 Q 290 100 280 160 L 270 220 Q 230 250 180 240 L 130 230 Q 90 200 100 120 Z"/>
+        <path d="M 230 270 Q 250 260 270 280 L 285 380 Q 270 430 240 420 L 215 380 Q 205 320 230 270 Z"/>
+        <path d="M 460 90 Q 440 80 470 70 L 540 65 Q 580 80 575 140 L 555 175 Q 510 180 470 160 Q 450 130 460 90 Z"/>
+        <path d="M 480 200 Q 470 180 510 175 L 570 180 Q 600 220 585 320 L 540 380 Q 510 370 490 320 Q 460 260 480 200 Z"/>
+        <path d="M 590 90 Q 580 70 640 60 L 820 70 Q 880 100 850 180 L 800 230 Q 700 240 620 200 Q 580 150 590 90 Z"/>
+        <path d="M 800 330 Q 790 320 830 315 L 880 320 Q 900 340 880 370 L 830 380 Q 800 360 800 330 Z"/>
+      </g>
+
+      <!-- Reno NV - Production hub -->
+      <g fill="#DC2867">
+        <circle cx="155" cy="185" r="11"/>
+        <text x="170" y="180" font-family="Inter" font-size="13" fill="#A91D52" font-weight="700">Reno, NV</text>
+        <text x="170" y="195" font-family="Inter" font-size="10" fill="#A91D52">209,000 sqft Manufacturing</text>
+      </g>
+
+      <!-- Menlo Park HQ -->
+      <g fill="#2D1538">
+        <circle cx="138" cy="175" r="7"/>
+        <text x="60" y="160" font-family="Inter" font-size="10" fill="#2D1538" font-weight="700">Menlo Park HQ</text>
+      </g>
+
+      <!-- Zazzle Ireland -->
+      <g fill="#DC2867" opacity="0.85">
+        <circle cx="455" cy="105" r="7"/>
+        <text x="470" y="100" font-family="Inter" font-size="10" fill="#A91D52" font-weight="700">Zazzle Ireland (Dublin)</text>
+      </g>
+
+      <!-- Markets -->
+      <g fill="#DC2867" opacity="0.5">
+        <!-- Australia -->
+        <circle cx="855" cy="350" r="5"/>
+        <text x="755" y="370" font-family="Inter" font-size="10" fill="#A91D52" font-weight="600">AU (2009)</text>
+        <!-- Canada -->
+        <circle cx="225" cy="150" r="5"/>
+        <text x="237" y="148" font-family="Inter" font-size="10" fill="#A91D52" font-weight="600">CA</text>
+        <!-- UK -->
+        <circle cx="465" cy="100" r="5"/>
+        <text x="380" y="90" font-family="Inter" font-size="10" fill="#A91D52" font-weight="600">UK</text>
+      </g>
+
+      <!-- Arcs from Reno to global -->
+      <g fill="none" stroke="#DC286755" stroke-width="0.6" stroke-dasharray="3 3">
+        <path d="M 155 185 Q 300 110 455 105"/>
+        <path d="M 155 185 Q 500 240 855 350"/>
+        <path d="M 155 185 Q 200 130 225 150"/>
+      </g>
+    </svg>
+    <div class="legend">
+      <span class="ll"><span class="dot hub"></span>Menlo Park HQ (Bay Area)</span>
+      <span class="ll"><span class="dot"></span>Reno 单一制造中心（209,000 sqft）</span>
+      <span class="ll"><b>24h</b>&nbsp;履约 SLA</span>
+      <span class="ll"><b>4 国</b>&nbsp;站点（US/AU/CA/UK）</span>
+    </div>
+  </div>
+
+  <h3 class="h">Reno 工厂详解</h3>
+  <p>Zazzle 的 Reno, NV 制造中心是 POD 行业最独特的资产之一：
+    <br/>① <b>209,000 sqft</b> 单一大型工厂——比 Printful 任何单基地都大；
+    <br/>② <b>由 Tectonics Design Group 建设</b>，36 英尺净高，180,000 sqft 印刷能力；
+    <br/>③ <b>合并了原有 3 个分散基地</b>，2017 年 1 月完成搬迁；
+    <br/>④ <b>250 个就业岗位</b>，Reno 市长亲自宣布；
+    <br/>⑤ <b>位置：</b>South Valley Commerce Center, Sandhill Rd 与 Trademark Dr 交汇处；
+    <br/>⑥ <b>24h 履约 SLA</b>：从订单提交到商品发货可在 24 小时内完成；
+    <br/>⑦ <b>支持所有印刷工艺</b>：DTG / DTF / 升华 / 大幅面 / 邮票打印（历史业务）</p>
+
+  <h3 class="h">网络对比（POD 行业全景）</h3>
+  <table>
+    <thead><tr><th>维度</th><th>Zazzle</th><th>Printful</th><th>Cimpress</th><th>Printify</th><th>Gelato</th></tr></thead>
+    <tbody>
+      <tr><td class="accent">生产模式</td><td>单基地自营</td><td>13 基地自营</td><td>20 基地自营</td><td>第三方 90+</td><td>第三方 140+</td></tr>
+      <tr><td class="accent">基地规模</td><td>209,000 sqft</td><td>中等多个</td><td>中等多个</td><td>小（合作）</td><td>小（合作）</td></tr>
+      <tr><td class="accent">履约速度</td><td>24h SLA</td><td>2-5 天</td><td>多天</td><td>3-7 天</td><td>2-4 天</td></tr>
+      <tr><td class="accent">地理覆盖</td><td>4 国</td><td>13 履约中心</td><td>全球 20 国</td><td>美国为主</td><td>32 国</td></tr>
+      <tr><td class="accent">扩张速度</td><td>中（需建工厂）</td><td>中</td><td>慢</td><td>快</td><td>快</td></tr>
+      <tr><td class="accent">质量一致性</td><td>★★★★★（自营）</td><td>★★★★★（自营）</td><td>★★★★★（自营）</td><td>★★★（第三方）</td><td>★★★（第三方）</td></tr>
+    </tbody>
+  </table>
+
+  <p>结论：<b>Zazzle 的"单一大型自营 + 4 国站点"是 POD 行业最独特的网络结构</b>——
+    比 Printful/Cimpress 简单（仅 1 个工厂 vs 13-20 个），
+    比 Printify/Gelato 重（自营 vs 第三方）；
+    这种"资产中等"模式让 Zazzle 在质量稳定性 + 资本效率之间取得平衡。
+    但 Reno 单一基地也是风险点 —— 如果出问题没有替代。</p>
+</section>
+
+<!-- 07 ORG -->
+<section id="org" class="section">
+  <div class="section-num">07 · 第二部 · 业务运营</div>
+  <h2 class="section-title">团队与组织</h2>
+  <p class="section-deck">Beaver 家族 21 年治理 + 252 员工 + Stanford 校友网络。</p>
+
+  <h3 class="h">领导层架构</h3>
+  <div class="org">
+    <div class="level">
+      <div class="node exec"><div class="role">CEO (21 年在位)</div><div class="nm">Robert Beaver (创始人/父亲)</div></div>
+    </div>
+    <div class="conn"></div>
+    <div class="level">
+      <div class="node"><div class="role">Co-founder · CTO</div><div class="nm">Bobby Beaver (小儿子, Stanford)</div></div>
+      <div class="node"><div class="role">Co-founder · CSO</div><div class="nm">Jeff Beaver (大儿子, Stanford)</div></div>
+      <div class="node"><div class="role">COO / Operations</div><div class="nm">Charles (Stanford 同学)</div></div>
+      <div class="node"><div class="role">CMO</div><div class="nm">Nizzi Renaud</div></div>
+      <div class="node"><div class="role">Director HR</div><div class="nm">Peggy Beaver (家族)</div></div>
+      <div class="node"><div class="role">MD · Zazzle Ireland</div><div class="nm">Jason Kang</div></div>
+    </div>
+  </div>
+
+  <h3 class="h">职能部门组织（推断）</h3>
+  <div class="org">
+    <div class="level">
+      <div class="node dept"><div class="role">工程 & 平台</div><div class="nm">Zazzle Create + 142 专利</div></div>
+      <div class="node dept"><div class="role">制造 & 运营</div><div class="nm">Reno 工厂 + 24h SLA</div></div>
+      <div class="node dept"><div class="role">设计师社区</div><div class="nm">ProSeller Program</div></div>
+      <div class="node dept"><div class="role">营销 + SEO</div><div class="nm">Pinterest + 婚礼</div></div>
+      <div class="node dept"><div class="role">国际站点</div><div class="nm">Ireland / AU / CA / UK</div></div>
+      <div class="node dept"><div class="role">客户服务</div><div class="nm">婚礼专属咨询</div></div>
+    </div>
+  </div>
+
+  <div class="kpis">
+    <div class="kpi"><div class="lbl">总员工（公司报告）</div><div class="val">~252</div><div class="sub">含 Reno 工厂</div></div>
+    <div class="kpi"><div class="lbl">家族成员高管</div><div class="val">4 人</div><div class="sub">Robert + Bobby + Jeff + Peggy</div></div>
+    <div class="kpi"><div class="lbl">主要办公</div><div class="val">3</div><div class="sub">Menlo Park / Reno / Dublin</div></div>
+    <div class="kpi"><div class="lbl">每员工营收（估）</div><div class="val">~$0.8M-1.6M</div><div class="sub">$200-400M / 252</div></div>
+  </div>
+
+  <h3 class="h">关键岗位：Beaver 家族 + Stanford 校友</h3>
+  <p>Zazzle 的领导层是<b>POD 行业最独特的</b>：
+    <br/><b>Beaver 家族</b>：Robert（父亲，CEO 21 年）+ Bobby（小儿子，CTO，Stanford 计算机本科 + 数学博士）+ Jeff（大儿子，CSO，Stanford 计算机本科）+ Peggy（家族，HR 总监）；
+    <br/><b>Stanford 校友</b>：COO Charles 是 Beaver 兄弟在 Stanford 的同学，从客服部门起步成长为运营总监，主管供应链 + 全球物流 + 制造 + R&D；
+    <br/><b>外部职业经理人</b>：CMO Nizzi Renaud、Zazzle Ireland MD Jason Kang 等。
+    <br/>这种"<b>家族治理 + Stanford 校友 + 外部职业经理人</b>"三层结构在硅谷罕见，反映 Beaver 家族强烈的"长期主义 + 控制权"偏好。
+    21 年来未 IPO、未大规模再融资，体现了这种治理哲学。</p>
+
+  <h3 class="h">企业文化</h3>
+  <p>Zazzle 文化以<b>"家族 + 长期主义 + 工程师"</b>著称。Bobby Beaver 的 Stanford 工程背景让公司从 Day 1 就重视技术——142 项专利就是证明。
+    Zazzle Create 实时协同设计工具的发布说明公司愿意做<b>"前瞻性投入"</b>，即使短期不直接变现。
+    但<b>"家族治理"也带来限制</b> —— 不易引入大规模外部资本、不易做战略性变革。这是 Zazzle 21 年来"稳健但增长慢"的根本原因。</p>
+</section>
+
+<!-- 08 REVENUE -->
+<section id="revenue" class="section">
+  <div class="section-num">08 · 第二部 · 业务运营</div>
+  <h2 class="section-title">营收：20 年走势</h2>
+  <p class="section-deck">私有公司未公开年报，本节基于 SimilarWeb / Grips Intelligence / IncFact 等多源数据三角验证。</p>
+
+  <div class="chartbox">
+    <h4>Zazzle 营收估算走势（USD M, 2005–2026E）</h4>
+    <canvas id="revenueChart"></canvas>
+    <div class="src">来源：SimilarWeb（Q4 2023 $200-500M）、Grips Intelligence（$413M）、IncFact、Owler；2005-2020 多源回溯估算</div>
+  </div>
+
+  <table>
+    <thead><tr><th>年份</th><th>营收估算 USD M</th><th>YoY</th><th>关键事件</th></tr></thead>
+    <tbody>
+      <tr><td class="accent">2005</td><td class="num">~$5</td><td class="num">launch</td><td>正式上线 + $16M Series A</td></tr>
+      <tr><td class="accent">2008</td><td class="num">~$30</td><td class="num">—</td><td>Crunchies 奖 + 100 亿 SKU</td></tr>
+      <tr><td class="accent">2010</td><td class="num">~$60</td><td class="num">—</td><td>多国站点扩张</td></tr>
+      <tr><td class="accent">2015</td><td class="num">~$130</td><td class="num">—</td><td>10 年发展期</td></tr>
+      <tr><td class="accent">2017</td><td class="num">~$170</td><td class="num">—</td><td>Reno 工厂搬迁</td></tr>
+      <tr><td class="accent">2018</td><td class="num">~$165</td><td class="num">-3%</td><td>USPS 邮票业务终止</td></tr>
+      <tr><td class="accent">2020 (COVID)</td><td class="num">~$240</td><td class="num">+45%</td><td>疫情礼物业务爆发</td></tr>
+      <tr><td class="accent">2022</td><td class="num">~$300</td><td class="num">—</td><td>稳健运营</td></tr>
+      <tr><td class="accent">2023</td><td class="num">~$350</td><td class="num">+17%</td><td>SimilarWeb $200-500M 区间</td></tr>
+      <tr><td class="accent">2024</td><td class="num">~$380</td><td class="num">+9%</td><td>AI 内容政策上线</td></tr>
+      <tr><td class="accent">2025</td><td class="num">~$413</td><td class="num">+9%</td><td>Grips Intelligence 数据</td></tr>
+      <tr><td class="accent">2026E</td><td class="num">~$460</td><td class="num">+11%</td><td>Picsart 集成 + AIGC 红利</td></tr>
+    </tbody>
+  </table>
+
+  <h3 class="h">营收口径说明</h3>
+  <p>Zazzle 作为私有公司从未公开过年报，所有营收数据均为估算：
+    <br/><b>SimilarWeb Q4 2023：</b>年营收区间 $200-500M（基于网站流量推算）；
+    <br/><b>Grips Intelligence (2025)：</b>$413M（基于电商分析）；
+    <br/><b>IncFact：</b>~$200M+；
+    <br/><b>Owler：</b>$180M-$300M 区间；
+    <br/><b>Latka (GetLatka)：</b>$2.9M 是月度运营数据，非年度；
+    <br/>本报告采纳 <b>$350-413M 区间作为合理估算</b>，2026 年预期增至 ~$460M（含 Picsart 合作推动）。</p>
+
+  <h3 class="h">营收结构（估算）</h3>
+  <div class="kpis">
+    <div class="kpi"><div class="lbl">婚礼场景</div><div class="val">~30-35%</div><div class="sub">邀请函 / 谢卡 / 纪念品</div></div>
+    <div class="kpi"><div class="lbl">节日 / 礼物</div><div class="val">~25%</div><div class="sub">圣诞 / 周年 / 生日</div></div>
+    <div class="kpi"><div class="lbl">商业品</div><div class="val">~15%</div><div class="sub">名片 / 信封 / 办公品</div></div>
+    <div class="kpi"><div class="lbl">家居 + 服装</div><div class="val">~25%</div><div class="sub">墙艺 / T 恤 / 马克杯</div></div>
+  </div>
+</section>
+
+<!-- 09 PROFIT -->
+<section id="profit" class="section">
+  <div class="section-num">09 · 第二部 · 业务运营</div>
+  <h2 class="section-title">利润与单位经济</h2>
+  <p class="section-deck">21 年私有运营 + 稳健增长说明 Zazzle 长期盈利，但具体利润率未披露。</p>
+
+  <div class="kpis">
+    <div class="kpi"><div class="lbl">毛利率（估）</div><div class="val">45-55%</div><div class="sub">高 LTV 婚礼品类拉高</div></div>
+    <div class="kpi"><div class="lbl">EBITDA Margin（估）</div><div class="val">10-15%</div><div class="sub">稳健现金牛水平</div></div>
+    <div class="kpi"><div class="lbl">21 年保持盈利</div><div class="val">~17 年</div><div class="sub">扣除早期建设期</div></div>
+    <div class="kpi"><div class="lbl">每员工营收</div><div class="val">~$1.3-1.6M</div><div class="sub">POD 行业最高之一</div></div>
+  </div>
+
+  <h3 class="h">单位经济对比（POD 行业全景）</h3>
+  <table>
+    <thead><tr><th>项</th><th>Zazzle</th><th>Printful</th><th>Gelato</th><th>Cimpress</th><th>Redbubble</th></tr></thead>
+    <tbody>
+      <tr><td>商业模式</td><td>消费者定制 Marketplace</td><td>资产重 POD</td><td>资产轻 + SaaS</td><td>SMB Web-to-Print</td><td>Artist Marketplace</td></tr>
+      <tr><td>典型订单价值（AOV）</td><td class="num">$35-80（婚礼高）</td><td class="num">$15-25</td><td class="num">$20-30</td><td class="num">$30-50</td><td class="num">$15-25</td></tr>
+      <tr><td>毛利率（估）</td><td class="num"><b>45-55%</b></td><td class="num">32-38%</td><td class="num">42-48%</td><td class="num">~50%</td><td class="num">~28% GPAPA</td></tr>
+      <tr><td>EBITDA Margin</td><td class="num"><b>10-15%</b></td><td class="num">~12%</td><td class="num">8-14%</td><td class="num">~14%</td><td class="num">~6% (FY25)</td></tr>
+      <tr><td>每员工营收</td><td class="num"><b>~$1.5M</b></td><td class="num">~$0.4M</td><td class="num">~$0.2M</td><td class="num">~$0.34M</td><td class="num">~$0.9M</td></tr>
+      <tr><td>资本效率</td><td class="num"><b>极高</b></td><td class="num">中</td><td class="num">低</td><td class="num">中</td><td class="num">已废弃</td></tr>
+    </tbody>
+  </table>
+
+  <h3 class="h">为什么 Zazzle 每员工营收最高？</h3>
+  <p>Zazzle 在 POD 行业里有<b>最高的每员工营收</b>（~$1.5M/员工），这反映几个特征：
+    <br/>①<b>客户自服务模式</b>：消费者自己上传文字、照片、艺术作品 —— 不需要客服或销售员推动；
+    <br/>②<b>设计师生态扩展</b>：30M+ 累计用户中大部分被设计师社区"教育"过；
+    <br/>③<b>Reno 单一工厂高效</b>：合并 3 个旧基地后，制造效率优化；
+    <br/>④<b>无销售团队（B2C）</b>：相比 National Pen 等 B2B 玩家不需要 outbound 销售。
+    <br/>但这种"高人均"也有局限 —— 增长速度被限制，因为每个员工服务的客户上限有边界。</p>
+
+  <h3 class="h">利润可持续性</h3>
+  <p>21 年盈利 + 19 年未再融资 = <b>Zazzle 已经实现"自我造血"</b>。
+    虽然每年增长仅 5-10%，但稳健的现金流让 Beaver 家族能保持私有控制权 + 不上市的奢侈。
+    这种"稳健现金牛 + 不烧钱"的财务模型，使 Zazzle 在 POD 行业 21 年来一直在阴影中稳定增长 —— 不像 Redbubble 那样大起大落，也不像 FYUL 那样在合并 + IPO 路径上波动。</p>
+</section>
+
+<!-- 10 TRENDS -->
+<section id="trends" class="section">
+  <div class="section-num">10 · 第二部 · 业务运营</div>
+  <h2 class="section-title">发展趋势：8 大方向</h2>
+  <p class="section-deck">未来 24 月 Zazzle 战略上必将发生（或必须发生）的 8 个变化。</p>
+
+  <div class="grid-4">
+    <div class="card zz"><div class="hd">趋势 01</div><h4>AIGC 全面集成</h4><p>2025 Picsart 合作是开始；2026 起 AI 生成内容将成为新 SKU 标准；Zazzle Create 升级为 AI-first 工具。</p></div>
+    <div class="card zz"><div class="hd">趋势 02</div><h4>婚礼场景持续深耕</h4><p>婚礼仍是核心 + 最高 LTV；将扩展到婚礼周边（伴娘礼物 / 求婚 / 蜜月）。Z 世代结婚潮支持 30% 增长。</p></div>
+    <div class="card zz"><div class="hd">趋势 03</div><h4>Picsart 流量入口</h4><p>1.5 亿+ Picsart 用户是 Zazzle 史上最大流量增量；2026 转化率是核心 KPI。</p></div>
+    <div class="card zz"><div class="hd">趋势 04</div><h4>家族治理结构稳定</h4><p>Beaver 家族不会 IPO；EquityZen 等 pre-IPO 二级市场会持续活跃 19 年的早期投资人可能寻求部分退出。</p></div>
+    <div class="card zz"><div class="hd">趋势 05</div><h4>设计师 royalty 调整</h4><p>当前 5-15% royalty 可能被调整；新设计师准入门槛提升 + 优质设计师获得更高分成。</p></div>
+    <div class="card zz"><div class="hd">趋势 06</div><h4>国际站点扩张</h4><p>当前 4 国站点（US/AU/CA/UK）；2026 可能扩展到德国 / 日本 / 印度等新市场。</p></div>
+    <div class="card zz"><div class="hd">趋势 07</div><h4>新品类拓展</h4><p>过去主要 paper + 衣物 + 家居；2026 可能扩展到化妆品包装 / 宠物用品 / 智能家居等。</p></div>
+    <div class="card zz"><div class="hd">趋势 08</div><h4>Reno 工厂扩容</h4><p>209,000 sqft 是 2017 年规模；如果营收持续增长，2026-2027 可能扩建到 30 万平方英尺级别。</p></div>
+  </div>
+</section>
+
+<!-- 11 ZERO TO ONE -->
+<section id="zerotoone" class="section">
+  <div class="section-num">11 · 第三部 · 增长引擎 <span class="section-tag growth">Customer Acquisition</span></div>
+  <h2 class="section-title">0→1 客户获取之路：从 Stanford 测试到 30M 用户</h2>
+  <p class="section-deck">复盘 Zazzle 1999-2025 的客户获取漏斗 —— 21 年沉淀的最完整 POD Marketplace 增长路径。</p>
+
+  <div class="funnel">
+    <div class="stage">
+      <div class="ph">PHASE 0<br/>1999-2003</div>
+      <div>
+        <h4>创业前夜：消费者定制的市场空白</h4>
+        <p>Robert Beaver 与 Stanford 学生儿子 Bobby/Jeff 看到了一个简单观察：<b>"普通消费者想给商品加上自己的文字、照片，但市场没有任何工具"</b>。1999-2003 年 4 年时间在私下打磨原型——这种"长期 R&D"是硅谷少见的，反映创始人不急于变现的长期主义。</p>
+      </div>
+      <div class="res">4 年原型迭代<br/>验证需求</div>
+    </div>
+    <div class="stage">
+      <div class="ph">PHASE 1<br/>2005</div>
+      <div>
+        <h4>正式上线 + 顶级 VC 双重 boost</h4>
+        <p>2005 年 Zazzle.com 正式上线；同年获 John Doerr + Ram Shriram 共 $16M Series A。第一周 100,000 次访问证明<b>"消费者定制 + POD"</b>是真实需求。同年与 USPS 达成合作（个性化邮票），成为<b>"消费者最特别的定制商品"</b>心智来源。</p>
+      </div>
+      <div class="res">~100K 注册<br/>$16M 弹药</div>
+    </div>
+    <div class="stage">
+      <div class="ph">PHASE 2<br/>2006-2010</div>
+      <div>
+        <h4>USPS 合作 + 婚礼场景突破</h4>
+        <p>USPS 个性化邮票合作（2005-2018）是<b>顶级 PR 武器</b>——所有报纸、电视、博客都报道"你能把自己的照片印在合法邮票上"。这驱动了大量首次访问。
+        紧接着 Zazzle 把这种"特别"心智迁移到<b>婚礼场景</b>——婚礼邀请函本来就是用户最愿意"定制独一无二"的商品。
+        2008 年获 Crunchies 商业模式奖；同年 catalog 突破 100 亿 SKU；ProSeller Program 鼓励顶级设计师。2009 国际扩张到 AU + CA。</p>
+      </div>
+      <div class="res">数百万注册<br/>婚礼心智确立</div>
+    </div>
+    <div class="stage">
+      <div class="ph">PHASE 3<br/>2010-2019</div>
+      <div>
+        <h4>稳健增长 + SEO 长尾 + Pinterest 红利</h4>
+        <p>2010-2019 是<b>"稳健盈利期"</b>——年增长 5-15%，但<b>不再公开融资</b>。
+        核心获客手段是<b>SEO 长尾 + Pinterest</b>——婚礼相关搜索词长期占据 Google 第一页；Pinterest 上的婚礼板块 50%+ 流量直接到 Zazzle。
+        2017 年 Reno 工厂搬迁强化制造能力；2019 年 12 月推出 Zazzle Create 实时协同设计工具，是 Canva 崛起前的关键防御。</p>
+      </div>
+      <div class="res">20M+ 累计用户<br/>SEO 长尾收割</div>
+    </div>
+    <div class="stage">
+      <div class="ph">PHASE 4<br/>2020-2026</div>
+      <div>
+        <h4>疫情红利 + AIGC + Picsart 转身</h4>
+        <p>2020-2022 疫情期间礼物 / 婚礼 / 节日业务受益于"远程送礼"潮，营收从 ~$170M 跳到 ~$300M。
+        2024 年开始 AIGC 内容政策；2025 年 12 月与 Picsart 达成战略合作，让 1.5 亿+ Picsart 用户成为新增长引擎。
+        2026 年起 AI 生成内容 + 优化封面图开始显著提升转化率——这是 Zazzle 21 年来最大的"流量入口转身"。</p>
+      </div>
+      <div class="res">30M+ 累计<br/>Picsart 流量增量</div>
+    </div>
+  </div>
+
+  <h3 class="h">Zazzle 0→1 的 4 条独特经验</h3>
+  <p><b>① 4 年私下 R&D + 不急于上线。</b>Beaver 兄弟 1999-2003 年磨产品 4 年，是硅谷少见的"长期主义 + 不抢风口"——但当 2005 上线时产品已成熟。<br/>
+    <b>② USPS 合作是 PR 引爆器。</b>个性化邮票合作 13 年间获得免费媒体报道无数次——所有报纸、电视、博客的"消费者能做这个真酷"故事都把 Zazzle 推上台。<br/>
+    <b>③ 婚礼场景是 LTV 之王。</b>从 USPS 邮票心智迁移到婚礼邀请函——Zazzle 在 POD 行业里独占婚礼场景，因为婚礼邀请函本身就是消费者最愿意"独一无二定制"的商品。<br/>
+    <b>④ 19 年不再融资 = 稳健盈利信号。</b>这是给设计师、合作伙伴的最强信任信号——告诉他们 Zazzle 不会突然破产或被并购。</p>
+</section>
+
+<!-- 12 GROWTH STACK -->
+<section id="growthstack" class="section">
+  <div class="section-num">12 · 第三部 · 增长引擎 <span class="section-tag growth">User Growth Tactics</span></div>
+  <h2 class="section-title">用户增长手段全栈：14 种核心战术</h2>
+  <p class="section-deck">把 Zazzle 21 年的增长动作切分为 14 项可命名、可复制的具体战术。</p>
+
+  <div class="tactic-grid">
+    <div class="tac"><div class="nm">01</div><div><h4>USPS 邮票 PR 引爆</h4><p>2005-2018 年 13 年间，USPS 个性化邮票获得了无数报纸 / 电视 / 博客的免费报道——"你能把孩子照片印在合法邮票上"。这是 POD 行业最经典的 PR 武器。</p><div class="res">影响：免费媒体覆盖</div></div></div>
+    <div class="tac"><div class="nm">02</div><div><h4>婚礼 SEO 长尾</h4><p>"wedding invitations"、"save the date cards"等婚礼相关关键词长期占据 Google 第一页——婚礼场景的高 LTV 让 Zazzle 愿意持续投入 SEO 内容建设。</p><div class="res">影响：50%+ 流量来自搜索</div></div></div>
+    <div class="tac"><div class="nm">03</div><div><h4>Pinterest 婚礼板块</h4><p>Pinterest 是 Zazzle 婚礼场景的核心免费流量入口——婚礼准新娘在 Pinterest 上 "pin" 看到的邀请函直接跳转到 Zazzle 商品页。</p><div class="res">影响：婚礼买家主入口</div></div></div>
+    <div class="tac"><div class="nm">04</div><div><h4>消费者深度定制</h4><p>所有商品都支持加自定义文字 + 照片 + 艺术——这是与 Redbubble（仅卖艺术家设计）和 Printful（商家工具）最根本的差异。</p><div class="res">影响：差异化心智</div></div></div>
+    <div class="tac"><div class="nm">05</div><div><h4>ProSeller Program 设计师生态</h4><p>2008 年推出，奖励顶级设计师，加速优质设计师上传作品。后续扩展到 Maker 计划，让"职业 Zazzle 设计师"成为可能。</p><div class="res">影响：B 端供给增长</div></div></div>
+    <div class="tac"><div class="nm">06</div><div><h4>Affiliate Program 15% 佣金</h4><p>15% 推广佣金——比 Amazon Affiliate（4-10%）高很多；任何博客主 / KOL 都可推荐 Zazzle 商品赚分成。是长尾博主红利期的核心战术。</p><div class="res">影响：长尾博主转化</div></div></div>
+    <div class="tac"><div class="nm">07</div><div><h4>Zazzle Create 设计入口</h4><p>2019 推出的实时协同设计工具，让 Canva 崛起前 Zazzle 仍占有"产品设计入口"心智——用户来 Zazzle 设计完成后直接下单。</p><div class="res">影响：保留设计入口</div></div></div>
+    <div class="tac"><div class="nm">08</div><div><h4>季节性营销活动</h4><p>圣诞、情人节、母亲节、毕业季——每个节日 Zazzle 都有专属营销活动 + 折扣促销。礼物 + 个性化是天然搭配。</p><div class="res">影响：旺季爆发</div></div></div>
+    <div class="tac"><div class="nm">09</div><div><h4>Email 个性化营销</h4><p>30M+ 用户的购物历史 + 偏好数据 → 个性化邮件推荐；婚礼用户 18 个月后还会收到周年纪念礼物推荐。</p><div class="res">影响：复购 + LTV</div></div></div>
+    <div class="tac"><div class="nm">10</div><div><h4>国际站点本地化</h4><p>2009 起扩展到 AU + CA + UK + Ireland 子站点——本地化货币、物流、风俗化营销让 Zazzle 跨境收入持续增长。</p><div class="res">影响：地理 TAM 扩大</div></div></div>
+    <div class="tac"><div class="nm">11</div><div><h4>Designer Showcase 内容营销</h4><p>顶级设计师故事 + 教程内容 + Designer Spotlight 在 Zazzle Blog 和 YouTube 频道吸引新设计师加入生态。</p><div class="res">影响：B 端获客</div></div></div>
+    <div class="tac"><div class="nm">12</div><div><h4>Picsart 流量伙伴（2025）</h4><p>1.5 亿+ Picsart 用户的 AIGC 内容可一键发布到 Zazzle 商品——这是 Zazzle 史上最大流量增量来源。</p><div class="res">影响：流量入口革命</div></div></div>
+    <div class="tac"><div class="nm">13</div><div><h4>AI 内容标签 + 搜索</h4><p>2024 起 #generativecontent 标签 + AI 内容搜索优化——让用户能专门搜索"AI 生成的"商品。</p><div class="res">影响：AIGC 红利收割</div></div></div>
+    <div class="tac"><div class="nm">14</div><div><h4>家族治理 + 不 IPO 信任</h4><p>21 年家族 CEO 在位 + 19 年未再融资 = 给设计师 / 客户 / 合作伙伴的"长期主义"信任信号——这本身是隐性的"营销动作"。</p><div class="res">影响：生态可持续</div></div></div>
+  </div>
+
+  <h3 class="h">底层增长哲学：把"人生重要时刻"做成可持续生意</h3>
+  <p>Zazzle 的增长哲学与 Redbubble 截然不同：
+    <br/>① <b>Redbubble</b>：服务"艺术家想分享作品"——艺术家中心；
+    <br/>② <b>Zazzle</b>：服务"消费者想纪念人生重要时刻"——消费者中心。
+    <br/><br/>正是这个差异让 Zazzle 选择婚礼 / 周年 / 礼物等"高情感价值 + 高 LTV"场景，而 Redbubble 选择 T 恤 / 贴纸等"流量驱动"场景。
+    <br/>结果：Zazzle 的客单价（AOV ~$50）远高于 Redbubble（~$20），即使月活只有 17M 仍能稳健盈利。这是<b>"精准客户 vs 大流量"</b>的战略对比，Zazzle 选择了前者。</p>
+</section>
+
+<!-- 13 CHANNELS -->
+<section id="channel" class="section">
+  <div class="section-num">13 · 第三部 · 增长引擎 <span class="section-tag growth">Channel Mix</span></div>
+  <h2 class="section-title">营销渠道矩阵</h2>
+  <p class="section-deck">"SEO + Pinterest + Affiliate" 三轮驱动 + 2025 起 Picsart 流量入口。</p>
+
+  <table>
+    <thead><tr><th>类别</th><th>具体渠道</th><th>核心动作</th><th>对获客的贡献</th></tr></thead>
+    <tbody>
+      <tr><td class="accent" rowspan="3">自有渠道<br/><span class="tag green">高 ROI</span></td>
+          <td>Zazzle Blog + Designer Showcase</td><td>婚礼 / 设计师故事内容</td><td>SEO 长尾入口</td></tr>
+      <tr><td>Help Center + Wedding Hub</td><td>婚礼咨询 + 设计教程</td><td>转化优化</td></tr>
+      <tr><td>Email Marketing</td><td>30M 用户分层 drip</td><td>复购 + LTV 提升</td></tr>
+
+      <tr><td class="accent" rowspan="3">SEO + 搜索<br/><span class="tag green">主入口</span></td>
+          <td>Google "wedding invitations"</td><td>长期占据第一页</td><td>50%+ 流量来源</td></tr>
+      <tr><td>Bing / Yahoo</td><td>多搜索引擎覆盖</td><td>边际流量</td></tr>
+      <tr><td>站内搜索优化</td><td>3,000+ 商品类目长尾</td><td>用户深度遍历</td></tr>
+
+      <tr><td class="accent" rowspan="3">社交渠道<br/><span class="tag green">婚礼核心</span></td>
+          <td>Pinterest（婚礼板块）</td><td>商品 Pin → 直接到 Zazzle</td><td>婚礼买家主入口</td></tr>
+      <tr><td>Instagram</td><td>视觉化产品展示</td><td>新婚 / 礼物场景</td></tr>
+      <tr><td>TikTok / YouTube（新）</td><td>"小红书化"短视频</td><td>新一代获客</td></tr>
+
+      <tr><td class="accent" rowspan="3">合作渠道<br/><span class="tag green">长尾持续</span></td>
+          <td>Affiliate Program (15% 佣金)</td><td>博主 / KOL 推广</td><td>长尾博主主要获客</td></tr>
+      <tr><td>影响者合作</td><td>婚礼博主 / 礼物推荐</td><td>精准社群转化</td></tr>
+      <tr><td>Picsart 战略合作（2025）</td><td>1.5 亿 + 用户流量导入</td><td>新增长引擎</td></tr>
+
+      <tr><td class="accent" rowspan="2">付费渠道<br/><span class="tag amber">辅助</span></td>
+          <td>Google Ads</td><td>"wedding cards"等关键词</td><td>季节性付费补充</td></tr>
+      <tr><td>Meta Ads</td><td>视觉化礼物广告</td><td>新客户获取</td></tr>
+
+      <tr><td class="accent" rowspan="2">媒体 PR<br/><span class="tag amber">声量赋能</span></td>
+          <td>历史 USPS 邮票 PR</td><td>2005-2018 免费媒体覆盖</td><td>历史增长引擎</td></tr>
+      <tr><td>TechCrunch / WSJ 等</td><td>融资 / 合作里程碑报道</td><td>资本与品牌共鸣</td></tr>
+    </tbody>
+  </table>
+
+  <h3 class="h">渠道经济学（CAC 估算）</h3>
+  <div class="kpis">
+    <div class="kpi"><div class="lbl">SEO + Pinterest CAC</div><div class="val">$3-8</div><div class="sub">最低；婚礼场景</div></div>
+    <div class="kpi"><div class="lbl">Affiliate CAC</div><div class="val">$10-25</div><div class="sub">15% 佣金抵消</div></div>
+    <div class="kpi"><div class="lbl">Email Re-engagement CAC</div><div class="val">$2-5</div><div class="sub">复购为主</div></div>
+    <div class="kpi"><div class="lbl">Paid Ads CAC</div><div class="val">$30-60</div><div class="sub">仅旺季补充</div></div>
+  </div>
+
+  <p>核心结论：<b>Zazzle 的渠道结构最大优势是 SEO + Pinterest 的免费长尾</b>——
+    Zazzle 不像 FYUL 那样依赖 paid ads，所以单位经济模型健康。
+    但同样的，这也是<b>结构性弱点</b>——当 Google AI Overview 或 Pinterest 算法变化时，Zazzle 流量基础容易受冲击。
+    Picsart 合作（2025）是 Zazzle 21 年来最大的渠道多元化尝试。</p>
+</section>
+
+<!-- 14 STRATEGY -->
+<section id="strategy" class="section">
+  <div class="section-num">14 · 第四部 · 咨询视角 <span class="section-tag consult">McKinsey / BCG 视角</span></div>
+  <h2 class="section-title">战略定位：婚礼之王 + 消费者定制</h2>
+  <p class="section-deck">用 BCG「Where to Play / How to Win」框架审视 Zazzle 的战略选择。</p>
+
+  <h3 class="h">Where to Play</h3>
+  <p>Zazzle 选择的赛道是<b>"消费者深度定制 + 婚礼 / 礼物场景"</b>——
+    这是一个看似拥挤但实际上没有强对手的"<b>夹缝中的金山</b>"：
+    <br/>① Etsy 服务广义"个性化商品市场"，但不专注定制；
+    <br/>② Cimpress / VistaPrint 服务 SMB 印刷品，不进入消费者 C 端；
+    <br/>③ Printful / Gelato 服务商家工具，不直接卖给消费者；
+    <br/>④ Redbubble / Society6 主推"艺术家展示"，定制深度浅。
+    <br/>所以 Zazzle 21 年来在"婚礼邀请函 + 消费者深度定制"细分里几乎没有真正的全球对手。
+    这是 21 年稳健盈利的根本原因。</p>
+
+  <h3 class="h">How to Win</h3>
+  <p>Zazzle 的赢面建立在三个基石：<b>消费者定制工具 + Reno 工厂 + 婚礼场景心智</b>。
+    <br/>消费者定制工具：Zazzle Create + 142 项专利让消费者能在浏览器中无缝自定义任何商品；
+    <br/>Reno 工厂：209,000 sqft 自营 + 24h SLA 履约让"独一无二"商品能在 24 小时送出去；
+    <br/>婚礼场景心智：21 年沉淀的"婚礼最个性化邀请函"心智，是任何新进入者都无法在 5 年内复制的。
+    <br/>三者结合，让 Zazzle 在<b>"消费者婚礼 / 礼物定制"</b>赛道里保持了 21 年的隐形护城河。</p>
+
+  <h3 class="h">战略两难</h3>
+  <table>
+    <thead><tr><th>两难</th><th>表征</th><th>当前选择</th><th>咨询建议</th></tr></thead>
+    <tbody>
+      <tr><td class="accent">深耕 vs 拓宽</td><td>专注婚礼 vs 拓展通用 POD</td><td>当前以婚礼为核心</td><td>继续深耕婚礼 + 扩展周边（伴娘礼物 / 求婚 / 蜜月）</td></tr>
+      <tr><td class="accent">私有 vs IPO</td><td>21 年未 IPO vs 上市</td><td>家族控制权优先</td><td>继续私有，但开放 EquityZen 等二级市场流动性</td></tr>
+      <tr><td class="accent">AIGC 自建 vs 合作</td><td>自建 AI 工具 vs 合作 Picsart</td><td>2025 选择合作</td><td>继续 Picsart 合作 + 自建 AI 增强 Zazzle Create</td></tr>
+      <tr><td class="accent">国际化深度</td><td>4 国站点 vs 全球化</td><td>缓慢扩张</td><td>聚焦欧洲 + 日本 + 印度等高 LTV 市场</td></tr>
+    </tbody>
+  </table>
+
+  <blockquote>"Zazzle 是 POD 行业的『婚礼之王』——它服务人生最重要的时刻，所以客户愿意付高价；它服务的场景被竞争对手忽视，所以护城河深。这是『niche + premium』战略的完美样本。"</blockquote>
+</section>
+
+<!-- 15 VALUE CHAIN -->
+<section id="valuechain" class="section">
+  <div class="section-num">15 · 第四部 · 咨询视角 <span class="section-tag consult">Value Chain</span></div>
+  <h2 class="section-title">价值链与生态位</h2>
+  <p class="section-deck">用 Porter 价值链拆解 Zazzle 在 POD 行业的环节占有率。</p>
+
+  <table>
+    <thead><tr><th>价值链环节</th><th>典型玩家</th><th>Zazzle 当前定位</th><th>可被替代度</th><th>竞争策略评估</th></tr></thead>
+    <tbody>
+      <tr><td class="accent">设计 / 灵感</td><td>Canva, Picsart, Midjourney</td><td>Zazzle Create + Picsart 合作</td><td><span class="tag amber">中</span></td><td>Picsart 集成是 2025 关键</td></tr>
+      <tr><td class="accent">店铺与流量</td><td>—</td><td>自有 4 国站点</td><td><span class="tag green">低</span></td><td>独立站思路 + 长尾 SEO</td></tr>
+      <tr><td class="accent">订单管理</td><td>—</td><td>专有平台</td><td><span class="tag green">低</span></td><td>142 专利保护</td></tr>
+      <tr><td class="accent">设备与生产</td><td>Reno 单一自营</td><td>209,000 sqft 工厂</td><td><span class="tag green">低</span></td><td>规模 + 24h SLA 双优势</td></tr>
+      <tr><td class="accent">物流</td><td>UPS, FedEx, USPS</td><td>整合多承运 + 4 国</td><td><span class="tag amber">中</span></td><td>美国本土履约成本低</td></tr>
+      <tr><td class="accent">客户支持</td><td>—</td><td>自营 + 婚礼专属</td><td><span class="tag green">低</span></td><td>婚礼咨询是差异化</td></tr>
+      <tr><td class="accent">设计师社区</td><td>—</td><td>ProSeller + Maker</td><td><span class="tag amber">中</span></td><td>21 年沉淀</td></tr>
+      <tr><td class="accent">消费者定制工具</td><td>—</td><td>Zazzle Create</td><td><span class="tag green">低</span></td><td>"消费者深度定制"独家心智</td></tr>
+    </tbody>
+  </table>
+
+  <h3 class="h">生态位地图（含五大 POD 玩家 + Cimpress + 我方）</h3>
+  <div class="matrix">
+    <div class="grid">
+      <div class="quad-lbl" style="top:10px;right:10px;">资产重 / 高 LTV</div>
+      <div class="quad-lbl" style="top:10px;left:10px;">资产轻 / 高 LTV</div>
+      <div class="quad-lbl" style="bottom:10px;right:10px;">资产重 / 大众</div>
+      <div class="quad-lbl" style="bottom:10px;left:10px;">资产轻 / 长尾</div>
+      <div class="pin print" style="left:75%;top:30%;"><div class="dot"></div><div class="lbl">Printful</div></div>
+      <div class="pin gel" style="left:30%;top:35%;"><div class="dot"></div><div class="lbl">Gelato</div></div>
+      <div class="pin pf" style="left:18%;top:72%;"><div class="dot"></div><div class="lbl">Printify</div></div>
+      <div class="pin rb" style="left:25%;top:60%;"><div class="dot"></div><div class="lbl">Redbubble</div></div>
+      <div class="pin cm" style="left:88%;top:62%;"><div class="dot"></div><div class="lbl">Cimpress</div></div>
+      <div class="pin" style="left:80%;top:18%;"><div class="dot"></div><div class="lbl">Zazzle</div></div>
+      <div class="pin us" style="left:55%;top:62%;"><div class="dot"></div><div class="lbl">Us（目标位）</div></div>
+    </div>
+    <div class="axis-x"><span>资产轻 ←</span><span>→ 资产重</span></div>
+    <div class="axis-y"><span>长尾 / 大众</span><span>高 LTV / 婚礼</span></div>
+  </div>
+  <p style="font-size:12px;color:var(--muted);margin-top:36px;">图：POD 生态位 2×2。Zazzle 处于<b>右上角"资产重（自营工厂） + 高 LTV（婚礼场景）"</b>象限——这是 POD 行业里独有的位置。它既有 Cimpress 一样的工厂资产，但客群是消费者（C 端），不是 SMB（B2B）；既有 Redbubble 一样的设计师生态，但 AOV ~$50 远高于 Redbubble ~$20。这种独特定位让 Zazzle 在 21 年里几乎没有真正的全球对手。</p>
+</section>
+
+<!-- 16 MOAT -->
+<section id="moat" class="section">
+  <div class="section-num">16 · 第四部 · 咨询视角 <span class="section-tag consult">Moat</span></div>
+  <h2 class="section-title">战略护城河（5 维评估）</h2>
+  <p class="section-deck">借鉴 Hamilton Helmer《7 Powers》框架，评估 Zazzle 五类护城河深度。</p>
+
+  <div class="chartbox">
+    <h4>Zazzle 护城河强度雷达（0–10）</h4>
+    <canvas id="moatChart"></canvas>
+    <div class="src">来源：综合公司公开信息 / 142 专利数据 / 21 年盈利记录 / 本报告测算</div>
+  </div>
+
+  <table>
+    <thead><tr><th>护城河类型</th><th>评分</th><th>解读</th><th>风险</th></tr></thead>
+    <tbody>
+      <tr><td class="accent">规模经济</td><td><span class="tag green">7/10</span></td><td>Reno 209,000 sqft 工厂 + 30M+ 用户 + 21 年沉淀，规模壁垒较深</td><td>单一工厂风险</td></tr>
+      <tr><td class="accent">网络效应</td><td><span class="tag amber">6/10</span></td><td>设计师 + 消费者双边市场，但与 Redbubble 相比规模较小</td><td>设计师可多平台并行</td></tr>
+      <tr><td class="accent">切换成本</td><td><span class="tag green">7/10</span></td><td>婚礼场景一次性 + 历史数据 + 个性化偏好让客户难切换</td><td>新婚买家无切换成本顾虑</td></tr>
+      <tr><td class="accent">品牌</td><td><span class="tag green">8/10</span></td><td>21 年沉淀的"婚礼最个性化邀请函"心智，是 POD 行业最强细分品牌</td><td>年轻人认知度有限</td></tr>
+      <tr><td class="accent">流程能力 / 142 专利</td><td><span class="tag green">9/10</span></td><td>142 项专利 + Zazzle Create + 24h SLA 履约，是 POD 行业最深的技术 + 制造组合</td><td>专利可能过期</td></tr>
+    </tbody>
+  </table>
+
+  <p>综合评估：<b>Zazzle 整体护城河得分 7.4/10</b>，仅次于 Cimpress (8.0)，明显高于 Printful (6.8)、Printify (6.6)、Gelato (6.2)、Redbubble (5.2)。
+    最强是<b>142 项专利 + 婚礼品牌心智</b>——两项都是其他玩家难以在 5-10 年复制的。
+    最弱是网络效应（设计师可多平台并行）。</p>
+</section>
+
+<!-- 17 OPS -->
+<section id="ops" class="section">
+  <div class="section-num">17 · 第四部 · 咨询视角 <span class="section-tag consult">Operations</span></div>
+  <h2 class="section-title">运营与效率：21 年精益运营</h2>
+  <p class="section-deck">从单位经济维度，Zazzle 是 POD 行业最有效率的样本之一。</p>
+
+  <h3 class="h">运营优势</h3>
+  <div class="grid-3">
+    <div class="card zz"><div class="hd">优势 1</div><h4>每员工营收 $1.5M</h4><p>POD 行业最高人均产出之一；反映"消费者自助 + 婚礼高 LTV"双重红利。</p></div>
+    <div class="card zz"><div class="hd">优势 2</div><h4>24 小时履约 SLA</h4><p>从订单到发货 24 小时内；这是行业最快速度——婚礼场景客户等不起。</p></div>
+    <div class="card zz"><div class="hd">优势 3</div><h4>21 年盈利运营</h4><p>从 2008-2009 后基本保持盈利；19 年未再融资证明现金流健康。</p></div>
+  </div>
+
+  <h3 class="h">运营痛点</h3>
+  <div class="grid-3">
+    <div class="card"><div class="hd">痛点 1</div><h4>Reno 单一工厂风险</h4><p>所有制造集中在 209,000 sqft 单一基地——如果出问题（自然灾害、设备故障）无替代方案。</p></div>
+    <div class="card"><div class="hd">痛点 2</div><h4>设计师工具老化</h4><p>Zazzle Create 在 Canva / Picsart 等新工具面前显得"老式"；Picsart 合作是补救但非替代。</p></div>
+    <div class="card"><div class="hd">痛点 3</div><h4>家族治理增长限制</h4><p>21 年家族 CEO + 不 IPO + 不大规模融资 = 增长速度被限制；难以做大规模战略转身。</p></div>
+  </div>
+
+  <h3 class="h">咨询建议（运营侧）</h3>
+  <p>第一，<b>建立二级工厂应对单一工厂风险</b>——在欧洲或东海岸建一个备份基地（即使只有 Reno 的 30% 产能），分散单一基地风险。
+    第二，<b>Zazzle Create 升级为 AI-first</b>——内置 Picsart / 类似 AI 工具，让消费者真正能"vibe-to-print"，而不是仍以传统模板为主。
+    第三，<b>设计师 royalty 调整 + Pro 升级路径</b>——参考 Redbubble 的 Standard / Premium / Pro 三档模型，激励顶级设计师 + 筛选低质量设计。</p>
+</section>
+
+<!-- 18 TAM -->
+<section id="tam" class="section">
+  <div class="section-num">18 · 第五部 · VC 视角 <span class="section-tag vc">私募 / 二级市场视角</span></div>
+  <h2 class="section-title">市场规模 TAM / SAM / SOM</h2>
+  <p class="section-deck">从二级市场（EquityZen 等）和私募投资人视角评估 Zazzle 市场天花板。</p>
+
+  <div class="kpis">
+    <div class="kpi"><div class="lbl">婚礼 TAM (US)</div><div class="val">$72B</div><div class="sub">含邀请函 + 礼物 + 服务</div></div>
+    <div class="kpi"><div class="lbl">婚礼邀请函 TAM</div><div class="val">~$5B</div><div class="sub">细分 SAM</div></div>
+    <div class="kpi"><div class="lbl">消费者定制商品 TAM</div><div class="val">~$60B</div><div class="sub">全球个性化礼物 + 商品</div></div>
+    <div class="kpi"><div class="lbl">Zazzle SOM</div><div class="val">~0.7%</div><div class="sub">$400M / $60B</div></div>
+  </div>
+
+  <div class="chartbox">
+    <h4>Zazzle 主战场（婚礼）vs 创作者 POD 市场对比（USD B）</h4>
+    <canvas id="marketChart"></canvas>
+    <div class="src">来源：综合 IBISWorld / The Knot Worldwide / Grand View Research</div>
+  </div>
+
+  <h3 class="h">VC 视角的关键判断</h3>
+  <p>Zazzle 处于<b>"消费者婚礼 / 礼物定制"</b>子赛道——这是一个 $5-60B（取决于宽度）的成熟市场，CAGR 5-8%。
+    虽然增长不像创作者 POD（CAGR 23-26%）那么快，但具备三大独特优势：
+    <br/>① <b>高 LTV</b>：婚礼客户 AOV ~$200-500（含邀请函 + 谢卡 + 周年）；
+    <br/>② <b>季节性可预测</b>：婚礼 / 节日 / 节假日有明确的销售周期；
+    <br/>③ <b>低竞争</b>：Etsy / Amazon 不专注定制；Cimpress / VistaPrint 不进入消费者 C 端。
+    <br/>从 VC 视角，Zazzle 是"<b>低竞争 + 高 LTV + 稳健现金流</b>"的样本——适合<b>价值投资</b>而非<b>成长投资</b>。</p>
+
+  <blockquote>"Zazzle 不是 SaaS 也不是创作者 POD——它是『婚礼业的 Etsy + 自营工厂』，一个 21 年沉淀的隐形冠军。它的价值在于稳健 + LTV，不在于增长速度。"</blockquote>
+</section>
+
+<!-- 19 CAPITAL -->
+<section id="cap" class="section">
+  <div class="section-num">19 · 第五部 · VC 视角 <span class="section-tag vc">Capital Path</span></div>
+  <h2 class="section-title">资本路径与估值演化</h2>
+  <p class="section-deck">21 年简单清晰的资本叙事——2 轮融资共 $46M，19 年自我造血。</p>
+
+  <table>
+    <thead><tr><th>阶段</th><th>时间</th><th>金额 / 估值</th><th>核心投资者</th><th>叙事</th></tr></thead>
+    <tbody>
+      <tr><td class="accent">早期种子</td><td>1999-2004</td><td class="num">家族自筹</td><td>Beaver 家族</td><td>4 年私下 R&D</td></tr>
+      <tr><td class="accent">Series A</td><td>2005 / 07</td><td class="num">$16M</td><td>John Doerr (Kleiner Perkins) + Ram Shriram (Sherpalo Ventures)</td><td>消费者定制 POD 商业模式</td></tr>
+      <tr><td class="accent">Series B</td><td>2007 / 10</td><td class="num">$30M</td><td>跟投 + 新投资人</td><td>规模化扩张</td></tr>
+      <tr><td class="accent">19 年自我造血</td><td>2007-2025</td><td class="num">— 无新融资</td><td>—</td><td>稳健盈利 + 婚礼场景深耕</td></tr>
+      <tr><td class="accent">二级市场流动性</td><td>2020+</td><td class="num">EquityZen 等</td><td>员工股票 / 老股东退出</td><td>家族保持控制权</td></tr>
+      <tr><td class="accent">2025 战略合作</td><td>2025 / 12</td><td class="num">未披露</td><td>Picsart 战略联盟</td><td>"vibe-design-to-print" AIGC 转身</td></tr>
+    </tbody>
+  </table>
+
+  <div class="chartbox">
+    <h4>Zazzle 估值情景（USD M, 2026 私募市场视角）</h4>
+    <canvas id="valuationChart"></canvas>
+    <div class="src">注：基于 EV/Revenue 1-2× 区间（成熟期 marketplace 估值锚点），考虑潜在战略收购溢价。</div>
+  </div>
+
+  <p><b>Bear Case</b>：营收停滞 + 婚礼场景成熟 → 估值 ~$300-400M（1× EV/Rev）；<br/>
+    <b>Base Case</b>：Picsart 集成 + 稳健增长 → 估值 ~$500-800M（1.3-2× EV/Rev）；<br/>
+    <b>Bull Case</b>：AIGC 红利 + 战略收购溢价（FYUL / Cimpress / Etsy 等）→ 估值 ~$1-1.5B（2.5-3.5× EV/Rev）。</p>
+</section>
+
+<!-- 20 FIN MODEL -->
+<section id="fin" class="section">
+  <div class="section-num">20 · 第五部 · VC 视角 <span class="section-tag vc">Financial Model</span></div>
+  <h2 class="section-title">财务模型推演</h2>
+  <p class="section-deck">基于多源估算的 Zazzle 财务结构。</p>
+
+  <table>
+    <thead><tr><th>项 (USD M)</th><th>2020A</th><th>2023A</th><th>2025A</th><th>2027E</th></tr></thead>
+    <tbody>
+      <tr><td class="accent">营收 (估)</td><td class="num">~$240</td><td class="num">~$350</td><td class="num">~$413</td><td class="num">~$510</td></tr>
+      <tr><td class="accent">营收增长 (YoY)</td><td class="num">+45%（COVID）</td><td class="num">~+8%</td><td class="num">~+9%</td><td class="num">~+11%</td></tr>
+      <tr><td class="accent">毛利率（估）</td><td class="num">~45%</td><td class="num">~48%</td><td class="num">~50%</td><td class="num">~52%</td></tr>
+      <tr><td class="accent">EBITDA</td><td class="num">~$30</td><td class="num">~$45</td><td class="num">~$55</td><td class="num">~$75</td></tr>
+      <tr><td class="accent">EBITDA Margin</td><td class="num">~12.5%</td><td class="num">~13%</td><td class="num">~13.3%</td><td class="num">~14.7%</td></tr>
+      <tr><td class="accent">净利率（估）</td><td class="num">~6%</td><td class="num">~7%</td><td class="num">~8%</td><td class="num">~10%</td></tr>
+    </tbody>
+  </table>
+
+  <h3 class="h">VC 关注的核心比率</h3>
+  <div class="grid-4">
+    <div class="card vc"><div class="hd">EV/Revenue</div><h4>~1-2×</h4><p>$400-800M 估值 / $413M 营收 = 1-2×。低于 Gelato 10× 但合理。</p></div>
+    <div class="card vc"><div class="hd">EV/EBITDA</div><h4>~10-15×</h4><p>稳健现金牛水平；不像 SaaS 但比传统印刷高。</p></div>
+    <div class="card vc"><div class="hd">资本效率比</div><h4>$8.5+/$1</h4><p>$46M 融资 → $413M 营收 = $9/$1，POD 行业资本效率最高之一。</p></div>
+    <div class="card vc"><div class="hd">FCF Yield</div><h4>~5-7%</h4><p>稳健现金流回报；私募投资者吸引力大。</p></div>
+  </div>
+
+  <h3 class="h">投资逻辑</h3>
+  <p>Zazzle 是<b>"私募 + 二级市场 + 战略并购"</b>三轨退出标的：
+    <br/>① <b>私募买入</b>：EquityZen 等平台可买 pre-IPO 股票，估值 $400-800M 区间合理；
+    <br/>② <b>二级市场流动性</b>：员工 / 老股东可通过二级市场退出；
+    <br/>③ <b>战略并购</b>：FYUL / Cimpress / Etsy 等都有潜在战略动机收购 Zazzle（婚礼场景 + 消费者定制能力），溢价可能 30-60%。
+    <br/>但<b>Beaver 家族 21 年不卖不上的态度</b>是任何投资逻辑的最大风险。</p>
+</section>
+
+<!-- 21 PEERS -->
+<section id="peers" class="section">
+  <div class="section-num">21 · 第五部 · VC 视角 <span class="section-tag vc">Peer Comp</span></div>
+  <h2 class="section-title">对标公司分析</h2>
+  <p class="section-deck">为 Zazzle 估值找 6 类参照系。</p>
+
+  <table>
+    <thead><tr><th>对标</th><th>类型</th><th>规模</th><th>EV/Rev</th><th>对 Zazzle 的启示</th></tr></thead>
+    <tbody>
+      <tr><td class="accent">Etsy (ETSY)</td><td>个性化商品 marketplace</td><td>Rev ~$2.7B</td><td class="num">~3-4×</td><td>同类客群但更广；估值天花板参考</td></tr>
+      <tr><td class="accent">Cimpress (CMPR)</td><td>SMB Web-to-Print</td><td>Rev ~$3.4B</td><td class="num">~0.7×</td><td>资产重 / 大众市场估值锚</td></tr>
+      <tr><td class="accent">Redbubble (Articore)</td><td>Artist Marketplace 上市</td><td>Rev ~AUD $230M</td><td class="num">~0.5-0.7×</td><td>同细分但下行；警示</td></tr>
+      <tr><td class="accent">FYUL (合并)</td><td>新一代 POD（IPO 中）</td><td>Rev ~$2.3B</td><td class="num">~4-5×（IPO 估）</td><td>同营收量级但更新</td></tr>
+      <tr><td class="accent">Minted (private)</td><td>定制邀请函 / 礼物</td><td>Rev ~$240M</td><td class="num">~1-2×</td><td>最直接对标 / 同婚礼场景</td></tr>
+      <tr><td class="accent">The Knot Worldwide</td><td>婚礼服务平台</td><td>Rev ~$650M</td><td class="num">未上市</td><td>婚礼场景天花板</td></tr>
+    </tbody>
+  </table>
+
+  <p>结论：<b>Zazzle 的合理 EV/Revenue 在 1-2× 区间</b>——
+    比 Etsy（3-4×）低，因为规模、增长都弱；
+    比 Cimpress（0.7×）高，因为消费者 C 端更值钱；
+    比 Redbubble（0.5×）高，因为不在下行；
+    与 Minted 接近 —— 最直接的婚礼场景对标。
+    若 AIGC + Picsart 集成成功，乘数可向 2.5-3× 靠拢。</p>
+</section>
+
+<!-- 22 US -->
+<section id="us" class="section">
+  <div class="section-num">22 · 第六部 · 竞品视角 <span class="section-tag rival">我方画像</span></div>
+  <h2 class="section-title">我方与 Zazzle 的关系</h2>
+  <p class="section-deck">分析 Zazzle 时，必须明确我方与之的关系——是直接对抗、借鉴还是不相干？</p>
+
+  <div class="grid-2">
+    <div class="card rival"><div class="hd">我方价值主张</div><h4>从灵感到商品到流量「一根链」</h4><p>设计资产 / AIGC 内容 / 短视频流量 / 履约供应链 / 电商前端五段串联。让创作者从"想法"到"成交履约"在同一产品域内完成。</p></div>
+    <div class="card rival"><div class="hd">与 Zazzle 的关系</div><h4>20% 重叠，80% 不相干</h4><p><b>重叠：</b>都是消费者 + 设计师双向；都涉及个性化定制<br/>
+      <b>不重叠：</b>Zazzle = 婚礼 / 礼物 / 高 LTV 场景；我方 = 创作者经济 / 短视频内容驱动 / Z 世代<br/>
+      <b>关系判断：</b><b>不是竞争对手</b>，而是<b>"补充存在"</b></p></div>
+    <div class="card rival"><div class="hd">关系判断</div><h4>借鉴 + 错位 + 不直接竞争</h4><p>Zazzle 是 POD 行业里独占婚礼 / 礼物的隐形冠军。我方不应该试图抢这个细分——客群 / 心智 / 履约能力都差太远。
+      但 Zazzle 21 年的智慧可以借鉴：
+      <br/>① <b>消费者定制能力</b>：Zazzle Create 是经典工具样本
+      <br/>② <b>设计师社区运营</b>：ProSeller / Maker 计划
+      <br/>③ <b>家族治理 + 长期主义</b>：避免烧钱式增长</p></div>
+    <div class="card rival"><div class="hd">三个核心借鉴点</div><h4>学习而非攻击</h4><p>① <b>"独特场景占位"哲学</b>：Zazzle 选婚礼这个高 LTV + 低竞争场景；我方应找类似细分（如创作者周边商品 / 直播带货 / 中文文化场景）。
+      <br/>② <b>"消费者深度定制"工具</b>：Zazzle Create 是浏览器内协同设计的鼻祖；我方应在 AIGC + 协同方向超越它。
+      <br/>③ <b>"21 年长期主义"</b>：稳健盈利 + 不烧钱 + 不 IPO 也能做大；这是反向参考。</p></div>
+  </div>
+
+  <div class="pull">
+    "Zazzle 是 POD 行业的『婚礼之王』；它的存在告诉我们，POD 不是只有 T 恤和创作者经济——『高 LTV + 低竞争 + 长期主义』组合也能做出 $400M+ 的稳健生意。"
+  </div>
+</section>
+
+<!-- 23 WEAK -->
+<section id="weak" class="section">
+  <div class="section-num">23 · 第六部 · 竞品视角 <span class="section-tag rival">Weakness Radar</span></div>
+  <h2 class="section-title">Zazzle 弱点雷达（仅供借鉴 + 不攻击）</h2>
+  <p class="section-deck">即使不直接竞争，了解 Zazzle 弱点仍有学习价值。</p>
+
+  <table>
+    <thead><tr><th>弱点</th><th>表征</th><th>对我方启示</th><th>是否值得攻击</th></tr></thead>
+    <tbody>
+      <tr><td class="accent">中文 / 亚太市场零</td><td>4 国站点都在英语区</td><td>我方可在亚太建立"创作者经济"市场</td><td><span class="tag gray">不攻击 — 不在同赛道</span></td></tr>
+      <tr><td class="accent">不服务创作者经济</td><td>Zazzle 主战场是婚礼 + 礼物 + 商业品</td><td>我方主战场是创作者经济</td><td><span class="tag gray">天然错位</span></td></tr>
+      <tr><td class="accent">Zazzle Create 工具老化</td><td>2019 推出，2025 已显得过时</td><td>我方 AIGC 设计中台是降维优势</td><td><span class="tag gray">不攻击</span></td></tr>
+      <tr><td class="accent">家族治理慢决策</td><td>21 年家族 CEO，决策保守</td><td>我方可以更快试错 + 调整</td><td><span class="tag gray">不需要攻击 — 不同赛道</span></td></tr>
+      <tr><td class="accent">单一 Reno 工厂风险</td><td>所有制造集中在一个基地</td><td>我方应布局多源供应链</td><td><span class="tag gray">不攻击</span></td></tr>
+      <tr><td class="accent">无短视频 / 社交电商</td><td>Pinterest 为主，无 TikTok 集成</td><td>我方可在 TikTok 短视频场景占位</td><td><span class="tag gray">不攻击 — 不重叠</span></td></tr>
+      <tr><td class="accent">19 年未公开融资</td><td>难以快速大规模扩张</td><td>我方可以用更激进的融资节奏</td><td><span class="tag gray">不攻击</span></td></tr>
+    </tbody>
+  </table>
+
+  <p>结论：<b>Zazzle 的弱点几乎都不是我方的"攻击点"</b>——
+    因为客群、场景、商业模式都不重叠，攻击 Zazzle 就是攻击错的目标。
+    Zazzle 的弱点是我方应该<b>"避免重复"的教训</b>而非"攻击的方向"。</p>
+</section>
+
+<!-- 24 VECTORS -->
+<section id="vectors" class="section">
+  <div class="section-num">24 · 第六部 · 竞品视角 <span class="section-tag rival">Attack Vectors</span></div>
+  <h2 class="section-title">6 大攻击向量（Battle Cards）— 但不是攻击 Zazzle</h2>
+  <p class="section-deck">这 6 个向量不是攻击 Zazzle 的战术，而是<b>利用 Zazzle 的"不在场"建立新阵地</b>。</p>
+
+  <div class="battle">
+    <div class="bc"><div class="vec">VECTOR · 01</div><h4>创作者经济（vs Zazzle 婚礼）</h4><div class="strat">不同场景，不同人群</div><p>Zazzle 服务 25-45 岁婚礼 / 礼物消费者；我方服务 18-35 岁创作者经济。完全不同的获客与营销路径。</p><div class="ko">KO 点：不进入 Zazzle 主场</div></div>
+    <div class="bc"><div class="vec">VECTOR · 02</div><h4>AIGC + 短视频流量</h4><div class="strat">利用 Zazzle 不擅长的领域</div><p>Zazzle 主要靠 SEO + Pinterest；我方靠 TikTok / 小红书 / B 站短视频内容驱动 GMV。完全不同的流量来源。</p><div class="ko">KO 点：新一代流量入口</div></div>
+    <div class="bc"><div class="vec">VECTOR · 03</div><h4>中文 / 亚太市场</h4><div class="strat">Zazzle 完全不在的地理</div><p>Zazzle 仅 4 国英语站点；中文 / 日语 / 韩语市场基本空白。我方独占。</p><div class="ko">KO 点：先占领亚太</div></div>
+    <div class="bc"><div class="vec">VECTOR · 04</div><h4>直播 / 实时电商</h4><div class="strat">Zazzle 不具备这个能力</div><p>"直播 → 实时设计 → C2M → 24h 履约"全链路是我方差异化。Zazzle 24h SLA 但不直播。</p><div class="ko">KO 点：直播即时性</div></div>
+    <div class="bc"><div class="vec">VECTOR · 05</div><h4>创作者周边商品</h4><div class="strat">面向粉丝经济，非礼物经济</div><p>YouTuber / TikToker / B 站 UP 主的周边商品需求快速增长；Zazzle 服务"礼物送礼人"，我方服务"粉丝经济"。</p><div class="ko">KO 点：粉丝经济入口</div></div>
+    <div class="bc"><div class="vec">VECTOR · 06</div><h4>从 Zazzle 借力</h4><div class="strat">学习而非对抗</div><p>主动研究 Zazzle Create / 婚礼场景营销 / 21 年家族治理智慧，把 Zazzle 经验为我方产品演化提供养分。</p><div class="ko">KO 点：站在巨人肩上</div></div>
+  </div>
+</section>
+
+<!-- 25 PLAYBOOK -->
+<section id="playbook" class="section">
+  <div class="section-num">25 · 第六部 · 竞品视角 <span class="section-tag rival">Playbook</span></div>
+  <h2 class="section-title">作战手册：与 Zazzle 共存的 12 月路线图</h2>
+  <p class="section-deck">不是与 Zazzle 对抗，而是与之"并行存在"的战略路线。</p>
+
+  <table>
+    <thead><tr><th>季度</th><th>核心动作</th><th>与 Zazzle 关系</th><th>关键 KPI</th><th>风险控制</th></tr></thead>
+    <tbody>
+      <tr><td class="accent">Q1 (T+0~3M)</td><td>占领创作者经济 + 中文亚太市场</td><td>完全错位</td><td>中文创作者 2,000<br/>设计资产 50,000</td><td>不进入婚礼 / 礼物场景</td></tr>
+      <tr><td class="accent">Q2 (T+3~6M)</td><td>AIGC 设计中台 + TikTok 集成</td><td>占领 Zazzle 空白区</td><td>AIGC 用户 5,000<br/>TikTok 商家 500</td><td>不模仿 Zazzle Create</td></tr>
+      <tr><td class="accent">Q3 (T+6~9M)</td><td>学习 Zazzle 长期主义 + 内部稳健财务</td><td>借鉴而非复制</td><td>毛利率 +5pp<br/>不盲目烧钱</td><td>避免一夜大扩张</td></tr>
+      <tr><td class="accent">Q4 (T+9~12M)</td><td>规模化 + 潜在跨场景探索</td><td>有限学习 + 潜在合作</td><td>付费商家 15,000<br/>月 GMV $30M</td><td>仍不进婚礼场景</td></tr>
+    </tbody>
+  </table>
+
+  <div class="verdict-block">
+    <div class="lbl">竞争作战观点</div>
+    <h3>Zazzle 是 POD 行业的"隐形冠军"，证明"婚礼之王 + 21 年长期主义"可行</h3>
+    <p>新一代 POD 玩家最容易犯的错误是<b>"看不见 Zazzle"</b>——它从不在 TechCrunch 头条、不在 VC 圈热议、不在创作者社区被频繁讨论。
+    但它 21 年稳健盈利 $400M+ 营收的事实证明：POD 不是只有"创作者经济"和"SMB 印刷品"两种叙事——<b>"消费者深度定制 + 高 LTV 场景"</b>是第三条路。
+    我方应该向 Zazzle 学习<b>"独特场景占位"哲学</b>——找到一个低竞争 + 高 LTV 的细分（比如创作者周边商品 / 直播带货 / 中文文化场景），然后用 21 年长期主义深耕。
+    但不要试图把 Zazzle 抢出婚礼场景——那个细分它已经做了 21 年，我们做 5 年也追不上。</p>
+  </div>
+</section>
+
+<!-- 26 SWOT -->
+<section id="swot" class="section">
+  <div class="section-num">26 · 第七部 · 综合分析 <span class="section-tag synth">SWOT</span></div>
+  <h2 class="section-title">SWOT 综合矩阵（三视角合议）</h2>
+  <p class="section-deck">融合三种视角的 SWOT 分析。</p>
+
+  <div class="swot">
+    <div>
+      <div class="lbl S">S · 优势 STRENGTHS</div>
+      <h4>婚礼之王 + 21 年沉淀</h4>
+      <ul>
+        <li>POD 行业最强"婚礼场景"心智（21 年沉淀）</li>
+        <li>142+ 项专利（行业最多）</li>
+        <li>Reno 209,000 sqft 单一自营工厂 + 24h SLA</li>
+        <li>30M+ 累计用户 + 17M 月活</li>
+        <li>Zazzle Create 实时协同设计工具</li>
+        <li>5-15% 设计师可自定 royalty（vs 同行更灵活）</li>
+        <li>家族治理 + 长期主义稳定运营</li>
+        <li>每员工营收 $1.5M（POD 行业最高之一）</li>
+      </ul>
+    </div>
+    <div>
+      <div class="lbl W">W · 劣势 WEAKNESSES</div>
+      <h4>家族结构 + 增长瓶颈</h4>
+      <ul>
+        <li>19 年未再融资 = 大规模扩张能力受限</li>
+        <li>单一 Reno 工厂 = 风险集中</li>
+        <li>Zazzle Create 工具相比 Canva / Picsart 老化</li>
+        <li>中文 / 亚太市场覆盖薄弱</li>
+        <li>不服务创作者经济 / 短视频 / Z 世代</li>
+        <li>USPS 定制邮票业务终止（2018）</li>
+        <li>家族 CEO 21 年保守决策</li>
+        <li>SEO 流量依赖 + Pinterest 算法变化风险</li>
+      </ul>
+    </div>
+    <div>
+      <div class="lbl O">O · 机会 OPPORTUNITIES</div>
+      <h4>AIGC + Picsart + 婚礼扩展</h4>
+      <ul>
+        <li>2025 Picsart 战略合作 = 1.5 亿用户流量增量</li>
+        <li>AI 生成内容 + 优化封面图 = 转化率结构性提升</li>
+        <li>婚礼周边场景扩展（伴娘礼物 / 求婚 / 蜜月）</li>
+        <li>Z 世代结婚潮带来 30% 增长空间</li>
+        <li>EquityZen 等私募流动性持续活跃</li>
+        <li>战略并购可能（FYUL / Cimpress / Etsy）</li>
+        <li>国际站点扩展（DE / JP / IN）</li>
+      </ul>
+    </div>
+    <div>
+      <div class="lbl T">T · 威胁 THREATS</div>
+      <h4>Canva + Etsy + AIGC 冲击</h4>
+      <ul>
+        <li>Canva 抢"消费者设计入口"</li>
+        <li>Etsy 在 personalization 上加大投入</li>
+        <li>FYUL 上市后可能进入消费者 C 端</li>
+        <li>Google AI Overview 持续侵蚀 SEO</li>
+        <li>Pinterest 算法变化（已发生多次）</li>
+        <li>关税政策对 Reno 制造材料成本影响</li>
+        <li>家族第二代退休 / 继承压力</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- 27 PORTER -->
+<section id="porter" class="section">
+  <div class="section-num">27 · 第七部 · 综合分析 <span class="section-tag synth">Porter Five Forces</span></div>
+  <h2 class="section-title">Porter 五力分析</h2>
+  <p class="section-deck">系统评估行业内五种力量对 Zazzle 利润空间的挤压程度。</p>
+
+  <div class="porter">
+    <div class="force med">
+      <div class="head"><span class="nm">现有竞争者</span><span class="scale">中</span></div>
+      <p>婚礼场景：Minted（最直接对标）+ The Knot 周边 + Etsy 婚礼板块；但都未在"消费者深度定制 + 自营工厂"上达到 Zazzle 高度。</p>
+      <div class="meter med"><div></div></div>
+    </div>
+    <div class="force med">
+      <div class="head"><span class="nm">替代品威胁</span><span class="scale">中</span></div>
+      <p>电子邀请函（Paperless Post）+ 数字化婚礼通知正在替代部分纸质邀请函；但纸质仍有不可替代的"情感价值"。</p>
+      <div class="meter med"><div></div></div>
+    </div>
+    <div class="force med">
+      <div class="head"><span class="nm">买方议价能力</span><span class="scale">中</span></div>
+      <p>婚礼客户分散 + 一次性购买 + 高情感价值 = 议价能力低；但比较容易做选择（Minted vs Zazzle vs Etsy）。</p>
+      <div class="meter med"><div></div></div>
+    </div>
+    <div class="porter center">
+      <h4>消费者定制 POD 五力压力</h4>
+      <p>综合压力 = 中<br/>21 年护城河保护</p>
+    </div>
+    <div class="force low">
+      <div class="head"><span class="nm">供应商议价能力</span><span class="scale">低</span></div>
+      <p>纸张、油墨、面料等供应商分散；Zazzle 规模较大，议价权强。</p>
+      <div class="meter low"><div></div></div>
+    </div>
+    <div class="force med">
+      <div class="head"><span class="nm">新进入者威胁</span><span class="scale">中</span></div>
+      <p>新一代 POD（FYUL / Gelato）可能进入消费者 C 端；但需要 5-10 年建立"婚礼场景"心智。</p>
+      <div class="meter med"><div></div></div>
+    </div>
+    <div class="force med">
+      <div class="head"><span class="nm">渠道议价（强化版）</span><span class="scale">中</span></div>
+      <p>SEO / Pinterest / Affiliate 三轮驱动，但每个渠道都有议价压力（Google 政策 / Pinterest 算法）。</p>
+      <div class="meter med"><div></div></div>
+    </div>
+  </div>
+
+  <p>结论：<b>Zazzle 在消费者定制 POD 子赛道五力压力相对适中</b>——
+    主要压力来自买方（婚礼客户可选择 Minted / Etsy）和新进入者（FYUL 可能进入），但供应商和现有竞争者压力都低。
+    这种"五力压力中等"环境让 Zazzle 21 年保持稳健盈利。</p>
+</section>
+
+<!-- 28 STRATEGIC MATRIX -->
+<section id="bcg" class="section">
+  <div class="section-num">28 · 第七部 · 综合分析 <span class="section-tag synth">Strategic Matrix</span></div>
+  <h2 class="section-title">业务组合矩阵（GE / BCG 改编）</h2>
+  <p class="section-deck">把 Zazzle 当前业务组合放进 GE 九宫格。</p>
+
+  <table>
+    <thead><tr><th>业务单元</th><th>市场吸引力</th><th>竞争位置</th><th>BCG 分类</th><th>战略建议</th></tr></thead>
+    <tbody>
+      <tr><td class="accent">婚礼场景（核心）</td><td>高</td><td>强（21 年沉淀）</td><td>现金牛 / 明星</td><td>持续投入 + 周边扩展（求婚 / 蜜月）</td></tr>
+      <tr><td class="accent">节日 / 礼物</td><td>中-高</td><td>强</td><td>现金牛</td><td>稳健运营 + 季节性激活</td></tr>
+      <tr><td class="accent">商业品 (B2B)</td><td>中</td><td>中</td><td>现金牛</td><td>不强求增长，维持利润</td></tr>
+      <tr><td class="accent">家居 + 服装</td><td>中</td><td>中</td><td>问题儿童</td><td>仅服务现有用户，不主动获客</td></tr>
+      <tr><td class="accent">Picsart 集成（新）</td><td>高</td><td>弱（新生）</td><td>问题儿童</td><td>必须重投，对接 1.5 亿用户</td></tr>
+      <tr><td class="accent">Zazzle Create 升级</td><td>高</td><td>中（老化）</td><td>问题儿童</td><td>必须 AI-first 升级</td></tr>
+      <tr><td class="accent">国际站点（次要）</td><td>中</td><td>弱</td><td>瘦狗</td><td>简化运营，可砍部分</td></tr>
+    </tbody>
+  </table>
+
+  <p>建议组合配置：<b>未来 36 个月最大投入应集中在 Picsart 集成 + Zazzle Create AI 升级两块"问题儿童"</b>，把它们转为"明星"。婚礼 / 礼物 / 商业品继续做"现金牛"为转型提供资金。家居 / 服装 / 部分国际站点可以简化。</p>
+</section>
+
+<!-- 29 RISK -->
+<section id="risk" class="section">
+  <div class="section-num">29 · 第七部 · 综合分析 <span class="section-tag synth">Risk Map</span></div>
+  <h2 class="section-title">风险地图（Probability × Impact）</h2>
+  <p class="section-deck">识别 Zazzle 未来 18 月最致命风险。</p>
+
+  <div class="riskmap">
+    <div class="col-h"></div>
+    <div class="col-h">影响小</div>
+    <div class="col-h">影响中</div>
+    <div class="col-h">影响大</div>
+
+    <div class="row-h">高概率</div>
+    <div class="cell warm"><span class="r">Pinterest 算法变化</span><span class="rd">流量短期波动</span></div>
+    <div class="cell hot"><span class="r">Google AI Overview 影响 SEO</span><span class="rd">长期流量基础</span></div>
+    <div class="cell hot"><span class="r">Canva 抢消费者设计入口</span><span class="rd">Zazzle Create 失守</span></div>
+
+    <div class="row-h">中概率</div>
+    <div class="cell cool"><span class="r">单一国家政策变化</span><span class="rd">本地化调整</span></div>
+    <div class="cell warm"><span class="r">Picsart 集成不及预期</span><span class="rd">流量增量失败</span></div>
+    <div class="cell hot"><span class="r">Reno 工厂自然灾害 / 故障</span><span class="rd">所有制造停摆</span></div>
+
+    <div class="row-h">低概率</div>
+    <div class="cell cool"><span class="r">单一员工 / 设计师诉讼</span><span class="rd">局部影响</span></div>
+    <div class="cell cool"><span class="r">监管隐私事件</span><span class="rd">合规调整</span></div>
+    <div class="cell warm"><span class="r">Beaver 家族传承问题</span><span class="rd">领导层不确定性</span></div>
+  </div>
+
+  <h3 class="h">三大致命风险</h3>
+  <p><b>R1 Google AI Overview 影响 SEO：</b>Zazzle 50%+ 流量来自 SEO（特别是婚礼相关长尾关键词）；如果 AI Overview 继续侵蚀，营收基础会受冲击。<br/>
+    <b>R2 Canva 抢消费者设计入口：</b>Zazzle Create 在 Canva 面前显得过时；如果消费者习惯先在 Canva 设计再去其他平台下单，Zazzle 将失去"设计 + 下单"一体化优势。<br/>
+    <b>R3 Reno 单一工厂风险：</b>所有制造集中在 209,000 sqft 单一基地；如果自然灾害、设备故障、罢工等问题发生，所有订单可能停摆。</p>
+</section>
+
+<!-- 30 VERDICT -->
+<section id="verdict" class="section">
+  <div class="section-num">30 · 第七部 · 综合分析 <span class="section-tag synth">Final Verdict</span></div>
+  <h2 class="section-title">三视角合议：终极结论与行动建议</h2>
+  <p class="section-deck">三种身份共同表态——Zazzle 是 POD 行业的"婚礼之王 + 隐形冠军"，是 21 年长期主义的胜利样本。</p>
+
+  <div class="verdict-block">
+    <div class="lbl">SUMMARY VERDICT · 三视角合议</div>
+    <h3>Zazzle 是 POD 行业的"婚礼之王"——21 年稳健盈利的隐形冠军</h3>
+    <p>它服务消费者最重要的人生时刻（婚礼 / 周年 / 礼物），客户愿意付高价，竞争对手忽视细分；它的 142 项专利 + Reno 单一大工厂 + 21 年家族治理 + 30M 累计用户构成 POD 行业最独特的护城河。
+    Zazzle 不是 FYUL / Gelato / Redbubble 的同赛道对手，也不是 Cimpress 的同客群对手——它是 POD 行业"<b>消费者深度定制 + 高 LTV 场景</b>"细分的独有玩家。
+    未来 24 月，Zazzle 必须完成 AIGC 转身（Picsart + Zazzle Create 升级）和单一工厂风险分散，才能继续保持隐形冠军地位。</p>
+
+    <div class="three">
+      <div>
+        <div class="role">咨询视角</div>
+        <b>婚礼 + AIGC 双战场</b>
+        <p>继续深耕婚礼场景 + 加速 AIGC 集成 + 建立二级工厂分散风险 + Zazzle Create AI 升级。</p>
+      </div>
+      <div>
+        <div class="role">VC 视角</div>
+        <b>私募 / 二级市场 / 战略并购三轨</b>
+        <p>合理估值 $400-800M（1-2× EV/Rev）；Bull case $1-1.5B（战略并购溢价）；不建议 IPO。</p>
+      </div>
+      <div>
+        <div class="role">竞品视角</div>
+        <b>借鉴 + 错位 + 不直接竞争</b>
+        <p>Zazzle 不是对手而是"隐形样本"——学习其"独特场景占位"哲学。专攻 Zazzle 不在的市场：创作者经济、AIGC、中文亚太、Z 世代。</p>
+      </div>
+    </div>
+  </div>
+
+  <h3 class="h">三视角共识：未来 24 月最重要的 3 个战略问题</h3>
+  <p><b>Q1：Zazzle 能否在 18 月内把 Picsart 1.5 亿用户转化为 30% 的新增流量？</b><br/>
+    这是 Zazzle 21 年来最大的流量入口转身机会。<br/><br/>
+    <b>Q2：Zazzle Create 能否升级为 AI-first 工具以对抗 Canva？</b><br/>
+    如果不能，Zazzle 在消费者设计入口将失守。<br/><br/>
+    <b>Q3：Beaver 家族第二代领导层传承如何处理？</b><br/>
+    Bobby 和 Jeff 各自有可能继任 CEO 还是引入外部职业经理人，决定 Zazzle 下一个 10 年的方向。</p>
+</section>
+
+<!-- 31 SOURCES -->
+<section id="sources" class="section">
+  <div class="section-num">31 · 第七部 · 综合分析 <span class="section-tag synth">Methodology &amp; Sources</span></div>
+  <h2 class="section-title">方法论与信息来源</h2>
+  <p class="section-deck">本报告基于公开资料、行业研究交叉三角验证（Zazzle 为私有公司，数据多为估算）。</p>
+
+  <h3 class="h">分析方法</h3>
+  <p>本报告综合运用：<b>BCG Where to Play / How to Win 框架</b>、<b>Porter Value Chain &amp; Five Forces</b>、<b>Hamilton Helmer 7 Powers</b>、<b>Osterwalder Business Model Canvas</b>、<b>GE Matrix</b>、<b>SWOT</b>、<b>三角验证财务模型</b>、<b>Customer Acquisition Funnel</b>、<b>21 年家族治理分析法</b>。所有估算数据均标注 "估" 或 "E"，与公开数据严格区分。</p>
+
+  <h3 class="h">主要公开来源</h3>
+  <ul style="font-size:13px;color:var(--ink-2);max-width:880px;line-height:1.85;">
+    <li>Zazzle 官方网站 + Press Releases + Executive Team 页</li>
+    <li>Wikipedia: Zazzle 词条</li>
+    <li>Crunchbase / PitchBook / Tracxn / CB Insights（融资数据）</li>
+    <li>Picsart-Zazzle 战略合作公告（BusinessWire 2025/12）</li>
+    <li>SmDailyJournal: "Zazzle continues to dazzle" 报道</li>
+    <li>EntrepreneurWiki: Bobby Beaver 简介</li>
+    <li>The Org / Highperformr / Comparably（领导层数据）</li>
+    <li>Tectonics Design Group: Reno 工厂建设案例</li>
+    <li>NNBW: Zazzle Reno 搬迁报道</li>
+    <li>Panattoni: Reno 工厂详情</li>
+    <li>SimilarWeb / Grips Intelligence / IncFact（营收估算）</li>
+    <li>Latka (GetLatka): Zazzle 员工与运营数据</li>
+    <li>EquityZen / Notice.co（私募市场流动性）</li>
+    <li>Zazzlepreneurs: 行业增长统计</li>
+    <li>EComposer / Spocket / SideHusl: 设计师生态分析</li>
+    <li>Rigorous Themes: Zazzle vs Society6 vs Redbubble 对比</li>
+    <li>Bootstrapping Ecommerce: Zazzle vs Printful 对比</li>
+    <li>Sramana Mitra / IdeaMensch（创始人访谈类比）</li>
+  </ul>
+
+  <h3 class="h">免责声明</h3>
+  <p style="font-size:12.5px;color:var(--muted);">本报告为综合分析与战略推演，Zazzle 为私有公司未公开年报，所有财务数据均为基于公开信息的估算（标注 "估" 或 "E"），实际数据以 Zazzle 官方为准。本报告不构成对任何投资、商业决策或法律行为的建议。所有商标归各自所有人所有。报告中关于"潜在合作 / 战略并购"的讨论是分析推演，不代表任何已发生或计划中的具体行动。读者应结合自身决策上下文与最新公开信息独立判断。</p>
+</section>
+
+<footer>
+  <div>本报告由 Claude · Cowork 模式协作撰写，三视角合议方法论由用户指定。日期：2026-05-29。</div>
+  <div style="margin-top:14px;">建议引用方式：<i>"Zazzle 综合战略分析报告（三视角合议）, 2026-05-29."</i></div>
+</footer>
+
+</main>
+</div>
+
+<script>
+Chart.defaults.font.family = '"Inter", "PingFang SC", sans-serif';
+Chart.defaults.font.size = 12;
+Chart.defaults.color = '#5C6B82';
+
+// Revenue Chart
+new Chart(document.getElementById('revenueChart'),{
+  type:'bar',
+  data:{
+    labels:['2005','2008','2010','2015','2017','2018','2020','2022','2023','2024','2025','2026E'],
+    datasets:[
+      {
+        label:'Zazzle 营收估算 (USD M)',
+        data:[5,30,60,130,170,165,240,300,350,380,413,460],
+        backgroundColor:(ctx)=>{
+          const idx = ctx.dataIndex;
+          if(idx >= 11) return 'rgba(220,40,103,0.85)';
+          if(idx >= 6) return 'rgba(169,29,82,0.78)';
+          return 'rgba(45,21,56,0.78)';
+        },
+        borderRadius:2,
+      }
+    ]
+  },
+  options:{
+    plugins:{ legend:{ position:'bottom' } },
+    scales:{
+      y:{title:{display:true,text:'营收估算 (USD M)',color:'#5C6B82'},beginAtZero:true,grid:{color:'#2D15381A'}},
+      x:{ grid:{display:false} }
+    }
+  }
+});
+
+// Moat Radar
+new Chart(document.getElementById('moatChart'),{
+  type:'radar',
+  data:{
+    labels:['规模经济','网络效应','切换成本','品牌','流程能力 / 142 专利'],
+    datasets:[
+      {
+        label:'Zazzle',
+        data:[7,6,7,8,9],
+        backgroundColor:'rgba(220,40,103,0.20)',
+        borderColor:'#DC2867',
+        borderWidth:2,
+        pointBackgroundColor:'#DC2867',
+        pointRadius:4,
+      },
+      {
+        label:'Cimpress',
+        data:[10,5,7,8,10],
+        backgroundColor:'rgba(255,165,0,0.10)',
+        borderColor:'#FFA500',
+        borderWidth:2,
+        borderDash:[4,4],
+        pointBackgroundColor:'#FFA500',
+        pointRadius:3,
+      },
+      {
+        label:'Redbubble',
+        data:[5,6,3,7,5],
+        backgroundColor:'rgba(230,57,70,0.08)',
+        borderColor:'#E63946',
+        borderWidth:1.5,
+        borderDash:[2,3],
+        pointBackgroundColor:'#E63946',
+        pointRadius:3,
+      }
+    ]
+  },
+  options:{
+    plugins:{ legend:{ position:'bottom' } },
+    scales:{
+      r:{beginAtZero:true,max:10,ticks:{stepSize:2,backdropColor:'transparent'},grid:{color:'#2D153822'},angleLines:{color:'#2D153822'},pointLabels:{ font:{ size:12, weight:'600'}, color:'#2D1538'}}
+    }
+  }
+});
+
+// Market Chart
+new Chart(document.getElementById('marketChart'),{
+  type:'bar',
+  data:{
+    labels:['婚礼邀请函 TAM','婚礼总 TAM (US)','消费者定制商品 TAM','创作者 POD TAM 2025'],
+    datasets:[
+      {
+        label:'市场规模 (USD B)',
+        data:[5,72,60,11],
+        backgroundColor:['rgba(220,40,103,0.85)','rgba(169,29,82,0.85)','rgba(220,40,103,0.55)','rgba(45,21,56,0.78)'],
+        borderRadius:3,
+      }
+    ]
+  },
+  options:{
+    plugins:{ legend:{ display:false } },
+    scales:{
+      y:{title:{display:true,text:'市场规模 (USD B)',color:'#5C6B82'},beginAtZero:true,grid:{color:'#2D15381A'}},
+      x:{ grid:{display:false},ticks:{font:{size:11}} }
+    }
+  }
+});
+
+// Valuation Chart
+new Chart(document.getElementById('valuationChart'),{
+  type:'bar',
+  data:{
+    labels:['Bear · 营收停滞','Base · 稳健增长','Bull · AIGC + 战略溢价'],
+    datasets:[
+      {
+        label:'估值下限 (USD M)',
+        data:[300,500,1000],
+        backgroundColor:'rgba(178,53,31,0.55)',
+        borderRadius:2,
+      },
+      {
+        label:'估值上限 (USD M)',
+        data:[400,800,1500],
+        backgroundColor:'rgba(14,124,88,0.65)',
+        borderRadius:2,
+      },
+      {
+        label:'EV/Revenue 乘数',
+        data:[1,1.6,3,],
+        type:'line',
+        borderColor:'#DC2867',
+        backgroundColor:'#DC2867',
+        tension:0.2,
+        borderWidth:2,
+        pointRadius:5,
+        yAxisID:'y1',
+      }
+    ]
+  },
+  options:{
+    plugins:{ legend:{ position:'bottom' } },
+    scales:{
+      y:{title:{display:true,text:'估值 (USD M)'},beginAtZero:true,max:1800},
+      y1:{position:'right',beginAtZero:true,max:4,title:{display:true,text:'EV/Revenue 乘数'},grid:{drawOnChartArea:false}},
+      x:{ grid:{display:false} }
+    }
+  }
+});
+</script>
+</body>
+</html>
