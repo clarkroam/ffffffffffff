@@ -1,0 +1,821 @@
+<!DOCTYPE html>
+<!-- saved from url=(0233)file:///Users/lidehui/Library/Containers/com.tencent.WeWorkMac/Data/Documents/Profiles/58BD2C376D0E0DC1A8F0920C54E27332/Caches/Files/2026-06/51540996a2738cdc1c8edaa48d6ebbae/%E4%B8%8A%E6%9E%B6%E9%97%AE%E9%A2%98%E6%B1%87%E6%80%BB.html -->
+<html lang="zh-CN"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>方果ERP · 上架群问题全量梳理</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+
+  :root {
+    --bg: #f6f7fa;
+    --surface: #ffffff;
+    --surface-hover: #fafbfc;
+    --text: #1a1d28;
+    --text-secondary: #6b7280;
+    --text-muted: #9ca3af;
+    --border: #eef0f5;
+    --accent: #2563eb;
+    --accent-light: #eff6ff;
+    --accent-gradient: linear-gradient(135deg, #2563eb 0%, #4f46e5 100%);
+    --p0: #ef4444;
+    --p0-light: #fef2f2;
+    --p1: #f59e0b;
+    --p1-light: #fffbeb;
+    --p2: #6366f1;
+    --p2-light: #eef2ff;
+    --shadow-sm: 0 1px 3px rgba(0,0,0,.04), 0 1px 2px rgba(0,0,0,.03);
+    --shadow: 0 4px 16px rgba(0,0,0,.04), 0 2px 6px rgba(0,0,0,.02);
+    --shadow-lg: 0 12px 40px rgba(0,0,0,.06), 0 4px 12px rgba(0,0,0,.03);
+    --radius: 14px;
+    --radius-sm: 8px;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Microsoft YaHei', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.65;
+    display: flex;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* === SIDEBAR === */
+  nav {
+    position: fixed;
+    top: 0; left: 0;
+    width: 272px;
+    height: 100vh;
+    background: linear-gradient(180deg, #0f172a 0%, #1e293b 100%);
+    color: #e2e8f0;
+    overflow-y: auto;
+    padding: 32px 0 24px;
+    z-index: 100;
+    font-size: 13.5px;
+    letter-spacing: .2px;
+  }
+  nav::before {
+    content: '';
+    position: absolute;
+    top: 0; right: 0;
+    width: 1px;
+    height: 100%;
+    background: linear-gradient(180deg, rgba(99,102,241,.4), transparent 60%);
+  }
+  nav .logo {
+    padding: 0 24px 24px;
+    font-size: 16px;
+    font-weight: 700;
+    background: linear-gradient(135deg, #818cf8, #a5b4fc);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  nav h2 {
+    padding: 12px 24px 8px;
+    font-size: 10.5px;
+    font-weight: 600;
+    color: #64748b;
+    letter-spacing: 1.2px;
+    text-transform: uppercase;
+  }
+  nav a {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 7px 24px;
+    color: #94a3b8;
+    text-decoration: none;
+    transition: all .2s;
+    border-left: 2px solid transparent;
+    font-weight: 500;
+  }
+  nav a::before {
+    content: '';
+    width: 5px; height: 5px;
+    border-radius: 50%;
+    background: transparent;
+    transition: all .2s;
+  }
+  nav a:hover {
+    color: #e2e8f0;
+    background: rgba(255,255,255,.04);
+  }
+  nav a.active {
+    color: #fff;
+    background: rgba(99,102,241,.12);
+    border-left-color: #818cf8;
+    font-weight: 600;
+  }
+  nav a.active::before {
+    background: #818cf8;
+  }
+
+  /* === MAIN === */
+  main {
+    margin-left: 272px;
+    width: 100%;
+    max-width: 1000px;
+    padding: 48px 56px 80px;
+  }
+
+  .page-header {
+    margin-bottom: 40px;
+  }
+  .page-header h1 {
+    font-size: 32px;
+    font-weight: 800;
+    letter-spacing: -.5px;
+    background: var(--accent-gradient);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .page-header .subtitle {
+    margin-top: 8px;
+    color: var(--text-secondary);
+    font-size: 14px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px 20px;
+  }
+  .page-header .subtitle span {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+  }
+  .page-header .subtitle .dot {
+    width: 4px; height: 4px;
+    border-radius: 50%;
+    background: #d1d5db;
+  }
+
+  /* === DASHBOARD === */
+  .dashboard {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 14px;
+    margin-bottom: 44px;
+  }
+  .dash-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 22px 20px 18px;
+    text-align: center;
+    box-shadow: var(--shadow-sm);
+    position: relative;
+    overflow: hidden;
+    transition: all .25s;
+  }
+  .dash-card:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow);
+  }
+  .dash-card::after {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+    background: var(--accent-gradient);
+    opacity: 0;
+    transition: opacity .25s;
+  }
+  .dash-card:hover::after { opacity: 1; }
+  .dash-card .num {
+    font-size: 36px;
+    font-weight: 800;
+    background: var(--accent-gradient);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    line-height: 1.15;
+    letter-spacing: -1px;
+  }
+  .dash-card .label {
+    font-size: 12.5px;
+    color: var(--text-muted);
+    margin-top: 6px;
+    font-weight: 500;
+  }
+
+  /* === SECTION === */
+  section {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    margin-bottom: 20px;
+    box-shadow: var(--shadow-sm);
+    overflow: hidden;
+    transition: box-shadow .25s;
+  }
+  section:hover { box-shadow: var(--shadow); }
+
+  .sec-header {
+    padding: 18px 26px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    user-select: none;
+  }
+  .sec-header h2 {
+    font-size: 16px;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .sec-header .icon {
+    width: 28px; height: 28px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+  }
+  .sec-header .right {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .sec-header .badge {
+    background: #f1f5f9;
+    color: var(--text-secondary);
+    font-size: 12px;
+    padding: 3px 12px;
+    border-radius: 20px;
+    font-weight: 600;
+    letter-spacing: .3px;
+  }
+  .sec-header .sec-arrow {
+    width: 20px; height: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 10px;
+    color: #94a3b8;
+    transition: transform .25s;
+  }
+  section.open .sec-header .sec-arrow { transform: rotate(90deg); }
+
+  .sec-body { display: none; padding: 0 26px 22px; }
+  section.open .sec-body { display: block; }
+
+  /* === TABLES === */
+  .table-wrap {
+    overflow-x: auto;
+    border-radius: var(--radius-sm);
+    border: 1px solid var(--border);
+  }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13.5px;
+  }
+  thead th {
+    text-align: left;
+    padding: 11px 14px;
+    background: #f8fafc;
+    color: var(--text-secondary);
+    font-weight: 600;
+    font-size: 11.5px;
+    letter-spacing: .4px;
+    border-bottom: 2px solid var(--border);
+    white-space: nowrap;
+  }
+  tbody td {
+    padding: 11px 14px;
+    border-bottom: 1px solid var(--border);
+    vertical-align: middle;
+  }
+  tbody tr:last-child td { border-bottom: none; }
+  tbody tr { transition: background .15s; }
+  tbody tr:hover { background: #fafcfd; }
+  tbody td:first-child {
+    color: var(--text-muted);
+    font-weight: 600;
+    text-align: center;
+    width: 42px;
+    font-size: 12px;
+  }
+  code {
+    background: #f1f5f9;
+    padding: 2px 7px;
+    border-radius: 4px;
+    font-size: 12px;
+    color: #e11d48;
+    font-family: 'SF Mono', 'Fira Code', monospace;
+  }
+
+  /* === SUB-HEADINGS === */
+  .sub-heading {
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--text-secondary);
+    margin: 20px 0 10px;
+    padding-bottom: 6px;
+    border-bottom: 1px dashed var(--border);
+    letter-spacing: .3px;
+  }
+
+  /* === TAGS === */
+  .tag {
+    display: inline-block;
+    padding: 3px 10px;
+    border-radius: 5px;
+    font-size: 11.5px;
+    font-weight: 700;
+    letter-spacing: .2px;
+  }
+  .tag-p0 { background: var(--p0-light); color: var(--p0); }
+  .tag-p1 { background: var(--p1-light); color: #d97706; }
+  .tag-p2 { background: var(--p2-light); color: var(--p2); }
+
+  /* === QUOTE === */
+  .quote-list { display: grid; gap: 8px; margin: 12px 0; }
+  blockquote {
+    padding: 12px 16px;
+    background: #fefce8;
+    border-left: 3px solid #eab308;
+    border-radius: 0 8px 8px 0;
+    font-size: 13px;
+    color: #92400e;
+    font-style: italic;
+  }
+  blockquote .author {
+    display: block;
+    font-size: 11.5px;
+    color: #a16207;
+    margin-top: 4px;
+    font-style: normal;
+    font-weight: 500;
+  }
+
+  /* === INSIGHT BOX === */
+  .insight {
+    background: #f0f7ff;
+    border: 1px solid #dbeafe;
+    border-radius: var(--radius-sm);
+    padding: 14px 18px;
+    margin-top: 14px;
+    font-size: 13px;
+    color: #1e40af;
+    line-height: 1.7;
+  }
+  .insight strong { font-weight: 700; }
+
+  /* === PRIORITY LIST === */
+  .priority-group { margin-bottom: 22px; }
+  .priority-group h3 {
+    font-size: 13px;
+    font-weight: 700;
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .priority-group h3::before {
+    content: '';
+    width: 8px; height: 8px;
+    border-radius: 3px;
+  }
+  .priority-group.p0 h3::before { background: var(--p0); }
+  .priority-group.p1 h3::before { background: var(--p1); }
+  .priority-group.p2 h3::before { background: var(--p2); }
+
+  .priority-list {
+    list-style: none;
+    display: grid;
+    gap: 8px;
+  }
+  .priority-list li {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 11px 16px;
+    background: var(--surface-hover);
+    border-radius: var(--radius-sm);
+    font-size: 13.5px;
+    border: 1px solid var(--border);
+    transition: all .15s;
+  }
+  .priority-list li:hover {
+    background: #fff;
+    border-color: #d1d5db;
+    box-shadow: var(--shadow-sm);
+  }
+  .priority-list li strong {
+    font-weight: 600;
+  }
+
+  /* === RESPONSIVE === */
+  @media (max-width: 900px) {
+    nav { display: none; }
+    main { margin-left: 0; padding: 24px 20px 60px; }
+    .dashboard { grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); }
+  }
+
+  @media print {
+    nav { display: none; }
+    main { margin-left: 0; padding: 16px; }
+    section { box-shadow: none; border-color: #ddd; break-inside: avoid; }
+    .sec-body { display: block !important; }
+  }
+
+  /* === SCROLLBAR === */
+  nav::-webkit-scrollbar { width: 4px; }
+  nav::-webkit-scrollbar-track { background: transparent; }
+  nav::-webkit-scrollbar-thumb { background: rgba(255,255,255,.1); border-radius: 2px; }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="logo">方果ERP · 上架</div>
+  <h2>数据</h2>
+  <a href="file:///Users/lidehui/Library/Containers/com.tencent.WeWorkMac/Data/Documents/Profiles/58BD2C376D0E0DC1A8F0920C54E27332/Caches/Files/2026-06/51540996a2738cdc1c8edaa48d6ebbae/%E4%B8%8A%E6%9E%B6%E9%97%AE%E9%A2%98%E6%B1%87%E6%80%BB.html#overview">数据总览</a>
+  <h2>问题分类</h2>
+  <a href="file:///Users/lidehui/Library/Containers/com.tencent.WeWorkMac/Data/Documents/Profiles/58BD2C376D0E0DC1A8F0920C54E27332/Caches/Files/2026-06/51540996a2738cdc1c8edaa48d6ebbae/%E4%B8%8A%E6%9E%B6%E9%97%AE%E9%A2%98%E6%B1%87%E6%80%BB.html#s1">套图 / 设计器 / 模板</a>
+  <a href="file:///Users/lidehui/Library/Containers/com.tencent.WeWorkMac/Data/Documents/Profiles/58BD2C376D0E0DC1A8F0920C54E27332/Caches/Files/2026-06/51540996a2738cdc1c8edaa48d6ebbae/%E4%B8%8A%E6%9E%B6%E9%97%AE%E9%A2%98%E6%B1%87%E6%80%BB.html#s2">上架失败 &amp; 报错</a>
+  <a href="file:///Users/lidehui/Library/Containers/com.tencent.WeWorkMac/Data/Documents/Profiles/58BD2C376D0E0DC1A8F0920C54E27332/Caches/Files/2026-06/51540996a2738cdc1c8edaa48d6ebbae/%E4%B8%8A%E6%9E%B6%E9%97%AE%E9%A2%98%E6%B1%87%E6%80%BB.html#s3">规格 / SKU / 型号</a>
+  <a href="file:///Users/lidehui/Library/Containers/com.tencent.WeWorkMac/Data/Documents/Profiles/58BD2C376D0E0DC1A8F0920C54E27332/Caches/Files/2026-06/51540996a2738cdc1c8edaa48d6ebbae/%E4%B8%8A%E6%9E%B6%E9%97%AE%E9%A2%98%E6%B1%87%E6%80%BB.html#s4">采集 / 提取 / 二创</a>
+  <a href="file:///Users/lidehui/Library/Containers/com.tencent.WeWorkMac/Data/Documents/Profiles/58BD2C376D0E0DC1A8F0920C54E27332/Caches/Files/2026-06/51540996a2738cdc1c8edaa48d6ebbae/%E4%B8%8A%E6%9E%B6%E9%97%AE%E9%A2%98%E6%B1%87%E6%80%BB.html#s5">平台 &amp; 类目覆盖</a>
+  <a href="file:///Users/lidehui/Library/Containers/com.tencent.WeWorkMac/Data/Documents/Profiles/58BD2C376D0E0DC1A8F0920C54E27332/Caches/Files/2026-06/51540996a2738cdc1c8edaa48d6ebbae/%E4%B8%8A%E6%9E%B6%E9%97%AE%E9%A2%98%E6%B1%87%E6%80%BB.html#s6">授权与店铺绑定</a>
+  <a href="file:///Users/lidehui/Library/Containers/com.tencent.WeWorkMac/Data/Documents/Profiles/58BD2C376D0E0DC1A8F0920C54E27332/Caches/Files/2026-06/51540996a2738cdc1c8edaa48d6ebbae/%E4%B8%8A%E6%9E%B6%E9%97%AE%E9%A2%98%E6%B1%87%E6%80%BB.html#s7">网页端上架</a>
+  <a href="file:///Users/lidehui/Library/Containers/com.tencent.WeWorkMac/Data/Documents/Profiles/58BD2C376D0E0DC1A8F0920C54E27332/Caches/Files/2026-06/51540996a2738cdc1c8edaa48d6ebbae/%E4%B8%8A%E6%9E%B6%E9%97%AE%E9%A2%98%E6%B1%87%E6%80%BB.html#s8">表格上架</a>
+  <a href="file:///Users/lidehui/Library/Containers/com.tencent.WeWorkMac/Data/Documents/Profiles/58BD2C376D0E0DC1A8F0920C54E27332/Caches/Files/2026-06/51540996a2738cdc1c8edaa48d6ebbae/%E4%B8%8A%E6%9E%B6%E9%97%AE%E9%A2%98%E6%B1%87%E6%80%BB.html#s9">快手模拟上架</a>
+  <a href="file:///Users/lidehui/Library/Containers/com.tencent.WeWorkMac/Data/Documents/Profiles/58BD2C376D0E0DC1A8F0920C54E27332/Caches/Files/2026-06/51540996a2738cdc1c8edaa48d6ebbae/%E4%B8%8A%E6%9E%B6%E9%97%AE%E9%A2%98%E6%B1%87%E6%80%BB.html#s10">系统稳定性</a>
+  <h2>摘要</h2>
+  <a href="file:///Users/lidehui/Library/Containers/com.tencent.WeWorkMac/Data/Documents/Profiles/58BD2C376D0E0DC1A8F0920C54E27332/Caches/Files/2026-06/51540996a2738cdc1c8edaa48d6ebbae/%E4%B8%8A%E6%9E%B6%E9%97%AE%E9%A2%98%E6%B1%87%E6%80%BB.html#s11">其他类别</a>
+  <a href="file:///Users/lidehui/Library/Containers/com.tencent.WeWorkMac/Data/Documents/Profiles/58BD2C376D0E0DC1A8F0920C54E27332/Caches/Files/2026-06/51540996a2738cdc1c8edaa48d6ebbae/%E4%B8%8A%E6%9E%B6%E9%97%AE%E9%A2%98%E6%B1%87%E6%80%BB.html#priority">优先级建议</a>
+</nav>
+
+<main>
+
+<!-- Header -->
+<div class="page-header">
+  <h1>上架群问题全量梳理</h1>
+  <div class="subtitle">
+    <span>企业微信会话导出</span><span class="dot"></span>
+    <span>2026.03.14 — 06.26</span><span class="dot"></span>
+    <span>8 个上架群</span><span class="dot"></span>
+    <span>整理于 2026-06-26</span>
+  </div>
+</div>
+
+<!-- Dashboard -->
+<div class="dashboard" id="overview">
+  <div class="dash-card"><div class="num">2,536</div><div class="label">会话总数</div></div>
+  <div class="dash-card"><div class="num">4,342</div><div class="label">有效用户消息</div></div>
+  <div class="dash-card"><div class="num">8</div><div class="label">覆盖群组</div></div>
+  <div class="dash-card"><div class="num">12</div><div class="label">问题大类</div></div>
+  <div class="dash-card"><div class="num">108</div><div class="label">独立问题数</div></div>
+</div>
+
+<!-- ====== 一、套图 ====== -->
+<section class="open" id="s1">
+<div class="sec-header" onclick="this.parentElement.classList.toggle(&#39;open&#39;)">
+  <h2><span class="icon" style="background:#eef2ff;color:#6366f1;">1</span>套图 / 设计器 / 模板</h2>
+  <div class="right"><span class="badge">319 条消息 · 最大类别</span><span class="sec-arrow">▶</span></div>
+</div>
+<div class="sec-body">
+  <div class="table-wrap">
+  <table>
+  <thead><tr><th>#</th><th>问题</th><th>数据佐证</th></tr></thead>
+  <tbody>
+  <tr><td>1</td><td>模板提示「缺少画布」，用户无法继续</td><td>高频反馈</td></tr>
+  <tr><td>2</td><td>模板「无法识别图层」，不知道如何修正</td><td>中频</td></tr>
+  <tr><td>3</td><td>衣服类模板总是出错，自带的手机模板就没问题</td><td>999 等多人</td></tr>
+  <tr><td>4</td><td>套图生成顺序不符合预期</td><td>多用户</td></tr>
+  <tr><td>5</td><td>套图后出现空文件夹或文件空白</td><td>中频</td></tr>
+  <tr><td>6</td><td>设计器做的图丢失，下载发现只有 253 条但货号编到 300+</td><td>静静🧚</td></tr>
+  <tr><td>7</td><td>插图图层命名需为「插图#」，用户不知道此规则</td><td>折無等</td></tr>
+  <tr><td>8</td><td>多图模板设置不直观（一图套两张不同图）</td><td>低频</td></tr>
+  <tr><td>9</td><td>套图工具元素会放大/缩小不受控</td><td>低频</td></tr>
+  <tr><td>10</td><td>设计器无法访问素材上传的二级目录</td><td>念&amp;安</td></tr>
+  <tr><td>11</td><td>图片填充/正面填充不会操作</td><td>999 等</td></tr>
+  </tbody>
+  </table>
+  </div>
+  <div class="insight"><strong>核心问题：</strong>模板制作门槛高，报错提示不友好，用户自助排查能力弱。</div>
+</div>
+</section>
+
+<!-- ====== 二、上架失败 ====== -->
+<section class="open" id="s2">
+<div class="sec-header" onclick="this.parentElement.classList.toggle(&#39;open&#39;)">
+  <h2><span class="icon" style="background:#fef2f2;color:#ef4444;">2</span>上架失败 / 报错</h2>
+  <div class="right"><span class="badge">231 条消息</span><span class="sec-arrow">▶</span></div>
+</div>
+<div class="sec-body">
+
+<div class="sub-heading">2.1 接口报错</div>
+<div class="table-wrap">
+<table>
+<thead><tr><th>#</th><th>报错类型</th><th>涉及平台</th><th>处理方式</th></tr></thead>
+<tbody>
+<tr><td>1</td><td>商品名称/标题太长</td><td>Temu</td><td>缩短标题</td></tr>
+<tr><td>2</td><td>类目属性不能为空</td><td>Temu</td><td>重新获取类目</td></tr>
+<tr><td>3</td><td><code>type not exists</code></td><td>Temu</td><td>类目 ID 变更</td></tr>
+<tr><td>4</td><td>网关错误</td><td>Temu</td><td>重新授权 / 等系统恢复</td></tr>
+<tr><td>5</td><td>同步不了套版信息</td><td>Temu</td><td>待优化</td></tr>
+<tr><td>6</td><td>上架加不了套版（商家端勾选了但后台没选项）</td><td>Temu 网页端</td><td>飞飞反馈，待排查</td></tr>
+<tr><td>7</td><td>包装清单未填</td><td>Temu</td><td>用户补充</td></tr>
+<tr><td>8</td><td>轮播图数量：买手申请 3 张但系统要求 5 张</td><td>Temu</td><td>飞飞反馈</td></tr>
+<tr><td>9</td><td>电商平台接口异常（通用报错）</td><td>多平台</td><td>重试 / 远程排查</td></tr>
+<tr><td>10</td><td><code>ShopSdkException: invalid params</code></td><td>TikTok</td><td>反馈技术</td></tr>
+<tr><td>11</td><td>适用型号必填</td><td>拼多多</td><td>配置型号方案</td></tr>
+<tr><td>12</td><td>抖音接口上架报错（含素材库问题）</td><td>抖音</td><td>清理素材库 / 反馈技术</td></tr>
+<tr><td>13</td><td>小红书店铺上架无基础配置、无法新建型号方案</td><td>小红书</td><td>禹反馈，账号初始化</td></tr>
+</tbody>
+</table>
+</div>
+
+<div class="sub-heading">2.2 上架预设与草稿</div>
+<div class="table-wrap">
+<table>
+<thead><tr><th>#</th><th>问题</th><th>典型反馈</th></tr></thead>
+<tbody>
+<tr><td>1</td><td>预设模板太多，不知道怎么删除</td><td>来日方长等</td></tr>
+<tr><td>2</td><td>上架保存的草稿在哪里找到</td><td>ZIZl</td></tr>
+</tbody>
+</table>
+</div>
+
+<div class="sub-heading">2.3 卡顿 / 慢</div>
+<div class="table-wrap">
+<table>
+<thead><tr><th>#</th><th>问题</th></tr></thead>
+<tbody>
+<tr><td>1</td><td>Temu 海外上架很慢，10 分钟上一条（高峰期限流）</td></tr>
+<tr><td>2</td><td>上架卡在第一步不动</td></tr>
+<tr><td>3</td><td>上架中一直转圈不完成</td></tr>
+<tr><td>4</td><td>批量重试太费时间，需逐个点</td></tr>
+</tbody>
+</table>
+</div>
+
+<div class="sub-heading">2.4 失败原因不清晰</div>
+<div class="quote-list">
+<blockquote>「上架不了，好难过，又不知道什么原因」<span class="author">— 金玉满堂</span></blockquote>
+<blockquote>「全部上架失败是什么原因」<span class="author">— ༊ღ᭄董ꦿ꯭小姐꧔ꦿ᭄💞</span></blockquote>
+<blockquote>「失败原因是指哪里呢？什么都填完了」<span class="author">— 顺汇达黎小姐🌸</span></blockquote>
+</div>
+<div class="insight"><strong>用户普遍反映：</strong>错误信息看不懂，无法自助排查。</div>
+</div>
+</section>
+
+<!-- ====== 三、规格 ====== -->
+<section class="open" id="s3">
+<div class="sec-header" onclick="this.parentElement.classList.toggle(&#39;open&#39;)">
+  <h2><span class="icon" style="background:#fffbeb;color:#f59e0b;">3</span>规格 / SKU / 型号配置</h2>
+  <div class="right"><span class="badge">212 条消息</span><span class="sec-arrow">▶</span></div>
+</div>
+<div class="sec-body"><div class="table-wrap"><table>
+<thead><tr><th>#</th><th>问题</th><th>典型反馈</th></tr></thead>
+<tbody>
+<tr><td>1</td><td>颜色必须放在第一规格才能和 SKU 图关联</td><td>用户不知道此规则</td></tr>
+<tr><td>2</td><td>一键填充后尺码消失 / 规格没了</td><td>''Yu：「点一键填充就变成这个鬼样」</td></tr>
+<tr><td>3</td><td>一键填充只能填一种规格，不能批量填充所有型号</td><td>需手动一个个点</td></tr>
+<tr><td>4</td><td>多型号上架「适用型号」必填且只显示单型号</td><td>用户不熟悉型号方案</td></tr>
+<tr><td>5</td><td>尺码同步为空</td><td>First</td></tr>
+<tr><td>6</td><td>自动添加型号，不知道为何</td><td>ㅤㅤ</td></tr>
+<tr><td>7</td><td>耳机壳等非手机壳类目不支持配置型号方案</td><td>产品限制</td></tr>
+<tr><td>8</td><td>SKU 图批量填充不直观</td><td>''Yu</td></tr>
+<tr><td>9</td><td>上面改了下面 SKU 不会自动变</td><td>Mr.he</td></tr>
+<tr><td>10</td><td>小红书店铺无型号方案入口，提示「请选择列表项」</td><td>禹（完整故障报告）</td></tr>
+</tbody>
+</table></div></div>
+</section>
+
+<!-- ====== 四、采集 ====== -->
+<section class="open" id="s4">
+<div class="sec-header" onclick="this.parentElement.classList.toggle(&#39;open&#39;)">
+  <h2><span class="icon" style="background:#ecfdf5;color:#10b981;">4</span>采集 / 提取 / 二创</h2>
+  <div class="right"><span class="badge">186 条消息</span><span class="sec-arrow">▶</span></div>
+</div>
+<div class="sec-body"><div class="table-wrap"><table>
+<thead><tr><th>#</th><th>问题</th><th>典型反馈</th></tr></thead>
+<tbody>
+<tr><td>1</td><td>采集箱图片删不了（只能移入废弃，废弃的还在全部里）</td><td>文刀刘</td></tr>
+<tr><td>2</td><td>提取的印花想删除，不支持删除操作</td><td>文刀刘</td></tr>
+<tr><td>3</td><td>子账号提取的印花混在一起，容易搞混重复</td><td>文刀刘</td></tr>
+<tr><td>4</td><td>采集插件找不到下载位置</td><td>我想吃糖等</td></tr>
+<tr><td>5</td><td>采集箱入口找不到</td><td>我想吃糖</td></tr>
+<tr><td>6</td><td>点击采集没反应</td><td>多用户</td></tr>
+<tr><td>7</td><td>采集需要工厂先共享设计器模板才能用</td><td>我想吃糖</td></tr>
+<tr><td>8</td><td>提取的印花图元素会放大</td><td>无新</td></tr>
+<tr><td>9</td><td>妙手等第三方采集的产品如何改图后批量上架</td><td>999</td></tr>
+<tr><td>10</td><td>批量采集下来的图片如何批量下载</td><td>文刀刘</td></tr>
+<tr><td>11</td><td>印花提取选择不了 4K，全是 1K</td><td>文刀刘</td></tr>
+<tr><td>12</td><td>印花可按用户名分开存放，但需用户自己建文件夹</td><td>文刀刘已自助解决</td></tr>
+</tbody>
+</table></div></div>
+</section>
+
+<!-- ====== 五、平台 ====== -->
+<section class="open" id="s5">
+<div class="sec-header" onclick="this.parentElement.classList.toggle(&#39;open&#39;)">
+  <h2><span class="icon" style="background:#f0f7ff;color:#2563eb;">5</span>平台 &amp; 类目覆盖</h2>
+  <div class="right"><span class="badge">168 条消息</span><span class="sec-arrow">▶</span></div>
+</div>
+<div class="sec-body"><div class="table-wrap"><table>
+<thead><tr><th>#</th><th>用户诉求</th><th>当前状态</th></tr></thead>
+<tbody>
+<tr><td>1</td><td>Temu 半托管上架</td><td><span class="tag tag-p2">需网页端授权</span></td></tr>
+<tr><td>2</td><td>TikTok 非手机壳类目（地毯、服饰）</td><td><span class="tag tag-p0">只支持手机壳</span></td></tr>
+<tr><td>3</td><td>拼多多非手机壳类目（笔袋、平板套）</td><td><span class="tag tag-p0">不支持</span></td></tr>
+<tr><td>4</td><td>拼多多新店铺接口不支持</td><td>平台侧问题</td></tr>
+<tr><td>5</td><td>国内平台（淘宝 / 抖音 / 拼多多）全类目</td><td><span class="tag tag-p0">只支持手机壳</span></td></tr>
+<tr><td>6</td><td>抖音全类目自动上架</td><td><span class="tag tag-p0">不支持</span></td></tr>
+<tr><td>7</td><td>淘宝模拟上架</td><td><span class="tag tag-p1">可模拟但缺教程</span></td></tr>
+<tr><td>8</td><td>快手接口上架（非模拟）</td><td><span class="tag tag-p0">无，模拟问题多</span></td></tr>
+<tr><td>9</td><td>Shopee 更多站点</td><td><span class="tag tag-p1">仅支持本地</span></td></tr>
+<tr><td>10</td><td>Ozon 平台</td><td><span class="tag tag-p0">不支持</span></td></tr>
+<tr><td>11</td><td>速卖通全托授权</td><td>小 d 询问中</td></tr>
+<tr><td>12</td><td>Mac 版上架工具</td><td><span class="tag tag-p0">无</span></td></tr>
+</tbody>
+</table></div></div>
+</section>
+
+<!-- ====== 六、授权 ====== -->
+<section class="open" id="s6">
+<div class="sec-header" onclick="this.parentElement.classList.toggle(&#39;open&#39;)">
+  <h2><span class="icon" style="background:#fdf2f8;color:#ec4899;">6</span>授权与店铺绑定</h2>
+  <div class="right"><span class="badge">160 条消息</span><span class="sec-arrow">▶</span></div>
+</div>
+<div class="sec-body"><div class="table-wrap"><table>
+<thead><tr><th>#</th><th>问题</th><th>涉及平台</th></tr></thead>
+<tbody>
+<tr><td>1</td><td>Temu 网关升级导致旧 token 失效</td><td>Temu</td></tr>
+<tr><td>2</td><td>Token 过期 / 不合法，需频繁重新授权</td><td>多平台</td></tr>
+<tr><td>3</td><td>TikTok 店铺授权后商家助手搜不到</td><td>TikTok</td></tr>
+<tr><td>4</td><td>刷新授权后所有店铺消失 / 变失效</td><td>TikTok</td></tr>
+<tr><td>5</td><td>授权显示成功但店铺列表无信息</td><td>TikTok 东南亚跨境</td></tr>
+<tr><td>6</td><td>抖音刷新授权无反应</td><td>抖音</td></tr>
+<tr><td>7</td><td>拼多多无法绑定 / 授权不了</td><td>拼多多</td></tr>
+<tr><td>8</td><td>速卖通全托不知道如何授权</td><td>速卖通</td></tr>
+<tr><td>9</td><td>已经有授权但仍提示需要授权</td><td>小红书（禹）</td></tr>
+<tr><td>10</td><td>新商家绑定工厂提示邀请码不对</td><td>文刀刘</td></tr>
+</tbody>
+</table></div></div>
+</section>
+
+<!-- ====== 七、网页端 ====== -->
+<section class="open" id="s7">
+<div class="sec-header" onclick="this.parentElement.classList.toggle(&#39;open&#39;)">
+  <h2><span class="icon" style="background:#f5f3ff;color:#7c3aed;">7</span>网页端上架</h2>
+  <div class="right"><span class="badge">82 条消息</span><span class="sec-arrow">▶</span></div>
+</div>
+<div class="sec-body"><div class="table-wrap"><table>
+<thead><tr><th>#</th><th>问题</th></tr></thead>
+<tbody>
+<tr><td>1</td><td>上架入口找不到（右上角切换后仍有用户看不到）</td></tr>
+<tr><td>2</td><td>英文标题无法单独映射，Temu 买手要求必须英文标题否则 3D 违规</td></tr>
+<tr><td>3</td><td>本地资源包上架顺序被打乱</td></tr>
+<tr><td>4</td><td>半托管上架不知道入口在哪</td></tr>
+<tr><td>5</td><td>网页端能否像客户端一样批量上架（王金星）</td></tr>
+<tr><td>6</td><td>网页端能否直接用设计器上架而非客户端（张彦海）</td></tr>
+<tr><td>7</td><td>上架的货号编辑了，出单后就没有了</td></tr>
+<tr><td>8</td><td>上架后只有英文没有中文 + 英文（茗昭）</td></tr>
+<tr><td>9</td><td>网页上架工具无法使用（Zavier Xie）</td></tr>
+</tbody>
+</table></div></div>
+</section>
+
+<!-- ====== 八、表格 ====== -->
+<section class="open" id="s8">
+<div class="sec-header" onclick="this.parentElement.classList.toggle(&#39;open&#39;)">
+  <h2><span class="icon" style="background:#fff7ed;color:#ea580c;">8</span>表格上架</h2>
+  <div class="right"><span class="badge">57 条消息</span><span class="sec-arrow">▶</span></div>
+</div>
+<div class="sec-body"><div class="table-wrap"><table>
+<thead><tr><th>#</th><th>问题</th><th>典型反馈</th></tr></thead>
+<tbody>
+<tr><td>1</td><td>表格上架重复提交导致 Temu 重复铺货</td><td>马：「是不是方果工具自己重复提交两次了」</td></tr>
+<tr><td>2</td><td>表格没有重复信息但工具重复上了两次，没有提示</td><td>马</td></tr>
+<tr><td>3</td><td>表格上架突然失败（前一天还能用）</td><td>马</td></tr>
+<tr><td>4</td><td>表格上架检测不到重复信息</td><td>马</td></tr>
+<tr><td>5</td><td>复制上架容易造成重复铺货</td><td>后来</td></tr>
+</tbody>
+</table></div></div>
+</section>
+
+<!-- ====== 九、快手 ====== -->
+<section class="open" id="s9">
+<div class="sec-header" onclick="this.parentElement.classList.toggle(&#39;open&#39;)">
+  <h2><span class="icon" style="background:#fff1f2;color:#e11d48;">9</span>快手模拟上架</h2>
+  <div class="right"><span class="badge">21 条消息</span><span class="sec-arrow">▶</span></div>
+</div>
+<div class="sec-body"><div class="table-wrap"><table>
+<thead><tr><th>#</th><th>问题</th><th>典型反馈</th></tr></thead>
+<tbody>
+<tr><td>1</td><td>基础信息跳出选框卡死</td><td>大喜哥</td></tr>
+<tr><td>2</td><td>品牌填写正确系统常识别不了</td><td>大喜哥</td></tr>
+<tr><td>3</td><td>预设置填不进去</td><td>大喜哥</td></tr>
+<tr><td>4</td><td>不会自动提交</td><td>大喜哥</td></tr>
+<tr><td>5</td><td>多处卡死，加代码辅助都快卡崩了</td><td>大喜哥</td></tr>
+<tr><td>6</td><td>模拟上架问题反馈后无回复，无优化</td><td>大喜哥</td></tr>
+<tr><td>7</td><td>快手无接口上架只有模拟上架</td><td>大喜哥</td></tr>
+</tbody>
+</table></div></div>
+</section>
+
+<!-- ====== 十、系统稳定性 ====== -->
+<section class="open" id="s10">
+<div class="sec-header" onclick="this.parentElement.classList.toggle(&#39;open&#39;)">
+  <h2><span class="icon" style="background:#f8fafc;color:#64748b;">10</span>系统稳定性</h2>
+  <div class="right"><span class="badge">17 条消息</span><span class="sec-arrow">▶</span></div>
+</div>
+<div class="sec-body"><div class="table-wrap"><table>
+<thead><tr><th>#</th><th>事件</th><th>时间</th><th>影响</th></tr></thead>
+<tbody>
+<tr><td>1</td><td>阿里云数据库宕机</td><td>6/15 09:10 — 11:00</td><td>全系统无法访问</td></tr>
+<tr><td>2</td><td>Temu 网关升级</td><td>5/31 前后</td><td>token 失效</td></tr>
+<tr><td>3</td><td>Temu 类目 ID 更新</td><td>5/28 左右</td><td>类目变更导致上架失败</td></tr>
+<tr><td>4</td><td>系统卡顿 / 算力不够</td><td>多时间</td><td>用户吐槽「多加几台服务器」</td></tr>
+</tbody>
+</table></div></div>
+</section>
+
+<!-- ====== 十一、其他 ====== -->
+<section class="open" id="s11">
+<div class="sec-header" onclick="this.parentElement.classList.toggle(&#39;open&#39;)">
+  <h2><span class="icon" style="background:#f1f5f9;color:#94a3b8;">+</span>其他类别</h2>
+  <div class="right"><span class="badge">下载 / 视频 / 货号</span><span class="sec-arrow">▶</span></div>
+</div>
+<div class="sec-body">
+
+<div class="sub-heading">十一、下载 / 安装（87 条）</div>
+<div class="table-wrap"><table>
+<thead><tr><th>#</th><th>问题</th></tr></thead>
+<tbody>
+<tr><td>1</td><td>下载了文件发现数量和预期不符</td></tr>
+<tr><td>2</td><td>批量采集图片无法批量下载</td></tr>
+<tr><td>3</td><td>提取印花选择不了 4K 画质</td></tr>
+</tbody>
+</table></div>
+
+<div class="sub-heading">十二、视频 / 货号 / 其他（13 条）</div>
+<div class="table-wrap"><table>
+<thead><tr><th>#</th><th>问题</th></tr></thead>
+<tbody>
+<tr><td>1</td><td>上架有视频的上不去</td></tr>
+<tr><td>2</td><td>本地资源包模式货号无法根据图片命名自动生成</td></tr>
+<tr><td>3</td><td>SKU 货号默认填图号还是货号的逻辑不清楚</td></tr>
+<tr><td>4</td><td>没有教学视频，网上也找不到（叶得恩）</td></tr>
+<tr><td>5</td><td>淘宝模拟上架需要演示视频（太阳照常升起）</td></tr>
+</tbody>
+</table></div>
+</div>
+</section>
+
+<!-- ====== 优先级 ====== -->
+<section class="open" id="priority" style="border-color: #e2e8f0;">
+<div class="sec-header" style="cursor:default">
+  <h2><span class="icon" style="background:var(--accent-gradient);color:#fff;">!</span>优先级建议</h2>
+  <span class="badge">108 个问题分级</span>
+</div>
+<div class="sec-body">
+
+<div class="priority-group p0">
+<h3>P0 · 影响核心业务流程且高频</h3>
+<ul class="priority-list">
+<li><span class="tag tag-p0">P0</span> <strong>上架失败率高</strong>：接口报错 + 错误信息不清晰，231 条相关</li>
+<li><span class="tag tag-p0">P0</span> <strong>授权稳定性差</strong>：TikTok / Temu token 频繁失效，160 条相关</li>
+<li><span class="tag tag-p0">P0</span> <strong>表格上架重复提交</strong>：会导致 Temu 重复铺货处罚</li>
+</ul>
+</div>
+
+<div class="priority-group p1">
+<h3>P1 · 高频使用痛点</h3>
+<ul class="priority-list">
+<li><span class="tag tag-p1">P1</span> <strong>快手模拟上架</strong>：多处卡死 / bug，持续反馈无回应</li>
+<li><span class="tag tag-p1">P1</span> <strong>一键填充交互缺陷</strong>：覆盖已填规格，212 条相关</li>
+<li><span class="tag tag-p1">P1</span> <strong>套图 / 模板报错友好度</strong>：319 条问题，用户无法自助解决</li>
+<li><span class="tag tag-p1">P1</span> <strong>采集箱管理缺陷</strong>：不支持删除、子账号混在一起，186 条</li>
+<li><span class="tag tag-p1">P1</span> <strong>网页端上架体验</strong>：入口、英文标题、顺序等问题，82 条</li>
+</ul>
+</div>
+
+<div class="priority-group p2">
+<h3>P2 · 功能完善</h3>
+<ul class="priority-list">
+<li><span class="tag tag-p2">P2</span> <strong>英文标题映射</strong>：Temu 新政要求，影响合规性</li>
+<li><span class="tag tag-p2">P2</span> <strong>平台 / 类目扩展</strong>：12 类用户诉求持续出现，168 条</li>
+<li><span class="tag tag-p2">P2</span> <strong>教学文档 / 视频</strong>：多次被要求，缺少系统化教程</li>
+<li><span class="tag tag-p2">P2</span> <strong>上架草稿 / 预设管理</strong>：缺少删除和管理能力</li>
+</ul>
+</div>
+
+</div>
+</section>
+
+</main>
+
+
+</body></html>
